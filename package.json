@@ -1,5 +1,5 @@
 {
-  "name": "chess-game",
+  "name": "chance-chess",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,9 +10,15 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "animate.css": "^3.7.0",
+    "chess.js": "^0.11.0",
+    "chessboardjsx": "^2.4.2",
+    "node-sass": "^4.11.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
     "react-scripts": "4.0.2",
+    "redux": "^4.0.5",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
@@ -39,5 +45,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/chess.js": "^0.10.1",
+    "@types/react-redux": "^7.1.16"
   }
 }

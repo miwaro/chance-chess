@@ -1,5 +1,19 @@
+body {
+  box-sizing: border-box;
+  background-color: #4e5461;
+
+}
 .App {
+  margin: auto;
   text-align: center;
+  color: white;
+}
+
+.Board {
+  margin: auto;
+  display: flex;
+  padding: 8px;
+  justify-content: center;
 }
 
 .App-logo {

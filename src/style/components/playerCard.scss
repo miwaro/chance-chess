@@ -1,0 +1,12 @@
+.player-card-container {
+    display: flex;
+    justify-content: center;
+}
+
+.card-slot {
+    height: 165px;
+    margin: 10px;
+    width: 105px;
+    border-radius: 10%;
+    border: 3px dashed #FFF;
+}
