@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import backCardImg from "../style/images/backCardImg.png";
@@ -9,9 +9,14 @@ import spade from "../style/images/spade.png";
 
 import "../style/components/card.scss";
 
+
+
 const Card = (props) => {
 
-  const { suits, card, front, color } = props;
+  const { suits, card, front, color, piece, file } = props;
+
+  const [border, setBorder] = useState(true)
+
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -29,10 +34,25 @@ const Card = (props) => {
     };
   };
 
+  const getPieceAndFile = (piece, file) => {
+
+    setBorder(!border)
+
+    console.log(piece, file)
+  }
+
+  let btn_class = border ? "card-container" : "clicked-card";
+
+
   if (front === true) {
     const cardSymbol = getCardSymbol(suits);
     return (
-      <div className="card-container" style={{ color: `${color}` }}>
+
+      <div
+        className={btn_class}
+        style={{ color: `${color}`, border: border }}
+        onClick={() => getPieceAndFile(piece, file)}
+      >
         <div style={{ position: "absolute", top: 5, left: 5 }}>
           <div style={{ maxWidth: 20 }}>{card}</div>
           <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 20 }} />

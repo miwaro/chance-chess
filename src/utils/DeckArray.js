@@ -5,11 +5,6 @@
 
 //   if (move.piece !== correspondingPiece && move.from[0] !== correspondingFile || move === null) return;
 
-
-
-
-
-
 export const deckArray = [
   {
     suits: "Heart",
@@ -23,7 +18,9 @@ export const deckArray = [
     suits: "Heart",
     card: "2",
     color: "red",
-    index: "2"
+    index: "2",
+    correspondingPiece: "p",
+    correspondingFile: "b"
     // ChessPieceEquivalent: Any Pawn on the B file
 
   },
@@ -31,7 +28,9 @@ export const deckArray = [
     suits: "Heart",
     card: "3",
     color: "red",
-    index: "3"
+    index: "3",
+    correspondingPiece: "p",
+    correspondingFile: "c"
     // ChessPieceEquivalent: Any Pawn on the C file
 
   },
@@ -39,7 +38,9 @@ export const deckArray = [
     suits: "Heart",
     card: "4",
     color: "red",
-    index: "4"
+    index: "4",
+    correspondingPiece: "p",
+    correspondingFile: "d"
     // ChessPieceEquivalent: Any Pawn on the D file
 
   },
@@ -47,7 +48,9 @@ export const deckArray = [
     suits: "Heart",
     card: "5",
     color: "red",
-    index: "5"
+    index: "5",
+    correspondingPiece: "p",
+    correspondingFile: "e"
     // ChessPieceEquivalent: Any Pawn on the E file
 
   },
@@ -55,7 +58,9 @@ export const deckArray = [
     suits: "Heart",
     card: "6",
     color: "red",
-    index: "6"
+    index: "6",
+    correspondingPiece: "p",
+    correspondingFile: "f"
     // ChessPieceEquivalent: Any Pawn on the F file
 
   },
@@ -63,7 +68,9 @@ export const deckArray = [
     suits: "Heart",
     card: "7",
     color: "red",
-    index: "7"
+    index: "7",
+    correspondingPiece: "p",
+    correspondingFile: "g"
     // ChessPieceEquivalent: Any Pawn on the G file
 
   },
@@ -71,7 +78,9 @@ export const deckArray = [
     suits: "Heart",
     card: "8",
     color: "red",
-    index: "8"
+    index: "8",
+    correspondingPiece: "p",
+    correspondingFile: "h"
     // ChessPieceEquivalent: Any Pawn on the H file
 
   },
@@ -79,7 +88,8 @@ export const deckArray = [
     suits: "Heart",
     card: "9",
     color: "red",
-    index: "9"
+    index: "9",
+    correspondingPiece: "r"
     // ChessPieceEquivalent: Rooks
 
   },
@@ -87,7 +97,8 @@ export const deckArray = [
     suits: "Heart",
     card: "10",
     color: "red",
-    index: "10"
+    index: "10",
+    correspondingPiece: "n"
     // ChessPieceEquivalent: Knights
 
   },
@@ -95,25 +106,22 @@ export const deckArray = [
     suits: "Heart",
     card: "J",
     color: "red",
-    index: "11"
-    // ChessPieceEquivalent: Bishops
-
+    index: "11",
+    correspondingPiece: "b"
   },
   {
     suits: "Heart",
     card: "Q",
     color: "red",
-    index: "12"
-    // ChessPieceEquivalent: Queen
-
+    index: "12",
+    correspondingPiece: "q"
   },
   {
     suits: "Heart",
     card: "K",
     color: "red",
-    index: "13"
-    // ChessPieceEquivalent: King
-
+    index: "13",
+    correspondingPiece: "k"
   },
   {
     suits: "Diamond",

@@ -1,15 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export const addPlayer = (card) => {
+export const selectCard = (card) => {
     return {
-        type: actionTypes.ADD_CARD,
+        type: actionTypes.SELECT_CARD,
         card
     };
 };
 
-// export const removePlayer = (playerIndex) => {
-//     return {
-//         type: actionTypes.REMOVE_PLAYER,
-//         playerIndex,
-//     };
-// };

@@ -23,3 +23,24 @@
     margin-left: -200px;    
   }
 }
+
+.clicked-card {
+  height: 141px;
+  background-color: white;
+  background-size: cover;
+  border: 1px solid red;
+  position: relative;
+  border-radius: 10px;
+  font-size: 10px;
+  @include transition (all, 0.25s, ease);
+  @include bp-medium {
+    margin-left: -195px;
+  }
+  @include bp-small {
+    margin-left: -198px;    
+  }
+  @include bp-mobileOnly {
+    margin-left: -200px;    
+  }
+}
+

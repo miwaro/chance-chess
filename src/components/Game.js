@@ -19,12 +19,13 @@ class HumanVsHuman extends Component {
         // currently clicked square
         square: "",
         // array of past game moves
-        history: []
+        history: [],
+
+        deckArray: []
     };
 
 
     componentDidMount() {
-
         this.game = new Chess();
     }
 
@@ -37,12 +38,17 @@ class HumanVsHuman extends Component {
         });
 
 
-        // console.log(move.piece === deckArray[0].correspondingPiece)
-        console.log(move)
+        console.log(move.piece === deckArray[0].correspondingPiece)
+        // console.log(this.state.deckArray)
+
+
+        // console.log(move)
 
 
         // illegal move
         if (move === null) return;
+
+        // if (move.piece !== deckArray[0]correspondingPiece)
 
 
 
