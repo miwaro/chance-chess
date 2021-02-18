@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import Card from "./Card";
-import ActionsButtons from "./ActionsButtons";
+// import ActionsButtons from "./ActionsButtons";
 import { deckArray } from "../utils/DeckArray";
 
 class Cards extends Component {
@@ -28,6 +28,9 @@ class Cards extends Component {
         this.setState({ cardPicked: cardsPickedArray })
     }
 
+    flip = () => {
+        this.setState({ front: !this.state.front })
+    };
 
     // dealOneCard = () => {
     //     let cardsArray = this.state.cardsArray;
@@ -48,7 +51,7 @@ class Cards extends Component {
 
         return (
             <div>
-                <ActionsButtons shuffle={this.shuffle} dealOneCard={this.dealOneCard} flip={this.flip} deckArray={deckArray} />
+                {/* <ActionsButtons shuffle={this.shuffle} dealOneCard={this.dealOneCard} flip={this.flip} deckArray={deckArray} /> */}
 
                 <div>
                     {cardsPickedArray && cardsPickedArray.map((card, index) => {
@@ -58,9 +61,11 @@ class Cards extends Component {
                                     suits={card.suits}
                                     card={card.card}
                                     color={card.color}
-                                    front={false}
+                                    front={true}
                                     piece={card.correspondingPiece}
-                                    file={card.correspondingFile} />
+                                    flip={this.flip}
+                                    file={card.correspondingFile}
+                                />
                             </div>
                         );
                     })}

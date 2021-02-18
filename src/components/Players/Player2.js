@@ -6,7 +6,7 @@ const Player2 = (props) => {
     return (
         <>
             <PlayerCard />
-            <button>Withdraw All Cards and Lose Turn</button>
+            <button>Discard All Cards</button>
         </>
     );
 };

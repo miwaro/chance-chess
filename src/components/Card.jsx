@@ -16,7 +16,7 @@ const Card = (props) => {
   const { suits, card, front, color, piece, file } = props;
 
   const [border, setBorder] = useState(true)
-
+  // const [front, setFront] = useState(true)
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -34,10 +34,13 @@ const Card = (props) => {
     };
   };
 
+
+  //   const flip = () => {
+  //     setFront({ front: !this.state.front })
+  // };
+
   const getPieceAndFile = (piece, file) => {
-
     setBorder(!border)
-
     console.log(piece, file)
   }
 
@@ -68,7 +71,11 @@ const Card = (props) => {
     );
   } else {
     return (
-      <div className="card-container" style={{ backgroundImage: `url(${backCardImg})`, color: `${color}` }}></div>
+      <>
+        <button onClick={() => props.flip()}>Flip</button>
+
+        <div className="card-container" style={{ backgroundImage: `url(${backCardImg})`, color: `${color}` }}></div>
+      </>
     );
   };
 };

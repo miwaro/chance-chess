@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Game from './components/Game';
+import Board from './components/Game';
 import Player1 from './components/Players/Player1';
 import Player2 from './components/Players/Player2';
 
@@ -13,7 +13,7 @@ const App: React.FC = () => {
 
       <Player1 />
       <div className="Board">
-        <Game />
+        <Board />
 
       </div>
 
