@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    justify-content:  start;
+    padding-left: 10%;
+    margin-bottom: 20px;
+    line-height: 0.9;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 0%, rgba(82,47,240,0.8295693277310925) 100%);
+    border-bottom: 3px solid orange;
+}
+
+.logo {
+    height: 100px;
+    padding: 10px 5px 10px 0;
+}

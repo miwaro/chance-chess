@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-
 import Card from "./Card";
-// import ActionsButtons from "./ActionsButtons";
 import { deckArray } from "../utils/DeckArray";
 
 class Cards extends Component {
@@ -51,8 +49,6 @@ class Cards extends Component {
 
         return (
             <div>
-                {/* <ActionsButtons shuffle={this.shuffle} dealOneCard={this.dealOneCard} flip={this.flip} deckArray={deckArray} /> */}
-
                 <div>
                     {cardsPickedArray && cardsPickedArray.map((card, index) => {
                         return (
@@ -62,8 +58,8 @@ class Cards extends Component {
                                     card={card.card}
                                     color={card.color}
                                     front={true}
-                                    piece={card.correspondingPiece}
                                     flip={this.flip}
+                                    piece={card.correspondingPiece}
                                     file={card.correspondingFile}
                                 />
                             </div>

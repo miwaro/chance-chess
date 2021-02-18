@@ -3,15 +3,13 @@
 
 .card-container {
   height: 141px;
-  // width: 100px;
   background-color: white;
   background-size: cover;
   position: relative;
   border: 1px solid black;
   border-radius: 10px;
-  // margin-left: -177px;
-  font-size: 10px;
-  // text-align: center;
+  font-size: 16px;
+  opacity: 0.6;
   @include transition (all, 0.25s, ease);
   @include bp-medium {
     margin-left: -195px;
@@ -28,10 +26,11 @@
   height: 141px;
   background-color: white;
   background-size: cover;
-  border: 1px solid red;
+  border: 1px solid black;
+  opacity: 1;
   position: relative;
   border-radius: 10px;
-  font-size: 10px;
+  font-size: 17px;
   @include transition (all, 0.25s, ease);
   @include bp-medium {
     margin-left: -195px;
