@@ -1,9 +1,11 @@
 import * as actionTypes from './actionTypes';
 
-export const selectCard = (card) => {
+export const getCardInfo = (cardIndex, cardPiece, cardFile) => {
     return {
-        type: actionTypes.SELECT_CARD,
-        card
+        type: actionTypes.GET_CARD_INFO,
+        cardIndex,
+        cardPiece,
+        cardFile
     };
 };
 

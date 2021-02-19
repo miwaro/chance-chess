@@ -4,17 +4,39 @@ body {
 
 }
 .App {
-  margin: auto;
+  /* display: grid; */
+  /* grid-template-areas:
+          'a a a'
+          'b b b'
+          'c c c d'
+          'e e e'; */
   text-align: center;
   color: white;
 }
 
+/* .Header {
+  grid-area: a;
+}
+
+.Player-1 {
+  grid-area: b;
+} */
+
 .Board {
-  margin: auto;
-  display: flex;
+  /* grid-area: c; */
+  margin: auto; 
+  display: flex; 
   padding: 8px;
   justify-content: center;
 }
+/* 
+.Key {
+  grid-area: d;
+}
+
+.Player-2 {
+  grid-area: e;
+} */
 
 .App-logo {
   height: 40vmin;

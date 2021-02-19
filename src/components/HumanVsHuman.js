@@ -38,7 +38,7 @@ class HumanVsHuman extends Component {
         });
 
 
-        console.log(move.piece === deckArray[0].correspondingPiece)
+        // console.log(move.piece === deckArray[0].correspondingPiece)
         // console.log(this.state.deckArray)
 
 

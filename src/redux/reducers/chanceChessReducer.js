@@ -3,19 +3,25 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     player1StartingCards: [],
     player2StartingCards: [],
-    card1: null,
-    card2: null,
-    card3: null,
-    card4: null,
-    card5: null,
-    card6: null,
+    cardInfo: [],
 }
 
 const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case actionTypes.SELECT_CARD:
-            return {
+    let info;
+    let cardInfo;
 
+    switch (action.type) {
+        case actionTypes.GET_CARD_INFO:
+            info = {
+                cardIndex: action.cardIndex,
+                cardPiece: action.cardPiece,
+                cardFile: action.cardFile
+            }
+            cardInfo = [...state.cardInfo, info]
+
+            return {
+                ...state,
+                cardInfo
             }
         default:
             return state;

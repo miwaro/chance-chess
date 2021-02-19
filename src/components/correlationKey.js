@@ -1,10 +1,12 @@
 import React from 'react'
+import '../style/components/key.scss';
 
 function correlationKey() {
     return (
-        <>
-            <h1>Key</h1>
-            <ul className="column1">
+        <div className='key-container'>
+            <h1 className="title">Key</h1>
+
+            <ul className="col-1">
                 <li>Card</li>
                 <li>Ace</li>
                 <li>2</li>
@@ -21,7 +23,7 @@ function correlationKey() {
                 <li>King</li>
             </ul>
 
-            <ul className="column2">
+            <ul className="col-2">
                 <li>Piece</li>
                 <li>A pawn</li>
                 <li>B pawn</li>
@@ -37,7 +39,8 @@ function correlationKey() {
                 <li>Queen</li>
                 <li>King</li>
             </ul>
-        </>
+
+        </div>
     )
 }
 

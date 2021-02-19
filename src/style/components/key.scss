@@ -1,0 +1,40 @@
+.key-container {
+    display: grid;
+    grid-template-areas: 
+                "a a"
+                "b c";
+    outline: 2px solid orange;
+    margin-left: 61px;
+    width: 15%;                                   
+}
+
+.title {
+    grid-area: a;
+    margin: 0;
+}
+
+.col-1 {
+    grid-area: b;
+    outline: 2px solid orange;
+}
+
+.col-1 > li {
+    border-bottom: 2px solid orange;
+
+}
+
+.col-2 {
+    grid-area: c;
+    outline: 2px solid orange;
+}
+
+.col-2 > li {
+    border-bottom: 2px solid orange
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+

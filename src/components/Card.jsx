@@ -7,15 +7,30 @@ import diamond from "../style/images/diamond.png";
 import club from "../style/images/club.png";
 import spade from "../style/images/spade.png";
 
+import redPawn from "../style/images/chessPieces/red/redPawn.png";
+import redRook from "../style/images/chessPieces/red/redRook.png";
+import redKnight from "../style/images/chessPieces/red/redKnight.png";
+import redBishop from "../style/images/chessPieces/red/redBishop.png";
+import redQueen from "../style/images/chessPieces/red/redQueen.png";
+import redKing from "../style/images/chessPieces/red/redQueen.png";
+
+import blackPawn from "../style/images/chessPieces/black/blackPawn.png";
+import blackRook from "../style/images/chessPieces/black/blackRook.png";
+import blackKnight from "../style/images/chessPieces/black/blackKnight.png";
+import blackBishop from "../style/images/chessPieces/black/blackBishop.png";
+import blackQueen from "../style/images/chessPieces/black/blackQueen.png";
+import blackKing from "../style/images/chessPieces/black/blackQueen.png";
+
 import "../style/components/card.scss";
 
 
 
 const Card = (props) => {
 
-  const { suits, card, front, color, piece, file } = props;
+  const { suits, card, front, color, cardIndex, cardPiece, cardFile } = props;
 
   const [border, setBorder] = useState(true)
+  const [isCardSelected, setCardSelected] = useState(true)
   // const [front, setFront] = useState(true)
 
   const getCardSymbol = (suits) => {
@@ -34,14 +49,60 @@ const Card = (props) => {
     };
   };
 
+  const getRedChessPiece = (cardPiece) => {
+    let piece;
+    switch (cardPiece) {
+      case "p":
+        return piece = redPawn;
+      case "r":
+        return piece = redRook;
+      case "n":
+        return piece = redKnight;
+      case "b":
+        return piece = redBishop;
+      case "q":
+        return piece = redQueen;
+      case "k":
+        return piece = redKing;
+      default:
+        return piece;
+    };
+  };
+
+  const getBlackChessPiece = (cardPiece) => {
+    let piece;
+    switch (cardPiece) {
+      case "p":
+        return piece = blackPawn;
+      case "r":
+        return piece = blackRook;
+      case "n":
+        return piece = blackKnight;
+      case "b":
+        return piece = blackBishop;
+      case "q":
+        return piece = blackQueen;
+      case "k":
+        return piece = blackKing;
+      default:
+        return piece;
+    };
+  };
+
 
   //   const flip = () => {
   //     setFront({ front: !this.state.front })
   // };
 
-  const getPieceAndFile = (piece, file) => {
+  const changeOpacity = () => {
     setBorder(!border)
-    console.log(piece, file)
+  }
+
+  const getCardInformation = (cardIndex, cardPiece, cardFile) => {
+    setCardSelected(!isCardSelected);
+    changeOpacity();
+    props.getCardInfo(cardIndex, cardPiece, cardFile);
+    console.log(cardIndex, cardPiece, cardFile, isCardSelected);
   }
 
   let btn_class = border ? "card-container" : "clicked-card";
@@ -49,20 +110,26 @@ const Card = (props) => {
 
   if (front === true) {
     const cardSymbol = getCardSymbol(suits);
+    const redChessPiece = getRedChessPiece(cardPiece);
+    const blackChessPiece = getBlackChessPiece(cardPiece);
     return (
 
       <div
         className={btn_class}
         style={{ color: `${color}`, border: border }}
-        onClick={() => getPieceAndFile(piece, file)}
+        onClick={() => getCardInformation(cardIndex, cardPiece, cardFile)}
       >
         <div style={{ position: "absolute", top: 5, left: 5 }}>
           <div style={{ maxWidth: 20 }}>{card}</div>
           <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 20 }} />
         </div>
-        <div>
-          <img src={cardSymbol} alt="suit-symbol" style={{ height: 20, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} />
-        </div>
+
+        { color === 'red' ?
+          <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 26, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+          :
+          <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 26, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+        }
+
         <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
           <div style={{ maxWidth: 20 }}>{card}</div>
           <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 20 }} />
