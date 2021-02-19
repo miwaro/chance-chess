@@ -1,8 +1,7 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-// import Chessboard from "chessboardjsx";
 import Chess from "chess.js";
-import { deckArray } from "../utils/DeckArray"
 
 class HumanVsHuman extends Component {
     static propTypes = { children: PropTypes.func };
@@ -19,9 +18,7 @@ class HumanVsHuman extends Component {
         // currently clicked square
         square: "",
         // array of past game moves
-        history: [],
-
-        deckArray: []
+        history: []
     };
 
 
@@ -30,6 +27,7 @@ class HumanVsHuman extends Component {
     }
 
     onDrop = ({ sourceSquare, targetSquare }) => {
+        console.log(this.props.cardInfo)
         // see if the move is legal
         let move = this.game.move({
             from: sourceSquare,
@@ -70,4 +68,13 @@ class HumanVsHuman extends Component {
     }
 }
 
-export default HumanVsHuman;
+
+
+
+const mapStateToProps = (state) => {
+    return {
+        cardInfo: state.cardInfo,
+    }
+}
+
+export default connect(mapStateToProps, null)(HumanVsHuman);

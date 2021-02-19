@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { connect } from 'react-redux';
+import { getCardInfo } from '../redux/actions/cardActions'
+
 import PropTypes from "prop-types";
 
 import backCardImg from "../style/images/backCardImg.png";
@@ -12,18 +15,16 @@ import redRook from "../style/images/chessPieces/red/redRook.png";
 import redKnight from "../style/images/chessPieces/red/redKnight.png";
 import redBishop from "../style/images/chessPieces/red/redBishop.png";
 import redQueen from "../style/images/chessPieces/red/redQueen.png";
-import redKing from "../style/images/chessPieces/red/redQueen.png";
+import redKing from "../style/images/chessPieces/red/redKing.png";
 
 import blackPawn from "../style/images/chessPieces/black/blackPawn.png";
 import blackRook from "../style/images/chessPieces/black/blackRook.png";
 import blackKnight from "../style/images/chessPieces/black/blackKnight.png";
 import blackBishop from "../style/images/chessPieces/black/blackBishop.png";
 import blackQueen from "../style/images/chessPieces/black/blackQueen.png";
-import blackKing from "../style/images/chessPieces/black/blackQueen.png";
+import blackKing from "../style/images/chessPieces/black/blackKing.png";
 
 import "../style/components/card.scss";
-
-
 
 const Card = (props) => {
 
@@ -31,7 +32,6 @@ const Card = (props) => {
 
   const [border, setBorder] = useState(true)
   const [isCardSelected, setCardSelected] = useState(true)
-  // const [front, setFront] = useState(true)
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -89,9 +89,8 @@ const Card = (props) => {
     };
   };
 
-
-  //   const flip = () => {
-  //     setFront({ front: !this.state.front })
+  // const flip = () => {
+  //   setFront({ front: !this.state.front })
   // };
 
   const changeOpacity = () => {
@@ -101,8 +100,9 @@ const Card = (props) => {
   const getCardInformation = (cardIndex, cardPiece, cardFile) => {
     setCardSelected(!isCardSelected);
     changeOpacity();
-    props.getCardInfo(cardIndex, cardPiece, cardFile);
-    console.log(cardIndex, cardPiece, cardFile, isCardSelected);
+
+    props.onGetCardInfo(cardIndex, cardPiece, cardFile)
+
   }
 
   let btn_class = border ? "card-container" : "clicked-card";
@@ -125,9 +125,9 @@ const Card = (props) => {
         </div>
 
         { color === 'red' ?
-          <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 26, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+          <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 32, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
           :
-          <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 26, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+          <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 32, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
         }
 
         <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
@@ -147,6 +147,13 @@ const Card = (props) => {
   };
 };
 
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onGetCardInfo: (cardIndex, cardPiece, cardFile) => dispatch(getCardInfo(cardIndex, cardPiece, cardFile)),
+  }
+}
+
 Card.propTypes = {
   suits: PropTypes.string,
   card: PropTypes.string,
@@ -154,4 +161,5 @@ Card.propTypes = {
   color: PropTypes.string
 };
 
-export default Card;
+
+export default connect(null, mapDispatchToProps)(Card);

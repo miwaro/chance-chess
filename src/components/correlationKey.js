@@ -4,10 +4,8 @@ import '../style/components/key.scss';
 function correlationKey() {
     return (
         <div className='key-container'>
-            <h1 className="title">Key</h1>
-
             <ul className="col-1">
-                <li>Card</li>
+                <li>Card 🃏</li>
                 <li>Ace</li>
                 <li>2</li>
                 <li>3</li>
@@ -22,24 +20,22 @@ function correlationKey() {
                 <li>Queen</li>
                 <li>King</li>
             </ul>
-
             <ul className="col-2">
-                <li>Piece</li>
-                <li>A pawn</li>
-                <li>B pawn</li>
-                <li>C pawn</li>
-                <li>D pawn</li>
-                <li>E pawn</li>
-                <li>F pawn</li>
-                <li>G pawn</li>
-                <li>H pawn</li>
+                <li>Piece ♟</li>
+                <li>a pawn</li>
+                <li>b pawn</li>
+                <li>c pawn</li>
+                <li>d pawn</li>
+                <li>e pawn</li>
+                <li>f pawn</li>
+                <li>g pawn</li>
+                <li>h pawn</li>
                 <li>Rooks</li>
                 <li>Knights</li>
                 <li>Bishops</li>
                 <li>Queen</li>
                 <li>King</li>
             </ul>
-
         </div>
     )
 }

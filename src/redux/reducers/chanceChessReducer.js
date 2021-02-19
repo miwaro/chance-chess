@@ -1,9 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    player1StartingCards: [],
-    player2StartingCards: [],
-    cardInfo: [],
+    cardInfo: [86]
 }
 
 const reducer = (state = initialState, action) => {
@@ -22,7 +20,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 cardInfo
-            }
+            };
         default:
             return state;
     }

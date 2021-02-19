@@ -1,8 +1,8 @@
-import React from 'react';
 import logo from '../images/chessLogo5.png';
 import '../style/components/header.scss';
 
 function Header() {
+
     return (
         <div className="header">
             <img src={logo} alt="logo" className="logo" />
@@ -11,4 +11,5 @@ function Header() {
     )
 }
 
-export default Header
+
+export default Header;
