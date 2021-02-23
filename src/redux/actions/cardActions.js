@@ -9,3 +9,10 @@ export const getCardInfo = (cardIndex, cardPiece, cardFile) => {
     };
 };
 
+
+export const startNewGame = () => {
+    return {
+        type: actionTypes.START_NEW_GAME
+    };
+};
+

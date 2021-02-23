@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import Chess from "chess.js";
 
@@ -27,17 +26,19 @@ class HumanVsHuman extends Component {
     }
 
     onDrop = ({ sourceSquare, targetSquare }) => {
-        console.log(this.props.cardInfo)
+
+
         // see if the move is legal
         let move = this.game.move({
+
             from: sourceSquare,
             to: targetSquare,
-            promotion: "q" // Todo: Add all promotion options
+            promotion: "q"
         });
 
 
         // console.log(move.piece === deckArray[0].correspondingPiece)
-        // console.log(this.state.deckArray)
+
 
 
         // console.log(move)
@@ -71,10 +72,11 @@ class HumanVsHuman extends Component {
 
 
 
-const mapStateToProps = (state) => {
-    return {
-        cardInfo: state.cardInfo,
-    }
-}
+// const mapStateToProps = (state) => {
+//     return {
+//         cardInfo: state.cardInfo,
+//     }
+// }
 
-export default connect(mapStateToProps, null)(HumanVsHuman);
+// export default connect(mapStateToProps)(HumanVsHuman);
+export default HumanVsHuman;

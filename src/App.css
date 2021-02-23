@@ -3,8 +3,25 @@ body {
   background-color: #4e5461;
 
 }
+
+.body-container {
+    margin: auto;
+    max-width: 1400px;
+}
+
+.start-button {
+    position: absolute;
+    top: 158px;
+    right: 100px;
+}
+
+.key {
+  position: absolute;
+  top: 205px;
+  right: 100px;
+}
 .App {
-  text-align: center;
+  /* text-align: center; */
   color: white;
 }
 

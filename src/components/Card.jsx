@@ -32,6 +32,7 @@ const Card = (props) => {
 
   const [border, setBorder] = useState(true)
   const [isCardSelected, setCardSelected] = useState(true)
+  // const [front, setFront] = useState(true);
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -101,14 +102,15 @@ const Card = (props) => {
     setCardSelected(!isCardSelected);
     changeOpacity();
 
-    props.onGetCardInfo(cardIndex, cardPiece, cardFile)
+    return props.onGetCardInfo(cardIndex, cardPiece, cardFile)
 
   }
 
   let btn_class = border ? "card-container" : "clicked-card";
 
 
-  if (front === true) {
+  if (front) {
+    console.log(front)
     const cardSymbol = getCardSymbol(suits);
     const redChessPiece = getRedChessPiece(cardPiece);
     const blackChessPiece = getBlackChessPiece(cardPiece);
@@ -150,7 +152,7 @@ const Card = (props) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetCardInfo: (cardIndex, cardPiece, cardFile) => dispatch(getCardInfo(cardIndex, cardPiece, cardFile)),
+    onGetCardInfo: (cardIndex, cardPiece, cardFile) => dispatch(getCardInfo(cardIndex, cardPiece, cardFile))
   }
 }
 

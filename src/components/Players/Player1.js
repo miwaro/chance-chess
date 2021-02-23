@@ -1,23 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
-import PlayerCard from './PlayerCard';
-// import Button from '@material-ui/core/Button';
-import Key from '../keySidebar'
+import Button from '@material-ui/core/Button';
 import '../../style/components/player1.scss';
+import Card from '../Card';
 
 
 const Player1 = (props) => {
   return (
-    <>
-      <div className="player1">
-        <PlayerCard />
-        <button style={{ backgroundColor: 'orange' }}>
-          Discard All Cards
-        </button>
-        <Key />
-      </div>
-
-    </>
+    <div className="player1">
+      {props.cards.map((card, i) => (
+        <div>
+          <Card
+            cardIndex={card.index}
+            suits={card.suits}
+            card={card.card}
+            front={true}
+            color={card.color}
+            cardPiece={card.correspondingPiece}
+            cardFile={card.correspondingFile}
+          />
+        </div>
+      ))}
+      <Button style={{ backgroundColor: 'orange', height: '36px' }}>
+        Discard All Cards
+      </Button>
+    </div>
   );
 };
 

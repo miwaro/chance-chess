@@ -2,7 +2,9 @@
 
 
 .card-container {
+  margin: 0 10px;
   height: 141px;
+  width: 120px;
   background-color: white;
   background-size: cover;
   position: relative;
@@ -23,7 +25,9 @@
 }
 
 .clicked-card {
+  margin: 0 10px;
   height: 141px;
+  width: 120px;
   background-color: white;
   background-size: cover;
   border: 1px solid black;

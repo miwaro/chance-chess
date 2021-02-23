@@ -1,15 +1,19 @@
 import Chessboard from "chessboardjsx";
 import HumanVsHuman from './HumanVsHuman';
+import { connect } from 'react-redux';
 
-function Board() {
+
+function Board(props) {
+
     return (
-        <div>
+        < div >
             <HumanVsHuman>
                 {({
                     position,
                     onDrop,
                     squareStyles,
                     onSquareClick,
+                    cardInfo
                 }) => (
                     <Chessboard
                         id="humanVsHuman"
@@ -22,13 +26,19 @@ function Board() {
                         }}
                         squareStyles={squareStyles}
                         onSquareClick={onSquareClick}
+                        cardInfo={props.cardInfo}
                     />
                 )}
             </HumanVsHuman>
-        </div>
+        </div >
     );
 }
 
-export default Board;
 
+const mapStateToProps = (state) => {
+    return {
+        cardInfo: state.chanceChessReducer.cardInfo,
+    }
+}
 
+export default connect(mapStateToProps)(Board);

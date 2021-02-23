@@ -3,8 +3,6 @@ import Button from '@material-ui/core/Button';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Key from './correlationKey';
 import DialogActions from '@material-ui/core/DialogActions';
-
-// import Header from './HumanVsHuman';
 import '../style/components/key.scss';
 
 
