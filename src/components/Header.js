@@ -6,10 +6,9 @@ function Header() {
     return (
         <div className="header">
             <img src={logo} alt="logo" className="logo" />
-            <h1>Chance<br></br> Chess</h1>
+            <h1>Chance Chess</h1>
         </div>
     )
 }
-
 
 export default Header;

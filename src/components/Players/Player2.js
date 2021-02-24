@@ -20,7 +20,7 @@ const Player2 = (props) => {
                     />
                 </div>
             ))}
-            <Button style={{ backgroundColor: 'orange', height: '36px' }}>
+            <Button style={{ backgroundColor: 'orange', height: '36px', marginTop: 'auto' }}>
                 Discard All Cards
             </Button>
         </div>

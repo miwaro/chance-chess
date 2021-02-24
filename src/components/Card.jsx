@@ -32,7 +32,7 @@ const Card = (props) => {
 
   const [border, setBorder] = useState(true)
   const [isCardSelected, setCardSelected] = useState(true)
-  // const [front, setFront] = useState(true);
+  const [flipped, setFront] = useState(front);
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -91,7 +91,6 @@ const Card = (props) => {
   };
 
   // const flip = () => {
-  //   setFront({ front: !this.state.front })
   // };
 
   const changeOpacity = () => {
@@ -110,7 +109,6 @@ const Card = (props) => {
 
 
   if (front) {
-    console.log(front)
     const cardSymbol = getCardSymbol(suits);
     const redChessPiece = getRedChessPiece(cardPiece);
     const blackChessPiece = getBlackChessPiece(cardPiece);
@@ -141,14 +139,20 @@ const Card = (props) => {
   } else {
     return (
       <>
-        <button onClick={() => props.flip()}>Flip</button>
-
         <div className="card-container" style={{ backgroundImage: `url(${backCardImg})`, color: `${color}` }}></div>
       </>
     );
   };
 };
 
+const mapStateToProps = (state) => {
+  // console.log(state)
+  return {
+    player1Cards: state.chanceChessReducer.player1Cards,
+    player2Cards: state.chanceChessReducer.player2Cards,
+    newBoard: state.chanceChessReducer.newBoard,
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -164,4 +168,4 @@ Card.propTypes = {
 };
 
 
-export default connect(null, mapDispatchToProps)(Card);
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

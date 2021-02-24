@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Button from '@material-ui/core/Button';
 import '../../style/components/player1.scss';
+import '../../style/components/playerCard.scss';
 import Card from '../Card';
 
 
@@ -9,7 +10,7 @@ const Player1 = (props) => {
   return (
     <div className="player1">
       {props.cards.map((card, i) => (
-        <div>
+        <div >
           <Card
             cardIndex={card.index}
             suits={card.suits}
@@ -21,7 +22,7 @@ const Player1 = (props) => {
           />
         </div>
       ))}
-      <Button style={{ backgroundColor: 'orange', height: '36px' }}>
+      <Button style={{ backgroundColor: 'orange', height: '36px', marginTop: 'auto' }}>
         Discard All Cards
       </Button>
     </div>

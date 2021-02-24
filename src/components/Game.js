@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 
 function Board(props) {
 
+
+
+
     return (
         < div >
             <HumanVsHuman>
@@ -12,14 +15,14 @@ function Board(props) {
                     position,
                     onDrop,
                     squareStyles,
-                    onSquareClick,
-                    cardInfo
+                    onSquareClick
                 }) => (
-                    <Chessboard
+                    < Chessboard
                         id="humanVsHuman"
-                        width={400}
+                        width={550}
                         position={position}
                         onDrop={onDrop}
+                        startPosition={props.newBoard2}
                         boardStyle={{
                             borderRadius: "5px",
                             boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`
@@ -27,9 +30,13 @@ function Board(props) {
                         squareStyles={squareStyles}
                         onSquareClick={onSquareClick}
                         cardInfo={props.cardInfo}
+
                     />
+
                 )}
             </HumanVsHuman>
+            {/* <button onClick={() => restartBoard()}>Reset Board</button> */}
+
         </div >
     );
 }
@@ -38,6 +45,8 @@ function Board(props) {
 const mapStateToProps = (state) => {
     return {
         cardInfo: state.chanceChessReducer.cardInfo,
+        newBoard: state.chanceChessReducer.newBoard,
+        newBoard2: state.chanceChessReducer.newBoard
     }
 }
 
