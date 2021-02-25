@@ -32,7 +32,6 @@ const Card = (props) => {
 
   const [border, setBorder] = useState(true)
   const [isCardSelected, setCardSelected] = useState(true)
-  const [flipped, setFront] = useState(front);
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -90,9 +89,6 @@ const Card = (props) => {
     };
   };
 
-  // const flip = () => {
-  // };
-
   const changeOpacity = () => {
     setBorder(!border)
   }
@@ -106,7 +102,6 @@ const Card = (props) => {
   }
 
   let btn_class = border ? "card-container" : "clicked-card";
-
 
   if (front) {
     const cardSymbol = getCardSymbol(suits);
@@ -146,7 +141,7 @@ const Card = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  // console.log(state)
+  console.log(state)
   return {
     player1Cards: state.chanceChessReducer.player1Cards,
     player2Cards: state.chanceChessReducer.player2Cards,

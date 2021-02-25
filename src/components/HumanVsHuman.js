@@ -9,7 +9,7 @@ class HumanVsHuman extends Component {
 
     state = {
         // Start position
-        fen: 'start',
+        fen: '',
         // square styles for active drop square
         dropSquareStyle: {},
         // custom square styles
@@ -25,9 +25,7 @@ class HumanVsHuman extends Component {
 
     componentDidMount() {
         this.game = new Chess();
-        // this.game = new Chess("rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e3 0 2");
     }
-
 
     componentDidUpdate(prevProps) {
 
@@ -37,13 +35,13 @@ class HumanVsHuman extends Component {
 
             this.setState((state, props) => ({
                 history: [],
-                fen: props.newBoard2
-
+                fen: 'start'
             }))
         }
     }
 
     onDrop = ({ sourceSquare, targetSquare }) => {
+        console.log(this.props.cardInfo)
         // see if the move is legal
         let move = this.game.move({
 
@@ -53,7 +51,7 @@ class HumanVsHuman extends Component {
         });
 
         // illegal move
-        if (move === null) return;
+        if (move === null || this.props.player1Cards.length === 0) return;
 
         this.setState(({ history, pieceSquare }) => ({
             fen: this.game.fen(),
@@ -78,6 +76,7 @@ class HumanVsHuman extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        player1Cards: state.chanceChessReducer.player1Cards,
         cardInfo: state.chanceChessReducer.cardInfo,
         newBoard: state.chanceChessReducer.newBoard,
         newBoard2: state.chanceChessReducer.newBoard2
@@ -85,4 +84,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(HumanVsHuman);
-// export default HumanVsHuman;

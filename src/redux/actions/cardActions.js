@@ -9,6 +9,18 @@ export const getCardInfo = (cardIndex, cardPiece, cardFile) => {
     };
 };
 
+export const getCard = () => {
+    return {
+        type: actionTypes.GET_CARD
+    };
+};
+
+export const getPlayer2Card = () => {
+    return {
+        type: actionTypes.GET_PLAYER2_CARD
+    };
+};
+
 
 export const startNewGame = () => {
     return {
