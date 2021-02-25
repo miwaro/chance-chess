@@ -141,7 +141,7 @@ const Card = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  // console.log(state)
   return {
     player1Cards: state.chanceChessReducer.player1Cards,
     player2Cards: state.chanceChessReducer.player2Cards,

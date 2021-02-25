@@ -26,50 +26,52 @@ const reducer = (state = initialState, action) => {
                 newBoard: !state.newBoard,
             }
 
-
         case actionTypes.GET_CARD:
+
             let player1Cards = state.player1Cards;
-            // let player2Cards = state.player2Cards;
             let cardsPickedArrayPlayer1 = [...state.player1Cards, player1Cards];
-            // let cardsPickedArrayPlayer2 = [...state.player2Cards, player2Cards];
+            // let cardsPickedArrayPlayer1 = player1Cards;
+            // 
+            // Do I need to do what I do above this line to the line below?????????????????
             cardsArray = state.cardsArray;
 
             randomCard = () => cardsArray[Math.floor(Math.random() * cardsArray.length)];
             randomItem = randomCard();
-            // const randomItem1 = randomCard();
 
             newCardsArray = cardsArray.filter(element => element.index !== randomItem.index)
+            // console.log(`Player1Deck: ${cardsArray.length}`)
 
-            if (cardsPickedArrayPlayer1.length > 3) { return cardsPickedArrayPlayer1 };
-            // if (cardsPickedArrayPlayer2.length > 3) { return cardsPickedArrayPlayer2 };
-            cardsPickedArrayPlayer1 = [...state.player1Cards, randomItem];
-            // cardsPickedArrayPlayer2 = [...state.player2Cards, randomItem1];
-
+            if (cardsPickedArrayPlayer1.length > 3) {
+                return [...cardsPickedArrayPlayer1]
+            } else {
+                cardsPickedArrayPlayer1 = [...state.player1Cards, randomItem];
+            }
             return {
                 ...state,
                 cardsArray: newCardsArray,
                 player1Cards: cardsPickedArrayPlayer1
-                // player2Cards: cardsPickedArrayPlayer2
             }
 
 
         case actionTypes.GET_PLAYER2_CARD:
-            // let player1Cards = state.player1Cards;
+
             let player2Cards = state.player2Cards;
-            // let cardsPickedArrayPlayer1 = [...state.player1Cards, player1Cards];
+
             let cardsPickedArrayPlayer2 = [...state.player2Cards, player2Cards];
             cardsArray = state.cardsArray;
 
             randomCard = () => cardsArray[Math.floor(Math.random() * cardsArray.length)];
-            // const randomItem = randomCard();
-            const randomItem1 = randomCard();
 
-            newCardsArray = cardsArray.filter(element => element.index !== randomItem1.index)
+            randomItem = randomCard();
 
-            // if (cardsPickedArrayPlayer1.length > 3) { return cardsPickedArrayPlayer1 };
-            if (cardsPickedArrayPlayer2.length > 3) { return cardsPickedArrayPlayer2 };
-            // cardsPickedArrayPlayer1 = [...state.player1Cards, randomItem];
-            cardsPickedArrayPlayer2 = [...state.player2Cards, randomItem1];
+            newCardsArray = cardsArray.filter(element => element.index !== randomItem.index)
+            // console.log(`Player2Deck: ${cardsArray.length}`)
+            console.log(cardsPickedArrayPlayer2.length)
+            if (cardsPickedArrayPlayer2.length > 3) {
+                return [...state.player2Cards, player2Cards]
+            } else {
+                cardsPickedArrayPlayer2 = [...state.player2Cards, randomItem];
+            }
 
             return {
                 ...state,
@@ -90,8 +92,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 cardInfo
             };
-
-
 
         default:
             return state;

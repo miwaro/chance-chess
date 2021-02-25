@@ -9,7 +9,7 @@ class HumanVsHuman extends Component {
 
     state = {
         // Start position
-        fen: '',
+        fen: 'start',
         // square styles for active drop square
         dropSquareStyle: {},
         // custom square styles
@@ -41,7 +41,7 @@ class HumanVsHuman extends Component {
     }
 
     onDrop = ({ sourceSquare, targetSquare }) => {
-        console.log(this.props.cardInfo)
+        // console.log(this.props.cardInfo)
         // see if the move is legal
         let move = this.game.move({
 
@@ -58,7 +58,7 @@ class HumanVsHuman extends Component {
             history: this.game.history({ verbose: true })
 
         }));
-        console.log(this.game.fen)
+        // console.log(this.game.fen)
     };
 
     render() {

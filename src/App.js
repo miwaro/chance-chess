@@ -29,12 +29,16 @@ const App = (props) => {
     <div className="App">
       <Header />
       <div className="body-container">
-        <div className="start-button">
-          <Button style={{ backgroundColor: 'orange' }} onClick={props.onStartNewGame}>
-            Start New Game
-          </Button>
 
-        </div>
+        {props.player1Cards.length > 0 &&
+          <div className="start-button">
+            <Button style={{ backgroundColor: 'orange' }} onClick={props.onStartNewGame}>
+              Start New Game
+                </Button>
+
+          </div>
+        }
+
         <Player2CardContainer cards={props.player2Cards} front={front} />
 
         {/* <Player2 cards={props.player2Cards} front={front} /> */}

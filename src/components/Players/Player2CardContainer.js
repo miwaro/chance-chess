@@ -9,11 +9,17 @@ import Card from '../Card';
 
 
 function Player2CardContainer(props) {
+
+    const getCard = () => {
+        if (props.cards.length >= 3) return;
+        props.onGetCardForPlayer2();
+    }
+
     return (
         <>
             <div className="player-card-container">
                 <div className="card-slot">
-                    <Button style={{ backgroundColor: 'orange' }} onClick={props.onGetCardForPlayer2}>
+                    <Button style={{ backgroundColor: 'orange' }} onClick={getCard}>
                         Draw up to 3 Cards
                     </Button>
                     <div className="player2">
