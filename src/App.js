@@ -33,7 +33,7 @@ const App = (props) => {
         {props.player1Cards.length > 0 &&
           <div className="start-button">
             <Button style={{ backgroundColor: 'orange' }} onClick={props.onStartNewGame}>
-              Start New Game
+              Reset Game
                 </Button>
 
           </div>

@@ -5,8 +5,6 @@ import Button from '@material-ui/core/Button';
 import "../../style/components/playerCard.scss";
 import '../../style/components/player1.scss';
 import '../../style/components/playerCard.scss';
-// import Cards from '../../components/Cards';
-// import Player1 from '../../components/Players/Player1';
 import { getCard } from "../../redux/actions/cardActions";
 import Card from '../Card';
 
@@ -14,7 +12,7 @@ import Card from '../Card';
 
 
 function Player1CardContainer(props) {
-    console.log(props.cards)
+    // console.log(props.cards)
 
     const getCard = () => {
         if (props.cards.length >= 3) return;

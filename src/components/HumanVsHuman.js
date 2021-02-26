@@ -24,15 +24,14 @@ class HumanVsHuman extends Component {
 
 
     componentDidMount() {
+
         this.game = new Chess();
     }
 
     componentDidUpdate(prevProps) {
 
         if (this.props.newBoard !== prevProps.newBoard) {
-
             this.game = new Chess();
-
             this.setState((state, props) => ({
                 history: [],
                 fen: 'start'
@@ -40,9 +39,134 @@ class HumanVsHuman extends Component {
         }
     }
 
+    onDragStart = ({ piece, sourceSquare }) => {
+
+        let draggable = true;
+
+        const p1 = this.props.player1Cards
+        const p1Cards = this.props.player1Cards.map(card => card.card);
+        let chessPiece = piece[1].toLowerCase();
+        let column = sourceSquare[0];
+
+        p1Cards.forEach(card => {
+
+            if (p1.length > 0) {
+                if ((card === 'A' && chessPiece !== 'p') || (card === 'A' && column !== 'a')) {
+                    draggable = false
+                }
+            }
+        })
+
+        return draggable;
+
+    };
+
+
+
+    //     // if statement for Ace for player 1 (card 1)
+    //     if ((p1.length > 0 && p1[0].card === 'A' && chessPiece !== 'p') || (p1.length > 0 && p1[0].card === 'A' && column !== 'a')) {
+    //         // console.log(`playerCard: ${p1[0].card}`)
+    //         // console.log(`chessPiece: ${chessPiece}`)
+    //         // console.log(`column: ${column}`)
+
+    //         draggable = false
+    //     }
+    //     return draggable;
+    // }
+
+
+    //     if (p1[0].card === 'A' && chessPiece !== 'p' && p1.length > 0 && p1[0].correspondingPiece !== chessPiece && column !== 'a') {
+
+    //         draggable = false
+    //     }
+    // }
+
+    // } else if (p1.length > 1 && (p1[1].correspondingFile !== sourceSquare[0] || p1[1].correspondingPiece !== piece[1].toLowerCase())) {
+    //     draggable = false
+    // }
+    // if statement for pawns for player 1 (card 2)
+
+
+
+    // // if statement for pawns for player 1 (card 3)
+    // if (piece[1].toLowerCase() === 'p') {
+    //     if (p1.length > 0 && (p1[2].correspondingFile !== sourceSquare[0] || p1[2].correspondingPiece !== piece[1].toLowerCase())) {
+    //         draggable = false
+    //     }
+    // }
+    // **********************************************************************************************************
+
+    // if statement for pawns for player 2 (card 1)
+    // if (piece[1].toLowerCase() === 'p') {
+    //     if (p2.length > 0 && (p2[0].correspondingFile !== sourceSquare[0] || p2[0].correspondingPiece !== piece[1].toLowerCase())) {
+    //         draggable = false
+    //     }
+    // }
+    // // if statement for pawns for player 1 (card 2)
+    // if (piece[1].toLowerCase() === 'p') {
+    //     if (p2.length > 0 && (p2[1].correspondingFile !== sourceSquare[0] || p2[1].correspondingPiece !== piece[1].toLowerCase())) {
+    //         draggable = false
+    //     }
+    // }
+    // // if statement for pawns for player 1 (card 3)
+    // if (piece[1].toLowerCase() === 'p') {
+    //     if (p2.length > 0 && (p2[2].correspondingFile !== sourceSquare[0] || p2[2].correspondingPiece !== piece[1].toLowerCase())) {
+    //         draggable = false
+    //     }
+    // }
+
+    // ************************************************************************************************************************************
+    // if statement for non pawns (player 1 card 1)
+    //     if(piece[1].toLowerCase() !== 'p') {
+    //     if (p1.length > 0 && p1[0].correspondingPiece !== piece[1].toLowerCase()) {
+    //         draggable = false
+    //     }
+    // }
+    // if statement for non pawns (player 1 card 2)
+    // else if (piece[1].toLowerCase() !== 'p') {
+    //     if (p1.length > 1 && p1[1].correspondingPiece !== piece[1].toLowerCase()) {
+    //         draggable = false
+    //     }
+    // }
+    // // if statement for non pawns (player 1 card 3)
+    // if (piece[1].toLowerCase() !== 'p') {
+    //     if (p1.length > 0 && p1[2].correspondingPiece !== piece[1].toLowerCase()) {
+    //         draggable = false
+    //     }
+    // }
+
+
+    // ***********************************************************************************************
+
+    // if statement for non pawns (player 2 card 1)
+    // if (piece[1].toLowerCase() !== 'p') {
+    //     if (p2.length > 0 && p2[0].correspondingPiece !== piece[1].toLowerCase()) {
+    //         draggable = false
+    //     }
+    // }
+    // // // if statement for non pawns (player 1 card 2)
+    // if (piece[1].toLowerCase() !== 'p') {
+    //     if (p2.length > 0 && p2[1].correspondingPiece !== piece[1].toLowerCase()) {
+    //         draggable = false
+    //     }
+    // }
+    // // if statement for non pawns (player 1 card 3)
+    // if (piece[1].toLowerCase() !== 'p') {
+    //     if (p2.length > 0 && p2[2].correspondingPiece !== piece[1].toLowerCase()) {
+    //         draggable = false
+    //     }
+    // }
+
+
+
+
+
+
     onDrop = ({ sourceSquare, targetSquare }) => {
-        // console.log(this.props.cardInfo)
+
         // see if the move is legal
+
+
         let move = this.game.move({
 
             from: sourceSquare,
@@ -50,19 +174,18 @@ class HumanVsHuman extends Component {
             promotion: "q"
         });
 
-        // illegal move
-        if (move === null || this.props.player1Cards.length === 0) return;
+
+        if (move === null) return;
+
 
         this.setState(({ history, pieceSquare }) => ({
             fen: this.game.fen(),
             history: this.game.history({ verbose: true })
 
         }));
-        // console.log(this.game.fen)
     };
 
     render() {
-
 
         const { fen, squareStyles } = this.state;
 
@@ -70,6 +193,7 @@ class HumanVsHuman extends Component {
             squareStyles,
             position: fen,
             onDrop: this.onDrop,
+            onDragStart: this.onDragStart,
         });
     }
 }
@@ -77,9 +201,9 @@ class HumanVsHuman extends Component {
 const mapStateToProps = (state) => {
     return {
         player1Cards: state.chanceChessReducer.player1Cards,
+        player2Cards: state.chanceChessReducer.player2Cards,
         cardInfo: state.chanceChessReducer.cardInfo,
-        newBoard: state.chanceChessReducer.newBoard,
-        newBoard2: state.chanceChessReducer.newBoard2
+        newBoard: state.chanceChessReducer.newBoard
     }
 }
 

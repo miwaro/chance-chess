@@ -66,7 +66,7 @@ const reducer = (state = initialState, action) => {
 
             newCardsArray = cardsArray.filter(element => element.index !== randomItem.index)
             // console.log(`Player2Deck: ${cardsArray.length}`)
-            console.log(cardsPickedArrayPlayer2.length)
+            // console.log(cardsPickedArrayPlayer2.length)
             if (cardsPickedArrayPlayer2.length > 3) {
                 return [...state.player2Cards, player2Cards]
             } else {
