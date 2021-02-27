@@ -48,7 +48,6 @@ class Cards extends Component {
                                     color={card.color}
                                     front={true}
                                     cardPiece={card.correspondingPiece}
-                                    cardFile={card.correspondingFile}
                                 />
                             </div>
                         );

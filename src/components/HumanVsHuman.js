@@ -42,23 +42,51 @@ class HumanVsHuman extends Component {
     onDragStart = ({ piece, sourceSquare }) => {
 
         let draggable = true;
-
+        console.log(piece, sourceSquare)
         const p1 = this.props.player1Cards
         const p1Cards = this.props.player1Cards.map(card => card.card);
         let chessPiece = piece[1].toLowerCase();
+        // console.log(p1Cards)
         let column = sourceSquare[0];
 
         p1Cards.forEach(card => {
-
             if (p1.length > 0) {
                 if ((card === 'A' && chessPiece !== 'p') || (card === 'A' && column !== 'a')) {
                     draggable = false
                 }
+                if ((card === '2' && chessPiece !== 'p') || (card === '2' && column !== 'b')) {
+                    draggable = false
+                } if ((card === '3' && chessPiece !== 'p') || (card === '3' && column !== 'c')) {
+                    draggable = false
+                } if ((card === '4' && chessPiece !== 'p') || (card === '4' && column !== 'd')) {
+                    draggable = false
+                } if ((card === '5' && chessPiece !== 'p') || (card === '3' && column !== 'e')) {
+                    draggable = false
+                } if ((card === '6' && chessPiece !== 'p') || (card === '3' && column !== 'f')) {
+                    draggable = false
+                } if ((card === '7' && chessPiece !== 'p') || (card === '3' && column !== 'g')) {
+                    draggable = false
+                } if ((card === '8' && chessPiece !== 'p') || (card === '3' && column !== 'h')) {
+                    draggable = false
+                }
             }
-        })
+        });
+
+        // switch(p1Cards, chessPiece, column) {
+        //     let card = [...p1Cards];
+        //     case 'A':
+        //         if ((card === 'A' && chessPiece !== 'p') || (card === 'A' && column !== 'a')) {
+        //             draggable = false
+        //         }
+        //       break;
+        //     case y:
+        //       // code block
+        //       break;
+        //     default:
+        //       // code block
+        //   }
 
         return draggable;
-
     };
 
 

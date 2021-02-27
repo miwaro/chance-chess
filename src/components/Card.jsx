@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
-import { getCardInfo } from '../redux/actions/cardActions'
+import { selectCard } from '../redux/actions/cardActions'
 
 import PropTypes from "prop-types";
 
@@ -28,10 +28,9 @@ import "../style/components/card.scss";
 
 const Card = (props) => {
 
-  const { suits, card, front, color, cardIndex, cardPiece, cardFile } = props;
+  const { suits, card, front, color, cardIndex, cardPiece } = props;
 
-  const [border, setBorder] = useState(true)
-  const [isCardSelected, setCardSelected] = useState(true)
+  const [isNotSelected, setIsSelected] = useState(false)
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -89,19 +88,22 @@ const Card = (props) => {
     };
   };
 
-  const changeOpacity = () => {
-    setBorder(!border)
+
+  // const changeOpacity = () => {
+
+
+  // }
+
+  const getCardInformation = (card, cardIndex, cardPiece) => {
+    setIsSelected(!isNotSelected)
+
+
+    props.onSelectCard(card, cardIndex, cardPiece);
+
   }
 
-  const getCardInformation = (cardIndex, cardPiece, cardFile) => {
-    setCardSelected(!isCardSelected);
-    changeOpacity();
 
-    return props.onGetCardInfo(cardIndex, cardPiece, cardFile)
-
-  }
-
-  let btn_class = border ? "card-container" : "clicked-card";
+  let btn_class = isNotSelected ? "clicked-card" : "card-container";
 
   if (front) {
     const cardSymbol = getCardSymbol(suits);
@@ -111,8 +113,8 @@ const Card = (props) => {
 
       <div
         className={btn_class}
-        style={{ color: `${color}`, border: border }}
-        onClick={() => getCardInformation(cardIndex, cardPiece, cardFile)}
+        style={{ color: `${color}`, isNotSelected: isNotSelected }}
+        onClick={() => getCardInformation(card, cardIndex, cardPiece)}
       >
         <div style={{ position: "absolute", top: 5, left: 5 }}>
           <div style={{ maxWidth: 20 }}>{card}</div>
@@ -146,14 +148,14 @@ const mapStateToProps = (state) => {
     player1Cards: state.chanceChessReducer.player1Cards,
     player2Cards: state.chanceChessReducer.player2Cards,
     newBoard: state.chanceChessReducer.newBoard,
-    cardInfo: state.chanceChessReducer.cardInfo,
+    cardInfo: state.chanceChessReducer.cardInfo
   }
 }
 
 const mapDispatchToProps = dispatch => {
   // console.log(dispatch)
   return {
-    onGetCardInfo: (cardIndex, cardPiece, cardFile) => dispatch(getCardInfo(cardIndex, cardPiece, cardFile))
+    onSelectCard: (card, cardIndex, cardPiece) => dispatch(selectCard(card, cardIndex, cardPiece))
   }
 }
 

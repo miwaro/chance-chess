@@ -30,14 +30,14 @@ const App = (props) => {
       <Header />
       <div className="body-container">
 
-        {props.player1Cards.length > 0 &&
-          <div className="start-button">
-            <Button style={{ backgroundColor: 'orange' }} onClick={props.onStartNewGame}>
-              Reset Game
+
+        <div className="start-button">
+          <Button style={{ backgroundColor: 'orange' }} onClick={props.onStartNewGame}>
+            Reset Game
                 </Button>
 
-          </div>
-        }
+        </div>
+
 
         <Player2CardContainer cards={props.player2Cards} front={front} />
 

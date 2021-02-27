@@ -2,16 +2,17 @@ import * as actionTypes from '../actions/actionTypes';
 import { deckArray } from "../../utils/DeckArray";
 
 const initialState = {
-    cardInfo: [],
+    // cardInfo: [],
     player1Cards: [],
     player2Cards: [],
     newBoard: false,
     cardsArray: deckArray,
+    selectedCard: null
 }
 
 const reducer = (state = initialState, action) => {
-    let info;
-    let cardInfo;
+    // let info;
+    // let cardInfo;
     let cardsArray;
     let randomCard;
     let randomItem;
@@ -27,7 +28,7 @@ const reducer = (state = initialState, action) => {
             }
 
         case actionTypes.GET_CARD:
-
+            // Todo: Restore the deck when the cards run out.
             let player1Cards = state.player1Cards;
             let cardsPickedArrayPlayer1 = [...state.player1Cards, player1Cards];
             // let cardsPickedArrayPlayer1 = player1Cards;
@@ -79,19 +80,15 @@ const reducer = (state = initialState, action) => {
                 player2Cards: cardsPickedArrayPlayer2
             }
 
-        case actionTypes.GET_CARD_INFO:
 
-            info = {
-                cardIndex: action.cardIndex,
-                cardPiece: action.cardPiece,
-                cardFile: action.cardFile
-            }
-            cardInfo = [...state.cardInfo, info]
-
+        case actionTypes.SELECT_CARD:
+            const { cardValue, cardIndex, cardPiece } = action;
+            const selectedCard = { cardValue, cardIndex, cardPiece }
             return {
                 ...state,
-                cardInfo
-            };
+                selectedCard
+            }
+
 
         default:
             return state;

@@ -1,13 +1,15 @@
 import * as actionTypes from './actionTypes';
 
-export const getCardInfo = (cardIndex, cardPiece, cardFile) => {
+// new action creator
+export const selectCard = (cardValue, cardIndex, cardPiece) => {
     return {
-        type: actionTypes.GET_CARD_INFO,
+        type: 'SELECT_CARD',
+        cardValue,
         cardIndex,
-        cardPiece,
-        cardFile
+        cardPiece
     };
 };
+
 
 export const getCard = () => {
     return {

@@ -32,7 +32,6 @@ function Player2CardContainer(props) {
                                     front={props.front}
                                     color={card.color}
                                     cardPiece={card.correspondingPiece}
-                                    cardFile={card.correspondingFile}
                                 />
                             </div>
                         ))}
