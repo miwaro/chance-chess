@@ -7,3 +7,5 @@ export const GET_PLAYER2_CARD = 'GET_PLAYER2_CARD';
 
 // Select Card which gets the info and highlights the associated chesspiece
 export const SELECT_CARD = 'SELECT_CARD';
+
+export const DESELECT_CARD = 'DESELECT_CARD';

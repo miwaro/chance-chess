@@ -10,6 +10,13 @@ export const selectCard = (cardValue, cardIndex, cardPiece) => {
     };
 };
 
+export const deselectCard = (selectedCardIndex) => {
+    return {
+        type: 'DESELECT_CARD',
+        selectedCardIndex
+    };
+};
+
 
 export const getCard = () => {
     return {

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
 import { selectCard } from '../redux/actions/cardActions'
+import { deselectCard } from '../redux/actions/cardActions'
 
 import PropTypes from "prop-types";
 
@@ -31,6 +32,7 @@ const Card = (props) => {
   const { suits, card, front, color, cardIndex, cardPiece } = props;
 
   const [isNotSelected, setIsSelected] = useState(false)
+  // const [change, setChange] = useState(false)
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -97,13 +99,21 @@ const Card = (props) => {
   const getCardInformation = (card, cardIndex, cardPiece) => {
     setIsSelected(!isNotSelected)
 
-
     props.onSelectCard(card, cardIndex, cardPiece);
+    // if (props.state.selectedCard !== null) {
+    // console.log(useState)
+    // }
+    // setChange(!change)
+
+    if (isNotSelected) {
+      props.onDeselectCard(cardIndex)
+    }
+
 
   }
 
-
-  let btn_class = isNotSelected ? "clicked-card" : "card-container";
+  const selectedCardIndex = props.selectedCard ? props.selectedCard.cardIndex : -1
+  let btn_class = selectedCardIndex === cardIndex ? "clicked-card" : "card-container";
 
   if (front) {
     const cardSymbol = getCardSymbol(suits);
@@ -148,14 +158,15 @@ const mapStateToProps = (state) => {
     player1Cards: state.chanceChessReducer.player1Cards,
     player2Cards: state.chanceChessReducer.player2Cards,
     newBoard: state.chanceChessReducer.newBoard,
-    cardInfo: state.chanceChessReducer.cardInfo
+    selectedCard: state.chanceChessReducer.selectedCard
   }
 }
 
 const mapDispatchToProps = dispatch => {
   // console.log(dispatch)
   return {
-    onSelectCard: (card, cardIndex, cardPiece) => dispatch(selectCard(card, cardIndex, cardPiece))
+    onSelectCard: (card, cardIndex, cardPiece) => dispatch(selectCard(card, cardIndex, cardPiece)),
+    onDeselectCard: (cardIndex) => dispatch(deselectCard(cardIndex))
   }
 }
 

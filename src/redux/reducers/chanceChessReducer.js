@@ -2,7 +2,6 @@ import * as actionTypes from '../actions/actionTypes';
 import { deckArray } from "../../utils/DeckArray";
 
 const initialState = {
-    // cardInfo: [],
     player1Cards: [],
     player2Cards: [],
     newBoard: false,
@@ -11,12 +10,14 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-    // let info;
-    // let cardInfo;
     let cardsArray;
     let randomCard;
     let randomItem;
     let newCardsArray;
+    let selectedCard;
+    // let cardValue;
+    // let cardIndex;
+    // let cardPiece;
 
     switch (action.type) {
         case actionTypes.START_NEW_GAME:
@@ -66,8 +67,6 @@ const reducer = (state = initialState, action) => {
             randomItem = randomCard();
 
             newCardsArray = cardsArray.filter(element => element.index !== randomItem.index)
-            // console.log(`Player2Deck: ${cardsArray.length}`)
-            // console.log(cardsPickedArrayPlayer2.length)
             if (cardsPickedArrayPlayer2.length > 3) {
                 return [...state.player2Cards, player2Cards]
             } else {
@@ -83,12 +82,20 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.SELECT_CARD:
             const { cardValue, cardIndex, cardPiece } = action;
-            const selectedCard = { cardValue, cardIndex, cardPiece }
+            selectedCard = { cardValue, cardIndex, cardPiece }
             return {
                 ...state,
                 selectedCard
             }
 
+        case actionTypes.DESELECT_CARD:
+
+            selectedCard = state.selectedCard
+            return {
+                ...state,
+                selectedCard: null
+
+            }
 
         default:
             return state;
