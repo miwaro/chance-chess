@@ -91,28 +91,33 @@ const Card = (props) => {
   };
 
 
-  // const changeOpacity = () => {
-
-
-  // }
 
   const getCardInformation = (card, cardIndex, cardPiece) => {
+    if (props.disabled) {
+      return;
+    }
     setIsSelected(!isNotSelected)
 
-    props.onSelectCard(card, cardIndex, cardPiece);
-    // if (props.state.selectedCard !== null) {
-    // console.log(useState)
-    // }
-    // setChange(!change)
+    const turn = props.whiteToMove
+
+
+    props.onSelectCard(card, cardIndex, cardPiece, turn);
+
 
     if (isNotSelected) {
       props.onDeselectCard(cardIndex)
     }
 
-
   }
 
-  const selectedCardIndex = props.selectedCard ? props.selectedCard.cardIndex : -1
+  // useEffect((card, cardIndex, cardPiece) => {
+
+
+
+  // }, [isNotSelected])
+
+
+  const selectedCardIndex = props.selectedCard ? props.selectedCard.cardIndex : -1;
   let btn_class = selectedCardIndex === cardIndex ? "clicked-card" : "card-container";
 
   if (front) {
@@ -153,11 +158,12 @@ const Card = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  // console.log(state)
   return {
     player1Cards: state.chanceChessReducer.player1Cards,
     player2Cards: state.chanceChessReducer.player2Cards,
     newBoard: state.chanceChessReducer.newBoard,
+    whiteToMove: state.chanceChessReducer.whiteToMove,
     selectedCard: state.chanceChessReducer.selectedCard
   }
 }
@@ -165,7 +171,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
   // console.log(dispatch)
   return {
-    onSelectCard: (card, cardIndex, cardPiece) => dispatch(selectCard(card, cardIndex, cardPiece)),
+    onSelectCard: (card, cardIndex, cardPiece, turn) => dispatch(selectCard(card, cardIndex, cardPiece, turn)),
     onDeselectCard: (cardIndex) => dispatch(deselectCard(cardIndex))
   }
 }

@@ -26,6 +26,7 @@ function Player2CardContainer(props) {
                         {props.cards.map((card, i) => (
                             <div >
                                 <Card
+                                    disabled={props.disableControls}
                                     cardIndex={card.index}
                                     suits={card.suits}
                                     card={card.card}

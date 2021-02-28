@@ -29,6 +29,7 @@ function Player1CardContainer(props) {
                         {props.cards.map((card, i) => (
                             <div >
                                 <Card
+                                    disabled={props.disableControls}
                                     cardIndex={card.index}
                                     suits={card.suits}
                                     card={card.card}
@@ -51,6 +52,7 @@ const mapStateToProps = (state) => {
         player1Cards: state.chanceChessReducer.player1Cards,
         player2Cards: state.chanceChessReducer.player2Cards,
         newBoard: state.chanceChessReducer.newBoard
+
     }
 }
 

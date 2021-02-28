@@ -39,7 +39,7 @@ const App = (props) => {
         </div>
 
 
-        <Player2CardContainer cards={props.player2Cards} front={front} />
+        <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} front={front} />
 
         {/* <Player2 cards={props.player2Cards} front={front} /> */}
         <ActionButtons flip={flip} />
@@ -51,7 +51,7 @@ const App = (props) => {
         <div className="key">
           <Key />
         </div>
-        <Player1CardContainer cards={props.player1Cards} front={front} />
+        <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} front={front} />
 
         {/* <Player1 cards={props.player1Cards} front={front} /> */}
         <ActionButtons flip={flip} />
@@ -65,7 +65,8 @@ const mapStateToProps = (state) => {
   return {
     player1Cards: state.chanceChessReducer.player1Cards,
     player2Cards: state.chanceChessReducer.player2Cards,
-    newBoard: state.chanceChessReducer.newBoard
+    newBoard: state.chanceChessReducer.newBoard,
+    whiteToMove: state.chanceChessReducer.whiteToMove
   }
 }
 

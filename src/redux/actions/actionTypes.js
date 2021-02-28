@@ -9,3 +9,5 @@ export const GET_PLAYER2_CARD = 'GET_PLAYER2_CARD';
 export const SELECT_CARD = 'SELECT_CARD';
 
 export const DESELECT_CARD = 'DESELECT_CARD';
+
+export const CHANGE_TURN = 'CHANGE_TURN';

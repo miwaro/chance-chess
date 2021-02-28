@@ -5,6 +5,7 @@ const initialState = {
     player1Cards: [],
     player2Cards: [],
     newBoard: false,
+    whiteToMove: true,
     cardsArray: deckArray,
     selectedCard: null
 }
@@ -15,9 +16,6 @@ const reducer = (state = initialState, action) => {
     let randomItem;
     let newCardsArray;
     let selectedCard;
-    // let cardValue;
-    // let cardIndex;
-    // let cardPiece;
 
     switch (action.type) {
         case actionTypes.START_NEW_GAME:
@@ -32,16 +30,13 @@ const reducer = (state = initialState, action) => {
             // Todo: Restore the deck when the cards run out.
             let player1Cards = state.player1Cards;
             let cardsPickedArrayPlayer1 = [...state.player1Cards, player1Cards];
-            // let cardsPickedArrayPlayer1 = player1Cards;
-            // 
-            // Do I need to do what I do above this line to the line below?????????????????
+
             cardsArray = state.cardsArray;
 
             randomCard = () => cardsArray[Math.floor(Math.random() * cardsArray.length)];
             randomItem = randomCard();
 
             newCardsArray = cardsArray.filter(element => element.index !== randomItem.index)
-            // console.log(`Player1Deck: ${cardsArray.length}`)
 
             if (cardsPickedArrayPlayer1.length > 3) {
                 return [...cardsPickedArrayPlayer1]
@@ -53,7 +48,6 @@ const reducer = (state = initialState, action) => {
                 cardsArray: newCardsArray,
                 player1Cards: cardsPickedArrayPlayer1
             }
-
 
         case actionTypes.GET_PLAYER2_CARD:
 
@@ -81,8 +75,13 @@ const reducer = (state = initialState, action) => {
 
 
         case actionTypes.SELECT_CARD:
-            const { cardValue, cardIndex, cardPiece } = action;
-            selectedCard = { cardValue, cardIndex, cardPiece }
+            const { cardValue, cardIndex, cardPiece, turn } = action;
+            selectedCard = { cardValue, cardIndex, cardPiece, turn }
+            // const p1Cards = state.player1Cards;
+            // const p2Cards = state.player2Cards;
+
+
+
             return {
                 ...state,
                 selectedCard
@@ -94,7 +93,14 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedCard: null
+            }
 
+
+        case actionTypes.CHANGE_TURN:
+            // Todo: state updates on rejected move, change it to update only after a completed move
+            return {
+                ...state,
+                whiteToMove: !state.whiteToMove
             }
 
         default:
