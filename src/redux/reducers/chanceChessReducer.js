@@ -77,10 +77,6 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SELECT_CARD:
             const { cardValue, cardIndex, cardPiece, turn } = action;
             selectedCard = { cardValue, cardIndex, cardPiece, turn }
-            // const p1Cards = state.player1Cards;
-            // const p2Cards = state.player2Cards;
-
-
 
             return {
                 ...state,
@@ -97,10 +93,24 @@ const reducer = (state = initialState, action) => {
 
 
         case actionTypes.CHANGE_TURN:
-            // Todo: state updates on rejected move, change it to update only after a completed move
+
             return {
                 ...state,
                 whiteToMove: !state.whiteToMove
+            }
+
+        case actionTypes.DISCARD_ALL_P1_CARDS:
+
+            return {
+                ...state,
+                player1Cards: []
+            }
+
+        case actionTypes.DISCARD_ALL_P2_CARDS:
+
+            return {
+                ...state,
+                player2Cards: []
             }
 
         default:

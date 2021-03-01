@@ -38,6 +38,20 @@ export const changeTurn = () => {
     };
 };
 
+export const discardAllP1Cards = () => {
+    return {
+        type: actionTypes.DISCARD_ALL_P1_CARDS
+    };
+};
+
+export const discardAllP2Cards = () => {
+    return {
+        type: actionTypes.DISCARD_ALL_P2_CARDS
+    };
+};
+
+
+
 
 // should Reset Game
 export const startNewGame = () => {

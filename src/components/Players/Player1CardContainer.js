@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import "../../style/components/playerCard.scss";
 import '../../style/components/player1.scss';
 import '../../style/components/playerCard.scss';
-import { getCard } from "../../redux/actions/cardActions";
+import { discardAllP1Cards, getCard } from "../../redux/actions/cardActions";
 import Card from '../Card';
 
 
@@ -22,9 +22,7 @@ function Player1CardContainer(props) {
         <>
             <div className="player-card-container">
                 <div className="card-slot">
-                    <Button style={{ backgroundColor: 'orange' }} onClick={getCard}>
-                        Draw up to 3 Cards
-                    </Button>
+
                     <div className="player1">
                         {props.cards.map((card, i) => (
                             <div >
@@ -40,6 +38,15 @@ function Player1CardContainer(props) {
                             </div>
                         ))}
                     </div>
+                    <div className="actions">
+                        <Button style={{ backgroundColor: 'orange', fontSize: '10px', marginRight: '3px' }} onClick={getCard}>
+                            Draw up to 3 Cards
+                    </Button>
+                        <Button onClick={() => props.onDiscardAllCards()} style={{ backgroundColor: 'red', color: 'white', fontSize: '10px', marginLeft: '3px' }}>
+                            Discard All Cards
+                    </Button>
+                    </div>
+
                 </div>
             </div>
         </>
@@ -59,7 +66,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     // console.log(dispatch)
     return {
-        onGetCard: () => dispatch(getCard())
+        onGetCard: () => dispatch(getCard()),
+        onDiscardAllCards: () => dispatch(discardAllP1Cards())
     }
 }
 

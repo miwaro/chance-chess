@@ -1,4 +1,3 @@
-// import React, { useState } from "react";
 import React from "react";
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
@@ -12,19 +11,18 @@ function ActionButtons(props) {
             {props.player1Cards.length > 0 &&
                 <Button style={{ backgroundColor: 'orange' }}>
                     Discard All Cards
-            </Button>
+                </Button>
             }
             {props.player1Cards.length > 0 &&
                 <Button onClick={() => props.flip()} style={{ backgroundColor: 'orange', margin: '0 10px' }}>
                     Flip Cards
-            </Button>
+                </Button>
             }
         </div>
     )
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state)
     return {
         player1Cards: state.chanceChessReducer.player1Cards,
         player2Cards: state.chanceChessReducer.player2Cards,

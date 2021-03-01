@@ -17,7 +17,7 @@ function Board(props) {
                 }) => (
                     < Chessboard
                         id="humanVsHuman"
-                        width={550}
+                        width={500}
                         position={position}
                         allowDrag={onDragStart}
                         draggable={draggable}

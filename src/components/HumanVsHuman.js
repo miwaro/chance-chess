@@ -25,9 +25,22 @@ class HumanVsHuman extends Component {
         // draggable: false
     };
 
+
+
+
+    set_turn = (chess, color) => {
+        var tokens = chess.fen().split(' ');
+        tokens[1] = color;
+        chess.load(tokens.join(' '));
+    }
+
     componentDidMount() {
         this.game = new Chess();
+        this.set_turn(this.game, 'b')
+
     }
+
+
 
     // Resets the board to starting position
     componentDidUpdate(prevProps) {
@@ -96,6 +109,7 @@ class HumanVsHuman extends Component {
     };
 
 
+
     onDrop = ({ sourceSquare, targetSquare }) => {
 
         // see if the move is legal
@@ -114,6 +128,8 @@ class HumanVsHuman extends Component {
             fen: this.game.fen(),
             history: this.game.history({ verbose: true })
         }));
+
+        // TODO Remove selectedCard from playerArray
 
         this.props.onChangeTurn();
 
