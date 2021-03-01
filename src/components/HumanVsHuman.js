@@ -20,14 +20,14 @@ class HumanVsHuman extends Component {
         // currently clicked square
         square: "",
         // array of past game moves
-        history: []
-    };
+        history: [],
 
+        // draggable: false
+    };
 
     componentDidMount() {
         this.game = new Chess();
     }
-
 
     // Resets the board to starting position
     componentDidUpdate(prevProps) {
@@ -42,105 +42,58 @@ class HumanVsHuman extends Component {
     }
 
     onDragStart = ({ piece, sourceSquare }) => {
-
         let draggable = true;
-        // console.log(piece, sourceSquare)
         const p1 = this.props.player1Cards
-        const p1Cards = this.props.player1Cards.map(card => card.card);
         let chessPiece = piece[1].toLowerCase();
-        // console.log(p1Cards)
         let column = sourceSquare[0];
+        let selected = this.props.selectedCard
 
-        p1Cards.forEach(card => {
-            if (p1.length > 0) {
-                if ((card === 'A' && chessPiece !== 'p') || (card === 'A' && column !== 'a')) {
-                    draggable = false
-                }
-                if ((card === '2' && chessPiece !== 'p') || (card === '2' && column !== 'b')) {
-                    draggable = false
-                } if ((card === '3' && chessPiece !== 'p') || (card === '3' && column !== 'c')) {
-                    draggable = false
-                } if ((card === '4' && chessPiece !== 'p') || (card === '4' && column !== 'd')) {
-                    draggable = false
-                } if ((card === '5' && chessPiece !== 'p') || (card === '3' && column !== 'e')) {
-                    draggable = false
-                } if ((card === '6' && chessPiece !== 'p') || (card === '3' && column !== 'f')) {
-                    draggable = false
-                } if ((card === '7' && chessPiece !== 'p') || (card === '3' && column !== 'g')) {
-                    draggable = false
-                } if ((card === '8' && chessPiece !== 'p') || (card === '3' && column !== 'h')) {
-                    draggable = false
-                }
+        if (p1.length > 0) {
+
+            if ((selected.cardValue === 'A' && chessPiece !== 'p') || (selected.cardValue === 'A' && column !== 'a')) {
+                draggable = false;
             }
-        });
+            if ((selected.cardValue === '2' && chessPiece !== 'p') || (selected.cardValue === '2' && column !== 'b')) {
+                draggable = false;
+            }
+            if ((selected.cardValue === '3' && chessPiece !== 'p') || (selected.cardValue === '3' && column !== 'c')) {
+                draggable = false;
+            }
+            if ((selected.cardValue === '4' && chessPiece !== 'p') || (selected.cardValue === '4' && column !== 'd')) {
+                draggable = false;
+            }
+            if ((selected.cardValue === '5' && chessPiece !== 'p') || (selected.cardValue === '5' && column !== 'e')) {
+                draggable = false;
+            }
+            if ((selected.cardValue === '6' && chessPiece !== 'p') || (selected.cardValue === '6' && column !== 'f')) {
+                draggable = false;
+            }
+            if ((selected.cardValue === '7' && chessPiece !== 'p') || (selected.cardValue === '7' && column !== 'g')) {
+                draggable = false;
+            }
+            if ((selected.cardValue === '8' && chessPiece !== 'p') || (selected.cardValue === '8' && column !== 'h')) {
+                draggable = false;
+            }
 
-
+            if (selected.cardValue === '9' && chessPiece !== 'r') {
+                draggable = false;
+            }
+            if (selected.cardValue === '10' && chessPiece !== 'n') {
+                draggable = false;
+            }
+            if (selected.cardValue === 'J' && chessPiece !== 'b') {
+                draggable = false;
+            }
+            if (selected.cardValue === 'Q' && chessPiece !== 'q') {
+                draggable = false;
+            }
+            if (selected.cardValue === 'K' && chessPiece !== 'k') {
+                draggable = false;
+            }
+        }
 
         return draggable;
     };
-
-
-
-    //     // if statement for Ace for player 1 (card 1)
-    //     if ((p1.length > 0 && p1[0].card === 'A' && chessPiece !== 'p') || (p1.length > 0 && p1[0].card === 'A' && column !== 'a')) {
-    //         // console.log(`playerCard: ${p1[0].card}`)
-    //         // console.log(`chessPiece: ${chessPiece}`)
-    //         // console.log(`column: ${column}`)
-
-    //         draggable = false
-    //     }
-    //     return draggable;
-    // }
-
-
-    //     if (p1[0].card === 'A' && chessPiece !== 'p' && p1.length > 0 && p1[0].correspondingPiece !== chessPiece && column !== 'a') {
-
-    //         draggable = false
-    //     }
-    // }
-
-    // } else if (p1.length > 1 && (p1[1].correspondingFile !== sourceSquare[0] || p1[1].correspondingPiece !== piece[1].toLowerCase())) {
-    //     draggable = false
-    // }
-    // if statement for pawns for player 1 (card 2)
-
-
-
-    // // if statement for pawns for player 1 (card 3)
-    // if (piece[1].toLowerCase() === 'p') {
-    //     if (p1.length > 0 && (p1[2].correspondingFile !== sourceSquare[0] || p1[2].correspondingPiece !== piece[1].toLowerCase())) {
-    //         draggable = false
-    //     }
-    // }
-    // **********************************************************************************************************
-
-
-    // if statement for non pawns (player 1 card 1)
-    //     if(piece[1].toLowerCase() !== 'p') {
-    //     if (p1.length > 0 && p1[0].correspondingPiece !== piece[1].toLowerCase()) {
-    //         draggable = false
-    //     }
-    // }
-    // if statement for non pawns (player 1 card 2)
-    // else if (piece[1].toLowerCase() !== 'p') {
-    //     if (p1.length > 1 && p1[1].correspondingPiece !== piece[1].toLowerCase()) {
-    //         draggable = false
-    //     }
-    // }
-    // // if statement for non pawns (player 1 card 3)
-    // if (piece[1].toLowerCase() !== 'p') {
-    //     if (p1.length > 0 && p1[2].correspondingPiece !== piece[1].toLowerCase()) {
-    //         draggable = false
-    //     }
-    // }
-
-
-    // ***********************************************************************************************
-
-
-
-
-
 
 
     onDrop = ({ sourceSquare, targetSquare }) => {
@@ -152,7 +105,7 @@ class HumanVsHuman extends Component {
             to: targetSquare,
             promotion: "q"
         });
-        console.log(move)
+        // console.log(move)
 
         if (move === null) return;
 
@@ -229,6 +182,7 @@ class HumanVsHuman extends Component {
             position: fen,
             onDrop: this.onDrop,
             onDragStart: this.onDragStart,
+            draggable: true
         });
     }
 }
