@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
-import { getCardInfo } from '../redux/actions/cardActions'
+import { selectCard } from '../redux/actions/cardActions'
+import { deselectCard } from '../redux/actions/cardActions'
 
 import PropTypes from "prop-types";
 
@@ -28,10 +29,10 @@ import "../style/components/card.scss";
 
 const Card = (props) => {
 
-  const { suits, card, front, color, cardIndex, cardPiece, cardFile } = props;
+  const { suits, card, front, color, cardIndex, cardPiece } = props;
 
-  const [border, setBorder] = useState(true)
-  const [isCardSelected, setCardSelected] = useState(true)
+  const [isNotSelected, setIsSelected] = useState(false)
+  // const [change, setChange] = useState(false)
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -89,26 +90,37 @@ const Card = (props) => {
     };
   };
 
-  // const flip = () => {
-  //   setFront({ front: !this.state.front })
-  // };
 
-  const changeOpacity = () => {
-    setBorder(!border)
+
+  const getCardInformation = (card, cardIndex, cardPiece) => {
+    if (props.disabled) {
+      return;
+    }
+    setIsSelected(!isNotSelected)
+
+    const turn = props.whiteToMove
+
+
+    props.onSelectCard(card, cardIndex, cardPiece, turn);
+
+
+    if (isNotSelected) {
+      props.onDeselectCard(cardIndex)
+    }
+
   }
 
-  const getCardInformation = (cardIndex, cardPiece, cardFile) => {
-    setCardSelected(!isCardSelected);
-    changeOpacity();
-
-    props.onGetCardInfo(cardIndex, cardPiece, cardFile)
-
-  }
-
-  let btn_class = border ? "card-container" : "clicked-card";
+  // useEffect((card, cardIndex, cardPiece) => {
 
 
-  if (front === true) {
+
+  // }, [isNotSelected])
+
+
+  const selectedCardIndex = props.selectedCard ? props.selectedCard.cardIndex : -1;
+  let btn_class = selectedCardIndex === cardIndex ? "clicked-card" : "card-container";
+
+  if (front) {
     const cardSymbol = getCardSymbol(suits);
     const redChessPiece = getRedChessPiece(cardPiece);
     const blackChessPiece = getBlackChessPiece(cardPiece);
@@ -116,41 +128,51 @@ const Card = (props) => {
 
       <div
         className={btn_class}
-        style={{ color: `${color}`, border: border }}
-        onClick={() => getCardInformation(cardIndex, cardPiece, cardFile)}
+        style={{ color: `${color}`, isNotSelected: isNotSelected }}
+        onClick={() => getCardInformation(card, cardIndex, cardPiece)}
       >
         <div style={{ position: "absolute", top: 5, left: 5 }}>
-          <div style={{ maxWidth: 20 }}>{card}</div>
-          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 20 }} />
+          <div style={{ maxWidth: 16 }}>{card}</div>
+          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 16 }} />
         </div>
 
         { color === 'red' ?
-          <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 32, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+          <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 28, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
           :
-          <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 32, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+          <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 28, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
         }
 
         <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
-          <div style={{ maxWidth: 20 }}>{card}</div>
-          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 20 }} />
+          <div style={{ maxWidth: 16 }}>{card}</div>
+          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 16 }} />
         </div>
       </div>
     );
   } else {
     return (
       <>
-        <button onClick={() => props.flip()}>Flip</button>
-
         <div className="card-container" style={{ backgroundImage: `url(${backCardImg})`, color: `${color}` }}></div>
       </>
     );
   };
 };
 
+const mapStateToProps = (state) => {
+  // console.log(state)
+  return {
+    player1Cards: state.chanceChessReducer.player1Cards,
+    player2Cards: state.chanceChessReducer.player2Cards,
+    newBoard: state.chanceChessReducer.newBoard,
+    whiteToMove: state.chanceChessReducer.whiteToMove,
+    selectedCard: state.chanceChessReducer.selectedCard
+  }
+}
 
 const mapDispatchToProps = dispatch => {
+  // console.log(dispatch)
   return {
-    onGetCardInfo: (cardIndex, cardPiece, cardFile) => dispatch(getCardInfo(cardIndex, cardPiece, cardFile)),
+    onSelectCard: (card, cardIndex, cardPiece, turn) => dispatch(selectCard(card, cardIndex, cardPiece, turn)),
+    onDeselectCard: (cardIndex) => dispatch(deselectCard(cardIndex))
   }
 }
 
@@ -162,4 +184,4 @@ Card.propTypes = {
 };
 
 
-export default connect(null, mapDispatchToProps)(Card);
+export default connect(mapStateToProps, mapDispatchToProps)(Card);
