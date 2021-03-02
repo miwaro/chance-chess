@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Chess from "chess.js";
 import { connect } from 'react-redux';
-import { changeTurn } from "../redux/actions/cardActions";
+import { changeTurn, removeSelectedCard } from "../redux/actions/cardActions";
 
 
 class HumanVsHuman extends Component {
@@ -28,23 +28,23 @@ class HumanVsHuman extends Component {
 
 
 
+
+
+    componentDidMount() {
+        this.game = new Chess();
+    }
+
     set_turn = (chess, color) => {
         var tokens = chess.fen().split(' ');
         tokens[1] = color;
         chess.load(tokens.join(' '));
     }
 
-    componentDidMount() {
-        this.game = new Chess();
-        this.set_turn(this.game, 'b')
-
-    }
-
-
-
     // Resets the board to starting position
     componentDidUpdate(prevProps) {
+        let whiteToMove = this.props.whiteToMove;
 
+        //  if newBoard prop changes, reset the board position to "start"
         if (this.props.newBoard !== prevProps.newBoard) {
             this.game = new Chess();
             this.setState((state, props) => ({
@@ -52,17 +52,32 @@ class HumanVsHuman extends Component {
                 fen: 'start'
             }))
         }
+        // if the "forceMove" prop changes, force the turn to change
+        // if (whiteToMove && this.props.forceMove !== prevProps.forceMove) {
+        //     this.set_turn(this.game, 'b')
+        // } else if (!whiteToMove && this.props.forceMove !== prevProps.forceMove) {
+        //     this.set_turn(this.game, 'w')
+        // }
+        if (whiteToMove && (this.props.forceMove !== prevProps.forceMove)) {
+            this.set_turn(this.game, 'b')
+        } else if (!whiteToMove && (this.props.forceMove !== prevProps.forceMove)) {
+            this.set_turn(this.game, 'w')
+        }
     }
+
+
 
     onDragStart = ({ piece, sourceSquare }) => {
         let draggable = true;
-        const p1 = this.props.player1Cards
         let chessPiece = piece[1].toLowerCase();
         let column = sourceSquare[0];
         let selected = this.props.selectedCard
 
-        if (p1.length > 0) {
+        if (selected === null) return;
 
+
+        if (selected) {
+            // conditions for pawns
             if ((selected.cardValue === 'A' && chessPiece !== 'p') || (selected.cardValue === 'A' && column !== 'a')) {
                 draggable = false;
             }
@@ -87,7 +102,7 @@ class HumanVsHuman extends Component {
             if ((selected.cardValue === '8' && chessPiece !== 'p') || (selected.cardValue === '8' && column !== 'h')) {
                 draggable = false;
             }
-
+            // if conditions for non pawns
             if (selected.cardValue === '9' && chessPiece !== 'r') {
                 draggable = false;
             }
@@ -110,7 +125,11 @@ class HumanVsHuman extends Component {
 
 
 
+
+
     onDrop = ({ sourceSquare, targetSquare }) => {
+        let selected = this.props.selectedCard
+        if (selected === null) return;
 
         // see if the move is legal
         let move = this.game.move({
@@ -119,22 +138,42 @@ class HumanVsHuman extends Component {
             to: targetSquare,
             promotion: "q"
         });
-        // console.log(move)
 
         if (move === null) return;
-
 
         this.setState(({ history, pieceSquare }) => ({
             fen: this.game.fen(),
             history: this.game.history({ verbose: true })
         }));
 
-        // TODO Remove selectedCard from playerArray
-
+        this.props.onRemoveSelected(this.props.selectedCard.cardIndex)
         this.props.onChangeTurn();
 
-
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // squareStyling = ({ pieceSquare, history }) => {
     //     const sourceSquare = history.length && history[history.length - 1].from;
@@ -204,17 +243,20 @@ class HumanVsHuman extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state)
     return {
         player1Cards: state.chanceChessReducer.player1Cards,
         player2Cards: state.chanceChessReducer.player2Cards,
         newBoard: state.chanceChessReducer.newBoard,
-        selectedCard: state.chanceChessReducer.selectedCard
+        selectedCard: state.chanceChessReducer.selectedCard,
+        forceMove: state.chanceChessReducer.forceMove
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onChangeTurn: () => dispatch(changeTurn())
+        onChangeTurn: () => dispatch(changeTurn()),
+        onRemoveSelected: (selectedCardIndex) => dispatch(removeSelectedCard(selectedCardIndex))
     }
 }
 

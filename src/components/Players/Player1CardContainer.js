@@ -15,8 +15,17 @@ function Player1CardContainer(props) {
     // console.log(props.cards)
 
     const getCard = () => {
-        if (props.cards.length >= 3) return;
+        let whiteToMove = props.whiteToMove;
+        if (!whiteToMove || props.cards.length >= 3) return;
         props.onGetCard();
+    }
+
+    const discardAll = () => {
+        let whiteToMove = props.whiteToMove;
+        // console.log(whiteToMove);
+        // console.log(props.cards.length)
+        if (!whiteToMove || props.cards.length === 0) return;
+        props.onDiscardAllCards();
     }
     return (
         <>
@@ -41,10 +50,10 @@ function Player1CardContainer(props) {
                     <div className="actions">
                         <Button style={{ backgroundColor: 'orange', fontSize: '10px', marginRight: '3px' }} onClick={getCard}>
                             Draw up to 3 Cards
-                    </Button>
-                        <Button onClick={() => props.onDiscardAllCards()} style={{ backgroundColor: 'red', color: 'white', fontSize: '10px', marginLeft: '3px' }}>
+                        </Button>
+                        <Button onClick={discardAll} style={{ backgroundColor: 'red', color: 'white', fontSize: '10px', marginLeft: '3px' }}>
                             Discard All Cards
-                    </Button>
+                        </Button>
                     </div>
 
                 </div>
@@ -54,11 +63,12 @@ function Player1CardContainer(props) {
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state)
+    console.log(state)
     return {
         player1Cards: state.chanceChessReducer.player1Cards,
         player2Cards: state.chanceChessReducer.player2Cards,
-        newBoard: state.chanceChessReducer.newBoard
+        newBoard: state.chanceChessReducer.newBoard,
+        whiteToMove: state.chanceChessReducer.whiteToMove
 
     }
 }

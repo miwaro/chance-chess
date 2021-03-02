@@ -6,6 +6,7 @@ const initialState = {
     player2Cards: [],
     newBoard: false,
     whiteToMove: true,
+    forceMove: false,
     cardsArray: deckArray,
     selectedCard: null
 }
@@ -16,6 +17,8 @@ const reducer = (state = initialState, action) => {
     let randomItem;
     let newCardsArray;
     let selectedCard;
+    let p1Cards;
+    let whiteToMove;
 
     switch (action.type) {
         case actionTypes.START_NEW_GAME:
@@ -99,18 +102,58 @@ const reducer = (state = initialState, action) => {
                 whiteToMove: !state.whiteToMove
             }
 
-        case actionTypes.DISCARD_ALL_P1_CARDS:
+
+
+
+
+
+
+
+
+        case actionTypes.REMOVE_SELECTED_CARD:
+            // let selectedCardIndex = action;
+            p1Cards = state.player1Cards;
+            let p2Cards = state.player2Cards;
+            let selected = state.selectedCard;
+            whiteToMove = state.whiteToMove;
+
+
+            if (whiteToMove) {
+                p1Cards = p1Cards.filter(card => card.index !== selected.cardIndex)
+            } else if (!whiteToMove) {
+                p2Cards = p2Cards.filter(card => card.index !== selected.cardIndex)
+            }
 
             return {
                 ...state,
-                player1Cards: []
+                player1Cards: p1Cards,
+                player2Cards: p2Cards
+            }
+
+
+        case actionTypes.DISCARD_ALL_P1_CARDS:
+            whiteToMove = state.whiteToMove;
+
+            let forceBlackMove = state.forceMove;
+            return {
+                ...state,
+                player1Cards: [],
+                forceMove: !forceBlackMove,
+                whiteToMove: !whiteToMove
+
             }
 
         case actionTypes.DISCARD_ALL_P2_CARDS:
+            whiteToMove = state.whiteToMove;
+
+            let forceWhiteMove = state.forceMove;
+
 
             return {
                 ...state,
-                player2Cards: []
+                player2Cards: [],
+                forceMove: !forceWhiteMove,
+                whiteToMove: !whiteToMove
             }
 
         default:

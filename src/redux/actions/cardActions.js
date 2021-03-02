@@ -38,6 +38,15 @@ export const changeTurn = () => {
     };
 };
 
+export const removeSelectedCard = (selectedCardIndex) => {
+    return {
+        type: actionTypes.REMOVE_SELECTED_CARD,
+        selectedCardIndex
+    };
+};
+
+
+
 export const discardAllP1Cards = () => {
     return {
         type: actionTypes.DISCARD_ALL_P1_CARDS
