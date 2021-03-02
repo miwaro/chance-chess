@@ -1,8 +1,8 @@
 import Chessboard from "chessboardjsx";
 import HumanVsHuman from './HumanVsHuman';
-// import { connect } from 'react-redux';
 
-function Board(props) {
+
+function Board() {
 
     return (
         < div >

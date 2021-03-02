@@ -2,6 +2,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
+import { v4 as uuidv4 } from 'uuid';
 import "../../style/components/playerCard.scss";
 import '../../style/components/player1.scss';
 import '../../style/components/playerCard.scss';
@@ -12,7 +13,6 @@ import Card from '../Card';
 
 
 function Player1CardContainer(props) {
-    // console.log(props.cards)
 
     const getCard = () => {
         let whiteToMove = props.whiteToMove;
@@ -22,25 +22,29 @@ function Player1CardContainer(props) {
 
     const discardAll = () => {
         let whiteToMove = props.whiteToMove;
-        // console.log(whiteToMove);
-        // console.log(props.cards.length)
         if (!whiteToMove || props.cards.length === 0) return;
         props.onDiscardAllCards();
     }
+
+    // const discardAll = () => {
+    //     let whiteToMove = props.whiteToMove;
+    //     if (!whiteToMove || props.cards.length === 0) return;
+    //     props.onDiscardAllCards();
+    // }
     return (
         <>
             <div className="player-card-container">
                 <div className="card-slot">
 
                     <div className="player1">
-                        {props.cards.map((card, i) => (
-                            <div >
+                        {props.cards.map(card => (
+                            <div key={uuidv4()}>
                                 <Card
                                     disabled={props.disableControls}
                                     cardIndex={card.index}
                                     suits={card.suits}
                                     card={card.card}
-                                    front={props.front}
+                                    front={true}
                                     color={card.color}
                                     cardPiece={card.correspondingPiece}
                                 />
@@ -63,7 +67,7 @@ function Player1CardContainer(props) {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    // console.log(state)
     return {
         player1Cards: state.chanceChessReducer.player1Cards,
         player2Cards: state.chanceChessReducer.player2Cards,

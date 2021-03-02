@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from 'react-redux';
 
 import "./App.css";
@@ -9,16 +9,10 @@ import Player2CardContainer from './components/Players/Player2CardContainer';
 import Player1CardContainer from './components/Players/Player1CardContainer';
 import Board from './components/Game';
 import Key from './components/keySidebar'
-import ActionButtons from './components/ActionButtons';
 import { startNewGame } from "./redux/actions/cardActions";
 
 
 const App = (props) => {
-  const [front, setFront] = useState(true)
-
-  const flip = () => {
-    setFront(!front)
-  }
 
   return (
     <div className="App">
@@ -29,14 +23,14 @@ const App = (props) => {
             Reset Game
           </Button>
         </div>
-        <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} front={front} />
+        <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} />
         <div className="Board">
           <Board />
         </div>
         <div className="key">
           <Key />
         </div>
-        <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} front={front} />
+        <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} />
       </div>
     </div>
   );

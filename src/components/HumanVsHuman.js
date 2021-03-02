@@ -21,11 +21,7 @@ class HumanVsHuman extends Component {
         square: "",
         // array of past game moves
         history: [],
-
-        // draggable: false
     };
-
-
 
 
 
@@ -52,16 +48,17 @@ class HumanVsHuman extends Component {
                 fen: 'start'
             }))
         }
+
         // if the "forceMove" prop changes, force the turn to change
-        // if (whiteToMove && this.props.forceMove !== prevProps.forceMove) {
+        // if (whiteToMove && (this.props.forceMove !== prevProps.forceMove)) {
         //     this.set_turn(this.game, 'b')
-        // } else if (!whiteToMove && this.props.forceMove !== prevProps.forceMove) {
+        // } else if (!whiteToMove && (this.props.forceMove !== prevProps.forceMove)) {
         //     this.set_turn(this.game, 'w')
         // }
-        if (whiteToMove && (this.props.forceMove !== prevProps.forceMove)) {
-            this.set_turn(this.game, 'b')
-        } else if (!whiteToMove && (this.props.forceMove !== prevProps.forceMove)) {
+        if ((whiteToMove === true) && (this.props.forceMove !== prevProps.forceMove)) {
             this.set_turn(this.game, 'w')
+        } else if ((whiteToMove === false) && (this.props.forceMove !== prevProps.forceMove)) {
+            this.set_turn(this.game, 'b')
         }
     }
 
@@ -249,7 +246,8 @@ const mapStateToProps = (state) => {
         player2Cards: state.chanceChessReducer.player2Cards,
         newBoard: state.chanceChessReducer.newBoard,
         selectedCard: state.chanceChessReducer.selectedCard,
-        forceMove: state.chanceChessReducer.forceMove
+        forceMove: state.chanceChessReducer.forceMove,
+        whiteToMove: state.chanceChessReducer.whiteToMove
     }
 }
 

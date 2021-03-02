@@ -19,6 +19,7 @@ const reducer = (state = initialState, action) => {
     let selectedCard;
     let p1Cards;
     let whiteToMove;
+    let forceMove;
 
     switch (action.type) {
         case actionTypes.START_NEW_GAME:
@@ -133,26 +134,27 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.DISCARD_ALL_P1_CARDS:
             whiteToMove = state.whiteToMove;
-
-            let forceBlackMove = state.forceMove;
+            forceMove = state.forceMove;
+            // let forceBlackMove = state.forceMove;
             return {
                 ...state,
                 player1Cards: [],
-                forceMove: !forceBlackMove,
+                forceMove: !forceMove,
                 whiteToMove: !whiteToMove
 
             }
 
         case actionTypes.DISCARD_ALL_P2_CARDS:
             whiteToMove = state.whiteToMove;
+            forceMove = state.forceMove;
 
-            let forceWhiteMove = state.forceMove;
+            // let forceWhiteMove = state.forceMove;
 
 
             return {
                 ...state,
                 player2Cards: [],
-                forceMove: !forceWhiteMove,
+                forceMove: !forceMove,
                 whiteToMove: !whiteToMove
             }
 
