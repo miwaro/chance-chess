@@ -132,19 +132,19 @@ const Card = (props) => {
         onClick={() => getCardInformation(card, cardIndex, cardPiece)}
       >
         <div style={{ position: "absolute", top: 5, left: 5 }}>
-          <div style={{ maxWidth: 20 }}>{card}</div>
-          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 20 }} />
+          <div style={{ maxWidth: 16 }}>{card}</div>
+          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 16 }} />
         </div>
 
         { color === 'red' ?
-          <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 32, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+          <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 28, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
           :
-          <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 32, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+          <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 28, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
         }
 
         <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
-          <div style={{ maxWidth: 20 }}>{card}</div>
-          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 20 }} />
+          <div style={{ maxWidth: 16 }}>{card}</div>
+          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 16 }} />
         </div>
       </div>
     );

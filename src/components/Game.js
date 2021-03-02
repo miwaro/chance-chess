@@ -1,5 +1,6 @@
 import Chessboard from "chessboardjsx";
 import HumanVsHuman from './HumanVsHuman';
+// import { roughSquare } from "./Board";
 
 
 function Board() {
@@ -12,21 +13,34 @@ function Board() {
                     onDragStart,
                     draggable,
                     onDrop,
+                    onMouseOverSquare,
+                    onMouseOutSquare,
                     squareStyles,
-                    onSquareClick
+                    dropSquareStyle,
+                    onDragOverSquare,
+                    onSquareClick,
                 }) => (
                     < Chessboard
                         id="humanVsHuman"
-                        width={500}
+                        width={450}
+                        // roughSquare={roughSquare}
                         position={position}
                         allowDrag={onDragStart}
+                        onMouseOverSquare={onMouseOverSquare}
+                        onMouseOutSquare={onMouseOutSquare}
                         draggable={draggable}
                         onDrop={onDrop}
                         boardStyle={{
+                            cursor: PointerEvent,
                             borderRadius: "5px",
-                            boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`
+                            border: '15px ridge orange',
+                            boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,
                         }}
+                        lightSquareStyle={{ backgroundColor: "AliceBlue" }}
+                        darkSquareStyle={{ backgroundColor: "#522ff0d4" }}
                         squareStyles={squareStyles}
+                        onDragOverSquare={onDragOverSquare}
+                        dropSquareStyle={dropSquareStyle}
                         onSquareClick={onSquareClick}
                     />
                 )}
@@ -34,5 +48,7 @@ function Board() {
         </div >
     );
 }
+
+
 
 export default Board;

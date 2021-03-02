@@ -46,7 +46,7 @@ function Player2CardContainer(props) {
                     </div>
 
                     {props.cardsArray.length === 52 &&
-                        <div className={'placeholder'}>Draw up to 3 cards to start the game!</div>
+                        <div className={'placeholder'}></div>
                     }
                     {props.player2Cards.length === 0 && props.cardsArray.length < 52 &&
                         <div className={'placeholder'}></div>
