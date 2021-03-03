@@ -3,3 +3,10 @@
     justify-content: center;
     padding: 5px;
 }
+
+.card-containers {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 738px;
+}

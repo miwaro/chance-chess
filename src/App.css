@@ -1,9 +1,6 @@
 body {
   box-sizing: border-box;
   background-color: #222731;
-  /* background-color: #000000; */
-
-
 }
 
 .body-container {
@@ -11,25 +8,20 @@ body {
     max-width: 1400px;
 }
 
-.start-button {
-    position: absolute;
-    top: 158px;
-    right: 100px;
+.App {
+  color: white;
 }
 
-.key {
-  position: absolute;
-  top: 205px;
-  right: 100px;
-}
-.App {
-  /* text-align: center; */
-  color: white;
+.actions-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px 0;
 }
 
 .Board {
   display: flex; 
-  padding: 8px;
+  padding-top: 40px;
   justify-content: center;
 }
 

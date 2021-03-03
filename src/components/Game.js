@@ -22,7 +22,7 @@ function Board() {
                 }) => (
                     < Chessboard
                         id="humanVsHuman"
-                        width={450}
+                        width={700}
                         // roughSquare={roughSquare}
                         position={position}
                         allowDrag={onDragStart}

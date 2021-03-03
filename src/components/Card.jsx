@@ -26,6 +26,7 @@ import blackQueen from "../style/images/chessPieces/black/blackQueen.png";
 import blackKing from "../style/images/chessPieces/black/blackKing.png";
 
 import "../style/components/card.scss";
+import "../style/components/playerCard.scss";
 
 const Card = (props) => {
 
@@ -110,15 +111,11 @@ const Card = (props) => {
 
   }
 
-  // useEffect((card, cardIndex, cardPiece) => {
 
-
-
-  // }, [isNotSelected])
 
 
   const selectedCardIndex = props.selectedCard ? props.selectedCard.cardIndex : -1;
-  let btn_class = selectedCardIndex === cardIndex ? "clicked-card" : "card-container";
+  let btn_class = selectedCardIndex === cardIndex ? "clicked-card" : "card";
 
   if (front) {
     const cardSymbol = getCardSymbol(suits);
@@ -132,26 +129,26 @@ const Card = (props) => {
         onClick={() => getCardInformation(card, cardIndex, cardPiece)}
       >
         <div style={{ position: "absolute", top: 5, left: 5 }}>
-          <div style={{ maxWidth: 16 }}>{card}</div>
-          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 16 }} />
+          <div style={{ maxWidth: 25 }}>{card}</div>
+          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
         </div>
 
         { color === 'red' ?
-          <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 28, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+          <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
           :
-          <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 28, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+          <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
         }
 
         <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
-          <div style={{ maxWidth: 16 }}>{card}</div>
-          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 16 }} />
+          <div style={{ maxWidth: 25 }}>{card}</div>
+          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
         </div>
       </div>
     );
   } else {
     return (
       <>
-        <div className="card-container" style={{ backgroundImage: `url(${backCardImg})`, color: `${color}` }}></div>
+        <div className="deck-container" style={{ backgroundImage: `url(${backCardImg})`, color: `${color}` }}></div>
       </>
     );
   };
