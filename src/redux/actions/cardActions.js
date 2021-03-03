@@ -59,6 +59,13 @@ export const discardAllP2Cards = () => {
     };
 };
 
+export const shuffle = (deckArray) => {
+    return {
+        type: actionTypes.SHUFFLE,
+        deckArray
+    };
+};
+
 
 
 

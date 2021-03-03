@@ -14,15 +14,16 @@ import Key from './components/keySidebar'
 
 import { startNewGame } from "./redux/actions/cardActions";
 import { discardAllP1Cards, getCard } from "./redux/actions/cardActions";
-import { getPlayer2Card, discardAllP2Cards } from "./redux/actions/cardActions";
+import { getPlayer2Card, discardAllP2Cards, shuffle } from "./redux/actions/cardActions";
 
 
 
 const App = (props) => {
   console.log(props)
+
   const getCardP1 = () => {
     let whiteToMove = props.whiteToMove;
-    if (!whiteToMove || props.player1Cards.length >= 3) return;
+    if (!whiteToMove || props.player1Cards.length >= 3 || props.cardsArray.length === 0) return;
     props.onGetCard();
   }
 
@@ -34,7 +35,7 @@ const App = (props) => {
 
   const getCardP2 = () => {
     let whiteToMove = props.whiteToMove;
-    if (whiteToMove || props.player2Cards.length >= 3) return;
+    if (whiteToMove || props.player2Cards.length >= 3 || props.cardsArray.length === 0) return;
     props.onGetCardForPlayer2();
   }
 
@@ -42,6 +43,11 @@ const App = (props) => {
     let whiteToMove = props.whiteToMove;
     if (whiteToMove || props.player2Cards.length === 0) return;
     props.onDiscardAllCardsP2();
+  }
+
+  const shuffle = (array) => {
+    console.log(`array:${array}`)
+    props.onShuffle(array);
   }
 
   return (
@@ -58,18 +64,20 @@ const App = (props) => {
 
 
 
-
-            <div style={{ display: "flex", justifyContent: "center", margin: "40px auto 0px 250px", height: 282 }}>
-              {props.cardsArray && props.cardsArray.map((card, index) => {
-                return (
-                  <div key={index}>
-                    <Card suits={card.suits} card={card.card} color={card.color} front={false} />
-                  </div>
-                );
-              })}
-            </div>
-
-
+            {props.cardsArray.length > 0 &&
+              <div style={{ display: "flex", justifyContent: "center", margin: "0 auto 0 250px", height: 282 }}>
+                {props.cardsArray && props.cardsArray.map((card, index) => {
+                  return (
+                    <div key={index}>
+                      <Card suits={card.suits} card={card.card} color={card.color} front={false} />
+                    </div>
+                  );
+                })}
+              </div>
+            }
+            {props.cardsArray.length === 0 &&
+              <Button onClick={() => shuffle(props.cardsArray)} style={{ backgroundColor: 'orange' }}>Shuffle</Button>
+            }
 
 
 
@@ -134,7 +142,8 @@ const mapDispatchToProps = dispatch => {
     onGetCard: () => dispatch(getCard()),
     onDiscardAllCardsP1: () => dispatch(discardAllP1Cards()),
     onGetCardForPlayer2: () => dispatch(getPlayer2Card()),
-    onDiscardAllCardsP2: () => dispatch(discardAllP2Cards())
+    onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
+    onShuffle: (array) => dispatch(shuffle(array)),
   }
 }
 

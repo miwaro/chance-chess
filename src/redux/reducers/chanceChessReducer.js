@@ -18,8 +18,10 @@ const reducer = (state = initialState, action) => {
     let newCardsArray;
     let selectedCard;
     let p1Cards;
+    let player1Cards;
     let whiteToMove;
     let forceMove;
+    let cardsPickedP1;
 
     switch (action.type) {
         case actionTypes.START_NEW_GAME:
@@ -32,7 +34,7 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.GET_CARD:
             // Todo: Restore the deck when the cards run out.
-            let player1Cards = state.player1Cards;
+            player1Cards = state.player1Cards;
             let cardsPickedArrayPlayer1 = [...state.player1Cards, player1Cards];
 
             cardsArray = state.cardsArray;
@@ -101,6 +103,33 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 whiteToMove: !state.whiteToMove
+            }
+
+
+        case actionTypes.SHUFFLE:
+
+            let { deckArray } = action;
+            player1Cards = state.player1Cards;
+
+            cardsPickedP1 = [...state.player1Cards, player1Cards];
+
+            // let cardsPickedP1 = state.player1Cards;
+            // let cardsPickedP2 = state.player2Cards;
+
+            let cardsPickedP1Index = cardsPickedP1.map(card => card.index).join('');
+            // let cardsPickedP2Index = cardsPickedP2.map(card => card.index).join('');
+
+            let newCardArray = [];
+
+            for (let i = 0; i < deckArray.length; i++) {
+                if (deckArray[i].index !== cardsPickedP1Index) {
+                    newCardArray.push(deckArray[i])
+                }
+            }
+
+            return {
+                ...state,
+                cardsArray: newCardArray
             }
 
 
