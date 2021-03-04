@@ -11,6 +11,7 @@ import Player1CardContainer from './components/Players/Player1CardContainer';
 import Board from './components/Game';
 import Card from './components/Card';
 import Key from './components/keySidebar'
+import Rules from './components/RulesSidebar'
 
 import { startNewGame } from "./redux/actions/cardActions";
 import { discardAllP1Cards, getCard } from "./redux/actions/cardActions";
@@ -55,15 +56,10 @@ const App = (props) => {
     <div className="App">
       <Header />
       <div className="body-container">
-
         <div className="Board">
-
           <Board />
           <div className='card-containers'>
             <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} />
-
-
-
 
             {props.cardsArray.length > 0 &&
               <div style={{ display: "flex", justifyContent: "center", margin: "0 auto 0 250px", height: 282 }}>
@@ -76,34 +72,32 @@ const App = (props) => {
                 })}
               </div>
             }
+            <div style={{ paddingLeft: '20px' }}>{props.cardsArray.length} cards remain</div>
+
             {props.cardsArray.length === 0 &&
               <Button onClick={() => shuffle(props.cardsArray)} style={{ backgroundColor: 'orange' }}>Shuffle</Button>
             }
-
-
-
             <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} />
           </div>
+
           <div className="actions-container">
             <div className="p2Actions">
-              <Button style={{ backgroundColor: 'red', color: 'white', marginBottom: '15px' }} onClick={props.onStartNewGame}>
-                Resign
-            </Button>
-              <Key />
-              <Button onClick={discardAllP2} style={{ backgroundColor: 'red', color: 'white', marginBottom: '15px' }}>
+              <Button onClick={discardAllP2} style={{ backgroundColor: '#ccc', color: 'black', marginBottom: '15px' }}>
                 Discard All
                         </Button>
               <Button style={{ backgroundColor: 'orange' }} onClick={getCardP2}>
                 Draw Cards
             </Button>
             </div>
-
-            <div className="p1Actions">
-              <Button style={{ backgroundColor: 'red', color: 'white', marginBottom: '15px' }} onClick={props.onStartNewGame}>
-                Resign
+            {/* ************************* BUTTONS FOR BOTH PLAYERS *****************************************/}
+            <Key />
+            <Button style={{ backgroundColor: 'red', color: 'white', borderRadius: '50%', height: '80px', width: '80px', border: '2px solid orange' }} onClick={props.onStartNewGame}>
+              Start Game
             </Button>
-              <Key />
-              <Button onClick={discardAllP1} style={{ backgroundColor: 'red', color: 'white', marginBottom: '15px' }}>
+            <Rules />
+            {/* *************************************************************************************************************** */}
+            <div className="p1Actions">
+              <Button onClick={discardAllP1} style={{ backgroundColor: '#ccc', color: 'black', marginBottom: '15px' }}>
                 Discard All
                         </Button>
               <Button style={{ backgroundColor: 'orange' }} onClick={getCardP1}>

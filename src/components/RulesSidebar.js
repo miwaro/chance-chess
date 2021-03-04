@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Key from './correlationKey';
+import Rules from './Rules';
 import DialogActions from '@material-ui/core/DialogActions';
 import '../style/components/key.scss';
 
 
-class KeySidebar extends Component {
+class RulesSidebar extends Component {
     constructor(props) {
         super(props);
 
@@ -27,7 +27,7 @@ class KeySidebar extends Component {
         >
             <h2 className='sidebar-title'>Key</h2>
             <section>
-                <Key />
+                <Rules />
             </section>
             <DialogActions className='close-button'>
                 <Button onClick={this.handleClose} style={{ backgroundColor: 'orange', marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
@@ -58,7 +58,7 @@ class KeySidebar extends Component {
                             className='title'
                             onClick={this.toggleDrawer(anchor, true)}
                         >
-                            <Button variant="contained" style={{ backgroundColor: '#522ff0d4', color: 'white' }}>Key</Button>
+                            <Button variant="contained" style={{ backgroundColor: '#522ff0d4', color: 'white' }}>Rules</Button>
 
                         </div>
 
@@ -80,4 +80,4 @@ class KeySidebar extends Component {
 
 
 
-export default KeySidebar;
+export default RulesSidebar;

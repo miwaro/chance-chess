@@ -15,6 +15,7 @@ function Board() {
                     onDrop,
                     onMouseOverSquare,
                     onMouseOutSquare,
+                    orientation,
                     squareStyles,
                     dropSquareStyle,
                     onDragOverSquare,
@@ -30,6 +31,7 @@ function Board() {
                         onMouseOutSquare={onMouseOutSquare}
                         draggable={draggable}
                         onDrop={onDrop}
+                        orientation={orientation}
                         boardStyle={{
                             cursor: PointerEvent,
                             borderRadius: "5px",

@@ -15,34 +15,61 @@ const reducer = (state = initialState, action) => {
     let cardsArray;
     let randomCard;
     let randomItem;
+    let randomItem1;
+    let randomItem2;
+    let randomItem3;
+    let randomItem4;
+    let randomItem5;
     let newCardsArray;
     let selectedCard;
     let p1Cards;
     let player1Cards;
     let whiteToMove;
     let cardsPickedP1;
+    let cardsPickedArrayForPlayer1;
+    let cardsPickedArrayForPlayer2;
+
 
     switch (action.type) {
         case actionTypes.START_NEW_GAME:
-            let cardsPickedArrayForPlayer1 = [];
-            let cardsPickedArrayForPlayer2 = [];
+            cardsPickedArrayForPlayer1 = [];
+            cardsPickedArrayForPlayer2 = [];
             cardsArray = state.cardsArray;
 
             //old code that i might use to start game with 3 random cards////players unfortunately can receive the same card ****************************************************************************************
             randomCard = () => cardsArray[Math.floor(Math.random() * cardsArray.length)];
             randomItem = randomCard();
-            let randomItem1 = randomCard();
-            let randomItem2 = randomCard();
-            let randomItem3 = randomCard();
-            let randomItem4 = randomCard();
-            let randomItem5 = randomCard();
+            randomItem1 = randomCard();
+            randomItem2 = randomCard();
+            randomItem3 = randomCard();
+            randomItem4 = randomCard();
+            randomItem5 = randomCard();
 
             cardsPickedArrayForPlayer1.push(randomItem, randomItem1, randomItem2);
             cardsPickedArrayForPlayer2.push(randomItem3, randomItem4, randomItem5);
+
+            // let randomItems = [randomItem, randomItem1, randomItem2, randomItem3, randomItem4, randomItem5];
+
+            // let filteredItems = randomItems.forEach(item => {
+            //     console.log(cardsArray)
+            //     return cardsArray.filter(card => card.index !== item.index)
+            // })
+            // console.log(filteredItems)
+
+            newCardsArray = cardsArray.filter(el =>
+                el.index !== randomItem.index &&
+                el.index !== randomItem1.index &&
+                el.index !== randomItem2.index &&
+                el.index !== randomItem3.index &&
+                el.index !== randomItem4.index &&
+                el.index !== randomItem5.index
+            )
+
             return {
                 ...state,
                 player1Cards: cardsPickedArrayForPlayer1,
                 player2Cards: cardsPickedArrayForPlayer2,
+                cardsArray: newCardsArray,
                 newBoard: !state.newBoard,
             }
         // *********************************************************************************************

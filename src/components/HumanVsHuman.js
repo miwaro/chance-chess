@@ -20,6 +20,8 @@ class HumanVsHuman extends Component {
         square: "",
         // array of past game moves
         history: [],
+
+        orientation: 'white'
     };
 
     // squareStyling = ({ pieceSquare, history }) => {
@@ -44,12 +46,7 @@ class HumanVsHuman extends Component {
 
     componentDidMount() {
         this.game = new Chess();
-
-
     }
-
-
-    // you could try prevState with the fen doesnt match fen
 
     set_turn = (chess, color) => {
         var tokens = chess.fen().split(' ');
@@ -70,7 +67,6 @@ class HumanVsHuman extends Component {
             }))
         }
 
-
         else if (whiteToMove) {
             this.set_turn(this.game, 'w')
         }
@@ -79,8 +75,6 @@ class HumanVsHuman extends Component {
         }
 
     }
-
-
 
 
     onDragStart = ({ piece, sourceSquare }) => {
@@ -141,6 +135,8 @@ class HumanVsHuman extends Component {
 
 
     onDrop = ({ sourceSquare, targetSquare }) => {
+        let whiteToMove = this.props.whiteToMove;
+
         // let selected = this.props.selectedCard
         // if (selected === null) return;
 
@@ -151,9 +147,14 @@ class HumanVsHuman extends Component {
             promotion: "q"
         });
 
-        // console.log(move.from, move.to)
+        console.log(move)
         if (move === null) return;
 
+        if (whiteToMove) {
+            this.setState({ orientation: 'black' })
+        } else if (!whiteToMove) {
+            this.setState({ orientation: 'white' })
+        }
         // this.setState(({ history, pieceSquare }) => ({
         //     fen: this.game.fen(),
         //     history: this.game.history({ verbose: true }),
@@ -163,6 +164,13 @@ class HumanVsHuman extends Component {
             history: this.game.history({ verbose: true }),
         });
 
+        if (move.captured === 'k' && whiteToMove) {
+            alert('White Wins')
+        }
+        if (move.captured === 'k' && !whiteToMove) {
+            alert('Black Wins!')
+        }
+
         this.props.onRemoveSelected(this.props.selectedCard.cardIndex)
         this.props.onChangeTurn();
 
@@ -170,11 +178,12 @@ class HumanVsHuman extends Component {
 
     render() {
 
-        const { fen, squareStyles, dropSquareStyle } = this.state;
+        const { fen, squareStyles, dropSquareStyle, orientation } = this.state;
 
         return this.props.children({
             squareStyles,
             position: fen,
+            orientation: orientation,
             onDrop: this.onDrop,
             onDragStart: this.onDragStart,
             draggable: true,
