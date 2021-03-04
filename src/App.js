@@ -47,11 +47,11 @@ const App = (props) => {
   }
 
   const startNewGame = () => {
-    if (window.confirm('Are you sure you want to start a new game')) {
-      props.onStartNewGame()
-    } else {
-      return;
-    }
+    // if (window.confirm('Are you sure you want to start a new game')) {
+    props.onStartNewGame()
+    // } else {
+    //   return;
+    // }
   }
 
   const shuffle = (array) => {

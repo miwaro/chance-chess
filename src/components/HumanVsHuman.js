@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Chess from "./Chess.js";
 import { connect } from 'react-redux';
-import { changeTurn, removeSelectedCard } from "../redux/actions/cardActions";
+import { changeTurn, removeSelectedCard, discardAllP1Cards, discardAllP2Cards } from "../redux/actions/cardActions";
 
 class HumanVsHuman extends Component {
     static propTypes = { children: PropTypes.func };
@@ -22,29 +22,7 @@ class HumanVsHuman extends Component {
         history: [],
 
         orientation: 'white',
-
-        // draggable: false
     };
-
-    // squareStyling = ({ pieceSquare, history }) => {
-    //     const sourceSquare = history.length && history[history.length - 1].from;
-    //     const targetSquare = history.length && history[history.length - 1].to;
-
-    //     return {
-    //         [pieceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
-    //         ...(history.length && {
-    //             [sourceSquare]: {
-    //                 backgroundColor: "rgba(255, 255, 0, 0.4)"
-    //             }
-    //         }),
-    //         ...(history.length && {
-    //             [targetSquare]: {
-    //                 backgroundColor: "rgba(255, 255, 0, 0.4)"
-    //             }
-    //         })
-    //     };
-    // };
-
 
     componentDidMount() {
         this.game = new Chess();
@@ -78,87 +56,19 @@ class HumanVsHuman extends Component {
 
     }
 
-
-    // onDragStart = ({ piece, sourceSquare }) => {
-    //     let draggable = true;
-    //     let chessPiece = piece[1].toLowerCase();
-    //     let column = sourceSquare[0];
-    //     let selected = this.props.selectedCard;
-    //     let player1Suits = this.props.player1Cards.map(card => card.suits);
-    //     // let player2Suits = this.props.player2Cards.suit;
-    //     console.log(player1Suits)
-    //     if (selected === null) return;
-
-    //     if (player1Suits.every(suit => suit === 'Club')){
-
-    //     }
-
-
-    //     if (selected) {
-    //         // conditions for pawns
-    //         if ((selected.cardValue === 'A' && chessPiece !== 'p') || (selected.cardValue === 'A' && column !== 'a')) {
-    //             draggable = false;
-    //         }
-    //         if ((selected.cardValue === '2' && chessPiece !== 'p') || (selected.cardValue === '2' && column !== 'b')) {
-    //             draggable = false;
-    //         }
-    //         if ((selected.cardValue === '3' && chessPiece !== 'p') || (selected.cardValue === '3' && column !== 'c')) {
-    //             draggable = false;
-    //         }
-    //         if ((selected.cardValue === '4' && chessPiece !== 'p') || (selected.cardValue === '4' && column !== 'd')) {
-    //             draggable = false;
-    //         }
-    //         if ((selected.cardValue === '5' && chessPiece !== 'p') || (selected.cardValue === '5' && column !== 'e')) {
-    //             draggable = false;
-    //         }
-    //         if ((selected.cardValue === '6' && chessPiece !== 'p') || (selected.cardValue === '6' && column !== 'f')) {
-    //             draggable = false;
-    //         }
-    //         if ((selected.cardValue === '7' && chessPiece !== 'p') || (selected.cardValue === '7' && column !== 'g')) {
-    //             draggable = false;
-    //         }
-    //         if ((selected.cardValue === '8' && chessPiece !== 'p') || (selected.cardValue === '8' && column !== 'h')) {
-    //             draggable = false;
-    //         }
-    //         // if conditions for non pawns
-    //         if (selected.cardValue === '9' && chessPiece !== 'r') {
-    //             draggable = false;
-    //         }
-    //         if (selected.cardValue === '10' && chessPiece !== 'n') {
-    //             draggable = false;
-    //         }
-    //         if (selected.cardValue === 'J' && chessPiece !== 'b') {
-    //             draggable = false;
-    //         }
-    //         if (selected.cardValue === 'Q' && chessPiece !== 'q') {
-    //             draggable = false;
-    //         }
-    //         if (selected.cardValue === 'K' && chessPiece !== 'k') {
-    //             draggable = false;
-    //         }
-    //     }
-
-    //     return draggable;
-    // };
-
     onDragStart = ({ piece, sourceSquare, draggable }) => {
 
-        // let draggable = this.state.draggable;
-        // console.log(draggable)
         let chessPiece = piece[1].toLowerCase();
         let column = sourceSquare[0];
         let selected = this.props.selectedCard;
         let player1Suits = this.props.player1Cards.map(card => card.suits);
-        // let player2Suits = this.props.player2Cards.map(card => card.suits);
+        let player2Suits = this.props.player2Cards.map(card => card.suits);
 
-        // console.log(player1Suits)
         if (selected === null) return;
 
 
-
-
         if (selected) {
-            // conditions for combos
+            // conditions for combos for player1
             if (player1Suits.every(suit => suit === 'Club') && chessPiece === 'n') {
                 draggable = true;
             }
@@ -169,6 +79,20 @@ class HumanVsHuman extends Component {
                 draggable = true;
             }
             if (player1Suits.every(suit => suit === 'Heart') && chessPiece === 'q') {
+                draggable = true;
+            }
+            // conditions for combos for player2
+
+            if (player2Suits.every(suit => suit === 'Club') && chessPiece === 'n') {
+                draggable = true;
+            }
+            if (player2Suits.every(suit => suit === 'Diamond') && chessPiece === 'b') {
+                draggable = true;
+            }
+            if (player2Suits.every(suit => suit === 'Spade') && chessPiece === 'r') {
+                draggable = true;
+            }
+            if (player2Suits.every(suit => suit === 'Heart') && chessPiece === 'q') {
                 draggable = true;
             }
             // conditions for pawns
@@ -222,7 +146,8 @@ class HumanVsHuman extends Component {
     onDrop = ({ sourceSquare, targetSquare }) => {
         let whiteToMove = this.props.whiteToMove;
 
-        // let selected = this.props.selectedCard
+        let selected = this.props.selectedCard
+        console.log(`selected: ${selected}`)
         // if (selected === null) return;
 
         // see if the move is legal
@@ -240,10 +165,7 @@ class HumanVsHuman extends Component {
         } else if (!whiteToMove) {
             this.setState({ orientation: 'white' })
         }
-        // this.setState(({ history, pieceSquare }) => ({
-        //     fen: this.game.fen(),
-        //     history: this.game.history({ verbose: true }),
-        // }));
+
         this.setState({
             fen: this.game.fen(),
             history: this.game.history({ verbose: true }),
@@ -254,6 +176,17 @@ class HumanVsHuman extends Component {
         }
         if (move.captured === 'k' && !whiteToMove) {
             alert('Black Wins!')
+        }
+        console.log(move)
+
+        if (whiteToMove && move.piece !== selected.cardPiece) {
+            this.props.onDiscardAllCardsP1()
+            this.props.onChangeTurn();
+
+        }
+
+        if (!whiteToMove && move.piece !== selected.cardPiece) {
+            this.props.onDiscardAllCardsP2()
         }
 
         this.props.onRemoveSelected(this.props.selectedCard.cardIndex)
@@ -278,7 +211,7 @@ class HumanVsHuman extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    // console.log(state)
     return {
         player1Cards: state.chanceChessReducer.player1Cards,
         player2Cards: state.chanceChessReducer.player2Cards,
@@ -292,7 +225,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         onChangeTurn: () => dispatch(changeTurn()),
-        onRemoveSelected: (selectedCardIndex) => dispatch(removeSelectedCard(selectedCardIndex))
+        onRemoveSelected: (selectedCardIndex) => dispatch(removeSelectedCard(selectedCardIndex)),
+        onDiscardAllCardsP1: () => dispatch(discardAllP1Cards()),
+        onDiscardAllCardsP2: () => dispatch(discardAllP2Cards())
+
     }
 }
 
