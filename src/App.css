@@ -19,13 +19,11 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin-left: 15px;
   width: 170px;
   /* border-radius: 4%; */
   /* background-image: url('./style/images/chess-wood.jpg'); */
-  background-size: cover;
+  /* background-size: cover; */
   justify-content: space-between;
-  /* padding: 15px 0; */
 }
 
 .Board {
@@ -34,8 +32,6 @@ body {
   border: 3px solid orange;
   border-radius: 10px;
   background-color: rgb(70, 72, 75);
-  /* justify-content: center; */
-  
 }
 
 .App-logo {

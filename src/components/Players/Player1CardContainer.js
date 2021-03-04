@@ -2,6 +2,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import Button from '@material-ui/core/Button';
 import '../../style/components/player1.scss';
 import '../../style/components/playerCard.scss';
 import Card from '../Card';
@@ -51,7 +52,6 @@ function Player1CardContainer(props) {
                 {props.player1Cards.length === 3 &&
                     <div className='empty-placeholder'></div>
                 }
-
             </div>
 
         </>

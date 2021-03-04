@@ -58,7 +58,8 @@ class RulesSidebar extends Component {
                             className='title'
                             onClick={this.toggleDrawer(anchor, true)}
                         >
-                            <Button variant="contained" style={{ backgroundColor: 'white', color: 'black', border: '1px solid black' }}>Rules</Button>
+
+                            <Button variant="contained" style={{ backgroundColor: '#565656', color: 'white', border: '1px solid black', width: '70%' }}>Rules</Button>
 
                         </div>
 

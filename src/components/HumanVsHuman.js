@@ -66,33 +66,48 @@ class HumanVsHuman extends Component {
 
         if (selected === null) return;
 
+        let clubs = player1Suits.every(suit => suit === 'Club')
+        let clubs2 = player2Suits.every(suit => suit === 'Club')
+        // console.log(clubs)
+
+        let diamonds = player1Suits.every(suit => suit === 'Diamond')
+        let diamonds2 = player1Suits.every(suit => suit === 'Diamond')
+        // console.log(diamonds)
+
+        let spades = player1Suits.every(suit => suit === 'Spade')
+        let spades2 = player1Suits.every(suit => suit === 'Spade')
+        // console.log(spades)
+
+        let hearts = player1Suits.every(suit => suit === 'Heart')
+        let hearts2 = player1Suits.every(suit => suit === 'Heart')
+        // console.log(hearts)
+
 
         if (selected) {
-            // conditions for combos for player1
-            if (player1Suits.every(suit => suit === 'Club') && chessPiece === 'n') {
+            // combo conditions
+            if (clubs && chessPiece === 'n') {
                 draggable = true;
             }
-            if (player1Suits.every(suit => suit === 'Diamond') && chessPiece === 'b') {
+            if (diamonds && chessPiece === 'b') {
                 draggable = true;
             }
-            if (player1Suits.every(suit => suit === 'Spade') && chessPiece === 'r') {
+            if (spades && chessPiece === 'r') {
                 draggable = true;
             }
-            if (player1Suits.every(suit => suit === 'Heart') && chessPiece === 'q') {
+            if (hearts && chessPiece === 'q') {
                 draggable = true;
             }
-            // conditions for combos for player2
-
-            if (player2Suits.every(suit => suit === 'Club') && chessPiece === 'n') {
+            // combo conditions for player 2
+            if (clubs2 && chessPiece === 'n') {
                 draggable = true;
             }
-            if (player2Suits.every(suit => suit === 'Diamond') && chessPiece === 'b') {
+            if (diamonds2 && chessPiece === 'b') {
                 draggable = true;
             }
-            if (player2Suits.every(suit => suit === 'Spade') && chessPiece === 'r') {
+            if (spades2 && chessPiece === 'r') {
                 draggable = true;
             }
-            if (player2Suits.every(suit => suit === 'Heart') && chessPiece === 'q') {
+            if (hearts2 && chessPiece === 'q') {
                 draggable = true;
             }
             // conditions for pawns
@@ -179,14 +194,15 @@ class HumanVsHuman extends Component {
         }
         console.log(move)
 
+        // If you play a combo, all of your cards will be removed and the next player will go.
         if (whiteToMove && move.piece !== selected.cardPiece) {
             this.props.onDiscardAllCardsP1()
             this.props.onChangeTurn();
-
         }
 
         if (!whiteToMove && move.piece !== selected.cardPiece) {
             this.props.onDiscardAllCardsP2()
+            this.props.onChangeTurn();
         }
 
         this.props.onRemoveSelected(this.props.selectedCard.cardIndex)

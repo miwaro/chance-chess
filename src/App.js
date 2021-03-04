@@ -70,6 +70,16 @@ const App = (props) => {
         <div className="Board">
           <Board />
           <div className='card-containers'>
+            <Button
+              style={{
+                backgroundColor: '#2b2b2b',
+                color: 'white',
+                marginTop: '8px'
+              }}
+            >
+              Select All
+            </Button>
+
             <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} />
 
             {props.cardsArray.length > 0 &&
@@ -84,31 +94,49 @@ const App = (props) => {
               </div>
             }
             <div>
-              <Button onClick={() => shuffle(props.cardsArray)} style={{ backgroundColor: 'grey', color: 'white', width: '68%', margin: '0 10px' }}>Shuffle</Button>
+              <Button
+                onClick={() => shuffle(props.cardsArray)}
+                style={{
+                  backgroundColor: '#2b2b2b',
+                  color: 'white',
+                  width: '60%',
+                  margin: '10px 10px 0 15px'
+                }}
+              >
+                Shuffle
+              </Button>
               {props.cardsArray.length} cards remain
             </div>
-
-
-
             <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} />
+            <Button
+              style={{
+                backgroundColor: '#2b2b2b',
+                color: 'white',
+                marginBottom: '8px'
+              }}
+            >
+              Select All
+            </Button>
           </div>
 
           <div className="actions-container">
-            <div className="p1Actions">
+            <div className="p2Actions">
+              <h3 style={{ fontStyle: 'italic' }}>Player Two</h3>
               <Button
                 onClick={discardAllP2}
                 style={{
-                  backgroundColor: 'grey',
-                  color: 'black',
+                  backgroundColor: '#2b2b2b',
+                  color: 'white',
                   border: '1px solid black'
                 }}>
                 Discard All
               </Button>
               <Button
                 style={{
-                  backgroundColor: 'white',
-                  color: 'black',
+                  backgroundColor: '#277714',
+                  color: 'white',
                   border: '1px solid black',
+                  // width: '100%',
                   margin: '20px 0'
                 }}
                 onClick={getCardP2}
@@ -117,9 +145,11 @@ const App = (props) => {
               </Button>
               <button
                 style={{
-                  backgroundColor: 'black',
+                  backgroundColor: '#565656',
                   color: 'white',
-                  border: '1px solid black',
+                  cursor: 'pointer',
+                  // border: '1px solid black',
+                  borderRadius: '50%',
                   fontSize: '24px'
                 }}
               >
@@ -134,20 +164,25 @@ const App = (props) => {
               <Button style={{
                 backgroundColor: '#277714',
                 color: 'white',
-                margin: '10px 0'
+                border: '1px solid black',
+                margin: '20px 0'
               }}
                 onClick={startNewGame}>
                 Start Game
                 </Button>
               <Key />
             </div>
+
             {/* *************************************************************************************************************** */}
             <div className="p1Actions">
+              <h3 style={{ fontStyle: 'italic' }}>Player One</h3>
               <button
                 style={{
-                  backgroundColor: 'black',
+                  backgroundColor: '#565656',
                   color: 'white',
-                  border: '1px solid black',
+                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  // border: '1px solid black',
                   fontSize: '24px'
                 }}>
                 🏳
@@ -155,8 +190,8 @@ const App = (props) => {
               <Button
                 onClick={discardAllP1}
                 style={{
-                  backgroundColor: 'grey',
-                  color: 'black',
+                  backgroundColor: '#2b2b2b',
+                  color: 'white',
                   border: '1px solid black',
                   margin: '20px 0'
                 }}>
@@ -173,7 +208,8 @@ const App = (props) => {
               </Button> */}
               <Button
                 style={{
-                  backgroundColor: 'white',
+                  backgroundColor: '#277714',
+                  color: 'white',
                   border: '1px solid black'
                 }}
                 onClick={getCardP1}
