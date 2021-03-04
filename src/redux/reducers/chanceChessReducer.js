@@ -20,17 +20,39 @@ const reducer = (state = initialState, action) => {
     let p1Cards;
     let player1Cards;
     let whiteToMove;
-    let forceMove;
     let cardsPickedP1;
 
     switch (action.type) {
         case actionTypes.START_NEW_GAME:
+            let cardsPickedArrayForPlayer1 = [];
+            let cardsPickedArrayForPlayer2 = [];
+            cardsArray = state.cardsArray;
+
+            //old code that i might use to start game with 3 random cards////players unfortunately can receive the same card ****************************************************************************************
+            randomCard = () => cardsArray[Math.floor(Math.random() * cardsArray.length)];
+            randomItem = randomCard();
+            let randomItem1 = randomCard();
+            let randomItem2 = randomCard();
+            let randomItem3 = randomCard();
+            let randomItem4 = randomCard();
+            let randomItem5 = randomCard();
+
+            cardsPickedArrayForPlayer1.push(randomItem, randomItem1, randomItem2);
+            cardsPickedArrayForPlayer2.push(randomItem3, randomItem4, randomItem5);
             return {
                 ...state,
-                player1Cards: [],
-                player2Cards: [],
+                player1Cards: cardsPickedArrayForPlayer1,
+                player2Cards: cardsPickedArrayForPlayer2,
                 newBoard: !state.newBoard,
             }
+        // *********************************************************************************************
+
+        // return {
+        //     ...state,
+        //     player1Cards: [],
+        //     player2Cards: [],
+        // newBoard: !state.newBoard,
+        // }
 
         case actionTypes.GET_CARD:
             // Todo: Restore the deck when the cards run out.
@@ -163,28 +185,23 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.DISCARD_ALL_P1_CARDS:
             whiteToMove = state.whiteToMove;
-            forceMove = state.forceMove;
-            // let forceBlackMove = state.forceMove;
+
             return {
                 ...state,
-                player1Cards: [],
-                forceMove: !forceMove,
-                whiteToMove: !whiteToMove
+                whiteToMove: !whiteToMove,
+                player1Cards: []
+
 
             }
 
         case actionTypes.DISCARD_ALL_P2_CARDS:
             whiteToMove = state.whiteToMove;
-            forceMove = state.forceMove;
-
-            // let forceWhiteMove = state.forceMove;
-
 
             return {
                 ...state,
-                player2Cards: [],
-                forceMove: !forceMove,
-                whiteToMove: !whiteToMove
+                whiteToMove: !whiteToMove,
+                player2Cards: []
+
             }
 
         default:

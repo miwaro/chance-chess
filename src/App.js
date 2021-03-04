@@ -45,6 +45,7 @@ const App = (props) => {
     props.onDiscardAllCardsP2();
   }
 
+
   const shuffle = (array) => {
     console.log(`array:${array}`)
     props.onShuffle(array);
@@ -86,7 +87,7 @@ const App = (props) => {
           <div className="actions-container">
             <div className="p2Actions">
               <Button style={{ backgroundColor: 'red', color: 'white', marginBottom: '15px' }} onClick={props.onStartNewGame}>
-                Reset Game
+                Resign
             </Button>
               <Key />
               <Button onClick={discardAllP2} style={{ backgroundColor: 'red', color: 'white', marginBottom: '15px' }}>
@@ -99,7 +100,7 @@ const App = (props) => {
 
             <div className="p1Actions">
               <Button style={{ backgroundColor: 'red', color: 'white', marginBottom: '15px' }} onClick={props.onStartNewGame}>
-                Reset Game
+                Resign
             </Button>
               <Key />
               <Button onClick={discardAllP1} style={{ backgroundColor: 'red', color: 'white', marginBottom: '15px' }}>

@@ -6,6 +6,7 @@ import { deselectCard } from '../redux/actions/cardActions'
 import PropTypes from "prop-types";
 
 import backCardImg from "../style/images/backCardImg.png";
+import chessLogo from "../images/luckyRookFAV2.png";
 import heart from "../style/images/heart.png";
 import diamond from "../style/images/diamond.png";
 import club from "../style/images/club.png";
@@ -148,7 +149,7 @@ const Card = (props) => {
   } else {
     return (
       <>
-        <div className="deck-container" style={{ backgroundImage: `url(${backCardImg})`, color: `${color}` }}></div>
+        <div className="deck-container" style={{ backgroundImage: `url(${backCardImg})`, backgroundColor: 'lightgray' }}></div>
       </>
     );
   };

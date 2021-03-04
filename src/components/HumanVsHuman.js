@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Chess from "chess.js";
+import Chess from "./Chess.js";
 import { connect } from 'react-redux';
 import { changeTurn, removeSelectedCard } from "../redux/actions/cardActions";
-
 
 class HumanVsHuman extends Component {
     static propTypes = { children: PropTypes.func };
@@ -23,31 +22,34 @@ class HumanVsHuman extends Component {
         history: [],
     };
 
-    squareStyling = ({ pieceSquare, history }) => {
-        const sourceSquare = history.length && history[history.length - 1].from;
-        const targetSquare = history.length && history[history.length - 1].to;
+    // squareStyling = ({ pieceSquare, history }) => {
+    //     const sourceSquare = history.length && history[history.length - 1].from;
+    //     const targetSquare = history.length && history[history.length - 1].to;
 
-        return {
-            [pieceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
-            ...(history.length && {
-                [sourceSquare]: {
-                    backgroundColor: "rgba(255, 255, 0, 0.4)"
-                }
-            }),
-            ...(history.length && {
-                [targetSquare]: {
-                    backgroundColor: "rgba(255, 255, 0, 0.4)"
-                }
-            })
-        };
-    };
+    //     return {
+    //         [pieceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
+    //         ...(history.length && {
+    //             [sourceSquare]: {
+    //                 backgroundColor: "rgba(255, 255, 0, 0.4)"
+    //             }
+    //         }),
+    //         ...(history.length && {
+    //             [targetSquare]: {
+    //                 backgroundColor: "rgba(255, 255, 0, 0.4)"
+    //             }
+    //         })
+    //     };
+    // };
 
 
     componentDidMount() {
         this.game = new Chess();
+
+
     }
 
 
+    // you could try prevState with the fen doesnt match fen
 
     set_turn = (chess, color) => {
         var tokens = chess.fen().split(' ');
@@ -55,11 +57,11 @@ class HumanVsHuman extends Component {
         chess.load(tokens.join(' '));
     }
 
+
     // Resets the board to starting position
     componentDidUpdate(prevProps) {
         let whiteToMove = this.props.whiteToMove;
 
-        //  if newBoard prop changes, reset the board position to "start"
         if (this.props.newBoard !== prevProps.newBoard) {
             this.game = new Chess();
             this.setState((state, props) => ({
@@ -68,18 +70,16 @@ class HumanVsHuman extends Component {
             }))
         }
 
-        // if the "forceMove" prop changes, force the turn to change
-        // if (whiteToMove && (this.props.forceMove !== prevProps.forceMove)) {
-        //     this.set_turn(this.game, 'b')
-        // } else if (!whiteToMove && (this.props.forceMove !== prevProps.forceMove)) {
-        //     this.set_turn(this.game, 'w')
-        // }
-        if ((whiteToMove === true) && (this.props.forceMove !== prevProps.forceMove)) {
+
+        else if (whiteToMove) {
             this.set_turn(this.game, 'w')
-        } else if ((whiteToMove === false) && (this.props.forceMove !== prevProps.forceMove)) {
+        }
+        else if (!whiteToMove) {
             this.set_turn(this.game, 'b')
         }
+
     }
+
 
 
 
@@ -140,160 +140,32 @@ class HumanVsHuman extends Component {
     };
 
 
-
-
-
     onDrop = ({ sourceSquare, targetSquare }) => {
-        let selected = this.props.selectedCard
-        if (selected === null) return;
+        // let selected = this.props.selectedCard
+        // if (selected === null) return;
 
         // see if the move is legal
         let move = this.game.move({
-
             from: sourceSquare,
             to: targetSquare,
             promotion: "q"
         });
 
+        // console.log(move.from, move.to)
         if (move === null) return;
 
-        this.setState(({ history, pieceSquare }) => ({
+        // this.setState(({ history, pieceSquare }) => ({
+        //     fen: this.game.fen(),
+        //     history: this.game.history({ verbose: true }),
+        // }));
+        this.setState({
             fen: this.game.fen(),
             history: this.game.history({ verbose: true }),
-            squareStyles: this.squareStyling({ pieceSquare, history })
-        }));
+        });
 
         this.props.onRemoveSelected(this.props.selectedCard.cardIndex)
         this.props.onChangeTurn();
 
-    };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    squareStyling = ({ pieceSquare, history }) => {
-        const sourceSquare = history.length && history[history.length - 1].from;
-        const targetSquare = history.length && history[history.length - 1].to;
-
-        return {
-            [pieceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
-            ...(history.length && {
-                [sourceSquare]: {
-                    backgroundColor: "rgba(255, 255, 0, 0.4)"
-                }
-            }),
-            ...(history.length && {
-                [targetSquare]: {
-                    backgroundColor: "rgba(255, 255, 0, 0.4)"
-                }
-            })
-        };
-    };
-
-    // keep clicked square style and remove hint squares
-    removeHighlightSquare = () => {
-        this.setState(({ pieceSquare, history }) => ({
-            squareStyles: this.squareStyling({ pieceSquare, history })
-        }));
-    };
-
-    // show possible moves
-    highlightSquare = (sourceSquare, squaresToHighlight) => {
-        const highlightStyles = [sourceSquare, ...squaresToHighlight].reduce(
-            (a, c) => {
-                return {
-                    ...a,
-                    ...{
-                        [c]: {
-                            background:
-                                "radial-gradient(circle, #fffc00 36%, transparent 40%)",
-                            borderRadius: "50%"
-                        }
-                    },
-                    ...this.squareStyling({
-                        history: this.state.history,
-                        pieceSquare: this.state.pieceSquare
-                    })
-                };
-            },
-            {}
-        );
-
-        this.setState(({ squareStyles }) => ({
-            squareStyles: { ...squareStyles, ...highlightStyles }
-        }));
-    };
-
-
-    onMouseOverSquare = square => {
-        // get list of possible moves for this square
-        let moves = this.game.moves({
-            square: square,
-            verbose: true
-        });
-
-        // exit if there are no moves available for this square
-        if (moves.length === 0) return;
-
-        let squaresToHighlight = [];
-        for (var i = 0; i < moves.length; i++) {
-            squaresToHighlight.push(moves[i].to);
-        }
-
-        this.highlightSquare(square, squaresToHighlight);
-    };
-
-    onMouseOutSquare = square => this.removeHighlightSquare(square);
-
-    // central squares get diff dropSquareStyles
-    onDragOverSquare = square => {
-        this.setState({
-            dropSquareStyle:
-                square === "e4" || square === "d4" || square === "e5" || square === "d5"
-                    ? { backgroundColor: "cornFlowerBlue" }
-                    : { boxShadow: "inset 0 0 1px 4px rgb(255, 255, 0)" }
-        });
-    };
-
-    onSquareClick = square => {
-        this.setState(({ history }) => ({
-            squareStyles: this.squareStyling({ pieceSquare: square, history }),
-            pieceSquare: square
-        }));
-
-        let move = this.game.move({
-            from: this.state.pieceSquare,
-            to: square,
-            promotion: "q" // always promote to a queen for example simplicity
-        });
-        if (move === null) return;
-
-        this.setState({
-            fen: this.game.fen(),
-            history: this.game.history({ verbose: true }),
-            pieceSquare: ""
-        });
     };
 
     render() {
@@ -306,10 +178,7 @@ class HumanVsHuman extends Component {
             onDrop: this.onDrop,
             onDragStart: this.onDragStart,
             draggable: true,
-            dropSquareStyle,
-            onDragOverSquare: this.onDragOverSquare,
-            onSquareClick: this.onSquareClick,
-            onSquareRightClick: this.onSquareRightClick
+            dropSquareStyle
         });
     }
 }
