@@ -17,13 +17,11 @@
 .card-slot {
     display: flex;
     align-items: center;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
-
-    // height: 320px;
+    // box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
     margin: 8px;
     width: 430px;
     background-color: #277714;
-    border-radius: 6%;
+    border-radius: 10px;
     border: 2px solid orange;
 }
 

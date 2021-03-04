@@ -20,6 +20,9 @@ body {
   flex-direction: column;
   text-align: center;
   width: 170px;
+  background-color: #282727;
+  border-left: 2px solid orange;
+  border-radius: 10px;
   /* border-radius: 4%; */
   /* background-image: url('./style/images/chess-wood.jpg'); */
   /* background-size: cover; */

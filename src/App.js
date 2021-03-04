@@ -47,11 +47,11 @@ const App = (props) => {
   }
 
   const startNewGame = () => {
-    // if (window.confirm('Are you sure you want to start a new game')) {
-    props.onStartNewGame()
-    // } else {
-    //   return;
-    // }
+    if (window.confirm('Are you sure you want to start a new game')) {
+      props.onStartNewGame()
+    } else {
+      return;
+    }
   }
 
   const shuffle = (array) => {
@@ -122,27 +122,6 @@ const App = (props) => {
           <div className="actions-container">
             <div className="p2Actions">
               <h3 style={{ fontStyle: 'italic' }}>Player Two</h3>
-              <Button
-                onClick={discardAllP2}
-                style={{
-                  backgroundColor: '#2b2b2b',
-                  color: 'white',
-                  border: '1px solid black'
-                }}>
-                Discard All
-              </Button>
-              <Button
-                style={{
-                  backgroundColor: '#277714',
-                  color: 'white',
-                  border: '1px solid black',
-                  // width: '100%',
-                  margin: '20px 0'
-                }}
-                onClick={getCardP2}
-              >
-                Draw Cards
-              </Button>
               <button
                 style={{
                   backgroundColor: '#565656',
@@ -154,7 +133,27 @@ const App = (props) => {
                 }}
               >
                 🏳
-                  </button>
+              </button>
+              <Button
+                onClick={discardAllP2}
+                style={{
+                  backgroundColor: '#2b2b2b',
+                  margin: '20px 0px',
+                  color: 'white',
+                  border: '1px solid black'
+                }}>
+                Discard All
+              </Button>
+              <Button
+                style={{
+                  backgroundColor: '#277714',
+                  color: 'white',
+                  border: '1px solid black'
+                }}
+                onClick={getCardP2}
+              >
+                Draw Cards
+              </Button>
             </div>
 
             {/* ************************* BUTTONS FOR BOTH PLAYERS *****************************************/}
