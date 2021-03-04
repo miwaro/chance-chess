@@ -58,7 +58,7 @@ class KeySidebar extends Component {
                             className='title'
                             onClick={this.toggleDrawer(anchor, true)}
                         >
-                            <Button variant="contained" style={{ backgroundColor: '#522ff0d4', color: 'white' }}>Key</Button>
+                            <Button variant="contained" style={{ backgroundColor: 'white', color: 'black', border: '1px solid black' }}>Key</Button>
 
                         </div>
 

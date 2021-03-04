@@ -150,6 +150,8 @@ const Card = (props) => {
     return (
       <>
         <div className="deck-container" style={{ backgroundImage: `url(${backCardImg})`, backgroundColor: 'lightgray' }}></div>
+        {/* <div className="deck-container" style={{ backgroundImage: `url(${chessLogo})`, backgroundColor: 'lightgray', height: '50%' }}></div> */}
+        {/* <div><img className="deck-container" src={chessLogo} alt="lucky rook logo" /></div> */}
       </>
     );
   };

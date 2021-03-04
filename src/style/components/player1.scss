@@ -6,7 +6,16 @@
 
 .card-containers {
     display: flex;
+    padding-right: 10px;
     flex-direction: column;
-    justify-content: space-between;
-    // height: 738px;
+    justify-content: space-around;
+    border-right: 2px solid orange;
+}
+
+.p1Actions {
+    // border: 3px solid black;
+    padding: 18px;
+    // background-color: #522ff0d4;
+    // background-color: black;
+    // border-radius: 10px;
 }

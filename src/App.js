@@ -46,8 +46,19 @@ const App = (props) => {
     props.onDiscardAllCardsP2();
   }
 
+  const startNewGame = () => {
+    if (window.confirm('Are you sure you want to start a new game')) {
+      props.onStartNewGame()
+    } else {
+      return;
+    }
+  }
 
   const shuffle = (array) => {
+    if (props.cardsArray.length !== 0) {
+      alert('You must go through the whole deck before you shuffle')
+      return;
+    }
     console.log(`array:${array}`)
     props.onShuffle(array);
   }
@@ -62,7 +73,7 @@ const App = (props) => {
             <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} />
 
             {props.cardsArray.length > 0 &&
-              <div style={{ display: "flex", justifyContent: "center", margin: "0 auto 0 250px", height: 282 }}>
+              <div style={{ display: "flex", justifyContent: "center", height: '160px' }}>
                 {props.cardsArray && props.cardsArray.map((card, index) => {
                   return (
                     <div key={index}>
@@ -72,49 +83,106 @@ const App = (props) => {
                 })}
               </div>
             }
-            <div style={{ paddingLeft: '20px' }}>{props.cardsArray.length} cards remain</div>
+            <div>
+              <Button onClick={() => shuffle(props.cardsArray)} style={{ backgroundColor: 'grey', color: 'white', width: '68%', margin: '0 10px' }}>Shuffle</Button>
+              {props.cardsArray.length} cards remain
+            </div>
 
-            {props.cardsArray.length === 0 &&
-              <Button onClick={() => shuffle(props.cardsArray)} style={{ backgroundColor: 'orange' }}>Shuffle</Button>
-            }
+
+
             <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} />
           </div>
 
           <div className="actions-container">
-            <div className="p2Actions">
-              <Button onClick={discardAllP2} style={{ backgroundColor: '#ccc', color: 'black', marginBottom: '15px' }}>
+            <div className="p1Actions">
+              <Button
+                onClick={discardAllP2}
+                style={{
+                  backgroundColor: 'grey',
+                  color: 'black',
+                  border: '1px solid black'
+                }}>
                 Discard All
-                        </Button>
-              <Button style={{ backgroundColor: 'orange' }} onClick={getCardP2}>
+              </Button>
+              <Button
+                style={{
+                  backgroundColor: 'white',
+                  color: 'black',
+                  border: '1px solid black',
+                  margin: '20px 0'
+                }}
+                onClick={getCardP2}
+              >
                 Draw Cards
-            </Button>
+              </Button>
+              <button
+                style={{
+                  backgroundColor: 'black',
+                  color: 'white',
+                  border: '1px solid black',
+                  fontSize: '24px'
+                }}
+              >
+                🏳
+                  </button>
             </div>
+
             {/* ************************* BUTTONS FOR BOTH PLAYERS *****************************************/}
-            <Key />
-            <Button style={{ backgroundColor: 'red', color: 'white', borderRadius: '50%', height: '80px', width: '80px', border: '2px solid orange' }} onClick={props.onStartNewGame}>
-              Start Game
-            </Button>
-            <Rules />
+
+            <div>
+              <Rules />
+              <Button style={{
+                backgroundColor: '#277714',
+                color: 'white',
+                margin: '10px 0'
+              }}
+                onClick={startNewGame}>
+                Start Game
+                </Button>
+              <Key />
+            </div>
             {/* *************************************************************************************************************** */}
             <div className="p1Actions">
-              <Button onClick={discardAllP1} style={{ backgroundColor: '#ccc', color: 'black', marginBottom: '15px' }}>
+              <button
+                style={{
+                  backgroundColor: 'black',
+                  color: 'white',
+                  border: '1px solid black',
+                  fontSize: '24px'
+                }}>
+                🏳
+              </button>
+              <Button
+                onClick={discardAllP1}
+                style={{
+                  backgroundColor: 'grey',
+                  color: 'black',
+                  border: '1px solid black',
+                  margin: '20px 0'
+                }}>
                 Discard All
-                        </Button>
-              <Button style={{ backgroundColor: 'orange' }} onClick={getCardP1}>
+              </Button>
+              {/* <Button
+                style={{
+                  backgroundColor: 'orange',
+                  border: '1px solid black'
+                }}
+                onClick={getCardP1}
+              >
+                Play Combo
+              </Button> */}
+              <Button
+                style={{
+                  backgroundColor: 'white',
+                  border: '1px solid black'
+                }}
+                onClick={getCardP1}
+              >
                 Draw Cards
-            </Button>
+              </Button>
             </div>
           </div>
-
-
-
-
-
-
-
-
         </div>
-
       </div>
     </div>
   );
@@ -127,7 +195,6 @@ const mapStateToProps = (state) => {
     newBoard: state.chanceChessReducer.newBoard,
     whiteToMove: state.chanceChessReducer.whiteToMove,
     cardsArray: state.chanceChessReducer.cardsArray
-
   }
 }
 

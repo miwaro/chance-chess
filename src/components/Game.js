@@ -11,11 +11,11 @@ function Board() {
                 {({
                     position,
                     onDragStart,
-                    draggable,
                     onDrop,
                     onMouseOverSquare,
                     onMouseOutSquare,
                     orientation,
+                    draggable,
                     squareStyles,
                     dropSquareStyle,
                     onDragOverSquare,
@@ -23,23 +23,24 @@ function Board() {
                 }) => (
                     < Chessboard
                         id="humanVsHuman"
-                        width={700}
+                        width={720}
                         // roughSquare={roughSquare}
                         position={position}
                         allowDrag={onDragStart}
                         onMouseOverSquare={onMouseOverSquare}
                         onMouseOutSquare={onMouseOutSquare}
-                        draggable={draggable}
+                        draggable={onDragStart}
                         onDrop={onDrop}
                         orientation={orientation}
                         boardStyle={{
-                            cursor: PointerEvent,
+                            // cursor: PointerEvent,
                             borderRadius: "5px",
-                            border: '15px ridge orange',
+                            border: '5px ridge orange',
+                            marginRight: '15px',
                             boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,
                         }}
-                        lightSquareStyle={{ backgroundColor: "AliceBlue" }}
-                        darkSquareStyle={{ backgroundColor: "#522ff0d4" }}
+                        // lightSquareStyle={{ backgroundColor: "AliceBlue" }}
+                        // darkSquareStyle={{ backgroundColor: "#522ff0d4" }}
                         squareStyles={squareStyles}
                         onDragOverSquare={onDragOverSquare}
                         dropSquareStyle={dropSquareStyle}

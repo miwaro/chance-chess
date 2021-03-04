@@ -25,7 +25,7 @@ class RulesSidebar extends Component {
             style={{ width: '350px', padding: '10px 20px' }}
             role="presentation"
         >
-            <h2 className='sidebar-title'>Key</h2>
+            <h2 className='sidebar-title'>Rules</h2>
             <section>
                 <Rules />
             </section>
@@ -58,7 +58,7 @@ class RulesSidebar extends Component {
                             className='title'
                             onClick={this.toggleDrawer(anchor, true)}
                         >
-                            <Button variant="contained" style={{ backgroundColor: '#522ff0d4', color: 'white' }}>Rules</Button>
+                            <Button variant="contained" style={{ backgroundColor: 'white', color: 'black', border: '1px solid black' }}>Rules</Button>
 
                         </div>
 
