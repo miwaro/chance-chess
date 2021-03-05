@@ -88,9 +88,12 @@ const App = (props) => {
         <div className="Board">
           <Board />
           <div className='card-containers'>
-            <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
-
-
+            {props.whiteToMove &&
+              <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
+            }
+            {!props.whiteToMove &&
+              <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
+            }
 
             <Button
               style={{
@@ -128,7 +131,13 @@ const App = (props) => {
               </Button>
               {props.cardsArray.length} cards remain
             </div>
-            <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
+            {/* <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} /> */}
+            {props.whiteToMove &&
+              <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
+            }
+            {!props.whiteToMove &&
+              <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
+            }
             <Button
               style={{
                 backgroundColor: '#2b2b2b',

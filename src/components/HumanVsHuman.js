@@ -39,8 +39,6 @@ class HumanVsHuman extends Component {
     componentDidUpdate(prevProps) {
         let whiteToMove = this.props.whiteToMove;
 
-
-
         if (this.props.newBoard !== prevProps.newBoard) {
             this.game = new Chess();
             this.setState((state, props) => ({
