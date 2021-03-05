@@ -39,6 +39,8 @@ class HumanVsHuman extends Component {
     componentDidUpdate(prevProps) {
         let whiteToMove = this.props.whiteToMove;
 
+
+
         if (this.props.newBoard !== prevProps.newBoard) {
             this.game = new Chess();
             this.setState((state, props) => ({
@@ -53,6 +55,18 @@ class HumanVsHuman extends Component {
         else if (!whiteToMove) {
             this.set_turn(this.game, 'b')
         }
+
+        if (this.props.player1Cards !== prevProps.player1Cards && !whiteToMove) {
+            this.setState({ orientation: 'black' })
+        }
+
+
+        if (this.props.player2Cards !== prevProps.player2Cards && whiteToMove) {
+            this.setState({ orientation: 'white' })
+        }
+
+
+
 
     }
 
@@ -163,6 +177,8 @@ class HumanVsHuman extends Component {
     };
 
 
+
+
     onDrop = ({ sourceSquare, targetSquare }) => {
         let whiteToMove = this.props.whiteToMove;
 
@@ -209,7 +225,7 @@ class HumanVsHuman extends Component {
             this.props.onChangeTurn();
         }
 
-        if (!whiteToMove && move.piece !== selected.cardPiece) {
+        if (!whiteToMove && selected.length === 0) {
             this.props.onDiscardAllCardsP2()
             this.props.onChangeTurn();
         }
@@ -217,6 +233,8 @@ class HumanVsHuman extends Component {
 
         this.props.onRemoveSelected(this.props.selectedCard.cardIndex)
         this.props.onChangeTurn();
+
+
 
     };
 

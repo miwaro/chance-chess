@@ -75,12 +75,6 @@ const reducer = (state = initialState, action) => {
             }
         // *********************************************************************************************
 
-        // return {
-        //     ...state,
-        //     player1Cards: [],
-        //     player2Cards: [],
-        // newBoard: !state.newBoard,
-        // }
 
         case actionTypes.GET_CARD:
             // Todo: Restore the deck when the cards run out.
@@ -107,7 +101,7 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.GET_PLAYER2_CARD:
 
-            let player2Cards = state.player2Cards;
+            player2Cards = state.player2Cards;
 
             let cardsPickedArrayPlayer2 = [...state.player2Cards, player2Cards];
             cardsArray = state.cardsArray;
@@ -174,26 +168,10 @@ const reducer = (state = initialState, action) => {
         //     }
 
         case actionTypes.SELECT_ALL:
-            // let allSelected = state.allSelected;
-            // let selectedCard = [];
-            // player1Cards = [...state.player1Cards];
-            // player2Cards = [...state.player2Cards];
             whiteToMove = state.whiteToMove;
-
-            // if (allSelected && whiteToMove) {
-            //     player1Cards.forEach(card => {
-            //         selectedCard.push(card);
-            //     })
-            // }
-
-            // if (allSelected && !whiteToMove) {
-            //     player2Cards.forEach(card => {
-            //         selectedCard.push(card);
-            //     })
-            // }
-
             return {
                 ...state,
+                selectedCard: [],
                 allSelected: !state.allSelected
             }
 
@@ -204,25 +182,23 @@ const reducer = (state = initialState, action) => {
                 whiteToMove: !state.whiteToMove
             }
 
-
         case actionTypes.SHUFFLE:
 
-            let { deckArray } = action;
+            // let { deckArray } = action;
+            let deck = action.deckArray
             player1Cards = state.player1Cards;
+            player2Cards = state.player2Cards;
 
-            cardsPickedP1 = [...state.player1Cards, player1Cards];
+            let playerCards = player1Cards.concat(player2Cards);
 
-            // let cardsPickedP1 = state.player1Cards;
-            // let cardsPickedP2 = state.player2Cards;
-
-            let cardsPickedP1Index = cardsPickedP1.map(card => card.index).join('');
-            // let cardsPickedP2Index = cardsPickedP2.map(card => card.index).join('');
+            let playerCardIndexes = playerCards.map(card => card.index);
 
             let newCardArray = [];
 
-            for (let i = 0; i < deckArray.length; i++) {
-                if (deckArray[i].index !== cardsPickedP1Index) {
-                    newCardArray.push(deckArray[i])
+
+            for (let i = 0; i < deck.length; i++) {
+                if (deck[i].index !== playerCardIndexes) {
+                    newCardArray.push(deck[i])
                 }
             }
 
@@ -230,6 +206,15 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 cardsArray: newCardArray
             }
+
+
+
+
+
+        // let cardsPickedP1Index = cardsPickedP1.map(card => card.index).join('');
+
+
+
 
 
 

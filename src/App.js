@@ -24,11 +24,7 @@ const App = (props) => {
 
 
   const selectAllCards = (selectedCards) => {
-    // let whiteToMove = props.whiteToMove;
 
-    // if (!whiteToMove) {
-    //   return;
-    // }
     let suits = selectedCards.map(card => card.suits);
 
     let clubs = suits.every(suit => suit === 'Club')
@@ -38,7 +34,6 @@ const App = (props) => {
     let hearts = suits.every(suit => suit === 'Heart')
 
     let len = selectedCards.length;
-
     if ((clubs && len === 3) || (diamonds && len === 3) || (spades && len === 3) || (hearts && len === 3)) {
       props.onSelectAll(selectedCards);
     }
@@ -78,11 +73,11 @@ const App = (props) => {
   }
 
   const shuffle = (array) => {
-    if (props.cardsArray.length !== 0) {
-      alert('You must go through the whole deck before you shuffle')
-      return;
-    }
-    console.log(`array:${array}`)
+    // if (props.cardsArray.length !== 0) {
+    //   alert('You must go through the whole deck before you shuffle')
+    //   return;
+    // }
+    console.log(`array:${array.length}`)
     props.onShuffle(array);
   }
 

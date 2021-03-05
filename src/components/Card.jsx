@@ -32,7 +32,7 @@ import "../style/components/playerCard.scss";
 const Card = (props) => {
 
   const { suits, card, front, color, cardIndex, cardPiece, allCardsSelected } = props;
-  console.log(props)
+  // console.log(props)
 
   const [isNotSelected, setIsSelected] = useState(false)
   // const [change, setChange] = useState(false)
