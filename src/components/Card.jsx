@@ -31,7 +31,8 @@ import "../style/components/playerCard.scss";
 
 const Card = (props) => {
 
-  const { suits, card, front, color, cardIndex, cardPiece } = props;
+  const { suits, card, front, color, cardIndex, cardPiece, allCardsSelected } = props;
+  console.log(props)
 
   const [isNotSelected, setIsSelected] = useState(false)
   // const [change, setChange] = useState(false)
@@ -94,10 +95,30 @@ const Card = (props) => {
 
 
 
+  // const getCardInformation = (card, cardIndex, cardPiece) => {
+  //   if (props.disabled) {
+  //     return;
+  //   }
+  //   setIsSelected(!isNotSelected)
+
+  //   const turn = props.whiteToMove
+
+
+  //   props.onSelectCard(card, cardIndex, cardPiece, turn);
+
+
+  //   if (isNotSelected) {
+  //     props.onDeselectCard(cardIndex)
+  //   }
+
+  // }
+
   const getCardInformation = (card, cardIndex, cardPiece) => {
     if (props.disabled) {
       return;
     }
+
+
     setIsSelected(!isNotSelected)
 
     const turn = props.whiteToMove
@@ -113,10 +134,9 @@ const Card = (props) => {
   }
 
 
-
-
   const selectedCardIndex = props.selectedCard ? props.selectedCard.cardIndex : -1;
-  let btn_class = selectedCardIndex === cardIndex ? "clicked-card" : "card";
+  // let btn_class = !allCardsSelected ? "clicked-card" : "card";
+  let btn_class = selectedCardIndex === cardIndex || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
 
   if (front) {
     const cardSymbol = getCardSymbol(suits);
@@ -127,7 +147,7 @@ const Card = (props) => {
       <div
         className={btn_class}
         style={{ color: `${color}`, isNotSelected: isNotSelected }}
-        onClick={() => getCardInformation(card, cardIndex, cardPiece)}
+        onClick={() => getCardInformation(card, cardIndex, cardPiece, allCardsSelected)}
       >
         <div style={{ position: "absolute", top: 5, left: 5 }}>
           <div style={{ maxWidth: 25 }}>{card}</div>

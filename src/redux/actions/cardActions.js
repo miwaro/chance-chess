@@ -10,10 +10,26 @@ export const selectCard = (cardValue, cardIndex, cardPiece, turn) => {
     };
 };
 
+
 export const deselectCard = (selectedCardIndex) => {
     return {
         type: 'DESELECT_CARD',
         selectedCardIndex
+    };
+};
+
+export const selectAll = () => {
+    return {
+        type: 'SELECT_ALL'
+    };
+};
+
+export const deselectAll = (cardValues, cardIndexes, cardPieces) => {
+    return {
+        type: 'DESELECT_ALL',
+        cardValues,
+        cardIndexes,
+        cardPieces
     };
 };
 

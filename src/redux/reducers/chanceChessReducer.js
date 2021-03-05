@@ -6,12 +6,13 @@ const initialState = {
     player2Cards: [],
     newBoard: false,
     whiteToMove: true,
-    forceMove: false,
     cardsArray: deckArray,
-    selectedCard: null
+    selectedCard: [],
+    allSelected: false,
 }
 
 const reducer = (state = initialState, action) => {
+    console.log(`state: ${state} action: ${action}`)
     let cardsArray;
     let randomCard;
     let randomItem;
@@ -24,11 +25,11 @@ const reducer = (state = initialState, action) => {
     let selectedCard;
     let p1Cards;
     let player1Cards;
+    let player2Cards;
     let whiteToMove;
     let cardsPickedP1;
     let cardsPickedArrayForPlayer1;
     let cardsPickedArrayForPlayer2;
-
 
     switch (action.type) {
         case actionTypes.START_NEW_GAME:
@@ -143,9 +144,58 @@ const reducer = (state = initialState, action) => {
             selectedCard = state.selectedCard
             return {
                 ...state,
-                selectedCard: null
+                selectedCard: []
             }
 
+        // case actionTypes.SELECT_ALL:
+        //     const { cards } = action;
+
+        //     let selectedCards = this.state.selectedCards
+        //     selectedCards = { cards };
+        //     player1Cards = state.player1Cards;
+
+
+        //     isSelected = state.allSelected;
+
+        //     let suits = selectedCards.map(card => card.suits);
+
+        //     let clubs = suits.every(suit => suit === 'Club')
+        //     let diamonds = suits.every(suit => suit === 'Diamond')
+        //     let spades = suits.every(suit => suit === 'Spade')
+        //     let hearts = suits.every(suit => suit === 'Heart')
+
+        //     if ((clubs || diamonds || spades || hearts) && selectedCards.length === 3) {
+        //         return isSelected = !isSelected
+        //     }
+        //     return {
+        //         ...state,
+        //         isSelected: !state.allSelected,
+        //         selectedCards
+        //     }
+
+        case actionTypes.SELECT_ALL:
+            // let allSelected = state.allSelected;
+            // let selectedCard = [];
+            // player1Cards = [...state.player1Cards];
+            // player2Cards = [...state.player2Cards];
+            whiteToMove = state.whiteToMove;
+
+            // if (allSelected && whiteToMove) {
+            //     player1Cards.forEach(card => {
+            //         selectedCard.push(card);
+            //     })
+            // }
+
+            // if (allSelected && !whiteToMove) {
+            //     player2Cards.forEach(card => {
+            //         selectedCard.push(card);
+            //     })
+            // }
+
+            return {
+                ...state,
+                allSelected: !state.allSelected
+            }
 
         case actionTypes.CHANGE_TURN:
 

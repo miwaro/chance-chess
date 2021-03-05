@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from 'react-redux';
 
 import "./App.css";
@@ -16,11 +16,34 @@ import Rules from './components/RulesSidebar'
 import { startNewGame } from "./redux/actions/cardActions";
 import { discardAllP1Cards, getCard } from "./redux/actions/cardActions";
 import { getPlayer2Card, discardAllP2Cards, shuffle } from "./redux/actions/cardActions";
+import { selectAll } from "./redux/actions/cardActions";
 
 
 
 const App = (props) => {
-  console.log(props)
+
+
+  const selectAllCards = (selectedCards) => {
+    // let whiteToMove = props.whiteToMove;
+
+    // if (!whiteToMove) {
+    //   return;
+    // }
+    let suits = selectedCards.map(card => card.suits);
+
+    let clubs = suits.every(suit => suit === 'Club')
+
+    let diamonds = suits.every(suit => suit === 'Diamond')
+    let spades = suits.every(suit => suit === 'Spade')
+    let hearts = suits.every(suit => suit === 'Heart')
+
+    let len = selectedCards.length;
+
+    if ((clubs && len === 3) || (diamonds && len === 3) || (spades && len === 3) || (hearts && len === 3)) {
+      props.onSelectAll(selectedCards);
+    }
+
+  }
 
   const getCardP1 = () => {
     let whiteToMove = props.whiteToMove;
@@ -47,11 +70,11 @@ const App = (props) => {
   }
 
   const startNewGame = () => {
-    if (window.confirm('Are you sure you want to start a new game')) {
-      props.onStartNewGame()
-    } else {
-      return;
-    }
+    // if (window.confirm('Are you sure you want to start a new game')) {
+    props.onStartNewGame()
+    // } else {
+    // return;
+    // }
   }
 
   const shuffle = (array) => {
@@ -70,17 +93,20 @@ const App = (props) => {
         <div className="Board">
           <Board />
           <div className='card-containers'>
+            <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
+
+
+
             <Button
               style={{
                 backgroundColor: '#2b2b2b',
                 color: 'white',
-                marginTop: '8px'
+                marginBottom: '8px'
               }}
+              onClick={() => selectAllCards(props.player2Cards)}
             >
               Select All
             </Button>
-
-            <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} />
 
             {props.cardsArray.length > 0 &&
               <div style={{ display: "flex", justifyContent: "center", height: '160px' }}>
@@ -107,13 +133,14 @@ const App = (props) => {
               </Button>
               {props.cardsArray.length} cards remain
             </div>
-            <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} />
+            <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
             <Button
               style={{
                 backgroundColor: '#2b2b2b',
                 color: 'white',
                 marginBottom: '8px'
               }}
+              onClick={() => selectAllCards(props.player1Cards)}
             >
               Select All
             </Button>
@@ -224,16 +251,20 @@ const App = (props) => {
 };
 
 const mapStateToProps = (state) => {
+  // console.log(`app state: ${state}`)
+  // console.log(state)
   return {
     player1Cards: state.chanceChessReducer.player1Cards,
     player2Cards: state.chanceChessReducer.player2Cards,
     newBoard: state.chanceChessReducer.newBoard,
     whiteToMove: state.chanceChessReducer.whiteToMove,
-    cardsArray: state.chanceChessReducer.cardsArray
+    cardsArray: state.chanceChessReducer.cardsArray,
+    allSelected: state.chanceChessReducer.allSelected
   }
 }
 
 const mapDispatchToProps = dispatch => {
+  // console.log(`dispatch: ${dispatch}`)
   return {
     onStartNewGame: () => dispatch(startNewGame()),
     onGetCard: () => dispatch(getCard()),
@@ -241,6 +272,7 @@ const mapDispatchToProps = dispatch => {
     onGetCardForPlayer2: () => dispatch(getPlayer2Card()),
     onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
     onShuffle: (array) => dispatch(shuffle(array)),
+    onSelectAll: () => dispatch(selectAll())
   }
 }
 

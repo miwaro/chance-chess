@@ -7,6 +7,9 @@ export const GET_PLAYER2_CARD = 'GET_PLAYER2_CARD';
 export const SELECT_CARD = 'SELECT_CARD';
 export const DESELECT_CARD = 'DESELECT_CARD';
 
+export const SELECT_ALL = 'SELECT_ALL';
+export const DESELECT_ALL = 'DESELECT_ALL';
+
 export const REMOVE_SELECTED_CARD = 'REMOVE_SELECTED_CARD';
 
 export const DISCARD_ALL_P1_CARDS = 'DISCARD_ALL_P1_CARDS';

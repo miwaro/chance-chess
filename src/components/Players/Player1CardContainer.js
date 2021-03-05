@@ -9,6 +9,7 @@ import Card from '../Card';
 
 
 function Player1CardContainer(props) {
+    // console.log(`player1ContainerProps: ${props}`)
 
     return (
         <>
@@ -19,6 +20,7 @@ function Player1CardContainer(props) {
                     {props.cards.map(card => (
                         <div key={uuidv4()}>
                             <Card
+                                allCardsSelected={props.allCardsSelected}
                                 disabled={props.disableControls}
                                 cardIndex={card.index}
                                 suits={card.suits}

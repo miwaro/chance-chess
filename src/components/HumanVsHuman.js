@@ -61,10 +61,13 @@ class HumanVsHuman extends Component {
         let chessPiece = piece[1].toLowerCase();
         let column = sourceSquare[0];
         let selected = this.props.selectedCard;
+        // let p1 = this.props.player1Cards;
+        // let p2 = this.props.player2Cards;
         let player1Suits = this.props.player1Cards.map(card => card.suits);
         let player2Suits = this.props.player2Cards.map(card => card.suits);
 
-        if (selected === null) return;
+        // if (selected === null && this.props.allSelected === false) return;
+        // if (selected === null) return;
 
         let clubs = player1Suits.every(suit => suit === 'Club')
         let clubs2 = player2Suits.every(suit => suit === 'Club')
@@ -81,9 +84,11 @@ class HumanVsHuman extends Component {
         let hearts = player1Suits.every(suit => suit === 'Heart')
         let hearts2 = player1Suits.every(suit => suit === 'Heart')
         // console.log(hearts)
+        let allSelected = this.props.allSelected;
 
+        // if (selected || this.props.allSelected === true) {
+        if (selected.length !== 0 || (selected.length === 0 && allSelected === true)) {
 
-        if (selected) {
             // combo conditions
             if (clubs && chessPiece === 'n') {
                 draggable = true;
@@ -195,7 +200,11 @@ class HumanVsHuman extends Component {
         console.log(move)
 
         // If you play a combo, all of your cards will be removed and the next player will go.
-        if (whiteToMove && move.piece !== selected.cardPiece) {
+        // if (whiteToMove && move.piece !== selected.cardPiece || ) {
+        //     this.props.onDiscardAllCardsP1()
+        //     this.props.onChangeTurn();
+        // }
+        if (whiteToMove && selected.length === 0) {
             this.props.onDiscardAllCardsP1()
             this.props.onChangeTurn();
         }
@@ -204,6 +213,7 @@ class HumanVsHuman extends Component {
             this.props.onDiscardAllCardsP2()
             this.props.onChangeTurn();
         }
+        // if (whiteToMove && this.props.)
 
         this.props.onRemoveSelected(this.props.selectedCard.cardIndex)
         this.props.onChangeTurn();
@@ -227,14 +237,15 @@ class HumanVsHuman extends Component {
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state)
+    console.log(state)
     return {
         player1Cards: state.chanceChessReducer.player1Cards,
         player2Cards: state.chanceChessReducer.player2Cards,
         newBoard: state.chanceChessReducer.newBoard,
         selectedCard: state.chanceChessReducer.selectedCard,
         forceMove: state.chanceChessReducer.forceMove,
-        whiteToMove: state.chanceChessReducer.whiteToMove
+        whiteToMove: state.chanceChessReducer.whiteToMove,
+        allSelected: state.chanceChessReducer.allSelected
     }
 }
 
