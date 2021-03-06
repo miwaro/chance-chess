@@ -65,13 +65,13 @@ const App = (props) => {
   }
 
   const startNewGame = () => {
-    // let deck = props.cardsArray;
-    // if (deck.length === 0) this.shuffle();
-    // if (window.confirm('Are you sure you want to start a new game')) {
+    let deck = props.cardsArray;
+    if (deck.length < 52) {
+      window.confirm('You already started the game. Perhaps you would like to resign with the flag icon')
+      return;
+    }
     props.onStartNewGame()
-    // } else {
-    // return;
-    // }
+
   }
 
   const shuffle = (array) => {

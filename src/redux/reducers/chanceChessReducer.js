@@ -31,35 +31,29 @@ const reducer = (state = initialState, action) => {
         case actionTypes.START_NEW_GAME:
             // cardsPickedArrayForPlayer1 = [];
             // cardsPickedArrayForPlayer2 = [];
-            let deck = state.cardsArray;
-            player1Cards = [...state.player1Cards, player1Cards];
-            player2Cards = [...state.player2Cards, player2Cards];
+            let deck = [...state.cardsArray];
 
 
-
-            let cardPicked = this.state.cardPicked;
-
-            for (let i = deck.length - 1; i > 0; i--) {
-                let j = Math.floor(Math.random() * i);
-                let temp = deck[i];
-                deck[i] = deck[j];
-                deck[j] = temp;
-            }
+            player1Cards = [...state.player1Cards];
+            player2Cards = [...state.player2Cards];
 
 
             for (let i = 0; i < 3; i++) {
-                let p1Cards = cardPicked;
+                let p1Cards = player1Cards;
+                let newDeck = deck;
+                if (player1Cards.length === 3) return;
                 p1Cards.push(deck[i])
+                newDeck.shift(3)
+
             }
 
-            newCardsArray = cardsArray.filter(el =>
-                el.index !== randomItem.index &&
-                el.index !== randomItem1.index &&
-                el.index !== randomItem2.index &&
-                el.index !== randomItem3.index &&
-                el.index !== randomItem4.index &&
-                el.index !== randomItem5.index
-            )
+            for (let i = 4; i < 7; i++) {
+                let p2Cards = player2Cards;
+                let newDeck = deck;
+                if (player2Cards.length === 3) return;
+                p2Cards.push(deck[i])
+                newDeck.shift(3)
+            }
 
             return {
                 ...state,
@@ -69,16 +63,37 @@ const reducer = (state = initialState, action) => {
                 newBoard: !state.newBoard,
             }
 
-        // randomCard = () => cardsArray[Math.floor(Math.random() * cardsArray.length)];
-        // randomItem = randomCard();
-        // randomItem1 = randomCard();
-        // randomItem2 = randomCard();
-        // randomItem3 = randomCard();
-        // randomItem4 = randomCard();
-        // randomItem5 = randomCard();
 
-        // cardsPickedArrayForPlayer1.push(randomItem, randomItem1, randomItem2);
-        // cardsPickedArrayForPlayer2.push(randomItem3, randomItem4, randomItem5);
+        // this.setState({
+        //   ...this.state,
+        //   cardPicked: cardPicked
+        // })
+
+
+        // let cardPicked = this.state.cardPicked;
+
+        // for (let i = deck.length - 1; i > 0; i--) {
+        //     let j = Math.floor(Math.random() * i);
+        //     let temp = deck[i];
+        //     deck[i] = deck[j];
+        //     deck[j] = temp;
+        // }
+
+
+        // for (let i = 0; i < 3; i++) {
+        //     let p1Cards = cardPicked;
+        //     p1Cards.push(deck[i])
+        // }
+
+        // newCardsArray = cardsArray.filter(el =>
+        //     el.index !== randomItem.index &&
+        //     el.index !== randomItem1.index &&
+        //     el.index !== randomItem2.index &&
+        //     el.index !== randomItem3.index &&
+        //     el.index !== randomItem4.index &&
+        //     el.index !== randomItem5.index
+        // )
+
 
 
         case actionTypes.GET_CARD:
