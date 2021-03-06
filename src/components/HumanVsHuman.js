@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Chess from "./Chess.js";
 import { connect } from 'react-redux';
-import { changeTurn, removeSelectedCard, discardAllP1Cards, discardAllP2Cards } from "../redux/actions/cardActions";
+import { changeTurn, removeSelectedCard, discardAllP1Cards, discardAllP2Cards, shuffleOnMount } from "../redux/actions/cardActions";
 
 class HumanVsHuman extends Component {
     static propTypes = { children: PropTypes.func };
@@ -26,6 +26,7 @@ class HumanVsHuman extends Component {
 
     componentDidMount() {
         this.game = new Chess();
+        this.props.onShuffle();
     }
 
     set_turn = (chess, color) => {
@@ -72,9 +73,10 @@ class HumanVsHuman extends Component {
 
         let chessPiece = piece[1].toLowerCase();
         let column = sourceSquare[0];
+
         let selected = this.props.selectedCard;
-        // let p1 = this.props.player1Cards;
-        // let p2 = this.props.player2Cards;
+        let allSelected = this.props.allSelected;
+
         let player1Suits = this.props.player1Cards.map(card => card.suits);
         let player2Suits = this.props.player2Cards.map(card => card.suits);
 
@@ -83,24 +85,19 @@ class HumanVsHuman extends Component {
 
         let clubs = player1Suits.every(suit => suit === 'Club')
         let clubs2 = player2Suits.every(suit => suit === 'Club')
-        // console.log(clubs)
 
         let diamonds = player1Suits.every(suit => suit === 'Diamond')
         let diamonds2 = player1Suits.every(suit => suit === 'Diamond')
-        // console.log(diamonds)
 
         let spades = player1Suits.every(suit => suit === 'Spade')
         let spades2 = player1Suits.every(suit => suit === 'Spade')
-        // console.log(spades)
 
         let hearts = player1Suits.every(suit => suit === 'Heart')
         let hearts2 = player1Suits.every(suit => suit === 'Heart')
-        // console.log(hearts)
-        let allSelected = this.props.allSelected;
 
-        // if (selected || this.props.allSelected === true) {
+
+
         if (selected.length !== 0 || (selected.length === 0 && allSelected === true)) {
-
             // combo conditions
             if (clubs && chessPiece === 'n') {
                 draggable = true;
@@ -181,6 +178,7 @@ class HumanVsHuman extends Component {
         let whiteToMove = this.props.whiteToMove;
 
         let selected = this.props.selectedCard
+        let allSelected = this.props.allSelected
         console.log(`selected: ${selected}`)
         // if (selected === null) return;
 
@@ -221,6 +219,7 @@ class HumanVsHuman extends Component {
         if (whiteToMove && selected.length === 0) {
             this.props.onDiscardAllCardsP1()
             this.props.onChangeTurn();
+            allSelected = false;
         }
 
         if (!whiteToMove && selected.length === 0) {
@@ -261,7 +260,8 @@ const mapStateToProps = (state) => {
         selectedCard: state.chanceChessReducer.selectedCard,
         forceMove: state.chanceChessReducer.forceMove,
         whiteToMove: state.chanceChessReducer.whiteToMove,
-        allSelected: state.chanceChessReducer.allSelected
+        allSelected: state.chanceChessReducer.allSelected,
+        cardsArray: state.chanceChessReducer.cardsArray
     }
 }
 
@@ -270,7 +270,10 @@ const mapDispatchToProps = dispatch => {
         onChangeTurn: () => dispatch(changeTurn()),
         onRemoveSelected: (selectedCardIndex) => dispatch(removeSelectedCard(selectedCardIndex)),
         onDiscardAllCardsP1: () => dispatch(discardAllP1Cards()),
-        onDiscardAllCardsP2: () => dispatch(discardAllP2Cards())
+        onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
+        onShuffle: () => dispatch(shuffleOnMount())
+        // onSelectAll: () => dispatch(selectAll())
+
 
     }
 }

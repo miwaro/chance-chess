@@ -12,7 +12,6 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-    console.log(`state: ${state} action: ${action}`)
     let cardsArray;
     let randomCard;
     let randomItem;
@@ -27,35 +26,31 @@ const reducer = (state = initialState, action) => {
     let player1Cards;
     let player2Cards;
     let whiteToMove;
-    let cardsPickedP1;
-    let cardsPickedArrayForPlayer1;
-    let cardsPickedArrayForPlayer2;
 
     switch (action.type) {
         case actionTypes.START_NEW_GAME:
-            cardsPickedArrayForPlayer1 = [];
-            cardsPickedArrayForPlayer2 = [];
-            cardsArray = state.cardsArray;
+            // cardsPickedArrayForPlayer1 = [];
+            // cardsPickedArrayForPlayer2 = [];
+            let deck = state.cardsArray;
+            player1Cards = [...state.player1Cards, player1Cards];
+            player2Cards = [...state.player2Cards, player2Cards];
 
-            //old code that i might use to start game with 3 random cards////players unfortunately can receive the same card ****************************************************************************************
-            randomCard = () => cardsArray[Math.floor(Math.random() * cardsArray.length)];
-            randomItem = randomCard();
-            randomItem1 = randomCard();
-            randomItem2 = randomCard();
-            randomItem3 = randomCard();
-            randomItem4 = randomCard();
-            randomItem5 = randomCard();
 
-            cardsPickedArrayForPlayer1.push(randomItem, randomItem1, randomItem2);
-            cardsPickedArrayForPlayer2.push(randomItem3, randomItem4, randomItem5);
 
-            // let randomItems = [randomItem, randomItem1, randomItem2, randomItem3, randomItem4, randomItem5];
+            let cardPicked = this.state.cardPicked;
 
-            // let filteredItems = randomItems.forEach(item => {
-            //     console.log(cardsArray)
-            //     return cardsArray.filter(card => card.index !== item.index)
-            // })
-            // console.log(filteredItems)
+            for (let i = deck.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * i);
+                let temp = deck[i];
+                deck[i] = deck[j];
+                deck[j] = temp;
+            }
+
+
+            for (let i = 0; i < 3; i++) {
+                let p1Cards = cardPicked;
+                p1Cards.push(deck[i])
+            }
 
             newCardsArray = cardsArray.filter(el =>
                 el.index !== randomItem.index &&
@@ -68,12 +63,22 @@ const reducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                player1Cards: cardsPickedArrayForPlayer1,
-                player2Cards: cardsPickedArrayForPlayer2,
-                cardsArray: newCardsArray,
+                player1Cards,
+                player2Cards,
+                cardsArray: deck,
                 newBoard: !state.newBoard,
             }
-        // *********************************************************************************************
+
+        // randomCard = () => cardsArray[Math.floor(Math.random() * cardsArray.length)];
+        // randomItem = randomCard();
+        // randomItem1 = randomCard();
+        // randomItem2 = randomCard();
+        // randomItem3 = randomCard();
+        // randomItem4 = randomCard();
+        // randomItem5 = randomCard();
+
+        // cardsPickedArrayForPlayer1.push(randomItem, randomItem1, randomItem2);
+        // cardsPickedArrayForPlayer2.push(randomItem3, randomItem4, randomItem5);
 
 
         case actionTypes.GET_CARD:
@@ -141,34 +146,10 @@ const reducer = (state = initialState, action) => {
                 selectedCard: []
             }
 
-        // case actionTypes.SELECT_ALL:
-        //     const { cards } = action;
-
-        //     let selectedCards = this.state.selectedCards
-        //     selectedCards = { cards };
-        //     player1Cards = state.player1Cards;
-
-
-        //     isSelected = state.allSelected;
-
-        //     let suits = selectedCards.map(card => card.suits);
-
-        //     let clubs = suits.every(suit => suit === 'Club')
-        //     let diamonds = suits.every(suit => suit === 'Diamond')
-        //     let spades = suits.every(suit => suit === 'Spade')
-        //     let hearts = suits.every(suit => suit === 'Heart')
-
-        //     if ((clubs || diamonds || spades || hearts) && selectedCards.length === 3) {
-        //         return isSelected = !isSelected
-        //     }
-        //     return {
-        //         ...state,
-        //         isSelected: !state.allSelected,
-        //         selectedCards
-        //     }
 
         case actionTypes.SELECT_ALL:
-            whiteToMove = state.whiteToMove;
+            // whiteToMove = state.whiteToMove;
+            // let all = state.allSelected;
             return {
                 ...state,
                 selectedCard: [],
@@ -184,8 +165,7 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.SHUFFLE:
 
-            // let { deckArray } = action;
-            let deck = action.deckArray
+            deck = action.deckArray
             player1Cards = state.player1Cards;
             player2Cards = state.player2Cards;
 
@@ -206,6 +186,22 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 cardsArray: newCardArray
             }
+
+        case actionTypes.SHUFFLE_ON_MOUNT:
+
+            let shuffledDeck = state.cardsArray;
+
+            for (let i = shuffledDeck.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * i);
+                let temp = shuffledDeck[i];
+                shuffledDeck[i] = shuffledDeck[j];
+                shuffledDeck[j] = temp;
+            }
+
+            return {
+                ...state
+            }
+
 
 
 

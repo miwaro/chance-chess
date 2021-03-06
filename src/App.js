@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from 'react-redux';
 
 import "./App.css";
@@ -65,6 +65,8 @@ const App = (props) => {
   }
 
   const startNewGame = () => {
+    // let deck = props.cardsArray;
+    // if (deck.length === 0) this.shuffle();
     // if (window.confirm('Are you sure you want to start a new game')) {
     props.onStartNewGame()
     // } else {

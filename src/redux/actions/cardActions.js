@@ -82,7 +82,11 @@ export const shuffle = (deckArray) => {
     };
 };
 
-
+export const shuffleOnMount = () => {
+    return {
+        type: actionTypes.SHUFFLE_ON_MOUNT
+    };
+};
 
 
 // should Reset Game
