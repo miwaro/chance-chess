@@ -4,7 +4,6 @@
     display: flex;
     justify-content: center;
     margin-top: 15px 0;
-    // padding-bottom: 40px;
 }
 
 .actions {
@@ -17,30 +16,21 @@
 .card-slot {
     display: flex;
     align-items: center;
-    // box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
-    margin: 8px;
-    width: 430px;
+    margin: 0 8px;
+    width: 450px;
     background-color: #277714;
     border-radius: 10px;
-    border: 2px solid orange;
+    border: 4px double orange;
 }
 
   .deck-container {
-    // height: 268px;
-    height: 164px;
-    // width: 189px;
-    width: 116px;
-    // background-color: white;
+    height: 170px;
+    width: 117px;
     background-size: cover;
-    // position: relative;
-    // margin-top: 15px;
     transform: translateX(55px);
     border: 1px solid black;
     border-radius: 10px;
-    // margin-left: -188px;
     margin-left: -112px;
-    // font-size: 20px;
-    // text-align: center;
     @include transition (all, 0.25s, ease);
     @include bp-medium {
       margin-left: -195px;

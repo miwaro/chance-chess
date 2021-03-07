@@ -1,9 +1,7 @@
 body {
   background-image: url('./style/images/dark-wood.jpg');
-  /* background-image: url('./style/images/buttonsBG.jpg'); */
   background-size: cover;
   box-sizing: border-box;
-  /* background-color: #222731; */
 }
 
 .body-container {
@@ -20,21 +18,17 @@ body {
   flex-direction: column;
   text-align: center;
   width: 170px;
-  background-color: #282727;
-  border-left: 2px solid orange;
-  border-radius: 10px;
-  /* border-radius: 4%; */
-  /* background-image: url('./style/images/chess-wood.jpg'); */
-  /* background-size: cover; */
-  justify-content: space-between;
+  background-color:#4c6350;
+  justify-content: space-around;
 }
 
 .Board {
   display: flex; 
-  margin-top: 55px;
-  border: 3px solid orange;
+  margin-top: 100px;
+  border: 5px ridge orange;
   border-radius: 10px;
-  background-color: rgb(70, 72, 75);
+  /* background-color: rgb(70, 72, 75); */
+  background-color: rgb(51 85 55);
 }
 
 .App-logo {

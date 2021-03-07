@@ -15,7 +15,6 @@ function Board() {
                     onMouseOverSquare,
                     onMouseOutSquare,
                     orientation,
-                    draggable,
                     squareStyles,
                     dropSquareStyle,
                     onDragOverSquare,

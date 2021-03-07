@@ -6,21 +6,19 @@
 
 .card-containers {
     display: flex;
-    padding-right: 25px;
-    padding-left: 10px;
+    padding-right: 15px;
+    // padding-left: 10px;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
 }
 
 .p1Actions {
-    border-top: 4px double orange;
+    // border-top: 4px double orange;
     padding: 0 8px 30px 6px;
-
-
 }
 
 .p2Actions {
-    border-bottom: 4px double orange;
+    // border-bottom: 4px double orange;
     padding: 0 8px 30px 6px;
 }

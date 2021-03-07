@@ -1,12 +1,10 @@
 import * as actionTypes from './actionTypes';
 
-export const selectCard = (cardValue, cardIndex, cardPiece, turn) => {
+export const selectCard = (cardValue, cardIndex) => {
     return {
         type: 'SELECT_CARD',
         cardValue,
         cardIndex,
-        cardPiece,
-        turn
     };
 };
 
@@ -75,10 +73,11 @@ export const discardAllP2Cards = () => {
     };
 };
 
-export const shuffle = (deckArray) => {
+export const shuffle = (p1CardsIndexes, p2CardsIndexes) => {
     return {
         type: actionTypes.SHUFFLE,
-        deckArray
+        p1CardsIndexes,
+        p2CardsIndexes
     };
 };
 
