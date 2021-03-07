@@ -8,37 +8,18 @@ export const selectCard = (cardValue, cardIndex) => {
     };
 };
 
-
-export const deselectCard = (selectedCardIndex) => {
-    return {
-        type: 'DESELECT_CARD',
-        selectedCardIndex
-    };
-};
-
 export const selectAll = () => {
     return {
         type: 'SELECT_ALL'
     };
 };
 
-export const deselectAll = (cardValues, cardIndexes, cardPieces) => {
-    return {
-        type: 'DESELECT_ALL',
-        cardValues,
-        cardIndexes,
-        cardPieces
-    };
-};
 
-// should be called "draw" card
 export const getCard = () => {
     return {
         type: actionTypes.GET_CARD
     };
 };
-
-// should be called "draw" card
 
 export const getPlayer2Card = () => {
     return {

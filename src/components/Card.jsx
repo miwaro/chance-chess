@@ -32,10 +32,6 @@ import "../style/components/playerCard.scss";
 const Card = (props) => {
 
   const { suits, card, front, color, cardIndex, cardPiece, allCardsSelected } = props;
-  // console.log(props)
-
-  // const [isNotSelected, setIsSelected] = useState(false)
-  // const [change, setChange] = useState(false)
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -99,29 +95,8 @@ const Card = (props) => {
     if (props.disabled || allSelected) {
       return;
     }
-
-    // setIsSelected(!isNotSelected)
-
-    // if (!isNotSelected) {
     props.onSelectCard(card, cardIndex);
-    // }
-    console.log('selectedCardIndex', cardIndex)
-
-    // console.log('selectedCards', props.selectedCard)
-
-    if (props.selectedCard.length > 0) {
-      props.onDeselectCard(cardIndex)
-    }
-
-    // Add logic to switch between cards without extra click
-    // if (props.selectedCard.length > 0 && props.selectedCard !== props.selectedCard) {
-    //   props.onDeselectCard(cardIndex)
-    //   props.onSelectCard(card, cardIndex);
-    // }
-
-
   }
-
 
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
   let btn_class = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
@@ -167,7 +142,7 @@ const Card = (props) => {
 
           </div>
           <div style={{ position: 'absolute', bottom: '5px', right: '-18px', padding: '5px', color: 'orange', fontWeight: 'bold', backgroundColor: '#2b2b2b', borderRadius: '50%' }}>
-            {props.cardsArray.length}
+            {props.cardsArray.length - 1}
           </div>
         </div>
 
@@ -177,11 +152,10 @@ const Card = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  // console.log(state)
+
   return {
     player1Cards: state.chanceChessReducer.player1Cards,
     player2Cards: state.chanceChessReducer.player2Cards,
-    newBoard: state.chanceChessReducer.newBoard,
     whiteToMove: state.chanceChessReducer.whiteToMove,
     selectedCard: state.chanceChessReducer.selectedCard,
     cardsArray: state.chanceChessReducer.cardsArray,
@@ -190,10 +164,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => {
-  // console.log(dispatch)
+
   return {
-    onSelectCard: (card, cardIndex) => dispatch(selectCard(card, cardIndex)),
-    onDeselectCard: (cardIndex) => dispatch(deselectCard(cardIndex))
+    onSelectCard: (card, cardIndex) => dispatch(selectCard(card, cardIndex))
   }
 }
 
