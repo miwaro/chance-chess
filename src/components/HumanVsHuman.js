@@ -79,39 +79,39 @@ class HumanVsHuman extends Component {
         let p2 = this.props.player2Cards;
 
         let player1Suits = p1.map(card => card.suits);
-        console.log('player1Suits', player1Suits)
+        // console.log('player1Suits', player1Suits)
         let player2Suits = p2.map(card => card.suits);
-        console.log('player2Suits', player2Suits)
+        // console.log('player2Suits', player2Suits)
 
         if (selectedCard.length === 0 && this.props.allSelected === false) return;
 
         // Check for player1 Combos
 
         let clubs = p1 && player1Suits.every(suit => suit === 'Club')
-        console.log('clubs', clubs)
+        // console.log('clubs', clubs)
 
         let diamonds = p1 && player1Suits.every(suit => suit === 'Diamond')
-        console.log('diamonds', diamonds)
+        // console.log('diamonds', diamonds)
 
         let spades = p1 && player1Suits.every(suit => suit === 'Spade')
-        console.log('spades', spades)
+        // console.log('spades', spades)
 
         let hearts = p1 && player1Suits.every(suit => suit === 'Heart')
-        console.log('hearts', hearts)
+        // console.log('hearts', hearts)
 
         // Check for player2 Combos
 
         let clubs2 = p2 && player2Suits.every(suit => suit === 'Club')
-        console.log('clubs2', clubs2)
+        // console.log('clubs2', clubs2)
 
         let diamonds2 = p2 && player2Suits.every(suit => suit === 'Diamond')
-        console.log('diamonds2', diamonds2)
+        // console.log('diamonds2', diamonds2)
 
         let spades2 = p2 && player2Suits.every(suit => suit === 'Spade')
-        console.log('spades2', spades2)
+        // console.log('spades2', spades2)
 
         let hearts2 = p2 && player2Suits.every(suit => suit === 'Heart')
-        console.log('hearts2', hearts2)
+        // console.log('hearts2', hearts2)
 
         // console.log('draggable', draggable)
 
@@ -201,7 +201,7 @@ class HumanVsHuman extends Component {
 
 
 
-        console.log('draggable', draggable)
+        // console.log('draggable', draggable)
 
         return draggable;
     };
@@ -212,7 +212,7 @@ class HumanVsHuman extends Component {
     onDrop = ({ sourceSquare, targetSquare }) => {
         let whiteToMove = this.props.whiteToMove;
         let selected = this.props.selectedCard
-        console.log(`selected[1]: ${selected[1]}`)
+        // console.log(`selected[1]: ${selected[1]}`)
         // if (selected === null) return;
 
         // see if the move is legal
@@ -254,20 +254,44 @@ class HumanVsHuman extends Component {
         if (move.captured === 'k' && !whiteToMove) {
             alert('Black Wins!')
         }
-        // console.log(move)
 
-        // If you play a combo, all of your cards will be removed and the next player will go.
-        // if (whiteToMove && move.piece !== selected.cardPiece || ) {
-        //     this.props.onDiscardAllCardsP1()
-        //     this.props.onChangeTurn();
-        // }
+        console.log(move)
 
-        // if (whiteToMove && this.props.)
+        let moveArray = Object.entries(move)
+        console.log('moveArray', moveArray)
+        // Capture Piece Sidebar
+
+        var initial = {
+            w: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+            b: { p: 0, n: 0, b: 0, r: 0, q: 0 }
+        };
+
+        let captured = moveArray.reduce(function (acc, move) {
+            // console.log('move', move[0])
+            // console.log('acc', acc)
+            if (move[0] === 'captured') {
+                var piece = move.captured;
+                // switch colors since the history stores the color of the player doing the
+                // capturing, not the color of the captured piece
+                var color = move.color === 'w' ? 'b' : 'w';
+                acc[color][piece] += 1;
+                return acc;
+            } else {
+                return acc;
+            }
+        }, initial);
+        console.log(captured)
+
 
         this.props.onRemoveSelected(this.props.selectedCard[1])
         this.props.onChangeTurn();
 
+
+
+
     };
+
+
 
     render() {
 
