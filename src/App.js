@@ -33,7 +33,7 @@ const App = (props) => {
 
     if ((clubs && len === 3) || (diamonds && len === 3) || (spades && len === 3) || (hearts && len === 3)) {
       props.onSelectAll();
-    } else return;
+    } else alert('You do not have a combo. Click the "Key" button to see what combos are available');
   }
 
   const getCardP1 = () => {
@@ -67,6 +67,19 @@ const App = (props) => {
       return;
     }
     props.onStartNewGame()
+  }
+
+  const resign = () => {
+    let whiteToMove = props.whiteToMove;
+
+    if (whiteToMove && window.confirm('Are you sure you want to resign?')) {
+      alert('Black Wins!')
+    }
+
+    if (!whiteToMove && window.confirm('Are you sure you want to resign?')) {
+      alert('White Wins!')
+    }
+
   }
 
   const shuffle = (p1Cards, p2Cards) => {
@@ -216,16 +229,16 @@ const App = (props) => {
               <div className="p1Actions">
                 <h3 style={{ fontStyle: 'italic', paddingTop: '85px' }}>Player One</h3>
                 <button
+                  onClick={resign}
                   style={{
                     backgroundColor: '#565656',
                     color: 'white',
                     borderRadius: '50%',
                     cursor: 'pointer',
-                    // border: '1px solid black',
                     fontSize: '24px'
                   }}>
                   🏳
-                          </button>
+                </button>
                 <Button
                   onClick={discardAllP1}
                   style={{
@@ -252,6 +265,7 @@ const App = (props) => {
               <div className="p2Actions">
                 <h3 style={{ fontStyle: 'italic', paddingTop: '85px' }}>Player Two</h3>
                 <button
+                  onClick={resign}
                   style={{
                     backgroundColor: '#565656',
                     color: 'white',

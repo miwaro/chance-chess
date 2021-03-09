@@ -31,10 +31,10 @@ function Rules() {
             <h3>Tips</h3>
             <p>Observe the cards your opponent has and plan accordingly.</p>
             <p>You can be a lot more agressive in your attacks in this game as opposed to regular chess since you often know your opponent's potential moves.</p>
-            <p>Only one deck is used, so counting cards can be used to your benefit.  For example, if there has been 3 knight moves, then you know there's only one "10" left in the deck.</p>
+            <p>Only one deck is used, so counting cards can be used to your benefit.  For example, if there have been 3 knight moves, then you know there's only one "10" left in the deck.</p>
 
             <h3>Other</h3>
-            <p>If you really enjoy this game, please feel free to buy me a cup of coffee. Donations can me made with a button at the bottom of the screen.</p>
+            <p>If you really enjoy this game, please feel free to buy me a cup of coffee. Donations can me made at the bottom of the screen.</p>
         </div>
     )
 }
