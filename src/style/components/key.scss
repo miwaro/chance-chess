@@ -16,9 +16,8 @@
     font-weight: bold;
     font-style: italic;
     text-align: center;
-    // font-size: 35px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .sidebar-title {
@@ -30,7 +29,6 @@
     justify-content: center;
     margin-top: 20px;
     background-color: orange;
-    // padding-bottom: 20px;
 }
 
 .col-1 {
@@ -39,8 +37,7 @@
 
 .col-1 > li {
     border-bottom: 2px solid orange;
-    padding-top: 14px;
-    padding-bottom: 14px;  
+
 
 }
 
@@ -51,18 +48,14 @@
 
 .col-2 > li {
     border-bottom: 2px solid orange;
-    padding-top: 14px;
-    padding-bottom: 14px;  
 }
 
 .col-1 > li:nth-of-type(1) {
     font-weight: bold;
-    // font-style: italic;
   }
 
   .col-2 > li:nth-of-type(1) {
     font-weight: bold;
-    // font-style: italic;
   }
 
 ul {

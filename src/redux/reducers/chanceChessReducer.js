@@ -6,9 +6,10 @@ const initialState = {
     player2Cards: [],
     newBoard: false,
     whiteToMove: true,
-    forceMove: false,
     cardsArray: deckArray,
-    selectedCard: null
+    selectedCard: [],
+    allSelected: false,
+    fullDeck: deckArray
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,23 +17,47 @@ const reducer = (state = initialState, action) => {
     let randomCard;
     let randomItem;
     let newCardsArray;
+    let selected;
     let selectedCard;
     let p1Cards;
+    let p2Cards;
+    let player1Cards;
+    let player2Cards;
     let whiteToMove;
-    let forceMove;
 
     switch (action.type) {
         case actionTypes.START_NEW_GAME:
+            let deck = [...state.fullDeck];
+
+            player1Cards = [...state.player1Cards];
+            player2Cards = [...state.player2Cards];
+
+            for (let i = 0; i < 3; i++) {
+                let p1Cards = player1Cards;
+                let newDeck = deck;
+                if (player1Cards.length === 3) return;
+                p1Cards.push(deck[i])
+                newDeck.shift(3)
+            }
+
+            for (let i = 4; i < 7; i++) {
+                let p2Cards = player2Cards;
+                let newDeck = deck;
+                if (player2Cards.length === 3) return;
+                p2Cards.push(deck[i])
+                newDeck.shift(3)
+            }
+
             return {
                 ...state,
-                player1Cards: [],
-                player2Cards: [],
-                newBoard: !state.newBoard,
+                player1Cards,
+                player2Cards,
+                cardsArray: deck
             }
 
         case actionTypes.GET_CARD:
             // Todo: Restore the deck when the cards run out.
-            let player1Cards = state.player1Cards;
+            player1Cards = state.player1Cards;
             let cardsPickedArrayPlayer1 = [...state.player1Cards, player1Cards];
 
             cardsArray = state.cardsArray;
@@ -53,9 +78,10 @@ const reducer = (state = initialState, action) => {
                 player1Cards: cardsPickedArrayPlayer1
             }
 
+
         case actionTypes.GET_PLAYER2_CARD:
 
-            let player2Cards = state.player2Cards;
+            player2Cards = state.player2Cards;
 
             let cardsPickedArrayPlayer2 = [...state.player2Cards, player2Cards];
             cardsArray = state.cardsArray;
@@ -79,50 +105,82 @@ const reducer = (state = initialState, action) => {
 
 
         case actionTypes.SELECT_CARD:
-            const { cardValue, cardIndex, cardPiece, turn } = action;
-            selectedCard = { cardValue, cardIndex, cardPiece, turn }
+            const { cardValue, cardIndex } = action;
+            selectedCard = state.selectedCard;
+            selectedCard = [];
+            selectedCard = [cardValue, cardIndex];
+
 
             return {
                 ...state,
-                selectedCard
+                selectedCard: selectedCard
             }
 
-        case actionTypes.DESELECT_CARD:
 
-            selectedCard = state.selectedCard
+        case actionTypes.SELECT_ALL:
+
             return {
                 ...state,
-                selectedCard: null
+                selectedCard: [],
+                allSelected: !state.allSelected
             }
-
 
         case actionTypes.CHANGE_TURN:
 
             return {
                 ...state,
+                allSelected: false,
+                selectedCard: [],
                 whiteToMove: !state.whiteToMove
             }
 
+        case actionTypes.SHUFFLE:
+            p1Cards = state.player1Cards;
+            p2Cards = state.player2Cards;
+            let p1CardIndexes = action.p1Cards;
+            let p2CardIndexes = action.p2Cards;
+            let fullDeck = state.fullDeck;
+            cardsArray = state.cardsArray;
+
+            p1CardIndexes = p1Cards.map(card => card.index);
+            p2CardIndexes = p2Cards.map(card => card.index);
 
 
+            cardsArray = fullDeck.filter(card => !p1CardIndexes.includes(card.index) && !p2CardIndexes.includes(card.index))
 
 
+            return {
+                ...state,
+                cardsArray
+            }
 
+        case actionTypes.SHUFFLE_ON_MOUNT:
 
+            let shuffledDeck = state.cardsArray;
+
+            for (let i = shuffledDeck.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * i);
+                let temp = shuffledDeck[i];
+                shuffledDeck[i] = shuffledDeck[j];
+                shuffledDeck[j] = temp;
+            }
+
+            return {
+                ...state
+            }
 
 
         case actionTypes.REMOVE_SELECTED_CARD:
-            // let selectedCardIndex = action;
             p1Cards = state.player1Cards;
-            let p2Cards = state.player2Cards;
-            let selected = state.selectedCard;
+            p2Cards = state.player2Cards;
+            selected = state.selectedCard;
             whiteToMove = state.whiteToMove;
 
 
             if (whiteToMove) {
-                p1Cards = p1Cards.filter(card => card.index !== selected.cardIndex)
+                p1Cards = p1Cards.filter(card => card.index !== selected[1])
             } else if (!whiteToMove) {
-                p2Cards = p2Cards.filter(card => card.index !== selected.cardIndex)
+                p2Cards = p2Cards.filter(card => card.index !== selected[1])
             }
 
             return {
@@ -134,28 +192,25 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.DISCARD_ALL_P1_CARDS:
             whiteToMove = state.whiteToMove;
-            forceMove = state.forceMove;
-            // let forceBlackMove = state.forceMove;
+
             return {
                 ...state,
-                player1Cards: [],
-                forceMove: !forceMove,
-                whiteToMove: !whiteToMove
+                allSelected: false,
+                whiteToMove: !whiteToMove,
+                player1Cards: []
+
 
             }
 
         case actionTypes.DISCARD_ALL_P2_CARDS:
             whiteToMove = state.whiteToMove;
-            forceMove = state.forceMove;
-
-            // let forceWhiteMove = state.forceMove;
-
 
             return {
                 ...state,
-                player2Cards: [],
-                forceMove: !forceMove,
-                whiteToMove: !whiteToMove
+                allSelected: false,
+                whiteToMove: !whiteToMove,
+                player2Cards: []
+
             }
 
         default:

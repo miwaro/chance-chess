@@ -58,8 +58,7 @@ class KeySidebar extends Component {
                             className='title'
                             onClick={this.toggleDrawer(anchor, true)}
                         >
-                            <Button variant="contained" style={{ backgroundColor: 'orange' }}>Show Key</Button>
-
+                            <Button variant="contained" style={{ backgroundColor: '#565656', color: 'white', border: '1px solid black', width: '70%' }}>KEY     🔑</Button>
                         </div>
 
                         <SwipeableDrawer

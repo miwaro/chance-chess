@@ -1,30 +1,25 @@
 import * as actionTypes from './actionTypes';
 
-export const selectCard = (cardValue, cardIndex, cardPiece, turn) => {
+export const selectCard = (cardValue, cardIndex) => {
     return {
         type: 'SELECT_CARD',
         cardValue,
         cardIndex,
-        cardPiece,
-        turn
     };
 };
 
-export const deselectCard = (selectedCardIndex) => {
+export const selectAll = () => {
     return {
-        type: 'DESELECT_CARD',
-        selectedCardIndex
+        type: 'SELECT_ALL'
     };
 };
 
-// should be called "draw" card
+
 export const getCard = () => {
     return {
         type: actionTypes.GET_CARD
     };
 };
-
-// should be called "draw" card
 
 export const getPlayer2Card = () => {
     return {
@@ -59,7 +54,19 @@ export const discardAllP2Cards = () => {
     };
 };
 
+export const shuffle = (p1CardsIndexes, p2CardsIndexes) => {
+    return {
+        type: actionTypes.SHUFFLE,
+        p1CardsIndexes,
+        p2CardsIndexes
+    };
+};
 
+export const shuffleOnMount = () => {
+    return {
+        type: actionTypes.SHUFFLE_ON_MOUNT
+    };
+};
 
 
 // should Reset Game

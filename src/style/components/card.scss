@@ -1,11 +1,11 @@
 @import "../mixins.scss";
 
 
-.card-container {
+.card {
   font-weight: 600;
   margin: 0 10px;
-  height: 110px;
-  width: 90px;
+  height: 160px;
+  width: 124px;
   cursor: pointer;
   background-color: white;
   background-size: cover;
@@ -34,8 +34,8 @@
   font-weight: 600;
   cursor: pointer;
   margin: 0 10px;
-  height: 110px;
-  width: 90px;
+  height: 160px;
+  width: 125px;
   background-color: white;
   background-size: cover;
   border: 1px solid black;

@@ -6,6 +6,7 @@ import { deselectCard } from '../redux/actions/cardActions'
 import PropTypes from "prop-types";
 
 import backCardImg from "../style/images/backCardImg.png";
+import chessLogo from "../images/luckyRookFAV2.png";
 import heart from "../style/images/heart.png";
 import diamond from "../style/images/diamond.png";
 import club from "../style/images/club.png";
@@ -26,13 +27,11 @@ import blackQueen from "../style/images/chessPieces/black/blackQueen.png";
 import blackKing from "../style/images/chessPieces/black/blackKing.png";
 
 import "../style/components/card.scss";
+import "../style/components/playerCard.scss";
 
 const Card = (props) => {
 
-  const { suits, card, front, color, cardIndex, cardPiece } = props;
-
-  const [isNotSelected, setIsSelected] = useState(false)
-  // const [change, setChange] = useState(false)
+  const { suits, card, front, color, cardIndex, cardPiece, allCardsSelected } = props;
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -90,89 +89,84 @@ const Card = (props) => {
     };
   };
 
+  const getSelectedCard = (card, cardIndex) => {
+    let allSelected = props.allSelected;
 
-
-  const getCardInformation = (card, cardIndex, cardPiece) => {
-    if (props.disabled) {
+    if (props.disabled || allSelected) {
       return;
     }
-    setIsSelected(!isNotSelected)
-
-    const turn = props.whiteToMove
-
-
-    props.onSelectCard(card, cardIndex, cardPiece, turn);
-
-
-    if (isNotSelected) {
-      props.onDeselectCard(cardIndex)
-    }
-
+    props.onSelectCard(card, cardIndex);
   }
 
-  // useEffect((card, cardIndex, cardPiece) => {
-
-
-
-  // }, [isNotSelected])
-
-
-  const selectedCardIndex = props.selectedCard ? props.selectedCard.cardIndex : -1;
-  let btn_class = selectedCardIndex === cardIndex ? "clicked-card" : "card-container";
+  const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
+  let btn_class = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
 
   if (front) {
     const cardSymbol = getCardSymbol(suits);
     const redChessPiece = getRedChessPiece(cardPiece);
     const blackChessPiece = getBlackChessPiece(cardPiece);
-    return (
 
+    return (
       <div
         className={btn_class}
-        style={{ color: `${color}`, isNotSelected: isNotSelected }}
-        onClick={() => getCardInformation(card, cardIndex, cardPiece)}
+        style={{ color: `${color}` }}
+        onClick={() => getSelectedCard(card, cardIndex)}
       >
         <div style={{ position: "absolute", top: 5, left: 5 }}>
-          <div style={{ maxWidth: 16 }}>{card}</div>
-          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 16 }} />
+          <div style={{ maxWidth: 25 }}>{card}</div>
+          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
         </div>
 
         { color === 'red' ?
-          <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 28, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+          <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
           :
-          <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 28, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+          <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
         }
 
         <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
-          <div style={{ maxWidth: 16 }}>{card}</div>
-          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 16 }} />
+          <div style={{ maxWidth: 25 }}>{card}</div>
+          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
         </div>
       </div>
     );
   } else {
     return (
       <>
-        <div className="card-container" style={{ backgroundImage: `url(${backCardImg})`, color: `${color}` }}></div>
+        <div
+          className="deck-container"
+          style={{
+            backgroundImage: `url(${backCardImg})`,
+            backgroundColor: 'lightgray'
+          }}>
+          <div style={{ backgroundImage: `url(${chessLogo})` }}>
+
+          </div>
+          <div style={{ position: 'absolute', bottom: '5px', right: '-18px', padding: '5px', color: 'orange', fontWeight: 'bold', backgroundColor: '#2b2b2b', borderRadius: '50%' }}>
+            {props.cardsArray.length}
+          </div>
+        </div>
+
       </>
     );
   };
 };
 
 const mapStateToProps = (state) => {
-  // console.log(state)
+
   return {
     player1Cards: state.chanceChessReducer.player1Cards,
     player2Cards: state.chanceChessReducer.player2Cards,
-    newBoard: state.chanceChessReducer.newBoard,
     whiteToMove: state.chanceChessReducer.whiteToMove,
-    selectedCard: state.chanceChessReducer.selectedCard
+    selectedCard: state.chanceChessReducer.selectedCard,
+    cardsArray: state.chanceChessReducer.cardsArray,
+    allSelected: state.chanceChessReducer.allSelected
   }
 }
 
 const mapDispatchToProps = dispatch => {
-  // console.log(dispatch)
+
   return {
-    onSelectCard: (card, cardIndex, cardPiece, turn) => dispatch(selectCard(card, cardIndex, cardPiece, turn)),
-    onDeselectCard: (cardIndex) => dispatch(deselectCard(cardIndex))
+    onSelectCard: (card, cardIndex) => dispatch(selectCard(card, cardIndex))
   }
 }
 

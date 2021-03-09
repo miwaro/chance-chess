@@ -3,3 +3,22 @@
     justify-content: center;
     padding: 5px;
 }
+
+.card-containers {
+    display: flex;
+    padding-right: 15px;
+    // padding-left: 10px;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+
+.p1Actions {
+    // border-top: 4px double orange;
+    padding: 0 8px 30px 6px;
+}
+
+.p2Actions {
+    // border-bottom: 4px double orange;
+    padding: 0 8px 30px 6px;
+}
