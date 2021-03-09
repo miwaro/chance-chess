@@ -15,18 +15,26 @@ function Rules() {
             <h3>Objective</h3>
             <p>Capture the King! Checks and checkmates are not a part of Chance Chess.</p>
             <h3>Rule Changes</h3>
-            <p>No en passant</p>
-            <p>The pawn will only promote to Queen</p>
-
+            <ol>
+                <li>No checks</li>
+                <li>No checkmates</li>
+                <li>No stalemates</li>
+                <li>No en passant</li>
+                <li>Pawns only promote to a Queen</li>
+                <li>Draws are basically impossible</li>
+            </ol>
             <h3>About</h3>
-            <p>Chance Chess is a lot like chess but the cards you draw dictate which pieces can move which adds a significant amount of
-            chance to arguably the most skilled game that exists.
+            <p>Chance Chess is a lot like chess but the cards you draw dictate which pieces can move. This adds a significant amount of
+            chance to arguably the most skilled game that exists but do not be mistaken, there is still plenty of skill involved.
             </p>
 
             <h3>Tips</h3>
-            <p>Observe the cards your opponent has and plan accordingly</p>
-            <p>You can be a lot more agressive in your attacks in this game as opposed to regular chess.</p>
+            <p>Observe the cards your opponent has and plan accordingly.</p>
+            <p>You can be a lot more agressive in your attacks in this game as opposed to regular chess since you often know your opponent's potential moves.</p>
+            <p>Only one deck is used, so counting cards can be used to your benefit.  For example, if there has been 3 knight moves, then you know there's only one "10" left in the deck.</p>
 
+            <h3>Other</h3>
+            <p>If you really enjoy this game, please feel free to buy me a cup of coffee. Donations can me made with a button at the bottom of the screen.</p>
         </div>
     )
 }
