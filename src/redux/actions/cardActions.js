@@ -47,11 +47,19 @@ export const removeSelectedCard = (selectedCardIndex) => {
     };
 };
 
+export const discardOneCard = (selectedCard) => {
+    return {
+        type: actionTypes.DISCARD_ONE_CARD,
+        selectedCard
+    };
+};
+
 export const discardAllP1Cards = () => {
     return {
         type: actionTypes.DISCARD_ALL_P1_CARDS
     };
 };
+
 
 export const discardAllP2Cards = () => {
     return {
@@ -66,29 +74,6 @@ export const shuffle = (p1CardsIndexes, p2CardsIndexes) => {
         p2CardsIndexes
     };
 };
-
-export const removeNines = (deck) => {
-    return {
-        type: actionTypes.REMOVE_NINES,
-        deck
-    };
-};
-
-export const removeTens = (deck) => {
-    return {
-        type: actionTypes.REMOVE_TENS,
-        deck
-    };
-};
-
-export const removeJacks = (deck) => {
-    return {
-        type: actionTypes.REMOVE_JACKS,
-        deck
-    };
-};
-
-
 
 
 // should Reset Game

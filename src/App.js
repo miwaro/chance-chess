@@ -16,7 +16,7 @@ import Rules from './components/RulesSidebar'
 
 import { startNewGame } from "./redux/actions/cardActions";
 import { discardAllP1Cards, getCard } from "./redux/actions/cardActions";
-import { getPlayer2Card, discardAllP2Cards, shuffle } from "./redux/actions/cardActions";
+import { getPlayer2Card, discardAllP2Cards, shuffle, removeSelectedCard, changeTurn } from "./redux/actions/cardActions";
 import { selectAll } from "./redux/actions/cardActions";
 
 
@@ -70,6 +70,11 @@ const App = (props) => {
     props.onStartNewGame()
   }
 
+  const discardOne = (selectedCardIndex) => {
+    props.onRemoveSelected(selectedCardIndex)
+    props.onChangeTurn();
+  }
+
   const resign = () => {
     let whiteToMove = props.whiteToMove;
 
@@ -102,43 +107,11 @@ const App = (props) => {
           <Board />
           <div className='card-containers'>
             {props.whiteToMove &&
-              <>
-                <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
-                <Button
-                  style={{
-                    backgroundColor: 'rgb(82 140 78)',
-                    color: 'white',
-                    border: '1px solid black',
-                    width: '90%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto'
-                  }}
-                  onClick={() => selectAllCards(props.player2Cards)}
-                >
-                  Select All
-            </Button>
-              </>
+              <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
             }
             {!props.whiteToMove &&
-              <>
-                <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
-                <Button
-                  style={{
-                    backgroundColor: 'rgb(82 140 78)',
-                    color: 'white',
-                    border: '1px solid black',
-                    width: '90%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto'
-                  }}
-                  onClick={() => selectAllCards(props.player1Cards)}
-                >
-                  Select All
-            </Button>
-              </>
+              <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
             }
-
-
 
             {props.cardsArray.length > 0 &&
               <div style={{ display: "flex", justifyContent: "center", height: '160px', marginBottom: '10px' }}>
@@ -186,6 +159,18 @@ const App = (props) => {
                 >
                   Select All
             </Button>
+                <Button
+                  onClick={discardAllP1}
+                  style={{
+                    backgroundColor: '#2b2b2b',
+                    color: 'white',
+                    width: '90%',
+                    border: '1px solid black',
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
+                  }}>
+                  Discard All
+                </Button>
               </>
             }
             {!props.whiteToMove &&
@@ -203,7 +188,19 @@ const App = (props) => {
                   onClick={() => selectAllCards(props.player2Cards)}
                 >
                   Select All
-            </Button>
+                </Button>
+                <Button
+                  onClick={discardAllP2}
+                  style={{
+                    backgroundColor: '#2b2b2b',
+                    color: 'white',
+                    width: '90%',
+                    border: '1px solid black',
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
+                  }}>
+                  Discard All
+                </Button>
               </>
             }
           </div>
@@ -229,7 +226,7 @@ const App = (props) => {
             {/* *************************************************************************************************************** */}
             {props.whiteToMove &&
               <div className="p1Actions">
-                <h3 style={{ fontStyle: 'italic', paddingTop: '85px' }}>Player One</h3>
+                <h3 style={{ fontStyle: 'italic' }}>Player One</h3>
                 <button
                   onClick={resign}
                   style={{
@@ -241,64 +238,69 @@ const App = (props) => {
                   }}>
                   🏳
                 </button>
-                <Button
-                  onClick={discardAllP1}
-                  style={{
-                    backgroundColor: '#2b2b2b',
-                    color: 'white',
-                    border: '1px solid black',
-                    margin: '40px 0 20px 0'
-                  }}>
-                  Discard All
-                          </Button>
+
                 <Button
                   style={{
-                    backgroundColor: '#d9910d',
+                    backgroundColor: '#277714',
                     color: 'white',
+                    margin: '40px 0 0 0',
                     border: '1px solid black'
                   }}
                   onClick={() => getCardP1(props.cardsArray)}
                 >
                   Draw Cards
-                          </Button>
+                </Button>
+                <Button
+                  style={{
+                    backgroundColor: 'rgb(43, 43, 43)',
+                    color: 'white',
+                    margin: '40px 0 0 0',
+                    border: '1px solid black'
+                  }}
+                  onClick={() => discardOne(props.selectedCard[1])}
+                >
+                  Discard One
+                </Button>
               </div>
             }
             {!props.whiteToMove &&
               <div className="p2Actions">
-                <h3 style={{ fontStyle: 'italic', paddingTop: '85px' }}>Player Two</h3>
+                <h3 style={{ fontStyle: 'italic' }}>Player Two</h3>
                 <button
                   onClick={resign}
                   style={{
                     backgroundColor: '#565656',
                     color: 'white',
                     cursor: 'pointer',
-                    // border: '1px solid black',
                     borderRadius: '50%',
                     fontSize: '24px'
                   }}
                 >
                   🏳
-             </button>
-                <Button
-                  onClick={discardAllP2}
-                  style={{
-                    backgroundColor: '#2b2b2b',
-                    margin: '40px 0 20px 0',
-                    color: 'white',
-                    border: '1px solid black'
-                  }}>
-                  Discard All
-             </Button>
+                </button>
+
                 <Button
                   style={{
                     backgroundColor: '#277714',
                     color: 'white',
+                    margin: '40px 0 0 0',
                     border: '1px solid black'
                   }}
                   onClick={getCardP2}
                 >
                   Draw Cards
-             </Button>
+                </Button>
+                <Button
+                  style={{
+                    backgroundColor: 'rgb(43, 43, 43)',
+                    color: 'white',
+                    margin: '40px 0 0 0',
+                    border: '1px solid black'
+                  }}
+                  onClick={() => discardOne(props.selectedCard[1])}
+                >
+                  Discard One
+                </Button>
               </div>
             }
 
@@ -318,6 +320,7 @@ const mapStateToProps = (state) => {
     newBoard: state.chanceChessReducer.newBoard,
     whiteToMove: state.chanceChessReducer.whiteToMove,
     cardsArray: state.chanceChessReducer.cardsArray,
+    selectedCard: state.chanceChessReducer.selectedCard,
     allSelected: state.chanceChessReducer.allSelected,
     fullDeck: state.chanceChessReducer.fullDeck
   }
@@ -332,7 +335,9 @@ const mapDispatchToProps = dispatch => {
     onGetCardForPlayer2: () => dispatch(getPlayer2Card()),
     onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
     onShuffle: (p1Cards, p2Cards) => dispatch(shuffle(p1Cards, p2Cards)),
-    onSelectAll: () => dispatch(selectAll())
+    onSelectAll: () => dispatch(selectAll()),
+    onRemoveSelected: (selectedCardIndex) => dispatch(removeSelectedCard(selectedCardIndex)),
+    onChangeTurn: () => dispatch(changeTurn()),
   }
 }
 
