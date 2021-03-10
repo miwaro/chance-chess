@@ -8,10 +8,7 @@ import {
     discardAllP1Cards,
     discardAllP2Cards,
     shuffleOnMount,
-    selectAll,
-    removeNines,
-    removeTens,
-    removeJacks,
+    selectAll
 } from "../redux/actions/cardActions";
 
 class HumanVsHuman extends Component {
@@ -268,40 +265,6 @@ class HumanVsHuman extends Component {
         this.setState({ initial: captured })
 
 
-        // Add logic to run the 3 cardRemovalActions
-
-        let p1 = this.props.player1Cards;
-        let p2 = this.props.player2Cards;
-
-        let player1Cards = p1.map(card => card.card);
-        let player2Cards = p2.map(card => card.card);
-
-        let nines = () => '9'
-        let tens = () => '10'
-        let jacks = () => 'J';
-
-        if (this.state.fen.indexOf('r') === -1 && this.state.fen.indexOf('R') === -1) {
-            if (player1Cards.some(nines) || player2Cards.some(nines)) {
-                return;
-            }
-            this.props.onRemoveNines(this.props.cardsArray);
-        }
-        if (this.state.fen.indexOf('n') === -1 && this.state.fen.indexOf('N') === -1) {
-            if (player1Cards.some(tens) || player2Cards.some(tens)) {
-                return;
-            }
-            this.props.onRemoveTens(this.props.cardsArray);
-
-        }
-        if (this.state.fen.indexOf('b') === -1 && this.state.fen.indexOf('B') === -1) {
-            if (player1Cards.some(jacks) || player2Cards.some(jacks)) {
-                return;
-            }
-            this.props.onRemoveJacks(this.props.cardsArray);
-        }
-
-
-
         this.props.onRemoveSelected(this.props.selectedCard[1])
         this.props.onChangeTurn();
 
@@ -347,12 +310,6 @@ const mapDispatchToProps = dispatch => {
         onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
         onShuffle: () => dispatch(shuffleOnMount()),
         onSelectAll: () => dispatch(selectAll()),
-        onRemoveNines: (deck) => dispatch(removeNines(deck)),
-        onRemoveTens: (deck) => dispatch(removeTens(deck)),
-        onRemoveJacks: (deck) => dispatch(removeJacks(deck))
-
-
-
     }
 }
 

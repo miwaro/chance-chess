@@ -102,33 +102,33 @@ function CaptureSidebar(props) {
             <div style={{ display: 'flex', justifyContent: 'flex-start' }} >
                 <div >
                     {whitePawns.map(pawn => (
-                        <img src={whitePawnImg} alt="white-pawn" style={{ height: 30 }} />
+                        <img src={whitePawnImg} alt="white-pawn" style={{ height: 34 }} />
                     ))}
                 </div>
                 <div>
                     {whiteKnights.map(pawn => (
-                        <img src={whiteKnightImg} alt="white-pawn" style={{ height: 30 }} />
+                        <img src={whiteKnightImg} alt="white-pawn" style={{ height: 34 }} />
                     ))}
                 </div>
 
                 <div>
                     {whiteBishops.map(pawn => (
-                        <img src={whiteBishopImg} alt="white-pawn" style={{ height: 30 }} />
+                        <img src={whiteBishopImg} alt="white-pawn" style={{ height: 34 }} />
                     ))}
                 </div>
                 <div>
                     {whiteRooks.map(pawn => (
-                        <img src={whiteRookImg} alt="white-pawn" style={{ height: 30 }} />
+                        <img src={whiteRookImg} alt="white-pawn" style={{ height: 34 }} />
                     ))}
                 </div>
                 <div>
                     {whiteQueens.map(pawn => (
-                        <img src={whiteQueenImg} alt="white-pawn" style={{ height: 30 }} />
+                        <img src={whiteQueenImg} alt="white-pawn" style={{ height: 34 }} />
                     ))}
                 </div>
                 <div>
                     {whiteKings.map(king => (
-                        <img src={whiteKingImg} alt="white-pawn" style={{ height: 30 }} />
+                        <img src={whiteKingImg} alt="white-pawn" style={{ height: 34 }} />
                     ))}
                 </div>
             </div>
@@ -139,33 +139,33 @@ function CaptureSidebar(props) {
 
                 <div>
                     {blackPawns.map(pawn => (
-                        <img src={blackPawnImg} alt="white-pawn" style={{ height: 30 }} />
+                        <img src={blackPawnImg} alt="white-pawn" style={{ height: 34 }} />
                     ))}
                 </div>
                 <div>
                     {blackKnights.map(pawn => (
-                        <img src={blackKnightImg} alt="white-pawn" style={{ height: 30 }} />
+                        <img src={blackKnightImg} alt="white-pawn" style={{ height: 34 }} />
                     ))}
                 </div>
 
                 <div>
                     {blackBishops.map(pawn => (
-                        <img src={blackBishopImg} alt="white-pawn" style={{ height: 30 }} />
+                        <img src={blackBishopImg} alt="white-pawn" style={{ height: 34 }} />
                     ))}
                 </div>
                 <div>
                     {blackRooks.map(pawn => (
-                        <img src={blackRookImg} alt="white-pawn" style={{ height: 30 }} />
+                        <img src={blackRookImg} alt="white-pawn" style={{ height: 34 }} />
                     ))}
                 </div>
                 <div>
                     {blackQueens.map(pawn => (
-                        <img src={blackQueenImg} alt="white-pawn" style={{ height: 30 }} />
+                        <img src={blackQueenImg} alt="white-pawn" style={{ height: 34 }} />
                     ))}
                 </div>
                 <div>
                     {blackKings.map(king => (
-                        <img src={blackKingImg} alt="white-pawn" style={{ height: 30 }} />
+                        <img src={blackKingImg} alt="white-pawn" style={{ height: 34 }} />
                     ))}
                 </div>
             </div>

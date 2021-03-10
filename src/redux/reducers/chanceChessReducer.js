@@ -209,36 +209,6 @@ const reducer = (state = initialState, action) => {
                 player2Cards: []
             }
 
-        case actionTypes.REMOVE_NINES:
-            let decks = action;
-            cardsArray = [...state.cardsArray]
-
-            decks = cardsArray.filter(card => card.card !== '9')
-
-            return {
-                ...state,
-                cardsArray: decks
-            }
-        case actionTypes.REMOVE_TENS:
-            decks = action;
-            cardsArray = [...state.cardsArray]
-
-            decks = cardsArray.filter(card => card.card !== '9')
-
-            return {
-                ...state,
-                cardsArray: decks
-            }
-        case actionTypes.REMOVE_JACKS:
-            decks = action;
-            cardsArray = [...state.cardsArray]
-            decks = cardsArray.filter(card => card.card !== '9')
-
-            return {
-                ...state,
-                cardsArray: decks
-            }
-
         default:
             return state;
     }
