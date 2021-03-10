@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from 'react-redux';
 import { selectCard } from '../redux/actions/cardActions'
-import { deselectCard } from '../redux/actions/cardActions'
 
 import PropTypes from "prop-types";
 

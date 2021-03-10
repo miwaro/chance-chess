@@ -20,6 +20,7 @@ import { getPlayer2Card, discardAllP2Cards, shuffle } from "./redux/actions/card
 import { selectAll } from "./redux/actions/cardActions";
 
 
+
 const App = (props) => {
 
 
@@ -36,7 +37,7 @@ const App = (props) => {
     } else alert('You do not have a combo. Click the "Key" button to see what combos are available');
   }
 
-  const getCardP1 = () => {
+  const getCardP1 = (deck) => {
     let whiteToMove = props.whiteToMove;
     if (!whiteToMove || props.player1Cards.length >= 3 || props.cardsArray.length === 0) return;
     props.onGetCard();
@@ -95,6 +96,7 @@ const App = (props) => {
   return (
     <div className="App">
       <Header />
+      {/* <CaptureSidebar /> */}
       <div className="body-container">
         <div className="Board">
           <Board />
@@ -255,7 +257,7 @@ const App = (props) => {
                     color: 'white',
                     border: '1px solid black'
                   }}
-                  onClick={getCardP1}
+                  onClick={() => getCardP1(props.cardsArray)}
                 >
                   Draw Cards
                           </Button>

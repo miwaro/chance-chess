@@ -15,4 +15,8 @@ export const DISCARD_ALL_P2_CARDS = 'DISCARD_ALL_P2_CARDS';
 export const SHUFFLE = 'SHUFFLE';
 export const SHUFFLE_ON_MOUNT = 'SHUFFLE_ON_MOUNT';
 
+export const REMOVE_NINES = 'REMOVE_NINES';
+export const REMOVE_TENS = 'REMOVE_TENS';
+export const REMOVE_JACKS = 'REMOVE_JACKS';
+
 export const CHANGE_TURN = 'CHANGE_TURN';

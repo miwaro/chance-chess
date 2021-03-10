@@ -2,26 +2,29 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Chess from "./Chess.js";
 import { connect } from 'react-redux';
-import { changeTurn, removeSelectedCard, discardAllP1Cards, discardAllP2Cards, shuffleOnMount, selectAll } from "../redux/actions/cardActions";
+import {
+    changeTurn,
+    removeSelectedCard,
+    discardAllP1Cards,
+    discardAllP2Cards,
+    shuffleOnMount,
+    selectAll,
+    removeNines,
+    removeTens,
+    removeJacks,
+} from "../redux/actions/cardActions";
 
 class HumanVsHuman extends Component {
     static propTypes = { children: PropTypes.func };
 
     state = {
-        // Start position
         fen: 'start',
-        // square styles for active drop square
-        dropSquareStyle: {},
-        // custom square styles
-        squareStyles: {},
-        // square with the currently clicked piece
-        pieceSquare: "",
-        // currently clicked square
         square: "",
-        // array of past game moves
-        history: [],
-
         orientation: 'white',
+        initial: {
+            W: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 },
+            B: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 }
+        }
     };
 
     componentDidMount() {
@@ -39,17 +42,9 @@ class HumanVsHuman extends Component {
     // Resets the board to starting position
     componentDidUpdate(prevProps) {
         let whiteToMove = this.props.whiteToMove;
-        // let allSelected = this.props.allSelected;
 
-        if (this.props.newBoard !== prevProps.newBoard) {
-            this.game = new Chess();
-            this.setState((state, props) => ({
-                history: [],
-                fen: 'start'
-            }))
-        }
 
-        else if (whiteToMove) {
+        if (whiteToMove) {
             this.set_turn(this.game, 'w')
         }
         else if (!whiteToMove) {
@@ -60,12 +55,9 @@ class HumanVsHuman extends Component {
             this.setState({ orientation: 'black' })
         }
 
-
         if (this.props.player2Cards !== prevProps.player2Cards && whiteToMove) {
             this.setState({ orientation: 'white' })
         }
-
-
     }
 
     onDragStart = ({ piece, sourceSquare }) => {
@@ -209,12 +201,11 @@ class HumanVsHuman extends Component {
 
 
 
+
+
     onDrop = ({ sourceSquare, targetSquare }) => {
         let whiteToMove = this.props.whiteToMove;
         let selected = this.props.selectedCard
-        // console.log(`selected[1]: ${selected[1]}`)
-        // if (selected === null) return;
-
         // see if the move is legal
         let move = this.game.move({
             from: sourceSquare,
@@ -222,32 +213,34 @@ class HumanVsHuman extends Component {
             promotion: "q"
         });
 
-        // console.log(move)
         if (move === null) return;
 
+        // Change orientation
         if (whiteToMove) {
             this.setState({ orientation: 'black' })
         } else if (!whiteToMove) {
             this.setState({ orientation: 'white' })
         }
 
+        // Do this after playing a combo
         if (whiteToMove && selected.length === 0) {
             this.props.onDiscardAllCardsP1()
             this.props.onChangeTurn();
             this.props.onSelectAll();
         }
-
         if (!whiteToMove && selected.length === 0) {
             this.props.onDiscardAllCardsP2()
             this.props.onChangeTurn();
             this.props.onSelectAll();
         }
 
+        // Set the position of the board after the piece drops
         this.setState({
             fen: this.game.fen(),
-            history: this.game.history({ verbose: true }),
         });
 
+
+        // Winners Message
         if (move.captured === 'k' && whiteToMove) {
             alert('White Wins')
         }
@@ -255,55 +248,79 @@ class HumanVsHuman extends Component {
             alert('Black Wins!')
         }
 
-        console.log(move)
 
-        let moveArray = Object.entries(move)
-        console.log('moveArray', moveArray)
         // Capture Piece Sidebar
-
-        var initial = {
-            w: { p: 0, n: 0, b: 0, r: 0, q: 0 },
-            b: { p: 0, n: 0, b: 0, r: 0, q: 0 }
-        };
+        let moveArray = Object.entries(move)
 
         let captured = moveArray.reduce(function (acc, move) {
-            // console.log('move', move[0])
-            // console.log('acc', acc)
+
             if (move[0] === 'captured') {
-                var piece = move.captured;
-                // switch colors since the history stores the color of the player doing the
-                // capturing, not the color of the captured piece
-                var color = move.color === 'w' ? 'b' : 'w';
+
+                var piece = move[1]
+                var color = whiteToMove ? 'B' : 'W';
                 acc[color][piece] += 1;
                 return acc;
             } else {
                 return acc;
             }
-        }, initial);
-        console.log(captured)
+        }, this.state.initial);
+
+        this.setState({ initial: captured })
+
+
+        // Add logic to run the 3 cardRemovalActions
+
+        let p1 = this.props.player1Cards;
+        let p2 = this.props.player2Cards;
+
+        let player1Cards = p1.map(card => card.card);
+        let player2Cards = p2.map(card => card.card);
+
+        let nines = () => '9'
+        let tens = () => '10'
+        let jacks = () => 'J';
+
+        if (this.state.fen.indexOf('r') === -1 && this.state.fen.indexOf('R') === -1) {
+            if (player1Cards.some(nines) || player2Cards.some(nines)) {
+                return;
+            }
+            this.props.onRemoveNines(this.props.cardsArray);
+        }
+        if (this.state.fen.indexOf('n') === -1 && this.state.fen.indexOf('N') === -1) {
+            if (player1Cards.some(tens) || player2Cards.some(tens)) {
+                return;
+            }
+            this.props.onRemoveTens(this.props.cardsArray);
+
+        }
+        if (this.state.fen.indexOf('b') === -1 && this.state.fen.indexOf('B') === -1) {
+            if (player1Cards.some(jacks) || player2Cards.some(jacks)) {
+                return;
+            }
+            this.props.onRemoveJacks(this.props.cardsArray);
+        }
+
 
 
         this.props.onRemoveSelected(this.props.selectedCard[1])
         this.props.onChangeTurn();
 
 
-
-
     };
+
 
 
 
     render() {
 
-        const { fen, squareStyles, dropSquareStyle, orientation } = this.state;
+        const { fen, orientation, initial } = this.state;
 
         return this.props.children({
-            squareStyles,
             position: fen,
             orientation: orientation,
             onDrop: this.onDrop,
             onDragStart: this.onDragStart,
-            dropSquareStyle
+            piecesCaptured: initial
         });
     }
 }
@@ -314,6 +331,7 @@ const mapStateToProps = (state) => {
         player1Cards: state.chanceChessReducer.player1Cards,
         player2Cards: state.chanceChessReducer.player2Cards,
         newBoard: state.chanceChessReducer.newBoard,
+        newBoard2: state.chanceChessReducer.newBoard2,
         selectedCard: state.chanceChessReducer.selectedCard,
         whiteToMove: state.chanceChessReducer.whiteToMove,
         allSelected: state.chanceChessReducer.allSelected,
@@ -328,7 +346,11 @@ const mapDispatchToProps = dispatch => {
         onDiscardAllCardsP1: () => dispatch(discardAllP1Cards()),
         onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
         onShuffle: () => dispatch(shuffleOnMount()),
-        onSelectAll: () => dispatch(selectAll())
+        onSelectAll: () => dispatch(selectAll()),
+        onRemoveNines: (deck) => dispatch(removeNines(deck)),
+        onRemoveTens: (deck) => dispatch(removeTens(deck)),
+        onRemoveJacks: (deck) => dispatch(removeJacks(deck))
+
 
 
     }

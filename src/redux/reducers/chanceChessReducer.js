@@ -13,6 +13,8 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
+    console.log('action', action)
+
     let cardsArray;
     let randomCard;
     let randomItem;
@@ -78,7 +80,6 @@ const reducer = (state = initialState, action) => {
                 player1Cards: cardsPickedArrayPlayer1
             }
 
-
         case actionTypes.GET_PLAYER2_CARD:
 
             player2Cards = state.player2Cards;
@@ -103,7 +104,6 @@ const reducer = (state = initialState, action) => {
                 player2Cards: cardsPickedArrayPlayer2
             }
 
-
         case actionTypes.SELECT_CARD:
             const { cardValue, cardIndex } = action;
             selectedCard = state.selectedCard;
@@ -115,7 +115,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 selectedCard: selectedCard
             }
-
 
         case actionTypes.SELECT_ALL:
 
@@ -169,7 +168,6 @@ const reducer = (state = initialState, action) => {
                 ...state
             }
 
-
         case actionTypes.REMOVE_SELECTED_CARD:
             p1Cards = state.player1Cards;
             p2Cards = state.player2Cards;
@@ -188,7 +186,6 @@ const reducer = (state = initialState, action) => {
                 player1Cards: p1Cards,
                 player2Cards: p2Cards
             }
-
 
         case actionTypes.DISCARD_ALL_P1_CARDS:
             whiteToMove = state.whiteToMove;
@@ -210,7 +207,36 @@ const reducer = (state = initialState, action) => {
                 allSelected: false,
                 whiteToMove: !whiteToMove,
                 player2Cards: []
+            }
 
+        case actionTypes.REMOVE_NINES:
+            let decks = action;
+            cardsArray = [...state.cardsArray]
+
+            decks = cardsArray.filter(card => card.card !== '9')
+
+            return {
+                ...state,
+                cardsArray: decks
+            }
+        case actionTypes.REMOVE_TENS:
+            decks = action;
+            cardsArray = [...state.cardsArray]
+
+            decks = cardsArray.filter(card => card.card !== '9')
+
+            return {
+                ...state,
+                cardsArray: decks
+            }
+        case actionTypes.REMOVE_JACKS:
+            decks = action;
+            cardsArray = [...state.cardsArray]
+            decks = cardsArray.filter(card => card.card !== '9')
+
+            return {
+                ...state,
+                cardsArray: decks
             }
 
         default:

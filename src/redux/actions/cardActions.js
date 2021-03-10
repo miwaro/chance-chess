@@ -1,5 +1,12 @@
 import * as actionTypes from './actionTypes';
 
+
+export const shuffleOnMount = () => {
+    return {
+        type: actionTypes.SHUFFLE_ON_MOUNT
+    };
+};
+
 export const selectCard = (cardValue, cardIndex) => {
     return {
         type: 'SELECT_CARD',
@@ -40,8 +47,6 @@ export const removeSelectedCard = (selectedCardIndex) => {
     };
 };
 
-
-
 export const discardAllP1Cards = () => {
     return {
         type: actionTypes.DISCARD_ALL_P1_CARDS
@@ -62,11 +67,28 @@ export const shuffle = (p1CardsIndexes, p2CardsIndexes) => {
     };
 };
 
-export const shuffleOnMount = () => {
+export const removeNines = (deck) => {
     return {
-        type: actionTypes.SHUFFLE_ON_MOUNT
+        type: actionTypes.REMOVE_NINES,
+        deck
     };
 };
+
+export const removeTens = (deck) => {
+    return {
+        type: actionTypes.REMOVE_TENS,
+        deck
+    };
+};
+
+export const removeJacks = (deck) => {
+    return {
+        type: actionTypes.REMOVE_JACKS,
+        deck
+    };
+};
+
+
 
 
 // should Reset Game
