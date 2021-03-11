@@ -141,7 +141,12 @@ const Card = (props) => {
         className={btn_class}
         onClick={() => getSelectedCard(card, cardIndex)}
       >
-        <img src={joker} alt="suit-symbol" style={{ height: '162px', width: '126px' }} />
+        <img src={joker} alt="suit-symbol" style={{
+          height: '172px',
+          width: '140px',
+          transform: 'translate(-8px, -6px)'
+        }}
+        />
       </div>
     )
   }

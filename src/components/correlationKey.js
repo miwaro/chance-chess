@@ -63,7 +63,7 @@ function correlationKey() {
                     <li>Jack</li>
                     <li>Queen</li>
                     <li>King</li>
-                    <li>Lucky Rook</li>
+                    <li>Joker</li>
                 </ul>
                 <ul className="col-2">
                     <li>Piece ♟</li>
@@ -96,7 +96,7 @@ function correlationKey() {
                     <li>Piece ♟</li>
                     <li>Knights</li>
                     <li>Bishops</li>
-                    <li>Rooks</li>
+                    <li>Rooks or King</li>
                     <li>Queen</li>
                 </ul>
             </div>
@@ -104,7 +104,7 @@ function correlationKey() {
             <div className='key-container' style={{ marginTop: '20px' }}>
                 <ul className="col-1">
                     <li>Straight</li>
-                    <li>3 in a row</li>
+                    <li>E.g. (A, 2, 3)</li>
 
                 </ul>
                 <ul className="col-2">
@@ -112,6 +112,32 @@ function correlationKey() {
                     <li>King or Any Pawn</li>
                 </ul>
             </div>
+
+            <div className='key-container' style={{ marginTop: '20px' }}>
+                <ul className="col-1">
+                    <li>3 of a kind</li>
+                    <li>E.g. (5, 5, 5) </li>
+
+                </ul>
+                <ul className="col-2">
+                    <li>Piece ♟</li>
+                    <li>Knight, Bishop, or Rook</li>
+                </ul>
+            </div>
+
+            <div className='key-container' style={{ marginTop: '20px' }}>
+                <ul className="col-1">
+                    <li>Straight Flush</li>
+                    <li>E.g. (10d, Jd, Qd) </li>
+
+                </ul>
+                <ul className="col-2">
+                    <li>Piece ♟</li>
+                    <li>Any Piece</li>
+                </ul>
+            </div>
+
+            <p>Although 3 of a kind is easier to get in Poker, it is more difficult to get in this game and therefore has a greater reward.</p>
         </>
     )
 }

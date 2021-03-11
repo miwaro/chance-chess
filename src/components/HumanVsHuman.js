@@ -74,32 +74,19 @@ class HumanVsHuman extends Component {
 
         if (selectedCard.length === 0 && this.props.allSelected === false) return;
 
-        // Check for player1 Combos
+        // Check for player1 Flush
         let clubs = p1 && player1Suits.every(suit => suit === 'Club')
-        // console.log('clubs', clubs)
-
         let diamonds = p1 && player1Suits.every(suit => suit === 'Diamond')
-        // console.log('diamonds', diamonds)
-
         let spades = p1 && player1Suits.every(suit => suit === 'Spade')
-        // console.log('spades', spades)
-
         let hearts = p1 && player1Suits.every(suit => suit === 'Heart')
-        // console.log('hearts', hearts)
 
-        // Check for player2 Combos
+        // Check for player2 Flush
         let clubs2 = p2 && player2Suits.every(suit => suit === 'Club')
-        // console.log('clubs2', clubs2)
-
         let diamonds2 = p2 && player2Suits.every(suit => suit === 'Diamond')
-        // console.log('diamonds2', diamonds2)
-
         let spades2 = p2 && player2Suits.every(suit => suit === 'Spade')
-        // console.log('spades2', spades2)
-
         let hearts2 = p2 && player2Suits.every(suit => suit === 'Heart')
-        // console.log('hearts2', hearts2)
 
+        // Check for Straight
         let ace = p1Card.indexOf('A');
         let jack = p1Card.indexOf('J')
         let queen = p1Card.indexOf('Q');
@@ -164,7 +151,9 @@ class HumanVsHuman extends Component {
             }
         }
 
-
+        // Check for 3 of a kind
+        let isTheSame = p1Card.every((val, i, arr) => val === arr[0])
+        let isTheSame2 = p2Card.every((val, i, arr) => val === arr[0])
 
         if (isAllSelected && (p1.length === 3 || p2.length === 3)) {
             // console.log('enter if statement')
@@ -173,8 +162,6 @@ class HumanVsHuman extends Component {
             // console.log('chessPiece', chessPiece)
             // console.log(`selectedCardLength ${selectedCard.length}`)
             // combo conditions for player1
-            console.log('isAStraight', isAStraight)
-
             if (whiteToMove) {
                 if (isAStraight && (chessPiece === 'k' || chessPiece === 'p')) {
                     draggable = true;
@@ -185,10 +172,16 @@ class HumanVsHuman extends Component {
                 if (diamonds && (chessPiece === 'b')) {
                     draggable = true;
                 }
-                if (spades && (chessPiece === 'r')) {
+                if (spades && (chessPiece === 'r' || chessPiece === 'k')) {
                     draggable = true;
                 }
                 if (hearts && (chessPiece === 'q')) {
+                    draggable = true;
+                }
+                if (isTheSame && (chessPiece === 'n' || chessPiece === 'b' || chessPiece === 'r')) {
+                    draggable = true;
+                }
+                if ((clubs || diamonds || spades || hearts) && isAStraight) {
                     draggable = true;
                 }
             }
@@ -203,10 +196,16 @@ class HumanVsHuman extends Component {
                 if (diamonds2 && (chessPiece === 'b')) {
                     draggable = true;
                 }
-                if (spades2 && (chessPiece === 'r')) {
+                if (spades2 && (chessPiece === 'r' || chessPiece === 'k')) {
                     draggable = true;
                 }
                 if (hearts2 && (chessPiece === 'q')) {
+                    draggable = true;
+                }
+                if (isTheSame2 && (chessPiece === 'n' || chessPiece === 'b' || chessPiece === 'r')) {
+                    draggable = true;
+                }
+                if ((clubs2 || diamonds2 || spades2 || hearts2) && isAStraight) {
                     draggable = true;
                 }
             }
