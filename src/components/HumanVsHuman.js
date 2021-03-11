@@ -131,7 +131,6 @@ class HumanVsHuman extends Component {
 
         let sorted = p1Card.sort((a, b) => a - b);
         let straight = sorted.map(i => Number(i))
-        console.log('straight', straight)
         for (var i = 0; i < straight.length; i++) {
             var diff = straight[i + 1] - straight[i];
             let total = straight.reduce((a, b) => a + b, 0)
@@ -142,7 +141,6 @@ class HumanVsHuman extends Component {
 
         let sorted2 = p2Card.sort((a, b) => a - b);
         let straight2 = sorted2.map(i => Number(i))
-        console.log('straight2', straight2)
         for (var i = 0; i < straight2.length; i++) {
             var diff2 = straight2[i + 1] - straight2[i];
             let total = straight2.reduce((a, b) => a + b, 0)

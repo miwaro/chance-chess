@@ -32,6 +32,7 @@ import "../style/components/playerCard.scss";
 const Card = (props) => {
 
   const { suits, card, front, color, cardIndex, cardPiece, allCardsSelected } = props;
+  console.log(typeof suits)
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -108,6 +109,19 @@ const Card = (props) => {
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
   let btn_class = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
 
+  let player1Suits = props.player1Cards.map(card => card.suits);
+  let player2Suits = props.player2Cards.map(card => card.suits);
+
+
+  let symbol_Style =
+    (!props.disabled && props.player1Cards.length === 3 && player1Suits.every((val, i, arr) => val === arr[0])) ||
+      (props.disabled && props.player2Cards.length === 3 && player2Suits.every((val, i, arr) => val === arr[0])) ? "rotate" : "";
+
+
+
+  // let straight_Style = props.player1Cards.length === 3 && player1Suits.every((val, i, arr) => val === arr[0]) ? "rotate" : "";
+
+
   if (front && cardIndex < 53) {
     const cardSymbol = getCardSymbol(suits);
     const redChessPiece = getRedChessPiece(cardPiece);
@@ -121,7 +135,11 @@ const Card = (props) => {
       >
         <div style={{ position: "absolute", top: 5, left: 5 }}>
           <div style={{ maxWidth: 25 }}>{card}</div>
-          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
+          <div className={symbol_Style}>
+            <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
+          </div>
+
+
         </div>
         {color === 'red' ?
           <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
@@ -130,7 +148,9 @@ const Card = (props) => {
         }
         <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
           <div style={{ maxWidth: 25 }}>{card}</div>
-          <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
+          <div className={symbol_Style}>
+            <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
+          </div>
         </div>
       </div>
     );
