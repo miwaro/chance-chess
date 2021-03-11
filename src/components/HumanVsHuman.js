@@ -59,6 +59,7 @@ class HumanVsHuman extends Component {
 
     onDragStart = ({ piece, sourceSquare }) => {
         let draggable = false;
+        let isAStraight = false;
         let chessPiece = piece[1].toLowerCase();
         let column = sourceSquare[0];
         let whiteToMove = this.props.whiteToMove;
@@ -71,11 +72,13 @@ class HumanVsHuman extends Component {
         // console.log('player1Suits', player1Suits)
         let player2Suits = p2.map(card => card.suits);
         // console.log('player2Suits', player2Suits)
+        let p1Card = p1.map(card => card.card);
+        let p2Card = p2.map(card => card.card);
+
 
         if (selectedCard.length === 0 && this.props.allSelected === false) return;
 
         // Check for player1 Combos
-
         let clubs = p1 && player1Suits.every(suit => suit === 'Club')
         // console.log('clubs', clubs)
 
@@ -89,7 +92,6 @@ class HumanVsHuman extends Component {
         // console.log('hearts', hearts)
 
         // Check for player2 Combos
-
         let clubs2 = p2 && player2Suits.every(suit => suit === 'Club')
         // console.log('clubs2', clubs2)
 
@@ -102,8 +104,69 @@ class HumanVsHuman extends Component {
         let hearts2 = p2 && player2Suits.every(suit => suit === 'Heart')
         // console.log('hearts2', hearts2)
 
-        // console.log('draggable', draggable)
+        let ace = p1Card.indexOf('A');
+        let jack = p1Card.indexOf('J')
+        let queen = p1Card.indexOf('Q');
+        let king = p1Card.indexOf('K');
 
+        let blackAce = p2Card.indexOf('A');
+        let blackJack = p2Card.indexOf('J')
+        let blackQueen = p2Card.indexOf('Q');
+        let blackKing = p2Card.indexOf('K');
+
+        if (ace !== -1) {
+            p1Card[ace] = '1';
+        }
+
+        if (jack !== -1) {
+            p1Card[jack] = '11';
+        }
+
+        if (queen !== -1) {
+            p1Card[queen] = '12';
+        }
+
+        if (queen !== -1) {
+            p1Card[king] = '13';
+        }
+
+        if (ace !== -1) {
+            p2Card[blackAce] = '1';
+        }
+
+        if (jack !== -1) {
+            p2Card[blackJack] = '11';
+        }
+
+        if (queen !== -1) {
+            p2Card[blackQueen] = '12';
+        }
+
+        if (queen !== -1) {
+            p2Card[blackKing] = '13';
+        }
+
+        let sorted = p1Card.sort((a, b) => a - b);
+        let straight = sorted.map(i => Number(i))
+        console.log('straight', straight)
+        for (var i = 0; i < straight.length; i++) {
+            var diff = straight[i + 1] - straight[i];
+            let total = straight.reduce((a, b) => a + b, 0)
+            if ((Math.abs(diff) === 1 && straight[i + 1] + diff === straight[i + 2]) || (straight.includes(1) && total === 26)) {
+                isAStraight = true;
+            }
+        }
+
+        let sorted2 = p2Card.sort((a, b) => a - b);
+        let straight2 = sorted2.map(i => Number(i))
+        console.log('straight2', straight2)
+        for (var i = 0; i < straight2.length; i++) {
+            var diff2 = straight2[i + 1] - straight2[i];
+            let total = straight2.reduce((a, b) => a + b, 0)
+            if ((Math.abs(diff2) === 1 && straight2[i + 1] + diff2 === straight2[i + 2]) || (straight2.includes(1) && total === 26)) {
+                isAStraight = true;
+            }
+        }
 
         if (isAllSelected) {
             // console.log('enter if statement')
@@ -112,7 +175,12 @@ class HumanVsHuman extends Component {
             // console.log('chessPiece', chessPiece)
             // console.log(`selectedCardLength ${selectedCard.length}`)
             // combo conditions for player1
+            console.log('isAStraight', isAStraight)
+
             if (whiteToMove) {
+                if (isAStraight && (chessPiece === 'k')) {
+                    draggable = true;
+                }
                 if (clubs && (chessPiece === 'n')) {
                     draggable = true;
                 }
@@ -126,8 +194,11 @@ class HumanVsHuman extends Component {
                     draggable = true;
                 }
             }
+            // combo conditions for player 2
             if (!whiteToMove) {
-                // combo conditions for player 2
+                if (isAStraight && (chessPiece === 'k')) {
+                    draggable = true;
+                }
                 if (clubs2 && (chessPiece === 'n')) {
                     draggable = true;
                 }

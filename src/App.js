@@ -23,20 +23,6 @@ import { selectAll } from "./redux/actions/cardActions";
 
 const App = (props) => {
 
-
-  const selectAllCards = (selectedCards) => {
-    let suits = selectedCards.map(card => card.suits);
-    let clubs = suits.every(suit => suit === 'Club')
-    let diamonds = suits.every(suit => suit === 'Diamond')
-    let spades = suits.every(suit => suit === 'Spade')
-    let hearts = suits.every(suit => suit === 'Heart')
-    let len = selectedCards.length;
-
-    if ((clubs && len === 3) || (diamonds && len === 3) || (spades && len === 3) || (hearts && len === 3)) {
-      props.onSelectAll();
-    } else alert('You do not have a combo. Click the "Key" button to see what combos are available');
-  }
-
   const getCardP1 = (deck) => {
     let whiteToMove = props.whiteToMove;
     if (!whiteToMove || props.player1Cards.length >= 3 || props.cardsArray.length === 0) return;
@@ -71,6 +57,7 @@ const App = (props) => {
   }
 
   const discardOne = (selectedCardIndex) => {
+    if (props.selectedCard.length === 0) return;
     props.onRemoveSelected(selectedCardIndex)
     props.onChangeTurn();
   }
@@ -138,9 +125,8 @@ const App = (props) => {
                   }}
                 >
                   Shuffle
-              </Button>
+                </Button>
               </>
-
             }
 
             {props.whiteToMove &&
@@ -155,14 +141,14 @@ const App = (props) => {
                     marginLeft: 'auto',
                     marginRight: 'auto'
                   }}
-                  onClick={() => selectAllCards(props.player1Cards)}
+                  onClick={() => props.onSelectAll()}
                 >
                   Select All
-            </Button>
+                </Button>
                 <Button
                   onClick={discardAllP1}
                   style={{
-                    backgroundColor: '#2b2b2b',
+                    backgroundColor: 'rgb(99 91 91',
                     color: 'white',
                     width: '90%',
                     border: '1px solid black',
@@ -185,14 +171,14 @@ const App = (props) => {
                     marginLeft: 'auto',
                     marginRight: 'auto'
                   }}
-                  onClick={() => selectAllCards(props.player2Cards)}
+                  onClick={() => props.onSelectAll()}
                 >
                   Select All
                 </Button>
                 <Button
                   onClick={discardAllP2}
                   style={{
-                    backgroundColor: '#2b2b2b',
+                    backgroundColor: 'rgb(99 91 91',
                     color: 'white',
                     width: '90%',
                     border: '1px solid black',
@@ -243,7 +229,7 @@ const App = (props) => {
                   style={{
                     backgroundColor: '#277714',
                     color: 'white',
-                    margin: '40px 0 0 0',
+                    margin: '20px 0 0 0',
                     border: '1px solid black'
                   }}
                   onClick={() => getCardP1(props.cardsArray)}
@@ -254,7 +240,7 @@ const App = (props) => {
                   style={{
                     backgroundColor: 'rgb(43, 43, 43)',
                     color: 'white',
-                    margin: '40px 0 0 0',
+                    margin: '20px 0 0 0',
                     border: '1px solid black'
                   }}
                   onClick={() => discardOne(props.selectedCard[1])}
@@ -273,6 +259,7 @@ const App = (props) => {
                     color: 'white',
                     cursor: 'pointer',
                     borderRadius: '50%',
+                    margin: '0px 0 100px 0',
                     fontSize: '24px'
                   }}
                 >
@@ -283,7 +270,7 @@ const App = (props) => {
                   style={{
                     backgroundColor: '#277714',
                     color: 'white',
-                    margin: '40px 0 0 0',
+                    margin: '20px 0 0 0',
                     border: '1px solid black'
                   }}
                   onClick={getCardP2}
@@ -294,7 +281,7 @@ const App = (props) => {
                   style={{
                     backgroundColor: 'rgb(43, 43, 43)',
                     color: 'white',
-                    margin: '40px 0 0 0',
+                    margin: '20px 0 0 0',
                     border: '1px solid black'
                   }}
                   onClick={() => discardOne(props.selectedCard[1])}

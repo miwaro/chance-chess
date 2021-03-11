@@ -25,12 +25,12 @@
 
   .deck-container {
     height: 170px;
-    width: 116px;
+    width: 120px;
     background-size: cover;
     transform: translateX(55px);
     border: 1px solid black;
     border-radius: 10px;
-    margin-left: -112px;
+    margin-left: -116px;
     @include transition (all, 0.25s, ease);
     @include bp-medium {
       margin-left: -195px;
