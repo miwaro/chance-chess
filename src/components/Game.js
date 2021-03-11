@@ -24,7 +24,7 @@ function Board() {
                             onDrop={onDrop}
                             orientation={orientation}
                             boardStyle={{
-                                border: '5px ridge orange',
+                                // border: '5px ridge orange',
                                 margin: '15px'
                                 // marginRight: '15px',
                                 // boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,

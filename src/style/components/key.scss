@@ -25,10 +25,11 @@
     font-style: italic;
     text-align: center;
     font-size: 35px;
+    color: white;
     display: flex;
     justify-content: center;
     margin-top: 20px;
-    background-color: orange;
+    background: linear-gradient(90deg, #123709 0%, #277714 24%, #33b115 85%);
 }
 
 .col-1 {

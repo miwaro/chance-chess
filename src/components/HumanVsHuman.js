@@ -109,23 +109,23 @@ class HumanVsHuman extends Component {
             p1Card[queen] = '12';
         }
 
-        if (queen !== -1) {
+        if (king !== -1) {
             p1Card[king] = '13';
         }
 
-        if (ace !== -1) {
+        if (blackAce !== -1) {
             p2Card[blackAce] = '1';
         }
 
-        if (jack !== -1) {
+        if (blackJack !== -1) {
             p2Card[blackJack] = '11';
         }
 
-        if (queen !== -1) {
+        if (blackQueen !== -1) {
             p2Card[blackQueen] = '12';
         }
 
-        if (queen !== -1) {
+        if (blackKing !== -1) {
             p2Card[blackKing] = '13';
         }
 
