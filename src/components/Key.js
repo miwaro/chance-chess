@@ -40,7 +40,7 @@ function correlationKey() {
                     <li>Any Piece</li>
                 </ul>
             </div>
-            <h3>Combos</h3>
+            <h3>Flush</h3>
             <div className='key-container'>
                 <ul className="col-1">
                     <li>3 ♣'s</li>

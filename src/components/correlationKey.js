@@ -83,10 +83,10 @@ function correlationKey() {
                     <li>Any Piece</li>
                 </ul>
             </div>
-            <h3>Combos</h3>
+            <h2 style={{ backgroundColor: 'orange', textAlign: 'center' }}>Combos</h2>
             <div className='key-container'>
                 <ul className="col-1">
-                    <li>Combo</li>
+                    <li>Flush</li>
                     <li>3 ♣'s</li>
                     <li>3 ♦'s</li>
                     <li>3 ♠'s</li>
@@ -98,6 +98,18 @@ function correlationKey() {
                     <li>Bishops</li>
                     <li>Rooks</li>
                     <li>Queen</li>
+                </ul>
+            </div>
+
+            <div className='key-container' style={{ marginTop: '20px' }}>
+                <ul className="col-1">
+                    <li>Straight</li>
+                    <li>3 in a row</li>
+
+                </ul>
+                <ul className="col-2">
+                    <li>Piece ♟</li>
+                    <li>King or Any Pawn</li>
                 </ul>
             </div>
         </>

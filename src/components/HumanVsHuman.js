@@ -67,14 +67,10 @@ class HumanVsHuman extends Component {
         let isAllSelected = this.props.allSelected;
         let p1 = this.props.player1Cards;
         let p2 = this.props.player2Cards;
-
         let player1Suits = p1.map(card => card.suits);
-        // console.log('player1Suits', player1Suits)
         let player2Suits = p2.map(card => card.suits);
-        // console.log('player2Suits', player2Suits)
         let p1Card = p1.map(card => card.card);
         let p2Card = p2.map(card => card.card);
-
 
         if (selectedCard.length === 0 && this.props.allSelected === false) return;
 
@@ -168,7 +164,7 @@ class HumanVsHuman extends Component {
             }
         }
 
-        if (isAllSelected) {
+        if (isAllSelected && (p1.length === 3 || p2.length === 3)) {
             // console.log('enter if statement')
             // console.log(`isAllSelected: ${isAllSelected}`)
             // console.log('selectedCard[0]', selectedCard[0])
@@ -178,7 +174,7 @@ class HumanVsHuman extends Component {
             console.log('isAStraight', isAStraight)
 
             if (whiteToMove) {
-                if (isAStraight && (chessPiece === 'k')) {
+                if (isAStraight && (chessPiece === 'k' || chessPiece === 'p')) {
                     draggable = true;
                 }
                 if (clubs && (chessPiece === 'n')) {
@@ -196,7 +192,7 @@ class HumanVsHuman extends Component {
             }
             // combo conditions for player 2
             if (!whiteToMove) {
-                if (isAStraight && (chessPiece === 'k')) {
+                if (isAStraight && (chessPiece === 'k' || chessPiece === 'p')) {
                     draggable = true;
                 }
                 if (clubs2 && (chessPiece === 'n')) {
