@@ -5,7 +5,8 @@ import { selectCard } from '../redux/actions/cardActions'
 import PropTypes from "prop-types";
 
 import backCardImg from "../style/images/backCardImg.png";
-import chessLogo from "../images/luckyRookFAV2.png";
+// import chessLogo from "../images/luckyRookFAV2.png";
+import joker from "../style/images/joker.png";
 import heart from "../style/images/heart.png";
 import diamond from "../style/images/diamond.png";
 import club from "../style/images/club.png";
@@ -34,6 +35,7 @@ const Card = (props) => {
 
   const getCardSymbol = (suits) => {
     let symbol;
+
     switch (suits) {
       case "Diamond":
         return symbol = diamond;
@@ -88,6 +90,12 @@ const Card = (props) => {
     };
   };
 
+  // const getJoker = (cardIndex) => {
+  //   if (cardIndex === 53 || cardIndex === 54) {
+  //     return joker;
+  //   }
+  // }
+
   const getSelectedCard = (card, cardIndex) => {
     let allSelected = props.allSelected;
 
@@ -100,7 +108,7 @@ const Card = (props) => {
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
   let btn_class = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
 
-  if (front) {
+  if (front && cardIndex < 53) {
     const cardSymbol = getCardSymbol(suits);
     const redChessPiece = getRedChessPiece(cardPiece);
     const blackChessPiece = getBlackChessPiece(cardPiece);
@@ -115,20 +123,30 @@ const Card = (props) => {
           <div style={{ maxWidth: 25 }}>{card}</div>
           <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
         </div>
-
-        { color === 'red' ?
+        {color === 'red' ?
           <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
           :
           <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
         }
-
         <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
           <div style={{ maxWidth: 25 }}>{card}</div>
           <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
         </div>
       </div>
     );
-  } else {
+  } else if
+    (cardIndex > 52) {
+    return (
+      <div
+        className={btn_class}
+        onClick={() => getSelectedCard(card, cardIndex)}
+      >
+        <img src={joker} alt="suit-symbol" style={{ height: '162px', width: '126px' }} />
+      </div>
+    )
+  }
+
+  else {
     return (
       <>
         <div
@@ -137,9 +155,6 @@ const Card = (props) => {
             backgroundImage: `url(${backCardImg})`,
             backgroundColor: 'lightgray'
           }}>
-          <div style={{ backgroundImage: `url(${chessLogo})` }}>
-
-          </div>
           <div style={{ position: 'absolute', bottom: '5px', right: '-18px', padding: '5px', color: 'orange', fontWeight: 'bold', backgroundColor: '#2b2b2b', borderRadius: '50%' }}>
             {props.cardsArray.length}
           </div>

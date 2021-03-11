@@ -1,21 +1,15 @@
 
-import React from 'react'
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import Button from '@material-ui/core/Button';
 import '../../style/components/player1.scss';
 import '../../style/components/playerCard.scss';
 import Card from '../Card';
 
 
 function Player1CardContainer(props) {
-    // console.log(`player1ContainerProps: ${props}`)
-
     return (
         <>
-
             <div className="card-slot">
-
                 <div className="player1">
                     {props.cards.map(card => (
                         <div key={uuidv4()}>
@@ -55,7 +49,6 @@ function Player1CardContainer(props) {
                     <div className='empty-placeholder'></div>
                 }
             </div>
-
         </>
     )
 }

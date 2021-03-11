@@ -419,5 +419,17 @@ export const deckArray = [
     color: "black",
     index: "52",
     correspondingPiece: "k",
+  },
+  {
+    suits: "",
+    card: "Joker",
+    color: "",
+    index: "53"
+  },
+  {
+    suits: "",
+    card: "Joker",
+    color: "",
+    index: "54"
   }
 ];

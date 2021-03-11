@@ -164,6 +164,8 @@ class HumanVsHuman extends Component {
             }
         }
 
+
+
         if (isAllSelected && (p1.length === 3 || p2.length === 3)) {
             // console.log('enter if statement')
             // console.log(`isAllSelected: ${isAllSelected}`)
@@ -251,6 +253,10 @@ class HumanVsHuman extends Component {
                 draggable = true;
             }
             if (selectedCard[0] === 'K' && chessPiece === 'k') {
+                draggable = true;
+            }
+            // Joker conditions
+            if (selectedCard[0] === 'Joker') {
                 draggable = true;
             }
         } else { draggable = false };
