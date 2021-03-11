@@ -23,8 +23,8 @@ import blackPawn from "../style/images/chessPieces/black/blackPawn.png";
 import blackRook from "../style/images/chessPieces/black/blackRook.png";
 import blackKnight from "../style/images/chessPieces/black/blackKnight.png";
 import blackBishop from "../style/images/chessPieces/black/blackBishop.png";
-import blackQueen from "../style/images/chessPieces/black/blackQueen.png";
-import blackKing from "../style/images/chessPieces/black/blackKing.png";
+import blackQueenImg from "../style/images/chessPieces/black/blackQueen.png";
+import blackKingImg from "../style/images/chessPieces/black/blackKing.png";
 
 import "../style/components/card.scss";
 import "../style/components/playerCard.scss";
@@ -83,19 +83,14 @@ const Card = (props) => {
       case "b":
         return piece = blackBishop;
       case "q":
-        return piece = blackQueen;
+        return piece = blackQueenImg;
       case "k":
-        return piece = blackKing;
+        return piece = blackKingImg;
       default:
         return piece;
     };
   };
 
-  // const getJoker = (cardIndex) => {
-  //   if (cardIndex === 53 || cardIndex === 54) {
-  //     return joker;
-  //   }
-  // }
 
   const getSelectedCard = (card, cardIndex) => {
     let allSelected = props.allSelected;
@@ -115,11 +110,79 @@ const Card = (props) => {
 
   let symbol_Style =
     (!props.disabled && props.player1Cards.length === 3 && player1Suits.every((val, i, arr) => val === arr[0])) ||
-      (props.disabled && props.player2Cards.length === 3 && player2Suits.every((val, i, arr) => val === arr[0])) ? "rotate" : "";
+      (!props.disabled && props.player2Cards.length === 3 && player2Suits.every((val, i, arr) => val === arr[0])) ? "rotate" : "";
+
+  // Create Straight Styles********************************************************************************************
+  let isAStraight = false;
+  let p1 = props.player1Cards;
+  let p2 = props.player2Cards;
+  let p1Card = p1.map(card => card.card);
+  let p2Card = p2.map(card => card.card);
 
 
+  let ace = p1Card.indexOf('A');
+  let jack = p1Card.indexOf('J')
+  let queen = p1Card.indexOf('Q');
+  let king = p1Card.indexOf('K');
 
-  // let straight_Style = props.player1Cards.length === 3 && player1Suits.every((val, i, arr) => val === arr[0]) ? "rotate" : "";
+  let blackAce = p2Card.indexOf('A');
+  let blackJack = p2Card.indexOf('J')
+  let blackQueen = p2Card.indexOf('Q');
+  let blackKing = p2Card.indexOf('K');
+
+  if (ace !== -1) {
+    p1Card[ace] = '1';
+  }
+
+  if (jack !== -1) {
+    p1Card[jack] = '11';
+  }
+
+  if (queen !== -1) {
+    p1Card[queen] = '12';
+  }
+
+  if (king !== -1) {
+    p1Card[king] = '13';
+  }
+
+  if (blackAce !== -1) {
+    p2Card[blackAce] = '1';
+  }
+
+  if (blackJack !== -1) {
+    p2Card[blackJack] = '11';
+  }
+
+  if (blackQueen !== -1) {
+    p2Card[blackQueen] = '12';
+  }
+
+  if (blackKing !== -1) {
+    p2Card[blackKing] = '13';
+  }
+
+  let sorted = p1Card.sort((a, b) => a - b);
+  let straight = sorted.map(i => Number(i))
+  for (var i = 0; i < straight.length; i++) {
+    var diff = straight[i + 1] - straight[i];
+    let total = straight.reduce((a, b) => a + b, 0)
+    if ((Math.abs(diff) === 1 && straight[i + 1] + diff === straight[i + 2]) || (straight.includes(1) && total === 26)) {
+      isAStraight = true;
+    }
+  }
+
+  let sorted2 = p2Card.sort((a, b) => a - b);
+  let straight2 = sorted2.map(i => Number(i))
+  for (var i = 0; i < straight2.length; i++) {
+    var diff2 = straight2[i + 1] - straight2[i];
+    let total = straight2.reduce((a, b) => a + b, 0)
+    if ((Math.abs(diff2) === 1 && straight2[i + 1] + diff2 === straight2[i + 2]) || (straight2.includes(1) && total === 26)) {
+      isAStraight = true;
+    }
+  }
+
+  let straight_Style = !props.disabled && isAStraight ? "rotateNumber" : ""
 
 
   if (front && cardIndex < 53) {
@@ -134,20 +197,20 @@ const Card = (props) => {
         onClick={() => getSelectedCard(card, cardIndex)}
       >
         <div style={{ position: "absolute", top: 5, left: 5 }}>
-          <div style={{ maxWidth: 25 }}>{card}</div>
+          <div className={straight_Style} style={{ maxWidth: 25 }}>{card}</div>
           <div className={symbol_Style}>
             <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
           </div>
-
-
         </div>
+
         {color === 'red' ?
           <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
           :
           <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
         }
+
         <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
-          <div style={{ maxWidth: 25 }}>{card}</div>
+          <div className={straight_Style} style={{ maxWidth: 25 }}>{card}</div>
           <div className={symbol_Style}>
             <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
           </div>

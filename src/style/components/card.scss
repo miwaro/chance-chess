@@ -59,7 +59,6 @@
   animation: rotation 2s infinite linear;
 }
 
-
 @keyframes rotation {
   from {
     transform: rotate(0deg);
@@ -68,3 +67,19 @@
     transform: rotateY(3.142rad);
   }
 }
+
+.rotateNumber {
+  animation: createBox 1.6s infinite;
+  padding-left: 4px;
+}
+
+@keyframes createBox {
+  from {
+    transform: scale(.5);
+  }
+  to {
+    transform: scale(1.3);
+  }
+}
+
+
