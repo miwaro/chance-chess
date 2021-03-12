@@ -18,9 +18,6 @@ const reducer = (state = initialState, action) => {
     let cardsArray;
     let deck;
     let newDeck;
-    // let randomCard;
-    // let randomItem;
-    // let newCardsArray;
     let selected;
     let selectedCard;
     let p1Cards;
@@ -166,27 +163,13 @@ const reducer = (state = initialState, action) => {
             }
 
         case actionTypes.DISCARD_ALL_P1_CARDS:
-            // p1Cards = state.player1Cards;
-            // p2Cards = state.player2Cards;
-            // selected = state.selectedCard;
             whiteToMove = state.whiteToMove;
-
-
-
-            // if (whiteToMove) {
-            //     p1Cards = p1Cards.filter(card => card.index !== selected[1])
-            // } else if (!whiteToMove) {
-            //     p2Cards = p2Cards.filter(card => card.index !== selected[1])
-            // }
 
             return {
                 ...state,
                 allSelected: false,
                 whiteToMove: !whiteToMove,
-                // player1Cards: p1Cards,
-                // player2Cards: p2Cards,
                 player1Cards: []
-
             }
 
         case actionTypes.DISCARD_ALL_P2_CARDS:

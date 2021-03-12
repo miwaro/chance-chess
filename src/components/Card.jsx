@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { selectCard } from '../redux/actions/cardActions'
+import { selectCard, removeSelectedCard, changeTurn } from '../redux/actions/cardActions'
 
 import PropTypes from "prop-types";
 
@@ -101,6 +101,13 @@ const Card = (props) => {
     props.onSelectCard(card, cardIndex);
   }
 
+
+  const discardOne = (selectedCardIndex) => {
+    if (props.selectedCard.length === 0 || cardIndex !== props.selectedCard[1]) return;
+    props.onRemoveSelected(selectedCardIndex)
+    props.onChangeTurn();
+  }
+
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
   let btn_class = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
 
@@ -196,6 +203,37 @@ const Card = (props) => {
         style={{ color: `${color}` }}
         onClick={() => getSelectedCard(card, cardIndex)}
       >
+        {props.selectedCard.length > 0 && cardIndex === props.selectedCard[1] &&
+          <button
+            onClick={() => discardOne(props.selectedCard[1])}
+            style={{
+              position: 'absolute',
+              top: '5px',
+              right: '5px',
+              padding: '5px',
+              border: 'none',
+              color: 'red',
+              cursor: 'pointer',
+              borderRadius: '4px'
+            }}>
+            Discard
+        </button>
+        }
+        <button
+          onClick={() => getSelectedCard(card, cardIndex)}
+          style={{
+            position: 'absolute',
+            bottom: '5px',
+            left: '5px',
+            border: 'none',
+            padding: '5px',
+            color: '#277714',
+            cursor: 'pointer',
+            borderRadius: '4px'
+          }}>
+          Select
+        </button>
+
         <div style={{ position: "absolute", top: 5, left: 5 }}>
           <div className={straight_Style} style={{ maxWidth: 25 }}>{card}</div>
           <div className={symbol_Style}>
@@ -220,17 +258,51 @@ const Card = (props) => {
   } else if
     (cardIndex > 52) {
     return (
-      <div
-        className={btn_class}
-        onClick={() => getSelectedCard(card, cardIndex)}
-      >
-        <img src={joker} alt="suit-symbol" style={{
-          height: '172px',
-          width: '140px',
-          transform: 'translate(-8px, -6px)'
-        }}
-        />
-      </div>
+      <>
+        <div className={btn_class}>
+          <img src={joker} alt="suit-symbol" style={{
+            height: '172px',
+            width: '140px',
+            transform: 'translate(-8px, -6px)'
+          }}
+          />
+          {props.selectedCard.length > 0 && cardIndex === props.selectedCard[1] &&
+            <button
+              onClick={() => discardOne(props.selectedCard[1])}
+              style={{
+                position: 'absolute',
+                top: '5px',
+                right: '0',
+                padding: '5px',
+                border: 'none',
+                color: 'red',
+                opacity: '.7',
+                cursor: 'pointer',
+                borderRadius: '4px'
+              }}>
+              Discard
+                  </button>
+          }
+
+          <button
+            onClick={() => getSelectedCard(card, cardIndex)}
+            style={{
+              position: 'absolute',
+              bottom: '5px',
+              left: '5px',
+              border: 'none',
+              padding: '5px',
+              color: '#277714',
+              cursor: 'pointer',
+              borderRadius: '4px'
+            }}>
+            Select
+        </button>
+        </div>
+
+
+
+      </>
     )
   }
 
@@ -277,7 +349,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
 
   return {
-    onSelectCard: (card, cardIndex) => dispatch(selectCard(card, cardIndex))
+    onSelectCard: (card, cardIndex) => dispatch(selectCard(card, cardIndex)),
+    onRemoveSelected: (selectedCardIndex) => dispatch(removeSelectedCard(selectedCardIndex)),
+    onChangeTurn: () => dispatch(changeTurn()),
   }
 }
 

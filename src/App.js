@@ -18,7 +18,7 @@ import {
   getCard, getPlayer2Card,
   discardAllP1Cards, discardAllP2Cards,
   shuffle,
-  removeSelectedCard, selectAll,
+  selectAll,
   changeTurn
 } from "./redux/actions/cardActions";
 
@@ -48,13 +48,6 @@ const App = (props) => {
     let whiteToMove = props.whiteToMove;
     if (whiteToMove || props.player2Cards.length === 0) return;
     props.onDiscardAllCardsP2();
-  }
-
-
-  const discardOne = (selectedCardIndex) => {
-    if (props.selectedCard.length === 0) return;
-    props.onRemoveSelected(selectedCardIndex)
-    props.onChangeTurn();
   }
 
   const resign = () => {
@@ -126,149 +119,120 @@ const App = (props) => {
             {props.whiteToMove &&
               <>
                 <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
-                <Button
-                  style={{
-                    backgroundColor: 'rgb(82 140 78)',
-                    color: 'white',
-                    border: '1px solid black',
-                    width: '90%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto'
-                  }}
-                  onClick={() => props.onSelectAll()}
-                >
-                  Select All
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Button
+                    onClick={discardAllP1}
+                    style={{
+                      backgroundColor: ' rgb(129 36 36)',
+                      color: 'white',
+                      width: '40%',
+                      border: '1px solid black',
+                      // marginLeft: '10px'
+                      // marginRight: 'auto'
+                    }}>
+                    Discard All
                 </Button>
-                <Button
-                  onClick={discardAllP1}
-                  style={{
-                    backgroundColor: ' rgb(129 36 36)',
-                    color: 'white',
-                    width: '90%',
-                    border: '1px solid black',
-                    marginLeft: 'auto',
-                    marginRight: 'auto'
-                  }}>
-                  Discard All
+                  <Button
+                    style={{
+                      backgroundColor: 'rgb(82 140 78)',
+                      color: 'white',
+                      border: '1px solid black',
+                      width: '40%',
+                      marginLeft: '45px'
+
+                      // marginRight: 'auto'
+                    }}
+                    onClick={() => props.onSelectAll()}
+                  >
+                    Select All
                 </Button>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                  <div
+                    onClick={resign}
+                    style={{
+                      cursor: 'pointer',
+                      fontSize: '30px',
+                      marginLeft: '10px'
+                    }}>
+                    🏳
+                  </div>
+                  <Rules />
+                  <Key />
+                  <Button
+                    style={{
+                      backgroundColor: 'rgb(82, 140, 78)',
+                      color: 'white',
+                      border: '1px solid black',
+                      width: '40%',
+                    }}
+                    onClick={() => getCardP1(props.cardsArray)}
+                  >
+                    Get Cards
+                </Button>
+                </div>
+
               </>
             }
 
             {!props.whiteToMove &&
               <>
                 <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
-                <Button
-                  style={{
-                    backgroundColor: 'rgb(82 140 78)',
-                    color: 'white',
-                    border: '1px solid black',
-                    width: '90%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto'
-                  }}
-                  onClick={() => props.onSelectAll()}
-                >
-                  Select All
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Button
+                    onClick={discardAllP2}
+                    style={{
+                      backgroundColor: ' rgb(129 36 36)',
+                      color: 'white',
+                      width: '40%',
+                      border: '1px solid black',
+                      // marginLeft: '10px'
+                      // marginRight: 'auto'
+                    }}>
+                    Discard All
                 </Button>
-                <Button
-                  onClick={discardAllP2}
-                  style={{
-                    backgroundColor: 'rgb(129 36 36)',
-                    color: 'white',
-                    width: '90%',
-                    border: '1px solid black',
-                    marginLeft: 'auto',
-                    marginRight: 'auto'
-                  }}>
-                  Discard All
+                  <Button
+                    style={{
+                      backgroundColor: 'rgb(82 140 78)',
+                      color: 'white',
+                      border: '1px solid black',
+                      width: '40%',
+                      marginLeft: '45px'
+
+                      // marginRight: 'auto'
+                    }}
+                    onClick={() => props.onSelectAll()}
+                  >
+                    Select All
                 </Button>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                  <div
+                    onClick={resign}
+                    style={{
+                      cursor: 'pointer',
+                      fontSize: '30px',
+                      marginLeft: '10px'
+                    }}>
+                    🏳
+                  </div>
+                  <Rules />
+                  <Key />
+                  <Button
+                    style={{
+                      backgroundColor: 'rgb(82, 140, 78)',
+                      color: 'white',
+                      border: '1px solid black',
+                      width: '40%',
+                    }}
+                    onClick={() => getCardP2(props.cardsArray)}
+                  >
+                    Get Cards
+                </Button>
+                </div>
               </>
             }
           </div>
-
-          {/* ***************************************--------SIDEBAR----SHOULD PROBABLY BE ITS OWN COMPONENT----- */}
-
-          {props.whiteToMove &&
-            <div className="actions-container">
-              {/* <h3 style={{ fontStyle: 'italic', fontSize: '26px' }}>Player One</h3> */}
-              <div className="game-buttons">
-                <div
-                  onClick={resign}
-                  style={{
-                    cursor: 'pointer',
-                    fontSize: '30px'
-                  }}>
-                  🏳
-                  </div>
-                <Rules />
-                <Key />
-              </div>
-              <Button
-                style={{
-                  backgroundColor: ' rgb(129 36 36)',
-                  color: 'white',
-                  border: '1px solid black',
-                  marginTop: '20px',
-                }}
-                onClick={() => discardOne(props.selectedCard[1])}
-              >
-                Discard One
-                </Button>
-              <Button
-                style={{
-                  backgroundColor: 'rgb(82, 140, 78)',
-                  color: 'white',
-                  border: '1px solid black',
-                  padding: '16px',
-                  margin: '20px'
-                }}
-                onClick={() => getCardP1(props.cardsArray)}
-              >
-                Get Cards
-                </Button>
-            </div>
-          }
-          {!props.whiteToMove &&
-            <div className="actions-container">
-              {/* <h3 style={{ fontStyle: 'italic' }}>Player Two</h3> */}
-              <button
-                onClick={resign}
-                style={{
-                  backgroundColor: '#565656',
-                  color: 'white',
-                  cursor: 'pointer',
-                  borderRadius: '50%',
-                  margin: '0px 0 50px 0',
-                  fontSize: '24px'
-                }}
-              >
-                🏳
-                </button>
-              <Button
-                style={{
-                  backgroundColor: 'rgb(129 36 36)',
-                  color: 'white',
-                  border: '1px solid black',
-                  marginTop: '20px',
-                }}
-                onClick={() => discardOne(props.selectedCard[1])}
-              >
-                Discard One
-                </Button>
-              <Button
-                style={{
-                  backgroundColor: 'rgb(82, 140, 78)',
-                  color: 'white',
-                  padding: '16px',
-                  margin: '20px',
-                  border: '1px solid black'
-                }}
-                onClick={getCardP2}
-              >
-                Get Cards
-                </Button>
-            </div>
-          }
         </div>
       </div>
     </div >
@@ -299,8 +263,8 @@ const mapDispatchToProps = dispatch => {
     onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
     onShuffle: (p1Cards, p2Cards) => dispatch(shuffle(p1Cards, p2Cards)),
     onSelectAll: () => dispatch(selectAll()),
-    onRemoveSelected: (selectedCardIndex) => dispatch(removeSelectedCard(selectedCardIndex)),
-    onChangeTurn: () => dispatch(changeTurn()),
+    // onRemoveSelected: (selectedCardIndex) => dispatch(removeSelectedCard(selectedCardIndex)),
+    // onChangeTurn: () => dispatch(changeTurn()),
   }
 }
 
