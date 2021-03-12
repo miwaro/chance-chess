@@ -22,14 +22,16 @@ body {
   flex-direction: column;
   text-align: center;
   width: 170px;
-  /* background-color:#4c6350; */
-  background: rgb(18,55,9);
-background: linear-gradient(357deg, rgba(18,55,9,1) 0%, rgba(61,74,62,1) 32%, rgb(67, 100, 59) 85%);
-  justify-content: space-around;
+  background-color:#4c6350;
+  /* background: rgb(18,55,9); */
+/* background: linear-gradient(357deg, rgba(18,55,9,1) 0%, rgba(61,74,62,1) 32%, rgb(67, 100, 59) 85%); */
+  justify-content: flex-end;
 }
 
 .game-buttons {
-  margin-top: 20px;
+  margin-top: 60px;
+  display: flex;
+  justify-content: space-around;
 }
 
 .Board {

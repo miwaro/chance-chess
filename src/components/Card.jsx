@@ -243,7 +243,16 @@ const Card = (props) => {
             backgroundImage: `url(${backCardImg})`,
             backgroundColor: 'lightgray'
           }}>
-          <div style={{ position: 'absolute', bottom: '5px', right: '-18px', padding: '5px', color: 'orange', fontWeight: 'bold', backgroundColor: '#2b2b2b', borderRadius: '50%' }}>
+          <div style={{
+            position: 'absolute',
+            bottom: '5px',
+            right: '-18px',
+            padding: '5px',
+            color: 'orange',
+            fontWeight: 'bold',
+            backgroundColor: '#2b2b2b',
+            borderRadius: '50%'
+          }}>
             {props.cardsArray.length}
           </div>
         </div>

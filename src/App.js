@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import "./App.css";
 import './style/components/player1.scss';
 import './style/components/playerCard.scss';
-import chessLogo from "./style/images/cardSlotCC.png";
+// import chessLogo from "./style/images/cardSlotCC.png";
+// import flag from "./style/images/flag.png";
 import Header from './components/Header';
 import Button from '@material-ui/core/Button';
 import Player2CardContainer from './components/Players/Player2CardContainer';
@@ -13,12 +14,13 @@ import Board from './components/Game';
 import Card from './components/Card';
 import Key from './components/keySidebar'
 import Rules from './components/RulesSidebar'
-
-import { startNewGame } from "./redux/actions/cardActions";
-import { discardAllP1Cards, getCard } from "./redux/actions/cardActions";
-import { getPlayer2Card, discardAllP2Cards, shuffle, removeSelectedCard, changeTurn } from "./redux/actions/cardActions";
-import { selectAll } from "./redux/actions/cardActions";
-
+import {
+  getCard, getPlayer2Card,
+  discardAllP1Cards, discardAllP2Cards,
+  shuffle,
+  removeSelectedCard, selectAll,
+  changeTurn
+} from "./redux/actions/cardActions";
 
 
 const App = (props) => {
@@ -29,17 +31,17 @@ const App = (props) => {
     props.onGetCard();
   }
 
+  const getCardP2 = () => {
+    let whiteToMove = props.whiteToMove;
+    if (whiteToMove || props.player2Cards.length >= 3 || props.cardsArray.length === 0) return;
+    props.onGetCardForPlayer2();
+  }
+
   const discardAllP1 = () => {
     let whiteToMove = props.whiteToMove;
     if (!whiteToMove || props.player1Cards.length === 0) return;
     props.onDiscardAllCardsP1();
     // this.shuffle()
-  }
-
-  const getCardP2 = () => {
-    let whiteToMove = props.whiteToMove;
-    if (whiteToMove || props.player2Cards.length >= 3 || props.cardsArray.length === 0) return;
-    props.onGetCardForPlayer2();
   }
 
   const discardAllP2 = () => {
@@ -48,14 +50,6 @@ const App = (props) => {
     props.onDiscardAllCardsP2();
   }
 
-  const startNewGame = () => {
-    let deck = props.cardsArray;
-    if (deck.length < 52) {
-      window.confirm('You already started the game. Perhaps you would like to resign with the flag icon')
-      return;
-    }
-    props.onStartNewGame()
-  }
 
   const discardOne = (selectedCardIndex) => {
     if (props.selectedCard.length === 0) return;
@@ -89,7 +83,6 @@ const App = (props) => {
   return (
     <div className="App">
       <Header />
-      {/* <CaptureSidebar /> */}
       <div className="body-container">
         <div className="Board">
           <Board />
@@ -160,6 +153,7 @@ const App = (props) => {
                 </Button>
               </>
             }
+
             {!props.whiteToMove &&
               <>
                 <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
@@ -194,110 +188,87 @@ const App = (props) => {
 
           {/* ***************************************--------SIDEBAR----SHOULD PROBABLY BE ITS OWN COMPONENT----- */}
 
-          <div className="actions-container">
-
-            {/* ************************* BUTTONS FOR BOTH PLAYERS *****************************************/}
-            <div className="game-buttons">
-              <Button style={{
-                backgroundColor: '#277714',
-                color: 'white',
-                border: '1px solid black',
-              }}
-                onClick={startNewGame}>
-                Start Game
-              </Button>
-              <Rules />
-              <Key />
-              <img src={chessLogo} alt="logo" className="logo" style={{ height: '110px', marginTop: '60px' }} />
-
-            </div>
-
-            {/* *************************************************************************************************************** */}
-            {props.whiteToMove &&
-              <div className="p1Actions">
-                <h3 style={{ fontStyle: 'italic' }}>Player One</h3>
-                <button
+          {props.whiteToMove &&
+            <div className="actions-container">
+              {/* <h3 style={{ fontStyle: 'italic', fontSize: '26px' }}>Player One</h3> */}
+              <div className="game-buttons">
+                <div
                   onClick={resign}
                   style={{
-                    backgroundColor: '#565656',
-                    color: 'white',
-                    borderRadius: '50%',
-                    margin: '40px',
                     cursor: 'pointer',
-                    fontSize: '24px'
+                    fontSize: '30px'
                   }}>
                   🏳
-                </button>
-
-
-                <Button
-                  style={{
-                    backgroundColor: ' rgb(129 36 36)',
-                    color: 'white',
-                    margin: '20px 0 0 0',
-                    border: '1px solid black'
-                  }}
-                  onClick={() => discardOne(props.selectedCard[1])}
-                >
-                  Discard One
-                </Button>
-                <Button
-                  style={{
-                    backgroundColor: 'rgb(82, 140, 78)',
-                    color: 'white',
-                    margin: '20px 0 0 0',
-                    border: '1px solid black',
-                    padding: '16px',
-                  }}
-                  onClick={() => getCardP1(props.cardsArray)}
-                >
-                  Get Cards
-                </Button>
+                  </div>
+                <Rules />
+                <Key />
               </div>
-            }
-            {!props.whiteToMove &&
-              <div className="p2Actions">
-                <h3 style={{ fontStyle: 'italic' }}>Player Two</h3>
-                <button
-                  onClick={resign}
-                  style={{
-                    backgroundColor: '#565656',
-                    color: 'white',
-                    cursor: 'pointer',
-                    borderRadius: '50%',
-                    margin: '0px 0 50px 0',
-                    fontSize: '24px'
-                  }}
-                >
-                  🏳
+              <Button
+                style={{
+                  backgroundColor: ' rgb(129 36 36)',
+                  color: 'white',
+                  border: '1px solid black',
+                  marginTop: '20px',
+                }}
+                onClick={() => discardOne(props.selectedCard[1])}
+              >
+                Discard One
+                </Button>
+              <Button
+                style={{
+                  backgroundColor: 'rgb(82, 140, 78)',
+                  color: 'white',
+                  border: '1px solid black',
+                  padding: '16px',
+                  margin: '20px'
+                }}
+                onClick={() => getCardP1(props.cardsArray)}
+              >
+                Get Cards
+                </Button>
+            </div>
+          }
+          {!props.whiteToMove &&
+            <div className="actions-container">
+              {/* <h3 style={{ fontStyle: 'italic' }}>Player Two</h3> */}
+              <button
+                onClick={resign}
+                style={{
+                  backgroundColor: '#565656',
+                  color: 'white',
+                  cursor: 'pointer',
+                  borderRadius: '50%',
+                  margin: '0px 0 50px 0',
+                  fontSize: '24px'
+                }}
+              >
+                🏳
                 </button>
-                <Button
-                  style={{
-                    backgroundColor: 'rgb(129 36 36)',
-                    color: 'white',
-                    margin: '20px 0 0 0',
-                    border: '1px solid black'
-                  }}
-                  onClick={() => discardOne(props.selectedCard[1])}
-                >
-                  Discard One
+              <Button
+                style={{
+                  backgroundColor: 'rgb(129 36 36)',
+                  color: 'white',
+                  border: '1px solid black',
+                  marginTop: '20px',
+                }}
+                onClick={() => discardOne(props.selectedCard[1])}
+              >
+                Discard One
                 </Button>
-                <Button
-                  style={{
-                    backgroundColor: 'rgb(82, 140, 78)',
-                    color: 'white',
-                    margin: '20px 0 0 0',
-                    padding: '16px',
-                    border: '1px solid black'
-                  }}
-                  onClick={getCardP2}
-                >
-                  Get Cards
+              <Button
+                style={{
+                  backgroundColor: 'rgb(82, 140, 78)',
+                  color: 'white',
+                  padding: '16px',
+                  margin: '20px',
+                  border: '1px solid black'
+                }}
+                onClick={getCardP2}
+              >
+                Get Cards
                 </Button>
-              </div>
-            }
-
-          </div>
+            </div>
+          }
         </div>
       </div>
     </div >
@@ -322,10 +293,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
   // console.log(`dispatch: ${dispatch}`)
   return {
-    onStartNewGame: () => dispatch(startNewGame()),
     onGetCard: () => dispatch(getCard()),
-    onDiscardAllCardsP1: () => dispatch(discardAllP1Cards()),
     onGetCardForPlayer2: () => dispatch(getPlayer2Card()),
+    onDiscardAllCardsP1: () => dispatch(discardAllP1Cards()),
     onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
     onShuffle: (p1Cards, p2Cards) => dispatch(shuffle(p1Cards, p2Cards)),
     onSelectAll: () => dispatch(selectAll()),
