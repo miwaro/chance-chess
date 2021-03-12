@@ -42,6 +42,7 @@ function correlationKey() {
                 </ul>
             </div>
             <h2 style={{ color: 'white', textAlign: 'center', background: 'linear-gradient(90deg, #123709 0%, #277714 24%, #33b115 85%)' }}>Combos</h2>
+            <p style={{ textAlign: 'center' }}>Click the "Select All" button to activate</p>
             <div className='key-container'>
                 <ul className="col-1">
                     <li>Flush</li>
@@ -95,7 +96,8 @@ function correlationKey() {
                 </ul>
             </div>
 
-            <p>Although 3 of a kind is easier to get in Poker, it is more difficult to get in this game and therefore has a greater reward.</p>
+            {/* <p>Although 3 of a kind is easier to get in Poker, it is more difficult to get in this game and therefore has a greater reward.</p> */}
+            <p>The probability of getting each combo is not equivalent to the probablity in Poker.</p>
         </>
     )
 }

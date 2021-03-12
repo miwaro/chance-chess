@@ -16,9 +16,11 @@ const reducer = (state = initialState, action) => {
     console.log('action', action)
 
     let cardsArray;
-    let randomCard;
-    let randomItem;
-    let newCardsArray;
+    let deck;
+    let newDeck;
+    // let randomCard;
+    // let randomItem;
+    // let newCardsArray;
     let selected;
     let selectedCard;
     let p1Cards;
@@ -29,7 +31,7 @@ const reducer = (state = initialState, action) => {
 
     switch (action.type) {
         case actionTypes.START_NEW_GAME:
-            let deck = [...state.fullDeck];
+            deck = [...state.fullDeck];
 
             player1Cards = [...state.player1Cards];
             player2Cards = [...state.player2Cards];
@@ -57,53 +59,116 @@ const reducer = (state = initialState, action) => {
                 cardsArray: deck
             }
 
+        // case actionTypes.GET_CARD:
+        //     // Todo: Restore the deck when the cards run out.
+        //     player1Cards = state.player1Cards;
+        //     let cardsPickedArrayPlayer1 = [...state.player1Cards, player1Cards];
+
+        //     cardsArray = state.cardsArray;
+
+        //     randomCard = () => cardsArray[Math.floor(Math.random() * cardsArray.length)];
+        //     randomItem = randomCard();
+
+        //     newCardsArray = cardsArray.filter(element => element.index !== randomItem.index)
+
+        //     if (cardsPickedArrayPlayer1.length > 3) {
+        //         return [...cardsPickedArrayPlayer1]
+        //     } else {
+        //         cardsPickedArrayPlayer1 = [...state.player1Cards, randomItem];
+        //     }
+        //     return {
+        //         ...state,
+        //         cardsArray: newCardsArray,
+        //         player1Cards: cardsPickedArrayPlayer1
+        //     }
+
         case actionTypes.GET_CARD:
-            // Todo: Restore the deck when the cards run out.
             player1Cards = state.player1Cards;
-            let cardsPickedArrayPlayer1 = [...state.player1Cards, player1Cards];
+            deck = state.cardsArray;
 
-            cardsArray = state.cardsArray;
 
-            randomCard = () => cardsArray[Math.floor(Math.random() * cardsArray.length)];
-            randomItem = randomCard();
 
-            newCardsArray = cardsArray.filter(element => element.index !== randomItem.index)
-
-            if (cardsPickedArrayPlayer1.length > 3) {
-                return [...cardsPickedArrayPlayer1]
-            } else {
-                cardsPickedArrayPlayer1 = [...state.player1Cards, randomItem];
+            // while (player1Cards.length !== 3) {
+            //     player1Cards.push(...deck.slice(0, 3))
+            // }
+            if (player1Cards.length === 0) {
+                player1Cards.push(...deck.slice(0, 3))
             }
+
+            if (player1Cards.length === 1) {
+                player1Cards.push(...deck.slice(0, 2))
+            }
+
+            if (player1Cards.length === 2) {
+                player1Cards.push(...deck.slice(0, 1))
+            }
+
+            let player1CardsIndex = player1Cards.map(card => card.index)
+
+            newDeck = deck.filter(card => !player1CardsIndex.includes(card.index))
+
             return {
                 ...state,
-                cardsArray: newCardsArray,
-                player1Cards: cardsPickedArrayPlayer1
+                player1Cards,
+                cardsArray: newDeck
             }
+
+        // case actionTypes.GET_PLAYER2_CARD:
+
+        //     player2Cards = state.player2Cards;
+
+        //     let cardsPickedArrayPlayer2 = [...state.player2Cards, player2Cards];
+        //     cardsArray = state.cardsArray;
+
+        //     randomCard = () => cardsArray[Math.floor(Math.random() * cardsArray.length)];
+
+        //     randomItem = randomCard();
+
+        //     newCardsArray = cardsArray.filter(element => element.index !== randomItem.index)
+        //     if (cardsPickedArrayPlayer2.length > 3) {
+        //         return [...state.player2Cards, player2Cards]
+        //     } else {
+        //         cardsPickedArrayPlayer2 = [...state.player2Cards, randomItem];
+        //     }
+
+        //     return {
+        //         ...state,
+        //         cardsArray: newCardsArray,
+        //         player2Cards: cardsPickedArrayPlayer2
+        //     }
+
 
         case actionTypes.GET_PLAYER2_CARD:
-
             player2Cards = state.player2Cards;
+            deck = state.cardsArray;
 
-            let cardsPickedArrayPlayer2 = [...state.player2Cards, player2Cards];
-            cardsArray = state.cardsArray;
 
-            randomCard = () => cardsArray[Math.floor(Math.random() * cardsArray.length)];
 
-            randomItem = randomCard();
+            // while (player2Cards.length !== 3) {
+            //     player2Cards.push(...deck.slice(0, 3))
+            // }
 
-            newCardsArray = cardsArray.filter(element => element.index !== randomItem.index)
-            if (cardsPickedArrayPlayer2.length > 3) {
-                return [...state.player2Cards, player2Cards]
-            } else {
-                cardsPickedArrayPlayer2 = [...state.player2Cards, randomItem];
+            if (player2Cards.length === 0) {
+                player2Cards.push(...deck.slice(0, 3))
             }
+
+            if (player2Cards.length === 1) {
+                player2Cards.push(...deck.slice(0, 2))
+            }
+
+            if (player2Cards.length === 2) {
+                player2Cards.push(...deck.slice(0, 1))
+            }
+
+            let player2CardsIndex = player2Cards.map(card => card.index)
+
+            newDeck = deck.filter(card => !player2CardsIndex.includes(card.index))
 
             return {
                 ...state,
-                cardsArray: newCardsArray,
-                player2Cards: cardsPickedArrayPlayer2
+                player2Cards,
+                cardsArray: newDeck
             }
-
         case actionTypes.SELECT_CARD:
             const { cardValue, cardIndex } = action;
             selectedCard = state.selectedCard;
@@ -188,14 +253,26 @@ const reducer = (state = initialState, action) => {
             }
 
         case actionTypes.DISCARD_ALL_P1_CARDS:
+            // p1Cards = state.player1Cards;
+            // p2Cards = state.player2Cards;
+            // selected = state.selectedCard;
             whiteToMove = state.whiteToMove;
+
+
+
+            // if (whiteToMove) {
+            //     p1Cards = p1Cards.filter(card => card.index !== selected[1])
+            // } else if (!whiteToMove) {
+            //     p2Cards = p2Cards.filter(card => card.index !== selected[1])
+            // }
 
             return {
                 ...state,
                 allSelected: false,
                 whiteToMove: !whiteToMove,
+                // player1Cards: p1Cards,
+                // player2Cards: p2Cards,
                 player1Cards: []
-
 
             }
 

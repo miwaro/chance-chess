@@ -22,19 +22,21 @@ body {
   flex-direction: column;
   text-align: center;
   width: 170px;
-  background-color:#4c6350;
+  /* background-color:#4c6350; */
+  background: rgb(18,55,9);
+background: linear-gradient(357deg, rgba(18,55,9,1) 0%, rgba(61,74,62,1) 32%, rgb(67, 100, 59) 85%);
   justify-content: space-around;
 }
 
 .game-buttons {
-  margin-bottom: 100px;
+  margin-top: 20px;
 }
 
 .Board {
   cursor: 'pointer !important';
   display: flex; 
   margin-top: 100px;
-  border: 5px ridge orange;
+  border: 2px solid orange;
   background-color: rgb(19 71 25)
 }
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import "./App.css";
 import './style/components/player1.scss';
 import './style/components/playerCard.scss';
-// import chessLogo from "./images/chessLogo5.png";
+import chessLogo from "./style/images/cardSlotCC.png";
 import Header from './components/Header';
 import Button from '@material-ui/core/Button';
 import Player2CardContainer from './components/Players/Player2CardContainer';
@@ -33,6 +33,7 @@ const App = (props) => {
     let whiteToMove = props.whiteToMove;
     if (!whiteToMove || props.player1Cards.length === 0) return;
     props.onDiscardAllCardsP1();
+    // this.shuffle()
   }
 
   const getCardP2 = () => {
@@ -148,7 +149,7 @@ const App = (props) => {
                 <Button
                   onClick={discardAllP1}
                   style={{
-                    backgroundColor: 'rgb(99 91 91',
+                    backgroundColor: ' rgb(129 36 36)',
                     color: 'white',
                     width: '90%',
                     border: '1px solid black',
@@ -178,7 +179,7 @@ const App = (props) => {
                 <Button
                   onClick={discardAllP2}
                   style={{
-                    backgroundColor: 'rgb(99 91 91',
+                    backgroundColor: 'rgb(129 36 36)',
                     color: 'white',
                     width: '90%',
                     border: '1px solid black',
@@ -207,6 +208,8 @@ const App = (props) => {
               </Button>
               <Rules />
               <Key />
+              <img src={chessLogo} alt="logo" className="logo" style={{ height: '110px', marginTop: '60px' }} />
+
             </div>
 
             {/* *************************************************************************************************************** */}
@@ -219,26 +222,17 @@ const App = (props) => {
                     backgroundColor: '#565656',
                     color: 'white',
                     borderRadius: '50%',
+                    margin: '40px',
                     cursor: 'pointer',
                     fontSize: '24px'
                   }}>
                   🏳
                 </button>
 
+
                 <Button
                   style={{
-                    backgroundColor: '#277714',
-                    color: 'white',
-                    margin: '20px 0 0 0',
-                    border: '1px solid black'
-                  }}
-                  onClick={() => getCardP1(props.cardsArray)}
-                >
-                  Draw Cards
-                </Button>
-                <Button
-                  style={{
-                    backgroundColor: 'rgb(43, 43, 43)',
+                    backgroundColor: ' rgb(129 36 36)',
                     color: 'white',
                     margin: '20px 0 0 0',
                     border: '1px solid black'
@@ -246,6 +240,18 @@ const App = (props) => {
                   onClick={() => discardOne(props.selectedCard[1])}
                 >
                   Discard One
+                </Button>
+                <Button
+                  style={{
+                    backgroundColor: 'rgb(82, 140, 78)',
+                    color: 'white',
+                    margin: '20px 0 0 0',
+                    border: '1px solid black',
+                    padding: '16px',
+                  }}
+                  onClick={() => getCardP1(props.cardsArray)}
+                >
+                  Get Cards
                 </Button>
               </div>
             }
@@ -259,27 +265,15 @@ const App = (props) => {
                     color: 'white',
                     cursor: 'pointer',
                     borderRadius: '50%',
-                    margin: '0px 0 100px 0',
+                    margin: '0px 0 50px 0',
                     fontSize: '24px'
                   }}
                 >
                   🏳
                 </button>
-
                 <Button
                   style={{
-                    backgroundColor: '#277714',
-                    color: 'white',
-                    margin: '20px 0 0 0',
-                    border: '1px solid black'
-                  }}
-                  onClick={getCardP2}
-                >
-                  Draw Cards
-                </Button>
-                <Button
-                  style={{
-                    backgroundColor: 'rgb(43, 43, 43)',
+                    backgroundColor: 'rgb(129 36 36)',
                     color: 'white',
                     margin: '20px 0 0 0',
                     border: '1px solid black'
@@ -287,6 +281,18 @@ const App = (props) => {
                   onClick={() => discardOne(props.selectedCard[1])}
                 >
                   Discard One
+                </Button>
+                <Button
+                  style={{
+                    backgroundColor: 'rgb(82, 140, 78)',
+                    color: 'white',
+                    margin: '20px 0 0 0',
+                    padding: '16px',
+                    border: '1px solid black'
+                  }}
+                  onClick={getCardP2}
+                >
+                  Get Cards
                 </Button>
               </div>
             }
