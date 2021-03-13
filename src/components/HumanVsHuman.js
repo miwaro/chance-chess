@@ -18,7 +18,6 @@ class HumanVsHuman extends Component {
 
     state = {
         fen: 'start',
-        condensedFen: 'start',
         square: "",
         orientation: 'white',
         initial: {
@@ -38,7 +37,6 @@ class HumanVsHuman extends Component {
         })
         if (this.state.fen !== 'start') {
             this.game = new Chess(this.state.fen);
-            this.setState({ condensedFen: this.condenseFen(this.state.fen) });
         }
         else this.game = new Chess();
 
@@ -63,8 +61,7 @@ class HumanVsHuman extends Component {
         }
         if (this.state.fen !== this.props.fen) {
             this.setState({
-                fen: this.props.fen,
-                condensedFen: this.condenseFen(this.state.fen)
+                fen: this.props.fen
             })
         }
     }
@@ -372,7 +369,7 @@ class HumanVsHuman extends Component {
         const { fen, orientation, initial } = this.state;
 
         return this.props.children({
-            position: this.state.condensedFen,
+            position: this.condenseFen(fen),
             orientation: orientation,
             onDrop: this.onDrop,
             onDragStart: this.onDragStart,
