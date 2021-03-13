@@ -34,12 +34,12 @@ const Home = (props) => {
   useEffect(() => {
     socket.on('opponent move', move => {
       console.log(move);
-      if ((playerNumber === 1 && !props.whiteToMove) || (playerNumber === 2 && props.whiteToMove)) {
-        const currentState = props.chanceChessState;
-        if (!deepEquals(move.gameState, currentState)) {
-          props.updateGame(move.gameState)
-        }
+      // if ((playerNumber === 1 && !props.whiteToMove) || (playerNumber === 2 && props.whiteToMove)) {
+      const currentState = props.chanceChessState;
+      if (!deepEquals(move.gameState, currentState)) {
+        props.updateGame(move.gameState)
       }
+      // }
     })
   })
 
