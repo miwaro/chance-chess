@@ -40,7 +40,7 @@ const JoinGame = (props) => {
     return (<div></div>)
         // props.isCreator &&
         // <div style={{ position: 'absolute', left: '400px', top: '30px', color: '#eaeaea' }}>
-        //     Copy this link to invite a friend: {`${config.urlPrefix}/game/${gameid}`}
+        //     Copy this link to invite a friend: {`${config.url}/game/${gameid}`}
         // </div>
     
 }

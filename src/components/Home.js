@@ -61,7 +61,7 @@ const Home = (props) => {
   }
 
   const getUrl = () => {
-    return config.urlPrefix + '/game/' + props.gameid;
+    return config.url + '/game/' + props.gameid;
   }
 
   const shuffle = (p1Cards, p2Cards) => {

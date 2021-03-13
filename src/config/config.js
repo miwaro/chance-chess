@@ -1,3 +1,3 @@
 export const config = {
-  urlPrefix: 'localhost:3000'
+  url: 'https://chance-chess-api.herokuapp.com/'
 }
