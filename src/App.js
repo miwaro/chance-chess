@@ -1,25 +1,32 @@
-import React from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import JoinRoom from './components/onboard/joinroom';
 import { ColorContext } from './context/colorcontext';
 import Onboard from './components/onboard/onboard';
 import JoinGame from './components/onboard/joingame';
 import Home from './components/Home';
+const socket = require('./connection/socket').socket
 
 
 function App() {
 
-  const [didRedirect, setDidRedirect] = React.useState(false)
+  const [didRedirect, setDidRedirect] = useState(false)
 
-  const playerDidRedirect = React.useCallback(() => {
+  const playerDidRedirect = useCallback(() => {
     setDidRedirect(true)
   }, [])
 
-  const playerDidNotRedirect = React.useCallback(() => {
+  const playerDidNotRedirect = useCallback(() => {
     setDidRedirect(false)
   }, [])
 
-  const [userName, setUserName] = React.useState('')
+  const [userName, setUserName] = useState('')
+
+  useEffect(() => {
+    socket.on('opponent move', move => {
+      console.log(move);
+    })
+  })
 
   return (
     <ColorContext.Provider value={{ didRedirect: didRedirect, playerDidRedirect: playerDidRedirect, playerDidNotRedirect: playerDidNotRedirect }}>

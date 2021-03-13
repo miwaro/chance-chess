@@ -26,6 +26,9 @@ const reducer = (state = initialState, action) => {
 
     switch (action.type) {
 
+        case actionTypes.UPDATE_GAME:
+            return action.state;
+
         case actionTypes.GET_CARD:
             player1Cards = state.player1Cards;
             deck = state.cardsArray;

@@ -28,21 +28,11 @@ const JoinGameRoom = (gameid, userName, isCreator) => {
     socket.emit("playerJoinGame", idData)
 }
 
-
 const JoinGame = (props) => {
-    /**
-     * Extract the 'gameId' from the URL. 
-     * the 'gameId' is the gameRoom ID. 
-     */
     const { gameid } = useParams()
-    props.onJoinGame(props.username, props.isCreator, gameid);
+    props.onJoinGame(props.userName, props.isCreator, gameid);
     JoinGameRoom(gameid, props.userName, props.isCreator)
     return (<div></div>)
-        // props.isCreator &&
-        // <div style={{ position: 'absolute', left: '400px', top: '30px', color: '#eaeaea' }}>
-        //     Copy this link to invite a friend: {`${config.url}/game/${gameid}`}
-        // </div>
-    
 }
 
 const mapDispatchToProps = dispatch => {

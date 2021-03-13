@@ -25,6 +25,9 @@ class HumanVsHuman extends Component {
     };
 
     componentDidMount() {
+        this.setState({
+            orientation: this.props.playerNumber === 1 ? 'white' : 'black'
+        })
         this.game = new Chess();
         this.props.onShuffle();
     }
@@ -40,20 +43,11 @@ class HumanVsHuman extends Component {
     componentDidUpdate(prevProps) {
         let whiteToMove = this.props.whiteToMove;
 
-
         if (whiteToMove) {
             this.set_turn(this.game, 'w')
         }
         else if (!whiteToMove) {
             this.set_turn(this.game, 'b')
-        }
-
-        if (this.props.player1Cards !== prevProps.player1Cards && !whiteToMove) {
-            this.setState({ orientation: 'black' })
-        }
-
-        if (this.props.player2Cards !== prevProps.player2Cards && whiteToMove) {
-            this.setState({ orientation: 'white' })
         }
     }
 
@@ -368,7 +362,8 @@ const mapStateToProps = (state) => {
         selectedCard: state.chanceChessReducer.selectedCard,
         whiteToMove: state.chanceChessReducer.whiteToMove,
         allSelected: state.chanceChessReducer.allSelected,
-        cardsArray: state.chanceChessReducer.cardsArray
+        cardsArray: state.chanceChessReducer.cardsArray,
+        playerNumber: state.usersReducer.playerNumber
     }
 }
 

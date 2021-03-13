@@ -1,5 +1,11 @@
 import * as actionTypes from './actionTypes';
 
+export const updateGame = (state) => {
+    return {
+        type: actionTypes.UPDATE_GAME,
+        state
+    };
+};
 
 export const shuffleOnMount = () => {
     return {
@@ -75,13 +81,6 @@ export const shuffle = (p1CardsIndexes, p2CardsIndexes) => {
     };
 };
 
-
-// should Reset Game
-export const startNewGame = () => {
-    return {
-        type: actionTypes.START_NEW_GAME
-    };
-};
 
 
 
