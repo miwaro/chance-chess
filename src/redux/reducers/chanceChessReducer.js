@@ -18,9 +18,6 @@ const reducer = (state = initialState, action) => {
     let cardsArray;
     let deck;
     let newDeck;
-    // let randomCard;
-    // let randomItem;
-    // let newCardsArray;
     let selected;
     let selectedCard;
     let p1Cards;
@@ -38,14 +35,23 @@ const reducer = (state = initialState, action) => {
             if (player1Cards.length === 0) {
                 player1Cards.push(...deck.slice(0, 3))
             }
+            // if (player1Cards.length === 0) {
+            //     player1Cards.push(...deck.slice(0, 2))
+            // }
 
             if (player1Cards.length === 1) {
                 player1Cards.push(...deck.slice(0, 2))
             }
+            // if (player1Cards.length === 1 ) {
+            //     player1Cards.push(...deck.slice(0, 1))
+            // }
 
             if (player1Cards.length === 2) {
                 player1Cards.push(...deck.slice(0, 1))
             }
+            // if (player1Cards.length === 2 && deck.length === 0) {
+            //     return;
+            // }
 
             let player1CardsIndex = player1Cards.map(card => card.index)
 
@@ -64,14 +70,24 @@ const reducer = (state = initialState, action) => {
             if (player2Cards.length === 0) {
                 player2Cards.push(...deck.slice(0, 3))
             }
+            // if (player2Cards.length === 0 ) {
+            //     player2Cards.push(...deck.slice(0, 2))
+            // }
 
             if (player2Cards.length === 1) {
                 player2Cards.push(...deck.slice(0, 2))
             }
+            // if (player2Cards.length === 1 ) {
+            //     player2Cards.push(...deck.slice(0, 1))
+
+            // }
 
             if (player2Cards.length === 2) {
                 player2Cards.push(...deck.slice(0, 1))
             }
+            // if (player2Cards.length === 2 ) {
+            //     return;
+            // }
 
             let player2CardsIndex = player2Cards.map(card => card.index)
 
@@ -166,27 +182,13 @@ const reducer = (state = initialState, action) => {
             }
 
         case actionTypes.DISCARD_ALL_P1_CARDS:
-            // p1Cards = state.player1Cards;
-            // p2Cards = state.player2Cards;
-            // selected = state.selectedCard;
             whiteToMove = state.whiteToMove;
-
-
-
-            // if (whiteToMove) {
-            //     p1Cards = p1Cards.filter(card => card.index !== selected[1])
-            // } else if (!whiteToMove) {
-            //     p2Cards = p2Cards.filter(card => card.index !== selected[1])
-            // }
 
             return {
                 ...state,
                 allSelected: false,
                 whiteToMove: !whiteToMove,
-                // player1Cards: p1Cards,
-                // player2Cards: p2Cards,
                 player1Cards: []
-
             }
 
         case actionTypes.DISCARD_ALL_P2_CARDS:

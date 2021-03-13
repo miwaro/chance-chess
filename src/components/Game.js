@@ -25,7 +25,8 @@ function Board() {
                             orientation={orientation}
                             boardStyle={{
                                 // border: '5px ridge orange',
-                                margin: '15px'
+                                margin: '15px',
+                                fontSize: '30px'
                                 // marginRight: '15px',
                                 // boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,
                             }}

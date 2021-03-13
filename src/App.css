@@ -2,19 +2,17 @@ body {
   background-image: url('./style/images/dark-wood.jpg');
   background-size: cover;
   box-sizing: border-box;
-  cursor: 'pointer !important';
+
 
 }
 
 .body-container {
     margin: auto;
-    max-width: 1400px;
+    max-width: 1235px;
 }
 
 .App {
   color: white;
-  cursor: 'pointer !important';
-
 }
 
 .actions-container {
@@ -37,9 +35,11 @@ body {
 .Board {
   cursor: 'pointer !important';
   display: flex; 
-  margin-top: 100px;
-  border: 2px solid orange;
-  background-color: rgb(19 71 25)
+  margin-top: 135px;
+  border: 1px solid orange;
+  /* border: 2px solid green; */
+  /* background-color: rgb(19 71 25) */
+  background-color: rgb(29 29 29);
 }
 
 .App-logo {
