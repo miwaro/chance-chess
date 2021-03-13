@@ -7,6 +7,13 @@ export const updateGame = (state) => {
     };
 };
 
+export const updateFen = (fen) => {
+    return {
+        type: actionTypes.UPDATE_FEN,
+        fen
+    };
+};
+
 export const shuffleOnMount = () => {
     return {
         type: actionTypes.SHUFFLE_ON_MOUNT

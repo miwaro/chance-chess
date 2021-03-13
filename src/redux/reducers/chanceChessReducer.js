@@ -9,7 +9,8 @@ const initialState = {
     cardsArray: deckArray,
     selectedCard: [],
     allSelected: false,
-    fullDeck: deckArray
+    fullDeck: deckArray,
+    fen: 'start'
 }
 
 const reducer = (state = initialState, action) => {
@@ -28,6 +29,9 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.UPDATE_GAME:
             return action.state;
+
+        case actionTypes.UPDATE_FEN:
+            return { ...state, fen: action.fen };
 
         case actionTypes.GET_CARD:
             player1Cards = state.player1Cards;

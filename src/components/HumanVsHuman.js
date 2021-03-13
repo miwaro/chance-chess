@@ -8,16 +8,16 @@ import {
     discardAllP1Cards,
     discardAllP2Cards,
     shuffleOnMount,
-    selectAll
+    selectAll,
+    updateFen
 } from "../redux/actions/cardActions";
-// import { isReturnStatement } from "typescript";
 
 class HumanVsHuman extends Component {
 
     static propTypes = { children: PropTypes.func };
 
     state = {
-        fen: 'rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2',
+        fen: 'start',
         square: "",
         orientation: 'white',
         initial: {
@@ -26,13 +26,12 @@ class HumanVsHuman extends Component {
         }
     };
 
-
-
     componentDidMount() {
         this.setState({
             orientation: this.props.playerNumber === 1 ? 'white' : 'black'
         })
-        this.game = new Chess(this.state.fen);
+        if (this.state.fen !== 'start') this.game = new Chess(this.state.fen);
+        else this.game = new Chess();
 
         this.props.onShuffle();
     }
@@ -42,7 +41,6 @@ class HumanVsHuman extends Component {
         tokens[1] = color;
         chess.load(tokens.join(' '));
     }
-
 
     // Resets the board to starting position
     componentDidUpdate(prevProps) {
@@ -54,9 +52,15 @@ class HumanVsHuman extends Component {
         else if (!whiteToMove) {
             this.set_turn(this.game, 'b')
         }
+        if (this.state.fen !== this.props.fen) {
+            this.setState({
+                fen: this.props.fen
+            })
+        }
     }
 
     condenseFen = (fen) => {
+        if (fen === 'start') return fen;
         return fen.split(' ')[0];
     }
 
@@ -315,6 +319,8 @@ class HumanVsHuman extends Component {
             fen: this.game.fen(),
         });
 
+        this.props.onUpdateFen(this.game.fen());
+
 
         // Winners Message
         if (move.captured === 'k' && whiteToMove) {
@@ -350,9 +356,6 @@ class HumanVsHuman extends Component {
 
     };
 
-
-
-
     render() {
 
         const { fen, orientation, initial } = this.state;
@@ -377,7 +380,9 @@ const mapStateToProps = (state) => {
         whiteToMove: state.chanceChessReducer.whiteToMove,
         allSelected: state.chanceChessReducer.allSelected,
         cardsArray: state.chanceChessReducer.cardsArray,
-        playerNumber: state.usersReducer.playerNumber
+        playerNumber: state.usersReducer.playerNumber,
+        fen: state.chanceChessReducer.fen
+
     }
 }
 
@@ -389,6 +394,7 @@ const mapDispatchToProps = dispatch => {
         onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
         onShuffle: () => dispatch(shuffleOnMount()),
         onSelectAll: () => dispatch(selectAll()),
+        onUpdateFen: (fen) => dispatch(updateFen(fen))
     }
 }
 

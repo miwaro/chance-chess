@@ -3,6 +3,8 @@ export const UPDATE_USERS = 'UPDATE_USERS';
 
 export const JOIN_GAME = 'JOIN_GAME';
 
+export const UPDATE_FEN = 'UPDATE_FEN';
+
 export const GET_CARD = 'GET_CARD';
 export const GET_PLAYER2_CARD = 'GET_PLAYER2_CARD';
 

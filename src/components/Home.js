@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from 'react-redux';
 import "../App.css";
 import '../style/components/player1.scss';
@@ -18,10 +18,25 @@ import {
   shuffle,
   selectAll
 } from "../redux/actions/cardActions";
+import { socket } from "../connection/socket";
 
 
 const Home = (props) => {
-  console.log(props.myUserName)
+
+
+  useEffect(() => {
+    if (props.playerNumber === 1 && props.whiteToMove) {
+      postUpdate();
+    }
+  })
+
+  const postUpdate = () => {
+    const newState = {
+      gameState: props.chanceChessState,
+      userState: props.usersState
+    }
+    socket.emit('new move', { ...newState });
+  }
 
   const onSelectAll = () => {
     let whiteToMove = props.whiteToMove;
@@ -282,6 +297,8 @@ const Home = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    chanceChessState: state.chanceChessReducer,
+    usersState: state.usersReducer,
     player1Cards: state.chanceChessReducer.player1Cards,
     player2Cards: state.chanceChessReducer.player2Cards,
     newBoard: state.chanceChessReducer.newBoard,
