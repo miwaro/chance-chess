@@ -1,0 +1,30 @@
+.player2 {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+.placeholder-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.placeholder {
+    height: 94px;
+    width: 38px;
+    margin: 17px;
+    padding: 35px;
+    border-radius: 4%;
+    border: 1px dashed white;
+    background-image: url("../images/cardSlotCC.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 40%;
+}
+
+.empty-placeholder {
+    height: 85px;
+    width: 30px;
+    margin: 17px;
+    padding: 35px;
+}

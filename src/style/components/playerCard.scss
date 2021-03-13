@@ -1,0 +1,44 @@
+@import "../mixins.scss";
+
+.player-card-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px 0;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.card-slot {
+    display: flex;
+    align-items: center;
+    margin: 0 8px;
+    width: 450px;
+    background-color: #277714;
+    border-radius: 10px;
+    border: 1px solid orange;
+}
+
+  .deck-container {
+    height: 170px;
+    width: 120px;
+    background-size: cover;
+    transform: translateX(55px);
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-left: -116px;
+    @include transition (all, 0.25s, ease);
+    @include bp-medium {
+      margin-left: -195px;
+    }
+    @include bp-small {
+      margin-left: -198px;    
+    }
+    @include bp-mobileOnly {
+      margin-left: -200px;    
+    }
+  }

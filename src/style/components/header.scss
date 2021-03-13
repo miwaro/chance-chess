@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    justify-content:  start;
+    padding-left: 6%;
+    padding-top: 0;
+    line-height: 0.9;
+    // background: rgb(2,0,36);
+    // background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 0%, rgba(82,47,240,1) 100%);
+    background: rgb(18,55,9);
+    background: linear-gradient(90deg, rgba(18,55,9,1) 0%, rgba(39,119,20,1) 24%, rgba(51,177,21,1) 85%);
+    border-bottom: 2px solid orange;
+}
+
+h1 {
+    // margin: 0;
+    padding: 0;
+}
+
+.logo {
+    height: 50px;
+    padding: 10px 5px 10px 0;
+}
