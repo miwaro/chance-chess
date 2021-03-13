@@ -1,3 +1,3 @@
 export const config = {
-  url: 'https://chance-chess-api.herokuapp.com/'
+  url: 'localhost:3000' // TODO: update to heroku url after deployment
 }

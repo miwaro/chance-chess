@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 import JoinRoom from './components/onboard/joinroom';
 import { ColorContext } from './context/colorcontext';
 import Onboard from './components/onboard/onboard';
 import JoinGame from './components/onboard/joingame';
 import Home from './components/Home';
+import { updateGame } from "./redux/actions/cardActions";
 const socket = require('./connection/socket').socket
 
 
-function App() {
+function App(props) {
 
   const [didRedirect, setDidRedirect] = useState(false)
 
@@ -25,6 +27,7 @@ function App() {
   useEffect(() => {
     socket.on('opponent move', move => {
       console.log(move);
+      props.updateGame(move.gameState)
     })
   })
 
@@ -50,4 +53,10 @@ function App() {
     </ColorContext.Provider>);
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    updateGame: state => dispatch(updateGame(state))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App);
