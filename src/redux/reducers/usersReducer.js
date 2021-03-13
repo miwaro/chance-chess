@@ -1,11 +1,11 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  isCreator: false,
+  creator: '',
   gameId: '',
-  username: '',
   numPlayers: 0,
-  playerNumber: 0
+  playerOne: '',
+  playerTwo: ''
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -17,11 +17,11 @@ const usersReducer = (state = initialState, action) => {
     case actionTypes.JOIN_GAME:
       return {
         ...state,
-        isCreator: action.isCreator,
-        username: action.username,
+        creator: action.isCreator ? action.username : state.creator,
         numPlayers: action.isCreator ? 1 : 2,
         gameId: action.gameId,
-        playerNumber: action.isCreator ? 1 : 2 // TODO: randomize playerNumber
+        playerOne: action.isCreator ? action.username : state.playerOne,
+        playerTwo: action.isCreator ? state.playerTwo : action.username,
       }
 
     default:

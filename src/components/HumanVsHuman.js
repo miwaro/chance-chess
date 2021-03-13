@@ -27,8 +27,13 @@ class HumanVsHuman extends Component {
     };
 
     componentDidMount() {
+        let playerNumber;
+
+        const isCreator = localStorage.getItem(this.props.gameId);
+        if (isCreator) playerNumber = 1;
+        else playerNumber = 2;
         this.setState({
-            orientation: this.props.playerNumber === 1 ? 'white' : 'black'
+            orientation: playerNumber === 1 ? 'white' : 'black'
         })
         if (this.state.fen !== 'start') this.game = new Chess(this.state.fen);
         else this.game = new Chess();
@@ -382,7 +387,8 @@ const mapStateToProps = (state) => {
         allSelected: state.chanceChessReducer.allSelected,
         cardsArray: state.chanceChessReducer.cardsArray,
         playerNumber: state.usersReducer.playerNumber,
-        fen: state.chanceChessReducer.fen
+        fen: state.chanceChessReducer.fen,
+        gameId: state.usersReducer.gameId
 
     }
 }

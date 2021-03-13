@@ -26,10 +26,15 @@ import { socket } from "../connection/socket";
 
 const Home = (props) => {
 
+  let playerNumber;
+  const isCreator = localStorage.getItem(props.gameId);
+  if (isCreator) playerNumber = 1;
+  else playerNumber = 2;
+
   useEffect(() => {
     socket.on('opponent move', move => {
       console.log(move);
-      if ((props.playerNumber === 1 && !props.whiteToMove) || (props.playerNumber === 2 && props.whiteToMove)) {
+      if ((playerNumber === 1 && !props.whiteToMove) || (playerNumber === 2 && props.whiteToMove)) {
         const currentState = props.chanceChessState;
         if (!deepEquals(move.gameState, currentState)) {
           props.updateGame(move.gameState)
@@ -54,10 +59,10 @@ const Home = (props) => {
   const onSelectAll = () => {
     let whiteToMove = props.whiteToMove;
 
-    if (props.playerNumber === 1 && !whiteToMove) {
+    if (playerNumber === 1 && !whiteToMove) {
       return;
     }
-    if (props.playerNumber === 2 && whiteToMove) {
+    if (playerNumber === 2 && whiteToMove) {
       return;
     }
 
@@ -67,10 +72,10 @@ const Home = (props) => {
   const getCardP1 = (deck) => {
     let whiteToMove = props.whiteToMove;
 
-    if (props.playerNumber === 1 && !whiteToMove) {
+    if (playerNumber === 1 && !whiteToMove) {
       return;
     }
-    if (props.playerNumber === 2 && whiteToMove) {
+    if (playerNumber === 2 && whiteToMove) {
       return;
     }
 
@@ -81,10 +86,10 @@ const Home = (props) => {
   const getCardP2 = () => {
     let whiteToMove = props.whiteToMove;
 
-    if (props.playerNumber === 1 && !whiteToMove) {
+    if (playerNumber === 1 && !whiteToMove) {
       return;
     }
-    if (props.playerNumber === 2 && whiteToMove) {
+    if (playerNumber === 2 && whiteToMove) {
       return;
     }
 
@@ -95,10 +100,10 @@ const Home = (props) => {
   const discardAllP1 = () => {
     let whiteToMove = props.whiteToMove;
 
-    if (props.playerNumber === 1 && !whiteToMove) {
+    if (playerNumber === 1 && !whiteToMove) {
       return;
     }
-    if (props.playerNumber === 2 && whiteToMove) {
+    if (playerNumber === 2 && whiteToMove) {
       return;
     }
     if (!whiteToMove || props.player1Cards.length === 0) return;
@@ -108,10 +113,10 @@ const Home = (props) => {
   const discardAllP2 = () => {
     let whiteToMove = props.whiteToMove;
 
-    if (props.playerNumber === 1 && !whiteToMove) {
+    if (playerNumber === 1 && !whiteToMove) {
       return;
     }
-    if (props.playerNumber === 2 && whiteToMove) {
+    if (playerNumber === 2 && whiteToMove) {
       return;
     }
     if (whiteToMove || props.player2Cards.length === 0) return;
@@ -157,11 +162,11 @@ const Home = (props) => {
         <div className="Board">
           <Board />
           <div className='card-containers'>
-            {props.playerNumber === 1 &&
-              <Player2CardContainer disableControls={props.playerNumber === 1} cards={props.player2Cards} allCardsSelected={props.allSelected} />
+            {playerNumber === 1 &&
+              <Player2CardContainer disableControls={playerNumber === 1} cards={props.player2Cards} allCardsSelected={props.allSelected} />
             }
-            {props.playerNumber === 2 &&
-              <Player1CardContainer disableControls={props.playerNumber === 2} cards={props.player1Cards} allCardsSelected={props.allSelected} />
+            {playerNumber === 2 &&
+              <Player1CardContainer disableControls={playerNumber === 2} cards={props.player1Cards} allCardsSelected={props.allSelected} />
             }
 
             {props.cardsArray.length > 0 &&
@@ -193,7 +198,7 @@ const Home = (props) => {
               </>
             }
 
-            {props.playerNumber === 1 &&
+            {playerNumber === 1 &&
               <>
                 <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -248,7 +253,7 @@ const Home = (props) => {
               </>
             }
 
-            {props.playerNumber === 2 &&
+            {playerNumber === 2 &&
               <>
                 <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -322,9 +327,6 @@ const mapStateToProps = (state) => {
     fullDeck: state.chanceChessReducer.fullDeck,
     gameId: state.usersReducer.gameId,
     numPlayers: state.usersReducer.numPlayers,
-    isCreator: state.usersReducer.isCreator,
-    playerNumber: state.usersReducer.playerNumber
-
   }
 }
 

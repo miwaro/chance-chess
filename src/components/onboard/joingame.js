@@ -30,6 +30,7 @@ const JoinGameRoom = (gameId, userName, isCreator) => {
 
 const JoinGame = (props) => {
     const { gameId } = useParams()
+    if (props.isCreator) localStorage.setItem(gameId, true);
     props.onJoinGame(props.userName, props.isCreator, gameId);
     JoinGameRoom(gameId, props.userName, props.isCreator)
     return (<div></div>)
