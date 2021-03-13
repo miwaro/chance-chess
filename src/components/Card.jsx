@@ -5,7 +5,6 @@ import { selectCard, removeSelectedCard, changeTurn } from '../redux/actions/car
 import PropTypes from "prop-types";
 
 import backCardImg from "../style/images/backCardImg.png";
-// import chessLogo from "../images/luckyRookFAV2.png";
 import joker from "../style/images/joker.png";
 import heart from "../style/images/heart.png";
 import diamond from "../style/images/diamond.png";
@@ -32,7 +31,6 @@ import "../style/components/playerCard.scss";
 const Card = (props) => {
 
   const { suits, card, front, color, cardIndex, cardPiece, allCardsSelected } = props;
-  console.log(typeof suits)
 
   const getCardSymbol = (suits) => {
     let symbol;

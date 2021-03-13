@@ -13,8 +13,11 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
+<<<<<<< HEAD
     console.log('action', action)
 
+=======
+>>>>>>> 7b7315dbb4925593b474b95aa72b479952b99aa8
     let cardsArray;
     let deck;
     let newDeck;
@@ -35,23 +38,32 @@ const reducer = (state = initialState, action) => {
             if (player1Cards.length === 0) {
                 player1Cards.push(...deck.slice(0, 3))
             }
+<<<<<<< HEAD
             // if (player1Cards.length === 0) {
             //     player1Cards.push(...deck.slice(0, 2))
             // }
+=======
+>>>>>>> 7b7315dbb4925593b474b95aa72b479952b99aa8
 
             if (player1Cards.length === 1) {
                 player1Cards.push(...deck.slice(0, 2))
             }
+<<<<<<< HEAD
             // if (player1Cards.length === 1 ) {
             //     player1Cards.push(...deck.slice(0, 1))
             // }
+=======
+>>>>>>> 7b7315dbb4925593b474b95aa72b479952b99aa8
 
             if (player1Cards.length === 2) {
                 player1Cards.push(...deck.slice(0, 1))
             }
+<<<<<<< HEAD
             // if (player1Cards.length === 2 && deck.length === 0) {
             //     return;
             // }
+=======
+>>>>>>> 7b7315dbb4925593b474b95aa72b479952b99aa8
 
             let player1CardsIndex = player1Cards.map(card => card.index)
 
@@ -70,24 +82,33 @@ const reducer = (state = initialState, action) => {
             if (player2Cards.length === 0) {
                 player2Cards.push(...deck.slice(0, 3))
             }
+<<<<<<< HEAD
             // if (player2Cards.length === 0 ) {
             //     player2Cards.push(...deck.slice(0, 2))
             // }
+=======
+>>>>>>> 7b7315dbb4925593b474b95aa72b479952b99aa8
 
             if (player2Cards.length === 1) {
                 player2Cards.push(...deck.slice(0, 2))
             }
+<<<<<<< HEAD
             // if (player2Cards.length === 1 ) {
             //     player2Cards.push(...deck.slice(0, 1))
 
             // }
+=======
+>>>>>>> 7b7315dbb4925593b474b95aa72b479952b99aa8
 
             if (player2Cards.length === 2) {
                 player2Cards.push(...deck.slice(0, 1))
             }
+<<<<<<< HEAD
             // if (player2Cards.length === 2 ) {
             //     return;
             // }
+=======
+>>>>>>> 7b7315dbb4925593b474b95aa72b479952b99aa8
 
             let player2CardsIndex = player2Cards.map(card => card.index)
 
