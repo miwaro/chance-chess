@@ -1,3 +1,5 @@
+export const JOIN_GAME = 'JOIN_GAME';
+
 // Sets playerCards arrays to empty arrays and resets the board
 export const START_NEW_GAME = 'START_NEW_GAME';
 

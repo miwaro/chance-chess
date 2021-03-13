@@ -13,8 +13,6 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-    console.log('action', action)
-
     let cardsArray;
     let deck;
     let newDeck;
@@ -35,23 +33,14 @@ const reducer = (state = initialState, action) => {
             if (player1Cards.length === 0) {
                 player1Cards.push(...deck.slice(0, 3))
             }
-            // if (player1Cards.length === 0) {
-            //     player1Cards.push(...deck.slice(0, 2))
-            // }
 
             if (player1Cards.length === 1) {
                 player1Cards.push(...deck.slice(0, 2))
             }
-            // if (player1Cards.length === 1 ) {
-            //     player1Cards.push(...deck.slice(0, 1))
-            // }
 
             if (player1Cards.length === 2) {
                 player1Cards.push(...deck.slice(0, 1))
             }
-            // if (player1Cards.length === 2 && deck.length === 0) {
-            //     return;
-            // }
 
             let player1CardsIndex = player1Cards.map(card => card.index)
 
@@ -70,24 +59,14 @@ const reducer = (state = initialState, action) => {
             if (player2Cards.length === 0) {
                 player2Cards.push(...deck.slice(0, 3))
             }
-            // if (player2Cards.length === 0 ) {
-            //     player2Cards.push(...deck.slice(0, 2))
-            // }
 
             if (player2Cards.length === 1) {
                 player2Cards.push(...deck.slice(0, 2))
             }
-            // if (player2Cards.length === 1 ) {
-            //     player2Cards.push(...deck.slice(0, 1))
-
-            // }
 
             if (player2Cards.length === 2) {
                 player2Cards.push(...deck.slice(0, 1))
             }
-            // if (player2Cards.length === 2 ) {
-            //     return;
-            // }
 
             let player2CardsIndex = player2Cards.map(card => card.index)
 
