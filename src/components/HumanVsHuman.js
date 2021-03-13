@@ -10,12 +10,14 @@ import {
     shuffleOnMount,
     selectAll
 } from "../redux/actions/cardActions";
+// import { isReturnStatement } from "typescript";
 
 class HumanVsHuman extends Component {
+
     static propTypes = { children: PropTypes.func };
 
     state = {
-        fen: 'start',
+        fen: 'rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2',
         square: "",
         orientation: 'white',
         initial: {
@@ -24,11 +26,14 @@ class HumanVsHuman extends Component {
         }
     };
 
+
+
     componentDidMount() {
         this.setState({
             orientation: this.props.playerNumber === 1 ? 'white' : 'black'
         })
-        this.game = new Chess();
+        this.game = new Chess(this.state.fen);
+
         this.props.onShuffle();
     }
 
@@ -51,12 +56,24 @@ class HumanVsHuman extends Component {
         }
     }
 
+    condenseFen = (fen) => {
+        return fen.split(' ')[0];
+    }
+
     onDragStart = ({ piece, sourceSquare }) => {
+        let whiteToMove = this.props.whiteToMove;
+
+        if (this.props.playerNumber === 1 && !whiteToMove) {
+            return;
+        }
+        if (this.props.playerNumber === 2 && whiteToMove) {
+            return;
+        }
+
         let draggable = false;
         let isAStraight = false;
         let chessPiece = piece[1].toLowerCase();
         let column = sourceSquare[0];
-        let whiteToMove = this.props.whiteToMove;
         let selectedCard = this.props.selectedCard;
         let isAllSelected = this.props.allSelected;
         let p1 = this.props.player1Cards;
@@ -265,6 +282,7 @@ class HumanVsHuman extends Component {
 
 
     onDrop = ({ sourceSquare, targetSquare }) => {
+        // console.log(sourceSquare, targetSquare);
         let whiteToMove = this.props.whiteToMove;
         let selected = this.props.selectedCard
         // see if the move is legal
@@ -274,14 +292,10 @@ class HumanVsHuman extends Component {
             promotion: "q"
         });
 
+        console.log(move)
+
         if (move === null) return;
 
-        // Change orientation
-        if (whiteToMove) {
-            this.setState({ orientation: 'black' })
-        } else if (!whiteToMove) {
-            this.setState({ orientation: 'white' })
-        }
 
         // Do this after playing a combo
         if (whiteToMove && selected.length === 0) {
@@ -296,6 +310,7 @@ class HumanVsHuman extends Component {
         }
 
         // Set the position of the board after the piece drops
+        console.log(this.game.fen)
         this.setState({
             fen: this.game.fen(),
         });
@@ -343,7 +358,7 @@ class HumanVsHuman extends Component {
         const { fen, orientation, initial } = this.state;
 
         return this.props.children({
-            position: fen,
+            position: this.condenseFen(fen),
             orientation: orientation,
             onDrop: this.onDrop,
             onDragStart: this.onDragStart,
@@ -353,7 +368,6 @@ class HumanVsHuman extends Component {
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state)
     return {
         player1Cards: state.chanceChessReducer.player1Cards,
         player2Cards: state.chanceChessReducer.player2Cards,

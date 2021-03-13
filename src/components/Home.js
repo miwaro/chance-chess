@@ -23,26 +23,69 @@ import {
 const Home = (props) => {
   console.log(props.myUserName)
 
+  const onSelectAll = () => {
+    let whiteToMove = props.whiteToMove;
+
+    if (props.playerNumber === 1 && !whiteToMove) {
+      return;
+    }
+    if (props.playerNumber === 2 && whiteToMove) {
+      return;
+    }
+
+    props.onSelectAll();
+  }
+
   const getCardP1 = (deck) => {
     let whiteToMove = props.whiteToMove;
+
+    if (props.playerNumber === 1 && !whiteToMove) {
+      return;
+    }
+    if (props.playerNumber === 2 && whiteToMove) {
+      return;
+    }
+
     if (!whiteToMove || props.player1Cards.length >= 3 || props.cardsArray.length === 0) return;
     props.onGetCard();
   }
 
   const getCardP2 = () => {
     let whiteToMove = props.whiteToMove;
+
+    if (props.playerNumber === 1 && !whiteToMove) {
+      return;
+    }
+    if (props.playerNumber === 2 && whiteToMove) {
+      return;
+    }
+
     if (whiteToMove || props.player2Cards.length >= 3 || props.cardsArray.length === 0) return;
     props.onGetCardForPlayer2();
   }
 
   const discardAllP1 = () => {
     let whiteToMove = props.whiteToMove;
+
+    if (props.playerNumber === 1 && !whiteToMove) {
+      return;
+    }
+    if (props.playerNumber === 2 && whiteToMove) {
+      return;
+    }
     if (!whiteToMove || props.player1Cards.length === 0) return;
     props.onDiscardAllCardsP1();
   }
 
   const discardAllP2 = () => {
     let whiteToMove = props.whiteToMove;
+
+    if (props.playerNumber === 1 && !whiteToMove) {
+      return;
+    }
+    if (props.playerNumber === 2 && whiteToMove) {
+      return;
+    }
     if (whiteToMove || props.player2Cards.length === 0) return;
     props.onDiscardAllCardsP2();
   }
@@ -86,11 +129,11 @@ const Home = (props) => {
         <div className="Board">
           <Board />
           <div className='card-containers'>
-            {props.whiteToMove &&
-              <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
+            {props.playerNumber === 1 &&
+              <Player2CardContainer disableControls={props.playerNumber === 1} cards={props.player2Cards} allCardsSelected={props.allSelected} />
             }
-            {!props.whiteToMove &&
-              <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
+            {props.playerNumber === 2 &&
+              <Player1CardContainer disableControls={props.playerNumber === 2} cards={props.player1Cards} allCardsSelected={props.allSelected} />
             }
 
             {props.cardsArray.length > 0 &&
@@ -122,7 +165,7 @@ const Home = (props) => {
               </>
             }
 
-            {props.whiteToMove &&
+            {props.playerNumber === 1 &&
               <>
                 <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -144,7 +187,7 @@ const Home = (props) => {
                       width: '40%',
                       marginLeft: '45px'
                     }}
-                    onClick={() => props.onSelectAll()}
+                    onClick={() => onSelectAll()}
                   >
                     Select All
                 </Button>
@@ -177,7 +220,7 @@ const Home = (props) => {
               </>
             }
 
-            {!props.whiteToMove &&
+            {props.playerNumber === 2 &&
               <>
                 <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -199,7 +242,7 @@ const Home = (props) => {
                       width: '40%',
                       marginLeft: '45px'
                     }}
-                    onClick={() => props.onSelectAll()}
+                    onClick={() => onSelectAll()}
                   >
                     Select All
                 </Button>
@@ -250,6 +293,8 @@ const mapStateToProps = (state) => {
     gameid: state.usersReducer.gameid,
     numPlayers: state.usersReducer.numPlayers,
     isCreator: state.usersReducer.isCreator,
+    playerNumber: state.usersReducer.playerNumber
+
   }
 }
 
