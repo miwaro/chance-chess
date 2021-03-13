@@ -189,7 +189,8 @@ const Card = (props) => {
     }
   }
 
-  let straight_Style = !props.disabled && isAStraight ? "rotateNumber" : ""
+  let straight_Style = !props.disabled && isAStraight ? "animateTopLeft" : "";
+  let straight_Style2 = !props.disabled && isAStraight ? "animateBottomRight" : "";
 
 
   if (front && cardIndex < 53) {
@@ -227,7 +228,6 @@ const Card = (props) => {
             left: '5px',
             border: 'none',
             padding: '5px',
-            color: '#277714',
             cursor: 'pointer',
             borderRadius: '4px'
           }}>
@@ -248,7 +248,7 @@ const Card = (props) => {
         }
 
         <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
-          <div className={straight_Style} style={{ maxWidth: 25 }}>{card}</div>
+          <div className={straight_Style2} style={{ maxWidth: 25 }}>{card}</div>
           <div className={symbol_Style}>
             <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
           </div>
@@ -259,7 +259,9 @@ const Card = (props) => {
     (cardIndex > 52) {
     return (
       <>
-        <div className={btn_class}>
+        <div
+          onClick={() => getSelectedCard(card, cardIndex)}
+          className={btn_class}>
           <img src={joker} alt="suit-symbol" style={{
             height: '172px',
             width: '140px',
@@ -292,16 +294,12 @@ const Card = (props) => {
               left: '5px',
               border: 'none',
               padding: '5px',
-              color: '#277714',
               cursor: 'pointer',
               borderRadius: '4px'
             }}>
             Select
         </button>
         </div>
-
-
-
       </>
     )
   }
@@ -322,7 +320,7 @@ const Card = (props) => {
             padding: '5px',
             color: 'orange',
             fontWeight: 'bold',
-            backgroundColor: '#2b2b2b',
+            backgroundColor: '#6d6c6c',
             borderRadius: '50%'
           }}>
             {props.cardsArray.length}

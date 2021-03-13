@@ -2,7 +2,7 @@ body {
   background-image: url('./style/images/dark-wood.jpg');
   background-size: cover;
   box-sizing: border-box;
-  cursor: 'pointer !important';
+
 
 }
 
@@ -13,8 +13,6 @@ body {
 
 .App {
   color: white;
-  cursor: 'pointer !important';
-
 }
 
 .actions-container {
