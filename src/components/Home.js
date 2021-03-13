@@ -35,26 +35,17 @@ const Home = (props) => {
           props.updateGame(move.gameState)
         }
       }
-    }, [])
+    })
+  })
 
-    let shouldPost = false;
-    if (props.playerNumber === 1 && props.whiteToMove) {
-      shouldPost = true;
+  useEffect(() => {
+    const newState = {
+      gameState: props.chanceChessState,
+      userState: props.usersState
     }
-    if (props.playerNumber === 2 && !props.whiteToMove) {
-      shouldPost = true;
-    }
-    if (shouldPost) {
-      
-      const newState = {
-        gameState: props.chanceChessState,
-        userState: props.usersState
-      }
-      console.log(newState)
-      
-      socket.emit('new move', { ...newState });
-    }
-  }, [props.gameState])
+    console.log(newState)
+    socket.emit('new move', { ...newState });
+  }, [props.whiteToMove])
 
   const deepEquals = (a, b) => {
     return JSON.stringify(a) === JSON.stringify(b);

@@ -298,6 +298,7 @@ class HumanVsHuman extends Component {
 
         console.log(move)
 
+
         if (move === null) return;
 
 
