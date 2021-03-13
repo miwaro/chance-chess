@@ -13,18 +13,30 @@ import Key from '../components/keySidebar'
 import Rules from '../components/RulesSidebar'
 import { config } from '../config/config';
 import {
-  getCard, getPlayer2Card,
-  discardAllP1Cards, discardAllP2Cards,
+  getCard,
+  getPlayer2Card,
+  discardAllP1Cards,
+  discardAllP2Cards,
   shuffle,
-  selectAll
+  selectAll,
+  updateGame
 } from "../redux/actions/cardActions";
 import { socket } from "../connection/socket";
 
 
 const Home = (props) => {
 
-
   useEffect(() => {
+    socket.on('opponent move', move => {
+      console.log(move);
+      if ((props.playerNumber === 1 && !props.whiteToMove) || (props.playerNumber === 2 && props.whiteToMove)) {
+        const currentState = props.chanceChessState;
+        if (!deepEquals(move.gameState, currentState)) {
+          props.updateGame(move.gameState)
+        }
+      }
+    }, [])
+
     let shouldPost = false;
     if (props.playerNumber === 1 && props.whiteToMove) {
       shouldPost = true;
@@ -33,14 +45,20 @@ const Home = (props) => {
       shouldPost = true;
     }
     if (shouldPost) {
+      
       const newState = {
         gameState: props.chanceChessState,
         userState: props.usersState
       }
       console.log(newState)
+      
       socket.emit('new move', { ...newState });
     }
-  }, [props])
+  }, [props.gameState])
+
+  const deepEquals = (a, b) => {
+    return JSON.stringify(a) === JSON.stringify(b);
+  }
 
   const onSelectAll = () => {
     let whiteToMove = props.whiteToMove;
@@ -326,7 +344,8 @@ const mapDispatchToProps = dispatch => {
     onDiscardAllCardsP1: () => dispatch(discardAllP1Cards()),
     onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
     onShuffle: (p1Cards, p2Cards) => dispatch(shuffle(p1Cards, p2Cards)),
-    onSelectAll: () => dispatch(selectAll())
+    onSelectAll: () => dispatch(selectAll()),
+    updateGame: state => dispatch(updateGame(state))
   }
 }
 

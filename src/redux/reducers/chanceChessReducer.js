@@ -28,7 +28,7 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
 
         case actionTypes.UPDATE_GAME:
-            return action.state;
+            return action.state; 
 
         case actionTypes.UPDATE_FEN:
             return { ...state, fen: action.fen };
