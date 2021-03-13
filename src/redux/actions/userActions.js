@@ -7,11 +7,11 @@ export const updateUsers = (state) => {
     };
 };
 
-export const joinGame = (username, isCreator, gameid) => {
+export const joinGame = (username, isCreator, gameId) => {
     return {
         type: actionTypes.JOIN_GAME,
         username,
         isCreator,
-        gameid
+        gameId
     };
 };

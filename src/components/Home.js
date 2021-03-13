@@ -25,18 +25,22 @@ const Home = (props) => {
 
 
   useEffect(() => {
+    let shouldPost = false;
     if (props.playerNumber === 1 && props.whiteToMove) {
-      postUpdate();
+      shouldPost = true;
     }
-  })
-
-  const postUpdate = () => {
-    const newState = {
-      gameState: props.chanceChessState,
-      userState: props.usersState
+    if (props.playerNumber === 2 && !props.whiteToMove) {
+      shouldPost = true;
     }
-    socket.emit('new move', { ...newState });
-  }
+    if (shouldPost) {
+      const newState = {
+        gameState: props.chanceChessState,
+        userState: props.usersState
+      }
+      console.log(newState)
+      socket.emit('new move', { ...newState });
+    }
+  }, [props])
 
   const onSelectAll = () => {
     let whiteToMove = props.whiteToMove;
@@ -119,7 +123,7 @@ const Home = (props) => {
   }
 
   const getUrl = () => {
-    return config.url + '/game/' + props.gameid;
+    return config.url + '/game/' + props.gameId;
   }
 
   const shuffle = (p1Cards, p2Cards) => {
@@ -307,7 +311,7 @@ const mapStateToProps = (state) => {
     selectedCard: state.chanceChessReducer.selectedCard,
     allSelected: state.chanceChessReducer.allSelected,
     fullDeck: state.chanceChessReducer.fullDeck,
-    gameid: state.usersReducer.gameid,
+    gameId: state.usersReducer.gameId,
     numPlayers: state.usersReducer.numPlayers,
     isCreator: state.usersReducer.isCreator,
     playerNumber: state.usersReducer.playerNumber

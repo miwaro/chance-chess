@@ -9,7 +9,7 @@ const socket = require('../../connection/socket').socket
  */
 
 
-const JoinGameRoom = (gameid, userName, isCreator) => {
+const JoinGameRoom = (gameId, userName, isCreator) => {
     /**
      * For this browser instance, we want 
      * to join it to a gameRoom. For now
@@ -20,24 +20,24 @@ const JoinGameRoom = (gameid, userName, isCreator) => {
      * TODO: handle the case when the game room doesn't exist. 
      */
     const idData = {
-        gameId: gameid,
+        gameId: gameId,
         userName: userName,
         isCreator: isCreator
     }
-    console.log(gameid)
+    console.log(gameId)
     socket.emit("playerJoinGame", idData)
 }
 
 const JoinGame = (props) => {
-    const { gameid } = useParams()
-    props.onJoinGame(props.userName, props.isCreator, gameid);
-    JoinGameRoom(gameid, props.userName, props.isCreator)
+    const { gameId } = useParams()
+    props.onJoinGame(props.userName, props.isCreator, gameId);
+    JoinGameRoom(gameId, props.userName, props.isCreator)
     return (<div></div>)
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onJoinGame: (username, isCreator, gameid) => dispatch(joinGame(username, isCreator, gameid))
+        onJoinGame: (username, isCreator, gameId) => dispatch(joinGame(username, isCreator, gameId))
     }
 }
 

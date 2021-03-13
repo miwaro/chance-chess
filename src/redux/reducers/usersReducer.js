@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   isCreator: false,
-  gameid: '',
+  gameId: '',
   username: '',
   numPlayers: 0,
   playerNumber: 0
@@ -20,7 +20,7 @@ const usersReducer = (state = initialState, action) => {
         isCreator: action.isCreator,
         username: action.username,
         numPlayers: action.isCreator ? 1 : 2,
-        gameid: action.gameid,
+        gameId: action.gameId,
         playerNumber: action.isCreator ? 1 : 2 // TODO: randomize playerNumber
       }
 
