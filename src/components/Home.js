@@ -52,7 +52,7 @@ const Home = (props) => {
     console.log('my move', newState)
     console.log('new fen from me', props.chanceChessState.fen)
     socket.emit('new move', { ...newState });
-  }, [props.whiteToMove])
+  }, [props.whiteToMove, props.chanceChessState.fen])
 
   const deepEquals = (a, b) => {
     return JSON.stringify(a) === JSON.stringify(b);
