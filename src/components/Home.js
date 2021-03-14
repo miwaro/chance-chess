@@ -48,7 +48,7 @@ const Home = (props) => {
     socket.emit('new move', { ...newState });
   });
 
-  useEffect(() => {
+  // useEffect(() => {
     socket.on('opponent move', move => {
 
       if (whiteToMove === undefined || move.gameState.whiteToMove !== whiteToMove) {
@@ -69,7 +69,7 @@ const Home = (props) => {
         }
       }
     })
-  }, [])
+  // })
 
   useEffect(() => {
 
