@@ -39,7 +39,7 @@ const Home = (props) => {
       const nextWhiteToMove = move.gameState.whiteToMove;
       const nextFen = move.gameState.fen;
 
-      if (fen !== nextFen || whiteToMove || nextWhiteToMove) {
+      if (fen !== nextFen || whiteToMove !== nextWhiteToMove) {
         const currentState = props.chanceChessState;
         if (!deepEquals(move.gameState, currentState)) {
           console.log('new fen', move.gameState.fen)

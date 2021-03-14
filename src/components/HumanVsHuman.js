@@ -50,6 +50,10 @@ class HumanVsHuman extends Component {
 
     // Resets the board to starting position
     componentDidUpdate(prevProps) {
+        let fen = this.props.fen;
+        if (fen !== 'start') {
+            this.game = new Chess(fen);
+        }
         let whiteToMove = this.props.whiteToMove;
 
         if (whiteToMove) {
@@ -302,6 +306,7 @@ class HumanVsHuman extends Component {
 
         if (move === null) return;
 
+        this.props.onUpdateFen(this.game.fen());
 
         // Do this after playing a combo
         if (whiteToMove && selected.length === 0) {
@@ -314,8 +319,6 @@ class HumanVsHuman extends Component {
             this.props.onChangeTurn();
             this.props.onSelectAll();
         }
-   
-        this.props.onUpdateFen(this.game.fen());
 
         // Winners Message
         if (move.captured === 'k' && whiteToMove) {
