@@ -24,6 +24,7 @@ import {
 import { updateUsers, setPlayerOne } from '../redux/actions/userActions';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { socket } from "../connection/socket";
+import { debounce } from "@material-ui/core";
 
 
 const Home = (props) => {
@@ -48,8 +49,11 @@ const Home = (props) => {
         const currentState = props.chanceChessState;
         if (!deepEquals(move.gameState, currentState)) {
           // console.log('new fen', move.gameState.fen)
-          props.updateGame(move.gameState);
-          props.updateUsers(move.userState);
+
+          debounce(() => {
+            props.updateGame(move.gameState);
+            props.updateUsers(move.userState);
+          }, 500);
         }
       }
     })
