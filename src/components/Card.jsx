@@ -109,6 +109,7 @@ const Card = (props) => {
   const onDrawCards = () => {
     let playerNumber;
     const isCreator = localStorage.getItem(props.gameId);
+    console.log(isCreator)
     if (isCreator) playerNumber = 1;
     else playerNumber = 2;
     if ((playerNumber === 1 && !props.whiteToMove) || (playerNumber === 2 && props.whiteToMove)) return;
@@ -370,7 +371,8 @@ const mapStateToProps = (state) => {
     whiteToMove: state.chanceChessReducer.whiteToMove,
     selectedCard: state.chanceChessReducer.selectedCard,
     cardsArray: state.chanceChessReducer.cardsArray,
-    allSelected: state.chanceChessReducer.allSelected
+    allSelected: state.chanceChessReducer.allSelected,
+    gameId: state.usersReducer.gameId
   }
 }
 

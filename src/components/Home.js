@@ -176,12 +176,14 @@ const Home = (props) => {
           <div className='card-containers'>
             {props.whiteToMove &&
               <div style={{ marginLeft: '10px', color: 'white' }}>
-                {props.playerTwo}
+                {props.playerNumber === 1 ? props.playerOne : props.playerTwo}
               </div>
             }
             {!props.whiteToMove &&
               <>
-                <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>{props.playerTwo}</div>
+                <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>
+                  {props.playerNumber === 1 ? props.playerOne : props.playerTwo}
+                </div>
               </>
             }
             {playerNumber === 1 &&
@@ -206,10 +208,12 @@ const Home = (props) => {
 
                 </div>
                 {props.whiteToMove &&
-                  <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>{props.playerOne}</div>
+                  <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>
+                    {props.playerNumber === 1 ? props.playerTwo : props.playerOne}
+                  </div>
                 }
                 {!props.whiteToMove &&
-                  <div style={{ marginLeft: '10px', color: 'white' }}>{props.playerOne}</div>
+                  <div style={{ marginLeft: '10px', color: 'white' }}>{props.playerNumber === 1 ? props.playerTwo : props.playerOne}</div>
                 }
               </>
             }
