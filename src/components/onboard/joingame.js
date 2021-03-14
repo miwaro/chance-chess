@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import { joinGame } from '../../redux/actions/userActions';
+import { useQueryParam, NumberParam, StringParam } from 'use-query-params';
 const socket = require('../../connection/socket').socket
 
 /**
@@ -30,7 +31,11 @@ const JoinGameRoom = (gameId, userName, isCreator) => {
 
 const JoinGame = (props) => {
     const { gameId } = useParams()
-    if (props.isCreator) localStorage.setItem(gameId, true);
+    const [ creator, setCreator ] = useQueryParam('creator', StringParam);
+    if (props.isCreator) {
+        localStorage.setItem(gameId, true);
+        if (creator !== props.userName) setCreator(props.userName)
+    }
     props.onJoinGame(props.userName, props.isCreator, gameId);
     JoinGameRoom(gameId, props.userName, props.isCreator)
     return (<div></div>)
