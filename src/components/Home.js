@@ -81,10 +81,6 @@ const Home = (props) => {
   }
 
   const getOwnUsername = () => {
-    let playerNumber;
-    const isCreator = localStorage.getItem(props.gameId);
-    if (isCreator) playerNumber = 1;
-    else playerNumber = 2;
     if (playerNumber === 1) {
       return props.playerOne;
     } else {
@@ -93,10 +89,6 @@ const Home = (props) => {
   }
 
   const getOpponentUsername = () => {
-    let playerNumber;
-    const isCreator = localStorage.getItem(props.gameId);
-    if (isCreator) playerNumber = 1;
-    else playerNumber = 2;
     if (playerNumber === 1) {
       return props.playerTwo;
     } else {
@@ -105,10 +97,6 @@ const Home = (props) => {
   }
 
   const myTurn = () => {
-    let playerNumber;
-    const isCreator = localStorage.getItem(props.gameId);
-    if (isCreator) playerNumber = 1;
-    else playerNumber = 2;
     if (playerNumber === 1) {
       return props.whiteToMove;
     } else {
@@ -117,10 +105,6 @@ const Home = (props) => {
   }
 
   const opponentTurn = () => {
-    let playerNumber;
-    const isCreator = localStorage.getItem(props.gameId);
-    if (isCreator) playerNumber = 1;
-    else playerNumber = 2;
     if (playerNumber === 1) {
       return !props.whiteToMove;
     } else {
