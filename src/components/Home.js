@@ -51,6 +51,9 @@ const Home = (props) => {
   useEffect(() => {
     socket.on('opponent move', move => {
 
+      if (playerNumber === 1 && !move.gameState.whiteToMove) return;
+      if (playerNumber === 2 && move.gameState.whiteToMove) return;
+
       if (move.gameState.whiteToMove !== whiteToMove) {
         setWhiteToMove(move.gameState.whiteToMove)
         console.log('opponent move', move);
