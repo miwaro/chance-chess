@@ -65,7 +65,8 @@ class HumanVsHuman extends Component {
     }
 
     condenseFen = (fen) => {
-        if (fen === 'start') return fen;
+        console.log('fen', fen)
+        if (fen === 'start' || !fen) return fen;
         return fen.split(' ')[0];
     }
 
