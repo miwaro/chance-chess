@@ -15,3 +15,10 @@ export const joinGame = (username, isCreator, gameId) => {
         gameId
     };
 };
+
+export const setPlayerOne = (playerOne) => {
+  return {
+      type: actionTypes.SET_PLAYER_ONE,
+      playerOne
+  };
+};

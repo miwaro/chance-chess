@@ -1,6 +1,8 @@
 export const UPDATE_GAME = 'UPDATE_GAME';
 export const UPDATE_USERS = 'UPDATE_USERS';
 
+export const SET_PLAYER_ONE = 'SET_PLAYER_ONE';
+
 export const JOIN_GAME = 'JOIN_GAME';
 
 export const UPDATE_FEN = 'UPDATE_FEN';

@@ -19,9 +19,10 @@ import {
   discardAllP2Cards,
   shuffle,
   selectAll,
-  updateGame
+  updateGame,
 } from "../redux/actions/cardActions";
-import { updateUsers } from '../redux/actions/userActions';
+import { updateUsers, setPlayerOne } from '../redux/actions/userActions';
+import { useQueryParam, StringParam } from 'use-query-params';
 import { socket } from "../connection/socket";
 
 
@@ -31,6 +32,9 @@ const Home = (props) => {
   const isCreator = localStorage.getItem(props.gameId);
   if (isCreator) playerNumber = 1;
   else playerNumber = 2;
+
+  const [ creator, setCreator ] = useQueryParam('creator', StringParam);
+  if (isCreator && props.playerOne !== creator) props.setPlayerOne(creator);
 
   useEffect(() => {
     socket.on('opponent move', move => {
@@ -144,7 +148,8 @@ const Home = (props) => {
   }
 
   const getUrl = () => {
-    return config.url + '/game/' + props.gameId;
+    
+    return config.url + '/game/' + props.gameId + '?creator=' + creator;
   }
 
   const shuffle = (p1Cards, p2Cards) => {
@@ -355,7 +360,8 @@ const mapDispatchToProps = dispatch => {
     onShuffle: (p1Cards, p2Cards) => dispatch(shuffle(p1Cards, p2Cards)),
     onSelectAll: () => dispatch(selectAll()),
     updateGame: state => dispatch(updateGame(state)),
-    updateUsers: state => dispatch(updateUsers(state))
+    updateUsers: state => dispatch(updateUsers(state)),
+    setPlayerOne: playerOne => dispatch(setPlayerOne(playerOne))
   }
 }
 

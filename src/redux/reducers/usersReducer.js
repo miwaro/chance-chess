@@ -31,6 +31,9 @@ const usersReducer = (state = initialState, action) => {
         playerTwo: action.isCreator ? state.playerTwo : action.username,
       }
 
+      case actionTypes.SET_PLAYER_ONE:
+        return { ...state, playerOne: action.playerOne }
+
     default:
       return state;
   }
