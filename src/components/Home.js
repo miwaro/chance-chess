@@ -48,10 +48,10 @@ const Home = (props) => {
     socket.emit('new move', { ...newState });
   });
 
-  // useEffect(() => {
+  useEffect(() => {
     socket.on('opponent move', move => {
 
-      if (whiteToMove === undefined || move.gameState.whiteToMove !== whiteToMove) {
+      if (move.gameState.whiteToMove !== whiteToMove) {
         setWhiteToMove(move.gameState.whiteToMove)
         console.log('opponent move', move);
         const whiteToMove = props.whiteToMove;
@@ -69,11 +69,11 @@ const Home = (props) => {
         }
       }
     })
-  // })
+  })
 
   useEffect(() => {
 
-    if (whiteToMove === undefined || whiteToMove !== props.whiteToMove) {
+    if (whiteToMove !== props.whiteToMove) {
       setWhiteToMove(props.whiteToMove)
       const newState = {
         gameState: props.chanceChessState,
