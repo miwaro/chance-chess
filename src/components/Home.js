@@ -58,25 +58,31 @@ const Home = (props) => {
   }, [props.whiteToMove])
 
   useEffect(() => {
-    const newState = {
-      gameState: props.chanceChessState,
-      userState: props.usersState
+    let playerNumber;
+    const isCreator = localStorage.getItem(props.gameId);
+    if (isCreator) playerNumber = 1;
+    else playerNumber = 2;
+    if (playerNumber === 1) {
+      const newState = {
+        gameState: props.chanceChessState,
+        userState: props.usersState
+      }
+      socket.emit('new move', { ...newState });
     }
-    if (!props.whiteToMove) {
-      return;
-    }
-    socket.emit('new move', { ...newState });
   }, [props.player1Cards])
 
   useEffect(() => {
-    const newState = {
-      gameState: props.chanceChessState,
-      userState: props.usersState
+    let playerNumber;
+    const isCreator = localStorage.getItem(props.gameId);
+    if (isCreator) playerNumber = 1;
+    else playerNumber = 2;
+    if (playerNumber === 2) {
+      const newState = {
+        gameState: props.chanceChessState,
+        userState: props.usersState
+      }
+      socket.emit('new move', { ...newState });
     }
-    if (props.whiteToMove) {
-      return;
-    }
-    socket.emit('new move', { ...newState });
   }, [props.player2Cards])
 
   const deepEquals = (a, b) => {
