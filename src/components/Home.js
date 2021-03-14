@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { connect } from 'react-redux';
 import "../App.css";
 import '../style/components/player1.scss';
@@ -28,6 +28,8 @@ import { debounce } from "@material-ui/core";
 
 
 const Home = (props) => {
+
+  let [ whiteToMove, setWhiteToMove ] = useState();
 
   let playerNumber;
   const isCreator = localStorage.getItem(props.gameId);
@@ -66,12 +68,15 @@ const Home = (props) => {
   }, [])
 
   useEffect(() => {
-    const newState = {
-      gameState: props.chanceChessState,
-      userState: props.usersState
+
+    if (whiteToMove !== props.whiteToMove) {
+      setWhiteToMove(props.whiteToMove)
+      const newState = {
+        gameState: props.chanceChessState,
+        userState: props.usersState
+      }
+        postNewState(newState);
     }
-      postNewState(newState);
-   
   }, [props.whiteToMove])
 
   const deepEquals = (a, b) => {
