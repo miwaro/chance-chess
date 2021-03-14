@@ -21,6 +21,7 @@ import {
   selectAll,
   updateGame
 } from "../redux/actions/cardActions";
+import { updateUsers } from '../redux/userActions';
 import { socket } from "../connection/socket";
 
 
@@ -56,34 +57,6 @@ const Home = (props) => {
     }
     socket.emit('new move', { ...newState });
   }, [props.whiteToMove])
-
-  useEffect(() => {
-    let playerNumber;
-    const isCreator = localStorage.getItem(props.gameId);
-    if (isCreator) playerNumber = 1;
-    else playerNumber = 2;
-    if (playerNumber === 1) {
-      const newState = {
-        gameState: props.chanceChessState,
-        userState: props.usersState
-      }
-      socket.emit('new move', { ...newState });
-    }
-  }, [props.player1Cards])
-
-  useEffect(() => {
-    let playerNumber;
-    const isCreator = localStorage.getItem(props.gameId);
-    if (isCreator) playerNumber = 1;
-    else playerNumber = 2;
-    if (playerNumber === 2) {
-      const newState = {
-        gameState: props.chanceChessState,
-        userState: props.usersState
-      }
-      socket.emit('new move', { ...newState });
-    }
-  }, [props.player2Cards])
 
   const deepEquals = (a, b) => {
     return JSON.stringify(a) === JSON.stringify(b);
@@ -371,7 +344,8 @@ const mapDispatchToProps = dispatch => {
     onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
     onShuffle: (p1Cards, p2Cards) => dispatch(shuffle(p1Cards, p2Cards)),
     onSelectAll: () => dispatch(selectAll()),
-    updateGame: state => dispatch(updateGame(state))
+    updateGame: state => dispatch(updateGame(state)),
+    updateUsers: state => dispatch(updateUsers(state))
   }
 }
 
