@@ -33,7 +33,7 @@ const Home = (props) => {
   if (isCreator) playerNumber = 1;
   else playerNumber = 2;
 
-  const [ creator, setCreator ] = useQueryParam('creator', StringParam);
+  const [creator, setCreator] = useQueryParam('creator', StringParam);
   if (props.playerOne !== creator) props.setPlayerOne(creator);
 
   useEffect(() => {
@@ -148,7 +148,7 @@ const Home = (props) => {
   }
 
   const getUrl = () => {
-    
+
     return config.url + '/game/' + props.gameId + '?creator=' + creator;
   }
 
@@ -234,13 +234,13 @@ const Home = (props) => {
             {playerNumber === 1 &&
               <>
                 <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', margin: '0 auto', width: '450px', justifyContent: 'center' }}>
                   <Button
                     onClick={discardAllP1}
                     style={{
                       backgroundColor: ' rgb(129 36 36)',
                       color: 'white',
-                      width: '40%',
+                      width: '50%',
                       border: '1px solid black',
                     }}>
                     Discard All
@@ -250,8 +250,7 @@ const Home = (props) => {
                       backgroundColor: 'rgb(82 140 78)',
                       color: 'white',
                       border: '1px solid black',
-                      width: '40%',
-                      marginLeft: '45px'
+                      width: '50%',
                     }}
                     onClick={() => onSelectAll()}
                   >
@@ -270,17 +269,6 @@ const Home = (props) => {
                   </div>
                   <Rules />
                   <Key />
-                  <Button
-                    style={{
-                      backgroundColor: 'rgb(82, 140, 78)',
-                      color: 'white',
-                      border: '1px solid black',
-                      width: '40%',
-                    }}
-                    onClick={() => getCardP1(props.cardsArray)}
-                  >
-                    Get Cards
-                </Button>
                 </div>
 
               </>
@@ -289,13 +277,13 @@ const Home = (props) => {
             {playerNumber === 2 &&
               <>
                 <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Button
                     onClick={discardAllP2}
                     style={{
                       backgroundColor: ' rgb(129 36 36)',
                       color: 'white',
-                      width: '40%',
+                      width: '50%',
                       border: '1px solid black',
                     }}>
                     Discard All
@@ -305,8 +293,7 @@ const Home = (props) => {
                       backgroundColor: 'rgb(82 140 78)',
                       color: 'white',
                       border: '1px solid black',
-                      width: '40%',
-                      marginLeft: '45px'
+                      width: '50%',
                     }}
                     onClick={() => onSelectAll()}
                   >
@@ -325,17 +312,6 @@ const Home = (props) => {
                   </div>
                   <Rules />
                   <Key />
-                  <Button
-                    style={{
-                      backgroundColor: 'rgb(82, 140, 78)',
-                      color: 'white',
-                      border: '1px solid black',
-                      width: '40%',
-                    }}
-                    onClick={() => getCardP2(props.cardsArray)}
-                  >
-                    Get Cards
-                </Button>
                 </div>
               </>
             }

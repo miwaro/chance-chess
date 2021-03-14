@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { selectCard, removeSelectedCard, changeTurn } from '../redux/actions/cardActions'
+import { selectCard, removeSelectedCard, changeTurn, getCard, getPlayer2Card } from '../redux/actions/cardActions'
 
 import PropTypes from "prop-types";
-
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import backCardImg from "../style/images/backCardImg.png";
 import joker from "../style/images/joker.png";
 import heart from "../style/images/heart.png";
@@ -104,6 +104,17 @@ const Card = (props) => {
     if (props.selectedCard.length === 0 || cardIndex !== props.selectedCard[1]) return;
     props.onRemoveSelected(selectedCardIndex)
     props.onChangeTurn();
+  }
+
+  const onDrawCards = () => {
+    let playerNumber;
+    const isCreator = localStorage.getItem(props.gameId);
+    if (isCreator) playerNumber = 1;
+    else playerNumber = 2;
+    if ((playerNumber === 1 && !props.whiteToMove) || (playerNumber === 2 && props.whiteToMove)) return;
+
+    if (playerNumber === 1) props.onGetCard();
+    else props.onGetCardForPlayer2();
   }
 
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
@@ -313,7 +324,7 @@ const Card = (props) => {
           }}>
           <div style={{
             position: 'absolute',
-            bottom: '5px',
+            top: '5px',
             right: '-18px',
             padding: '5px',
             color: 'orange',
@@ -322,6 +333,25 @@ const Card = (props) => {
             borderRadius: '50%'
           }}>
             {props.cardsArray.length}
+          </div>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            bottom: '46px',
+            right: '20px',
+            padding: '5px',
+            color: '#277714',
+            fontWeight: 'bold',
+            backgroundColor: '#FFF',
+            opacity: '.9',
+            borderRadius: '50%',
+            cursor: 'pointer'
+          }}>
+            <AddCircleOutlineIcon style={{
+              height: '70px', width: '70px'
+            }} onClick={() => onDrawCards()} />
           </div>
         </div>
 
@@ -335,6 +365,8 @@ const mapStateToProps = (state) => {
   return {
     player1Cards: state.chanceChessReducer.player1Cards,
     player2Cards: state.chanceChessReducer.player2Cards,
+    playerOne: state.usersReducer.playerOne,
+    playerTwo: state.usersReducer.playerTwo,
     whiteToMove: state.chanceChessReducer.whiteToMove,
     selectedCard: state.chanceChessReducer.selectedCard,
     cardsArray: state.chanceChessReducer.cardsArray,
@@ -348,6 +380,8 @@ const mapDispatchToProps = dispatch => {
     onSelectCard: (card, cardIndex) => dispatch(selectCard(card, cardIndex)),
     onRemoveSelected: (selectedCardIndex) => dispatch(removeSelectedCard(selectedCardIndex)),
     onChangeTurn: () => dispatch(changeTurn()),
+    onGetCard: () => dispatch(getCard()),
+    onGetCardForPlayer2: () => dispatch(getPlayer2Card())
   }
 }
 
