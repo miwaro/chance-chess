@@ -12,9 +12,16 @@ const usersReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case actionTypes.UPDATE_USERS:
-      return action.state;
+      const incomingPlayerOne = action.state.playerOne;
+      const currentPlayerOne = state.playerOne;
+      const playerOne = incomingPlayerOne ? incomingPlayerOne : currentPlayerOne;
+      const incomingPlayerTwo = action.state.playerTwo;
+      const currentPlayerTwo = state.playerTwo;
+      const playerTwo = incomingPlayerTwo ? incomingPlayerTwo : currentPlayerTwo;
+      return { ...action.state, playerOne, playerTwo };
 
     case actionTypes.JOIN_GAME:
+      console.log(action)
       return {
         ...state,
         creator: action.isCreator ? action.username : state.creator,
