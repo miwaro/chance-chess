@@ -57,9 +57,9 @@ const Home = (props) => {
       if (fen !== nextFen || whiteToMove !== nextWhiteToMove) {
         const currentState = props.chanceChessState;
         if (!deepEquals(move.gameState, currentState)) {
-          debounce(() => {
+  
             updateState(move);
-          }, 300)
+    
         }
       }
     })
@@ -70,9 +70,8 @@ const Home = (props) => {
       gameState: props.chanceChessState,
       userState: props.usersState
     }
-    debounce(() => {
       postNewState(newState);
-    }, 300)
+   
   }, [props.whiteToMove, postNewState])
 
   const deepEquals = (a, b) => {
