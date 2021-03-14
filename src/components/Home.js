@@ -40,7 +40,11 @@ const Home = (props) => {
   const updateState = useCallback((move) => {
     props.updateGame(move.gameState);
     props.updateUsers(move.userState);
-});
+  });
+
+  const postNewState = useCallback((newState) => {
+    socket.emit('new move', { ...newState });
+  });
 
   useEffect(() => {
     socket.on('opponent move', move => {
@@ -53,19 +57,23 @@ const Home = (props) => {
       if (fen !== nextFen || whiteToMove !== nextWhiteToMove) {
         const currentState = props.chanceChessState;
         if (!deepEquals(move.gameState, currentState)) {
-          updateState(move);
+          debounce(() => {
+            updateState(move);
+          }, 300)
         }
       }
     })
-  })
+  }, [updateState])
 
   useEffect(() => {
     const newState = {
       gameState: props.chanceChessState,
       userState: props.usersState
     }
-    socket.emit('new move', { ...newState });
-  }, [props.whiteToMove])
+    debounce(() => {
+      postNewState(newState);
+    }, 300)
+  }, [props.whiteToMove, postNewState])
 
   const deepEquals = (a, b) => {
     return JSON.stringify(a) === JSON.stringify(b);
