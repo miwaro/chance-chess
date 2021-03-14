@@ -169,7 +169,16 @@ const Home = (props) => {
         <div className="Board">
           <Board />
           <div className='card-containers'>
-            <div>{props.playerTwo}</div>
+            {props.whiteToMove &&
+              <div style={{ marginLeft: '10px', color: 'white' }}>
+                {props.playerTwo}
+              </div>
+            }
+            {!props.whiteToMove &&
+              <>
+                <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>{props.playerTwo}</div>
+              </>
+            }
             {playerNumber === 1 &&
               <Player2CardContainer disableControls={playerNumber === 1} cards={props.player2Cards} allCardsSelected={props.allSelected} />
             }
@@ -191,7 +200,12 @@ const Home = (props) => {
                 <div>
 
                 </div>
-                <div>{props.playerOne}</div>
+                {props.whiteToMove &&
+                  <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>{props.playerOne}</div>
+                }
+                {!props.whiteToMove &&
+                  <div style={{ marginLeft: '10px', color: 'white' }}>{props.playerOne}</div>
+                }
               </>
             }
 
