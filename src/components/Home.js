@@ -21,7 +21,7 @@ import {
   selectAll,
   updateGame
 } from "../redux/actions/cardActions";
-import { updateUsers } from '../redux/userActions';
+import { updateUsers } from '../redux/actions/userActions';
 import { socket } from "../connection/socket";
 
 
