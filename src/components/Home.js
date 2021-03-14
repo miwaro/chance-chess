@@ -50,18 +50,22 @@ const Home = (props) => {
 
   useEffect(() => {
     socket.on('opponent move', move => {
-      console.log('opponent move', move);
-      const whiteToMove = props.whiteToMove;
-      const fen = props.fen;
-      const nextWhiteToMove = move.gameState.whiteToMove;
-      const nextFen = move.gameState.fen;
 
-      if (fen !== nextFen || whiteToMove !== nextWhiteToMove) {
-        const currentState = props.chanceChessState;
-        if (!deepEquals(move.gameState, currentState)) {
+      if (move.gameState.whiteToMove !== props.whiteToMove) {
+        setWhiteToMove(props.whiteToMove)
+        console.log('opponent move', move);
+        const whiteToMove = props.whiteToMove;
+        const fen = props.fen;
+        const nextWhiteToMove = move.gameState.whiteToMove;
+        const nextFen = move.gameState.fen;
   
-            updateState(move);
+        if (fen !== nextFen || whiteToMove !== nextWhiteToMove) {
+          const currentState = props.chanceChessState;
+          if (!deepEquals(move.gameState, currentState)) {
     
+              updateState(move);
+      
+          }
         }
       }
     })
