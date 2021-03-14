@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { connect } from 'react-redux';
 import "../App.css";
 import '../style/components/player1.scss';
@@ -37,6 +37,11 @@ const Home = (props) => {
   const [creator, setCreator] = useQueryParam('creator', StringParam);
   if (props.playerOne !== creator) props.setPlayerOne(creator);
 
+  const updateState = useCallback((move) => {
+    props.updateGame(move.gameState);
+    props.updateUsers(move.userState);
+});
+
   useEffect(() => {
     socket.on('opponent move', move => {
       console.log('opponent move', move);
@@ -48,12 +53,7 @@ const Home = (props) => {
       if (fen !== nextFen || whiteToMove !== nextWhiteToMove) {
         const currentState = props.chanceChessState;
         if (!deepEquals(move.gameState, currentState)) {
-          // console.log('new fen', move.gameState.fen)
-
-          debounce(() => {
-            props.updateGame(move.gameState);
-            props.updateUsers(move.userState);
-          }, 500);
+          updateState(move);
         }
       }
     })
