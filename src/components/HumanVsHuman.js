@@ -71,6 +71,7 @@ class HumanVsHuman extends Component {
     }
 
     onDragStart = ({ piece, sourceSquare }) => {
+        if (piece === undefined || sourceSquare === undefined) return;
         let whiteToMove = this.props.whiteToMove;
 
         if (this.props.playerNumber === 1 && !whiteToMove) {

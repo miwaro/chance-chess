@@ -45,7 +45,7 @@ const Home = (props) => {
           console.log('new fen', move.gameState.fen)
           props.updateGame(move.gameState)
         }
-         }
+      }
     })
   })
 
@@ -57,7 +57,7 @@ const Home = (props) => {
     console.log('my move', newState)
     console.log('new fen from me', props.chanceChessState.fen)
     socket.emit('new move', { ...newState });
-  }, [props.whiteToMove])
+  }, [props.whiteToMove, props.player1Cards, props.player2Cards])
 
   const deepEquals = (a, b) => {
     return JSON.stringify(a) === JSON.stringify(b);
