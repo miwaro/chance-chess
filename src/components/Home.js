@@ -63,7 +63,7 @@ const Home = (props) => {
         }
       }
     })
-  }, [updateState])
+  }, [])
 
   useEffect(() => {
     const newState = {
@@ -72,7 +72,7 @@ const Home = (props) => {
     }
       postNewState(newState);
    
-  }, [props.whiteToMove, postNewState])
+  }, [props.whiteToMove])
 
   const deepEquals = (a, b) => {
     return JSON.stringify(a) === JSON.stringify(b);
