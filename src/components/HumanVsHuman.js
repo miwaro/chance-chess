@@ -17,7 +17,6 @@ class HumanVsHuman extends Component {
     static propTypes = { children: PropTypes.func };
 
     state = {
-        fen: 'start',
         square: "",
         orientation: 'white',
         initial: {
@@ -35,8 +34,8 @@ class HumanVsHuman extends Component {
         this.setState({
             orientation: playerNumber === 1 ? 'white' : 'black'
         })
-        if (this.state.fen !== 'start') {
-            this.game = new Chess(this.state.fen);
+        if (this.props.fen !== 'start') {
+            this.game = new Chess(this.props.fen);
         }
         else this.game = new Chess();
 
@@ -58,11 +57,6 @@ class HumanVsHuman extends Component {
         }
         else if (!whiteToMove) {
             this.set_turn(this.game, 'b')
-        }
-        if (this.state.fen !== this.props.fen) {
-            this.setState({
-                fen: this.props.fen
-            })
         }
     }
 
@@ -320,15 +314,8 @@ class HumanVsHuman extends Component {
             this.props.onChangeTurn();
             this.props.onSelectAll();
         }
-
-        // Set the position of the board after the piece drops
-        console.log(this.game.fen)
-        this.setState({
-            fen: this.game.fen(),
-        });
-
+   
         this.props.onUpdateFen(this.game.fen());
-
 
         // Winners Message
         if (move.captured === 'k' && whiteToMove) {
@@ -366,10 +353,10 @@ class HumanVsHuman extends Component {
 
     render() {
 
-        const { fen, orientation, initial } = this.state;
+        const { orientation, initial } = this.state;
 
         return this.props.children({
-            position: this.condenseFen(fen),
+            position: this.condenseFen(this.props.fen),
             orientation: orientation,
             onDrop: this.onDrop,
             onDragStart: this.onDragStart,
