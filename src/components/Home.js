@@ -80,32 +80,28 @@ const Home = (props) => {
     props.onSelectAll();
   }
 
-  const getCardP1 = (deck) => {
-    let whiteToMove = props.whiteToMove;
-
-    if (playerNumber === 1 && !whiteToMove) {
-      return;
+  const getOwnUsername = () => {
+    let playerNumber;
+    const isCreator = localStorage.getItem(props.gameId);
+    if (isCreator) playerNumber = 1;
+    else playerNumber = 2;
+    if (playerNumber === 1) {
+      return props.playerOne;
+    } else {
+      return props.playerTwo;
     }
-    if (playerNumber === 2 && whiteToMove) {
-      return;
-    }
-
-    if (!whiteToMove || props.player1Cards.length >= 3 || props.cardsArray.length === 0) return;
-    props.onGetCard();
   }
 
-  const getCardP2 = () => {
-    let whiteToMove = props.whiteToMove;
-
-    if (playerNumber === 1 && !whiteToMove) {
-      return;
+  const getOpponentUsername = () => {
+    let playerNumber;
+    const isCreator = localStorage.getItem(props.gameId);
+    if (isCreator) playerNumber = 1;
+    else playerNumber = 2;
+    if (playerNumber === 1) {
+      return props.playerTwo;
+    } else {
+      return props.playerOne;
     }
-    if (playerNumber === 2 && whiteToMove) {
-      return;
-    }
-
-    if (whiteToMove || props.player2Cards.length >= 3 || props.cardsArray.length === 0) return;
-    props.onGetCardForPlayer2();
   }
 
   const discardAllP1 = () => {
@@ -176,13 +172,13 @@ const Home = (props) => {
           <div className='card-containers'>
             {props.whiteToMove &&
               <div style={{ marginLeft: '10px', color: 'white' }}>
-                {props.playerNumber === 1 ? props.playerOne : props.playerTwo}
+                {getOpponentUsername()}
               </div>
             }
             {!props.whiteToMove &&
               <>
                 <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>
-                  {props.playerNumber === 1 ? props.playerOne : props.playerTwo}
+                  {getOpponentUsername()}
                 </div>
               </>
             }
@@ -209,11 +205,11 @@ const Home = (props) => {
                 </div>
                 {props.whiteToMove &&
                   <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>
-                    {props.playerNumber === 1 ? props.playerTwo : props.playerOne}
+                    {getOwnUsername()}
                   </div>
                 }
                 {!props.whiteToMove &&
-                  <div style={{ marginLeft: '10px', color: 'white' }}>{props.playerNumber === 1 ? props.playerTwo : props.playerOne}</div>
+                  <div style={{ marginLeft: '10px', color: 'white' }}>{getOwnUsername()}</div>
                 }
               </>
             }
