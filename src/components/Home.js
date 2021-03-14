@@ -54,10 +54,30 @@ const Home = (props) => {
       gameState: props.chanceChessState,
       userState: props.usersState
     }
-    console.log('my move', newState)
-    console.log('new fen from me', props.chanceChessState.fen)
     socket.emit('new move', { ...newState });
-  }, [props.whiteToMove, props.player1Cards, props.player2Cards])
+  }, [props.whiteToMove])
+
+  useEffect(() => {
+    const newState = {
+      gameState: props.chanceChessState,
+      userState: props.usersState
+    }
+    if (!props.whiteToMove) {
+      return;
+    }
+    socket.emit('new move', { ...newState });
+  }, [props.player1Cards])
+
+  useEffect(() => {
+    const newState = {
+      gameState: props.chanceChessState,
+      userState: props.usersState
+    }
+    if (props.whiteToMove) {
+      return;
+    }
+    socket.emit('new move', { ...newState });
+  }, [props.player2Cards])
 
   const deepEquals = (a, b) => {
     return JSON.stringify(a) === JSON.stringify(b);
