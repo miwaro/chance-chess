@@ -43,8 +43,9 @@ const Home = (props) => {
       if (fen !== nextFen || whiteToMove !== nextWhiteToMove) {
         const currentState = props.chanceChessState;
         if (!deepEquals(move.gameState, currentState)) {
-          console.log('new fen', move.gameState.fen)
-          props.updateGame(move.gameState)
+          // console.log('new fen', move.gameState.fen)
+          props.updateGame(move.gameState);
+          props.updateUsers(move.usersState);
         }
       }
     })
@@ -168,6 +169,7 @@ const Home = (props) => {
         <div className="Board">
           <Board />
           <div className='card-containers'>
+            <div>{props.playerTwo}</div>
             {playerNumber === 1 &&
               <Player2CardContainer disableControls={playerNumber === 1} cards={props.player2Cards} allCardsSelected={props.allSelected} />
             }
@@ -176,15 +178,21 @@ const Home = (props) => {
             }
 
             {props.cardsArray.length > 0 &&
-              <div style={{ display: "flex", justifyContent: "center", height: '160px', marginBottom: '10px' }}>
-                {props.cardsArray && props.cardsArray.map((card, index) => {
-                  return (
-                    <div key={index}>
-                      <Card suits={card.suits} card={card.card} color={card.color} front={false} />
-                    </div>
-                  );
-                })}
-              </div>
+              <>
+                <div style={{ display: "flex", justifyContent: "center", height: '160px', marginBottom: '10px' }}>
+                  {props.cardsArray && props.cardsArray.map((card, index) => {
+                    return (
+                      <div key={index}>
+                        <Card suits={card.suits} card={card.card} color={card.color} front={false} />
+                      </div>
+                    );
+                  })}
+                </div>
+                <div>
+
+                </div>
+                <div>{props.playerOne}</div>
+              </>
             }
 
             {props.cardsArray.length === 0 &&
@@ -333,6 +341,8 @@ const mapStateToProps = (state) => {
     fullDeck: state.chanceChessReducer.fullDeck,
     gameId: state.usersReducer.gameId,
     numPlayers: state.usersReducer.numPlayers,
+    playerOne: state.usersReducer.playerOne,
+    playerTwo: state.usersReducer.playerTwo,
   }
 }
 
