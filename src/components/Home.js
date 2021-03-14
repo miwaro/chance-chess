@@ -45,7 +45,7 @@ const Home = (props) => {
         if (!deepEquals(move.gameState, currentState)) {
           // console.log('new fen', move.gameState.fen)
           props.updateGame(move.gameState);
-          props.updateUsers(move.usersState);
+          props.updateUsers(move.userState);
         }
       }
     })
