@@ -34,7 +34,7 @@ const Home = (props) => {
   else playerNumber = 2;
 
   const [ creator, setCreator ] = useQueryParam('creator', StringParam);
-  if (isCreator && props.playerOne !== creator) props.setPlayerOne(creator);
+  if (props.playerOne !== creator) props.setPlayerOne(creator);
 
   useEffect(() => {
     socket.on('opponent move', move => {
