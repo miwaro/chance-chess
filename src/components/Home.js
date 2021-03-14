@@ -104,6 +104,30 @@ const Home = (props) => {
     }
   }
 
+  const myTurn = () => {
+    let playerNumber;
+    const isCreator = localStorage.getItem(props.gameId);
+    if (isCreator) playerNumber = 1;
+    else playerNumber = 2;
+    if (playerNumber === 1) {
+      return props.whiteToMove;
+    } else {
+      return !props.whiteToMove;
+    }
+  }
+
+  const opponentTurn = () => {
+    let playerNumber;
+    const isCreator = localStorage.getItem(props.gameId);
+    if (isCreator) playerNumber = 1;
+    else playerNumber = 2;
+    if (playerNumber === 1) {
+      return !props.whiteToMove;
+    } else {
+      return props.whiteToMove;
+    }
+  }
+
   const discardAllP1 = () => {
     let whiteToMove = props.whiteToMove;
 
@@ -170,12 +194,12 @@ const Home = (props) => {
         <div className="Board">
           <Board />
           <div className='card-containers'>
-            {props.whiteToMove &&
+            {myTurn() &&
               <div style={{ marginLeft: '10px', color: 'white' }}>
                 {getOpponentUsername()}
               </div>
             }
-            {!props.whiteToMove &&
+            {opponentTurn() &&
               <>
                 <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>
                   {getOpponentUsername()}
@@ -203,12 +227,12 @@ const Home = (props) => {
                 <div>
 
                 </div>
-                {props.whiteToMove &&
+                {myTurn() &&
                   <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>
                     {getOwnUsername()}
                   </div>
                 }
-                {!props.whiteToMove &&
+                {opponentTurn() &&
                   <div style={{ marginLeft: '10px', color: 'white' }}>{getOwnUsername()}</div>
                 }
               </>
