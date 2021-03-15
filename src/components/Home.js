@@ -29,7 +29,7 @@ import { debounce } from "@material-ui/core";
 
 const Home = (props) => {
 
-  let [ whiteToMove, setWhiteToMove ] = useState();
+  let [whiteToMove, setWhiteToMove] = useState();
 
   let playerNumber;
   const isCreator = localStorage.getItem(props.gameId);
@@ -61,13 +61,13 @@ const Home = (props) => {
         const fen = props.fen;
         const nextWhiteToMove = move.gameState.whiteToMove;
         const nextFen = move.gameState.fen;
-  
+
         if (fen !== nextFen || whiteToMove !== nextWhiteToMove) {
           const currentState = props.chanceChessState;
           if (!deepEquals(move.gameState, currentState)) {
-    
-              updateState(move);
-      
+
+            updateState(move);
+
           }
         }
       }
@@ -82,7 +82,7 @@ const Home = (props) => {
         gameState: props.chanceChessState,
         userState: props.usersState
       }
-        postNewState(newState);
+      postNewState(newState);
     }
   }, [props.whiteToMove])
 
