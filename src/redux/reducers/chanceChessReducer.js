@@ -28,7 +28,7 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
 
         case actionTypes.UPDATE_GAME:
-            return action.state; 
+            return action.state;
 
         case actionTypes.UPDATE_FEN:
             return { ...state, fen: action.fen };
@@ -37,16 +37,32 @@ const reducer = (state = initialState, action) => {
             player1Cards = state.player1Cards;
             deck = state.cardsArray;
 
-            if (player1Cards.length === 0) {
-                player1Cards.push(...deck.slice(0, 3))
+            if (deck.length >= 3) {
+                if (player1Cards.length === 0) {
+                    player1Cards.push(...deck.slice(0, 3))
+                }
+
+
+                if (player1Cards.length === 1) {
+                    player1Cards.push(...deck.slice(0, 2))
+                }
+
+
+                if (player1Cards.length === 2) {
+                    player1Cards.push(...deck.slice(0, 1))
+                }
             }
 
-            if (player1Cards.length === 1) {
+            if (deck.length === 2) {
                 player1Cards.push(...deck.slice(0, 2))
             }
 
-            if (player1Cards.length === 2) {
+            if (deck.length === 1) {
                 player1Cards.push(...deck.slice(0, 1))
+            }
+
+            if (deck.length === 0) {
+                return;
             }
 
             let player1CardsIndex = player1Cards.map(card => card.index)
@@ -63,16 +79,33 @@ const reducer = (state = initialState, action) => {
             player2Cards = state.player2Cards;
             deck = state.cardsArray;
 
-            if (player2Cards.length === 0) {
-                player2Cards.push(...deck.slice(0, 3))
+
+            if (deck.length >= 3) {
+                if (player2Cards.length === 0) {
+                    player2Cards.push(...deck.slice(0, 3))
+                }
+
+
+                if (player2Cards.length === 1) {
+                    player2Cards.push(...deck.slice(0, 2))
+                }
+
+
+                if (player2Cards.length === 2) {
+                    player2Cards.push(...deck.slice(0, 1))
+                }
             }
 
-            if (player2Cards.length === 1) {
+            if (deck.length === 2) {
                 player2Cards.push(...deck.slice(0, 2))
             }
 
-            if (player2Cards.length === 2) {
+            if (deck.length === 1) {
                 player2Cards.push(...deck.slice(0, 1))
+            }
+
+            if (deck.length === 0) {
+                return;
             }
 
             let player2CardsIndex = player2Cards.map(card => card.index)
