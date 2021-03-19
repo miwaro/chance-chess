@@ -72,16 +72,6 @@ const Home = (props) => {
   const [creator, setCreator] = useQueryParam('creator', StringParam);
   if (props.playerOne !== creator) props.setPlayerOne(creator);
 
-  const updateState = useCallback((move) => {
-    props.updateGame(move.gameState);
-    props.updateUsers(move.userState);
-  });
-
-  const postNewState = useCallback((newState) => {
-    console.log('new move')
-    socket.emit('new move', { ...newState });
-  });
-
   useEffect(() => {
     socket.on('opponent move', move => {
 
@@ -100,7 +90,8 @@ const Home = (props) => {
           const currentState = props.chanceChessState;
           if (!deepEquals(move.gameState, currentState)) {
 
-            updateState(move);
+            props.updateGame(move.gameState);
+            props.updateUsers(move.userState);
 
           }
         }
@@ -119,7 +110,8 @@ const Home = (props) => {
         gameState: props.chanceChessState,
         userState: props.usersState
       }
-      postNewState(newState);
+      console.log('new move')
+      socket.emit('new move', { ...newState });
     }
   }, [props.whiteToMove])
 
