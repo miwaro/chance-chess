@@ -119,20 +119,21 @@ const Card = (props) => {
     if (playerNumber === 1) props.onGetCard();
     else props.onGetCardForPlayer2();
 
-    setTimeout(() => {
+    setTimeout(playerNumber => {
       const cardsArray = props.cardsArray;
       let player1Cards, player2Cards;
-
+    
       if (playerNumber === 1) {
         player1Cards = props.player1Cards;
+        console.log('player 1 draws', player1Cards, cardsArray)
         socket.emit('player one draws', { gameId: props.gameId, player1Cards, cardsArray });
-
+    
       } else if(playerNumber === 2) {
         player2Cards = props.player2Cards;
+        console.log('player 2 draws', player2Cards, cardsArray)
         socket.emit('player two draws', { gameId: props.gameId, player2Cards, cardsArray });
       } 
-
-    }, 1500)
+    }, 1000)
   }
 
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
@@ -216,14 +217,13 @@ const Card = (props) => {
     }
   }
 
-  let straight_Style = !props.disabled && isAStraight ? "animateTopLeft" : "";
-  let straight_Style2 = !props.disabled && isAStraight ? "animateBottomRight" : "";
-
-
   if (front && cardIndex < 53) {
     const cardSymbol = getCardSymbol(suits);
     const redChessPiece = getRedChessPiece(cardPiece);
     const blackChessPiece = getBlackChessPiece(cardPiece);
+
+    let straight_Style = !props.disabled && isAStraight ? "animateTopLeft" : "";
+    let straight_Style2 = !props.disabled && isAStraight ? "animateBottomRight" : "";
 
     return (
       <div

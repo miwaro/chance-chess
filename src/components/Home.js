@@ -40,13 +40,15 @@ const Home = (props) => {
   if (playerNumber === 1) {
     socket.on('player two drew', move => {
       const { cardsArray, player2Cards } = move;
+      console.log('player 2 drew', player2Cards, cardsArray)
       props.setPlayer2Card(player2Cards, cardsArray);
     })
   }
   if (playerNumber === 2) {
     socket.on('player one drew', move => {
       const { cardsArray, player1Cards } = move;
-      props.setPlayer2Card(player1Cards, cardsArray);
+      console.log('player 1 drew', player1Cards, cardsArray)
+      props.setPlayer1Card(player1Cards, cardsArray);
     })
   }
 
