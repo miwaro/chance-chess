@@ -48,7 +48,7 @@ const Home = (props) => {
     socket.on('player one drew', move => {
       const { cardsArray, player1Cards } = move;
       console.log('player 1 drew', player1Cards, cardsArray)
-      props.setPlayer1Card(player1Cards, cardsArray);
+      props.setCard(player1Cards, cardsArray);
     })
   }
 
