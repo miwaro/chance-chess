@@ -22,3 +22,10 @@ export const setPlayerOne = (playerOne) => {
       playerOne
   };
 };
+
+export const setPlayerTwo = (playerTwo) => {
+    return {
+        type: actionTypes.SET_PLAYER_TWO,
+        playerTwo
+    };
+  };

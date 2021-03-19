@@ -23,7 +23,7 @@ import {
   setCard,
   setPlayer2Card
 } from "../redux/actions/cardActions";
-import { updateUsers, setPlayerOne } from '../redux/actions/userActions';
+import { updateUsers, setPlayerOne, setPlayerTwo } from '../redux/actions/userActions';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { socket } from "../connection/socket";
 import { debounce } from "@material-ui/core";
@@ -55,9 +55,16 @@ const Home = (props) => {
       }
     })
 
+    socket.on('player two name is', username => {
+      if (playerNumber === 1) {
+        props.setPlayerTwo(username)
+      }
+    })
+
     return () => {
       socket.removeAllListeners('player one drew');
       socket.removeAllListeners('player two drew');
+      socket.removeAllListeners('player two name is');
     }
   })
 
@@ -70,6 +77,7 @@ const Home = (props) => {
   });
 
   const postNewState = useCallback((newState) => {
+    console.log('new move')
     socket.emit('new move', { ...newState });
   });
 
@@ -411,6 +419,7 @@ const mapDispatchToProps = dispatch => {
     updateGame: state => dispatch(updateGame(state)),
     updateUsers: state => dispatch(updateUsers(state)),
     setPlayerOne: playerOne => dispatch(setPlayerOne(playerOne)),
+    setPlayerTwo: playerTwo => dispatch(setPlayerTwo(playerTwo)),
     setCard: (player1Cards, cardsArray) => dispatch(setCard(player1Cards, cardsArray)),
     setPlayer2Card: (player2Cards, cardsArray) => dispatch(setPlayer2Card(player2Cards, cardsArray))
   }

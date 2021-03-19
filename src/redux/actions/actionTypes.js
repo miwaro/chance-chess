@@ -2,6 +2,7 @@ export const UPDATE_GAME = 'UPDATE_GAME';
 export const UPDATE_USERS = 'UPDATE_USERS';
 
 export const SET_PLAYER_ONE = 'SET_PLAYER_ONE';
+export const SET_PLAYER_TWO = 'SET_PLAYER_TWO';
 
 export const JOIN_GAME = 'JOIN_GAME';
 
