@@ -36,7 +36,8 @@ const JoinGame = (props) => {
         localStorage.setItem(gameId, true);
         if (creator !== props.userName) setCreator(props.userName)
     } else {
-        socket.emit('player two name', { username: props.username, gameId });
+        console.log('player two name', props.userName, gameId)
+        socket.emit('player two name', { username: props.userName, gameId });
     }
     props.onJoinGame(props.userName, props.isCreator, gameId);
     JoinGameRoom(gameId, props.userName, props.isCreator)
