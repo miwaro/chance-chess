@@ -119,10 +119,10 @@ const Card = (props) => {
     if (playerNumber === 1) props.onGetCard();
     else props.onGetCardForPlayer2();
 
-    setTimeout(playerNumber => {
+    // setTimeout(playerNumber => {
       const cardsArray = props.cardsArray;
       let player1Cards, player2Cards;
-    
+    console.log('player number', playerNumber)
       if (playerNumber === 1) {
         player1Cards = props.player1Cards;
         console.log('player 1 draws', player1Cards, cardsArray)
@@ -133,7 +133,7 @@ const Card = (props) => {
         console.log('player 2 draws', player2Cards, cardsArray)
         socket.emit('player two draws', { gameId: props.gameId, player2Cards, cardsArray });
       } 
-    }, 1000)
+    // }, 1000)
   }
 
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
