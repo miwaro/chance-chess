@@ -109,6 +109,7 @@ const Card = (props) => {
   }
 
   const onDrawCards = () => {
+    console.log('on draw cards called')
     let playerNumber;
     const isCreator = localStorage.getItem(props.gameId);
     console.log(isCreator)

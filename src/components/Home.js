@@ -26,6 +26,7 @@ import {
 import { updateUsers, setPlayerOne } from '../redux/actions/userActions';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { socket } from "../connection/socket";
+import { debounce } from "@material-ui/core";
 
 const Home = (props) => {
 
@@ -39,16 +40,20 @@ const Home = (props) => {
   // Track opponent's card draws
   if (playerNumber === 1) {
     socket.on('player two drew', move => {
-      const { cardsArray, player2Cards } = move;
-      console.log('player 2 drew', player2Cards, cardsArray)
-      props.setPlayer2Card(player2Cards, cardsArray);
+      debounce(() => {
+        const { cardsArray, player2Cards } = move;
+        console.log('player 2 drew', player2Cards, cardsArray)
+        props.setPlayer2Card(player2Cards, cardsArray);
+      }, 1000)
     })
   }
   if (playerNumber === 2) {
     socket.on('player one drew', move => {
-      const { cardsArray, player1Cards } = move;
-      console.log('player 1 drew', player1Cards, cardsArray)
-      props.setCard(player1Cards, cardsArray);
+      debounce(() => {
+        const { cardsArray, player1Cards } = move;
+        console.log('player 1 drew', player1Cards, cardsArray)
+        props.setCard(player1Cards, cardsArray);
+      }, 1000)
     })
   }
 
