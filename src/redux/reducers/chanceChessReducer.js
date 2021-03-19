@@ -6,7 +6,7 @@ const initialState = {
     player2Cards: [],
     newBoard: false,
     whiteToMove: true,
-    cardsArray: deckArray,
+    cardsArray: deckArray, // the deck
     selectedCard: [],
     allSelected: false,
     fullDeck: deckArray,
@@ -32,6 +32,20 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.UPDATE_FEN:
             return { ...state, fen: action.fen };
+
+        case actionTypes.SET_CARD:
+            return {
+                ...state,
+                player1Cards: action.player1Cards,
+                cardsArray: action.cardsArray
+            }
+
+        case actionTypes.SET_PLAYER2_CARD:
+            return {
+                ...state,
+                player2Cards: action.player2Cards,
+                cardsArray: action.cardsArray
+            }
 
         case actionTypes.GET_CARD:
             player1Cards = state.player1Cards;

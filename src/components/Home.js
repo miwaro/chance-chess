@@ -20,12 +20,12 @@ import {
   shuffle,
   selectAll,
   updateGame,
+  setCard,
+  setPlayer2Card
 } from "../redux/actions/cardActions";
 import { updateUsers, setPlayerOne } from '../redux/actions/userActions';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { socket } from "../connection/socket";
-import { debounce } from "@material-ui/core";
-
 
 const Home = (props) => {
 
@@ -35,6 +35,20 @@ const Home = (props) => {
   const isCreator = localStorage.getItem(props.gameId);
   if (isCreator) playerNumber = 1;
   else playerNumber = 2;
+
+  // Track opponent's card draws
+  if (playerNumber === 1) {
+    socket.on('player two drew', move => {
+      const { cardsArray, player2Cards } = move;
+      props.setPlayer2Card(player2Cards, cardsArray);
+    })
+  }
+  if (playerNumber === 2) {
+    socket.on('player one drew', move => {
+      const { cardsArray, player1Cards } = move;
+      props.setPlayer2Card(player1Cards, cardsArray);
+    })
+  }
 
   const [creator, setCreator] = useQueryParam('creator', StringParam);
   if (props.playerOne !== creator) props.setPlayerOne(creator);
@@ -382,7 +396,9 @@ const mapDispatchToProps = dispatch => {
     onSelectAll: () => dispatch(selectAll()),
     updateGame: state => dispatch(updateGame(state)),
     updateUsers: state => dispatch(updateUsers(state)),
-    setPlayerOne: playerOne => dispatch(setPlayerOne(playerOne))
+    setPlayerOne: playerOne => dispatch(setPlayerOne(playerOne)),
+    setCard: (player1Cards, cardsArray) => dispatch(setCard(player1Cards, cardsArray)),
+    setPlayer2Card: (player2Cards, cardsArray) => dispatch(setPlayer2Card(player2Cards, cardsArray))
   }
 }
 

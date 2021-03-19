@@ -25,6 +25,8 @@ import blackBishop from "../style/images/chessPieces/black/blackBishop.png";
 import blackQueenImg from "../style/images/chessPieces/black/blackQueen.png";
 import blackKingImg from "../style/images/chessPieces/black/blackKing.png";
 
+import { socket } from "../connection/socket";
+
 import "../style/components/card.scss";
 import "../style/components/playerCard.scss";
 
@@ -116,6 +118,21 @@ const Card = (props) => {
 
     if (playerNumber === 1) props.onGetCard();
     else props.onGetCardForPlayer2();
+
+    setTimeout(() => {
+      const cardsArray = props.cardsArray;
+      let player1Cards, player2Cards;
+
+      if (playerNumber === 1) {
+        player1Cards = props.player1Cards;
+        socket.emit('player one draws', { gameId: props.gameId, player1Cards, cardsArray });
+
+      } else if(playerNumber === 2) {
+        player2Cards = props.player2Cards;
+        socket.emit('player two draws', { gameId: props.gameId, player2Cards, cardsArray });
+      } 
+
+    }, 1500)
   }
 
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;

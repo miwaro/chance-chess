@@ -10,6 +10,9 @@ export const UPDATE_FEN = 'UPDATE_FEN';
 export const GET_CARD = 'GET_CARD';
 export const GET_PLAYER2_CARD = 'GET_PLAYER2_CARD';
 
+export const SET_CARD = 'SET_CARD';
+export const SET_PLAYER2_CARD = 'SET_PLAYER2_CARD';
+
 export const SELECT_CARD = 'SELECT_CARD';
 export const SELECT_ALL = 'SELECT_ALL';
 

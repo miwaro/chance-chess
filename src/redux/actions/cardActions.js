@@ -47,6 +47,22 @@ export const getPlayer2Card = () => {
     };
 };
 
+export const setCard = (player1Cards, cardsArray) => {
+    return {
+        type: actionTypes.SET_CARD,
+        player1Cards,
+        cardsArray
+    };
+};
+
+export const setPlayer2Card = (player2Cards, cardsArray) => {
+    return {
+        type: actionTypes.SET_PLAYER2_CARD,
+        player2Cards,
+        cardsArray
+    };
+};
+
 export const changeTurn = () => {
     return {
         type: actionTypes.CHANGE_TURN
