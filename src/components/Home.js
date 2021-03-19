@@ -37,337 +37,338 @@ const Home = (props) => {
   if (isCreator) playerNumber = 1;
   else playerNumber = 2;
 
-  // Track opponent's card draws
-  if (playerNumber === 1) {
-    socket.on('player two drew', move => {
-        const { cardsArray, player2Cards } = move;
-        console.log('player 2 drew', player2Cards, cardsArray)
-        props.setPlayer2Card(player2Cards, cardsArray);
-    })
-  }
-  if (playerNumber === 2) {
-    socket.on('player one drew', move => {
-        const { cardsArray, player1Cards } = move;
-        console.log('player 1 drew', player1Cards, cardsArray)
-        props.setCard(player1Cards, cardsArray);
-    })
-  }
-
-  const [creator, setCreator] = useQueryParam('creator', StringParam);
-  if (props.playerOne !== creator) props.setPlayerOne(creator);
-
-  const updateState = useCallback((move) => {
-    props.updateGame(move.gameState);
-    props.updateUsers(move.userState);
-  });
-
-  const postNewState = useCallback((newState) => {
-    socket.emit('new move', { ...newState });
-  });
-
-  useEffect(() => {
-    socket.on('opponent move', move => {
-
-      if (playerNumber === 1 && !move.gameState.whiteToMove) return;
-      if (playerNumber === 2 && move.gameState.whiteToMove) return;
-
-      if (move.gameState.whiteToMove !== whiteToMove) {
-        setWhiteToMove(move.gameState.whiteToMove)
-        console.log('opponent move', move);
-        const whiteToMove = props.whiteToMove;
-        const fen = props.fen;
-        const nextWhiteToMove = move.gameState.whiteToMove;
-        const nextFen = move.gameState.fen;
-
-        if (fen !== nextFen || whiteToMove !== nextWhiteToMove) {
-          const currentState = props.chanceChessState;
-          if (!deepEquals(move.gameState, currentState)) {
-
-            updateState(move);
-
-          }
-        }
-      }
-    })
+  socket.on('player two drew', move => {
+    if (playerNumber === 1) {
+      const { cardsArray, player2Cards } = move;
+      console.log('player 2 drew', player2Cards, cardsArray)
+      props.setPlayer2Card(player2Cards, cardsArray);
+    }
   })
 
-  useEffect(() => {
+  socket.on('player one drew', move => {
+    if (playerNumber === 2) {
+      const { cardsArray, player1Cards } = move;
+      console.log('player 1 drew', player1Cards, cardsArray)
+      props.setCard(player1Cards, cardsArray);
+    }
+  })
+}
 
-    if (whiteToMove !== props.whiteToMove) {
-      setWhiteToMove(props.whiteToMove)
-      const newState = {
-        gameState: props.chanceChessState,
-        userState: props.usersState
+const [creator, setCreator] = useQueryParam('creator', StringParam);
+if (props.playerOne !== creator) props.setPlayerOne(creator);
+
+const updateState = useCallback((move) => {
+  props.updateGame(move.gameState);
+  props.updateUsers(move.userState);
+});
+
+const postNewState = useCallback((newState) => {
+  socket.emit('new move', { ...newState });
+});
+
+useEffect(() => {
+  socket.on('opponent move', move => {
+
+    if (playerNumber === 1 && !move.gameState.whiteToMove) return;
+    if (playerNumber === 2 && move.gameState.whiteToMove) return;
+
+    if (move.gameState.whiteToMove !== whiteToMove) {
+      setWhiteToMove(move.gameState.whiteToMove)
+      console.log('opponent move', move);
+      const whiteToMove = props.whiteToMove;
+      const fen = props.fen;
+      const nextWhiteToMove = move.gameState.whiteToMove;
+      const nextFen = move.gameState.fen;
+
+      if (fen !== nextFen || whiteToMove !== nextWhiteToMove) {
+        const currentState = props.chanceChessState;
+        if (!deepEquals(move.gameState, currentState)) {
+
+          updateState(move);
+
+        }
       }
-      postNewState(newState);
     }
-  }, [props.whiteToMove])
+  })
+})
 
-  const deepEquals = (a, b) => {
-    return JSON.stringify(a) === JSON.stringify(b);
+useEffect(() => {
+
+  if (whiteToMove !== props.whiteToMove) {
+    setWhiteToMove(props.whiteToMove)
+    const newState = {
+      gameState: props.chanceChessState,
+      userState: props.usersState
+    }
+    postNewState(newState);
+  }
+}, [props.whiteToMove])
+
+const deepEquals = (a, b) => {
+  return JSON.stringify(a) === JSON.stringify(b);
+}
+
+const onSelectAll = () => {
+  let whiteToMove = props.whiteToMove;
+
+  if (playerNumber === 1 && !whiteToMove) {
+    return;
+  }
+  if (playerNumber === 2 && whiteToMove) {
+    return;
   }
 
-  const onSelectAll = () => {
-    let whiteToMove = props.whiteToMove;
+  props.onSelectAll();
+}
 
-    if (playerNumber === 1 && !whiteToMove) {
-      return;
-    }
-    if (playerNumber === 2 && whiteToMove) {
-      return;
-    }
+const getOwnUsername = () => {
+  if (playerNumber === 1) {
+    return props.playerOne;
+  } else {
+    return props.playerTwo;
+  }
+}
 
-    props.onSelectAll();
+const getOpponentUsername = () => {
+  if (playerNumber === 1) {
+    return props.playerTwo;
+  } else {
+    return props.playerOne;
+  }
+}
+
+const myTurn = () => {
+  if (playerNumber === 1) {
+    return props.whiteToMove;
+  } else {
+    return !props.whiteToMove;
+  }
+}
+
+const opponentTurn = () => {
+  if (playerNumber === 1) {
+    return !props.whiteToMove;
+  } else {
+    return props.whiteToMove;
+  }
+}
+
+const discardAllP1 = () => {
+  let whiteToMove = props.whiteToMove;
+
+  if (playerNumber === 1 && !whiteToMove) {
+    return;
+  }
+  if (playerNumber === 2 && whiteToMove) {
+    return;
+  }
+  if (!whiteToMove || props.player1Cards.length === 0) return;
+  props.onDiscardAllCardsP1();
+}
+
+const discardAllP2 = () => {
+  let whiteToMove = props.whiteToMove;
+
+  if (playerNumber === 1 && !whiteToMove) {
+    return;
+  }
+  if (playerNumber === 2 && whiteToMove) {
+    return;
+  }
+  if (whiteToMove || props.player2Cards.length === 0) return;
+  props.onDiscardAllCardsP2();
+}
+
+const resign = () => {
+  let whiteToMove = props.whiteToMove;
+
+  if (whiteToMove && window.confirm('Are you sure you want to resign?')) {
+    alert('Black Wins!')
   }
 
-  const getOwnUsername = () => {
-    if (playerNumber === 1) {
-      return props.playerOne;
-    } else {
-      return props.playerTwo;
-    }
+  if (!whiteToMove && window.confirm('Are you sure you want to resign?')) {
+    alert('White Wins!')
   }
 
-  const getOpponentUsername = () => {
-    if (playerNumber === 1) {
-      return props.playerTwo;
-    } else {
-      return props.playerOne;
-    }
-  }
+}
 
-  const myTurn = () => {
-    if (playerNumber === 1) {
-      return props.whiteToMove;
-    } else {
-      return !props.whiteToMove;
-    }
-  }
+const getUrl = () => {
 
-  const opponentTurn = () => {
-    if (playerNumber === 1) {
-      return !props.whiteToMove;
-    } else {
-      return props.whiteToMove;
-    }
-  }
+  return config.url + '/game/' + props.gameId + '?creator=' + creator;
+}
 
-  const discardAllP1 = () => {
-    let whiteToMove = props.whiteToMove;
+const shuffle = (p1Cards, p2Cards) => {
+  let p1 = props.player1Cards;
+  let p2 = props.player2Cards;
 
-    if (playerNumber === 1 && !whiteToMove) {
-      return;
-    }
-    if (playerNumber === 2 && whiteToMove) {
-      return;
-    }
-    if (!whiteToMove || props.player1Cards.length === 0) return;
-    props.onDiscardAllCardsP1();
-  }
+  p1Cards = p1.map(card => card.index)
+  p2Cards = p2.map(card => card.index)
 
-  const discardAllP2 = () => {
-    let whiteToMove = props.whiteToMove;
+  props.onShuffle(p1Cards, p2Cards);
+}
 
-    if (playerNumber === 1 && !whiteToMove) {
-      return;
-    }
-    if (playerNumber === 2 && whiteToMove) {
-      return;
-    }
-    if (whiteToMove || props.player2Cards.length === 0) return;
-    props.onDiscardAllCardsP2();
-  }
-
-  const resign = () => {
-    let whiteToMove = props.whiteToMove;
-
-    if (whiteToMove && window.confirm('Are you sure you want to resign?')) {
-      alert('Black Wins!')
-    }
-
-    if (!whiteToMove && window.confirm('Are you sure you want to resign?')) {
-      alert('White Wins!')
-    }
-
-  }
-
-  const getUrl = () => {
-
-    return config.url + '/game/' + props.gameId + '?creator=' + creator;
-  }
-
-  const shuffle = (p1Cards, p2Cards) => {
-    let p1 = props.player1Cards;
-    let p2 = props.player2Cards;
-
-    p1Cards = p1.map(card => card.index)
-    p2Cards = p2.map(card => card.index)
-
-    props.onShuffle(p1Cards, p2Cards);
-  }
-
-  return (
-    <div className="App">
-      <Header />
-      <div className="body-container">
-        <div style={{ position: 'absolute', top: '30px', left: '400px' }}>
-          {(
-            <div>{getUrl()}</div>
-          )}
-        </div>
-        <div className="Board">
-          <Board />
-          <div className='card-containers'>
-            {myTurn() &&
-              <div style={{ marginLeft: '10px', color: 'white' }}>
+return (
+  <div className="App">
+    <Header />
+    <div className="body-container">
+      <div style={{ position: 'absolute', top: '30px', left: '400px' }}>
+        {(
+          <div>{getUrl()}</div>
+        )}
+      </div>
+      <div className="Board">
+        <Board />
+        <div className='card-containers'>
+          {myTurn() &&
+            <div style={{ marginLeft: '10px', color: 'white' }}>
+              {getOpponentUsername()}
+            </div>
+          }
+          {opponentTurn() &&
+            <>
+              <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>
                 {getOpponentUsername()}
               </div>
-            }
-            {opponentTurn() &&
-              <>
+            </>
+          }
+          {playerNumber === 1 &&
+            <Player2CardContainer disableControls={playerNumber === 1} cards={props.player2Cards} allCardsSelected={props.allSelected} />
+          }
+          {playerNumber === 2 &&
+            <Player1CardContainer disableControls={playerNumber === 2} cards={props.player1Cards} allCardsSelected={props.allSelected} />
+          }
+
+          {props.cardsArray.length > 0 &&
+            <>
+              <div style={{ display: "flex", justifyContent: "center", height: '160px', marginBottom: '10px' }}>
+                {props.cardsArray && props.cardsArray.map((card, index) => {
+                  return (
+                    <div key={index}>
+                      <Card suits={card.suits} card={card.card} color={card.color} front={false} />
+                    </div>
+                  );
+                })}
+              </div>
+              <div>
+
+              </div>
+              {myTurn() &&
                 <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>
-                  {getOpponentUsername()}
+                  {getOwnUsername()}
                 </div>
-              </>
-            }
-            {playerNumber === 1 &&
-              <Player2CardContainer disableControls={playerNumber === 1} cards={props.player2Cards} allCardsSelected={props.allSelected} />
-            }
-            {playerNumber === 2 &&
-              <Player1CardContainer disableControls={playerNumber === 2} cards={props.player1Cards} allCardsSelected={props.allSelected} />
-            }
+              }
+              {opponentTurn() &&
+                <div style={{ marginLeft: '10px', color: 'white' }}>{getOwnUsername()}</div>
+              }
+            </>
+          }
 
-            {props.cardsArray.length > 0 &&
-              <>
-                <div style={{ display: "flex", justifyContent: "center", height: '160px', marginBottom: '10px' }}>
-                  {props.cardsArray && props.cardsArray.map((card, index) => {
-                    return (
-                      <div key={index}>
-                        <Card suits={card.suits} card={card.card} color={card.color} front={false} />
-                      </div>
-                    );
-                  })}
-                </div>
-                <div>
+          {props.cardsArray.length === 0 &&
+            <>
+              <Header />
+              <Button
+                onClick={() => shuffle(props.player1Cards, props.player2Cards)}
+                style={{
+                  backgroundColor: 'orange',
+                  color: 'black',
+                  width: '100%',
+                  margin: '10px 10px 0 15px'
+                }}
+              >
+                Shuffle
+                </Button>
+            </>
+          }
 
-                </div>
-                {myTurn() &&
-                  <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>
-                    {getOwnUsername()}
-                  </div>
-                }
-                {opponentTurn() &&
-                  <div style={{ marginLeft: '10px', color: 'white' }}>{getOwnUsername()}</div>
-                }
-              </>
-            }
-
-            {props.cardsArray.length === 0 &&
-              <>
-                <Header />
+          {playerNumber === 1 &&
+            <>
+              <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
+              <div style={{ display: 'flex', margin: '0 auto', width: '450px', justifyContent: 'center' }}>
                 <Button
-                  onClick={() => shuffle(props.player1Cards, props.player2Cards)}
+                  onClick={discardAllP1}
                   style={{
-                    backgroundColor: 'orange',
-                    color: 'black',
-                    width: '100%',
-                    margin: '10px 10px 0 15px'
+                    backgroundColor: ' rgb(129 36 36)',
+                    color: 'white',
+                    width: '50%',
+                    border: '1px solid black',
+                  }}>
+                  Discard All
+                </Button>
+                <Button
+                  style={{
+                    backgroundColor: 'rgb(82 140 78)',
+                    color: 'white',
+                    border: '1px solid black',
+                    width: '50%',
                   }}
+                  onClick={() => onSelectAll()}
                 >
-                  Shuffle
+                  Select All
                 </Button>
-              </>
-            }
-
-            {playerNumber === 1 &&
-              <>
-                <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
-                <div style={{ display: 'flex', margin: '0 auto', width: '450px', justifyContent: 'center' }}>
-                  <Button
-                    onClick={discardAllP1}
-                    style={{
-                      backgroundColor: ' rgb(129 36 36)',
-                      color: 'white',
-                      width: '50%',
-                      border: '1px solid black',
-                    }}>
-                    Discard All
-                </Button>
-                  <Button
-                    style={{
-                      backgroundColor: 'rgb(82 140 78)',
-                      color: 'white',
-                      border: '1px solid black',
-                      width: '50%',
-                    }}
-                    onClick={() => onSelectAll()}
-                  >
-                    Select All
-                </Button>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                  <div
-                    onClick={resign}
-                    style={{
-                      cursor: 'pointer',
-                      fontSize: '30px',
-                      marginLeft: '10px'
-                    }}>
-                    🏳
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                <div
+                  onClick={resign}
+                  style={{
+                    cursor: 'pointer',
+                    fontSize: '30px',
+                    marginLeft: '10px'
+                  }}>
+                  🏳
                   </div>
-                  <Rules />
-                  <Key />
-                </div>
+                <Rules />
+                <Key />
+              </div>
 
-              </>
-            }
+            </>
+          }
 
-            {playerNumber === 2 &&
-              <>
-                <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Button
-                    onClick={discardAllP2}
-                    style={{
-                      backgroundColor: ' rgb(129 36 36)',
-                      color: 'white',
-                      width: '50%',
-                      border: '1px solid black',
-                    }}>
-                    Discard All
+          {playerNumber === 2 &&
+            <>
+              <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button
+                  onClick={discardAllP2}
+                  style={{
+                    backgroundColor: ' rgb(129 36 36)',
+                    color: 'white',
+                    width: '50%',
+                    border: '1px solid black',
+                  }}>
+                  Discard All
                 </Button>
-                  <Button
-                    style={{
-                      backgroundColor: 'rgb(82 140 78)',
-                      color: 'white',
-                      border: '1px solid black',
-                      width: '50%',
-                    }}
-                    onClick={() => onSelectAll()}
-                  >
-                    Select All
+                <Button
+                  style={{
+                    backgroundColor: 'rgb(82 140 78)',
+                    color: 'white',
+                    border: '1px solid black',
+                    width: '50%',
+                  }}
+                  onClick={() => onSelectAll()}
+                >
+                  Select All
                 </Button>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                  <div
-                    onClick={resign}
-                    style={{
-                      cursor: 'pointer',
-                      fontSize: '30px',
-                      marginLeft: '10px'
-                    }}>
-                    🏳
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                <div
+                  onClick={resign}
+                  style={{
+                    cursor: 'pointer',
+                    fontSize: '30px',
+                    marginLeft: '10px'
+                  }}>
+                  🏳
                   </div>
-                  <Rules />
-                  <Key />
-                </div>
-              </>
-            }
-          </div>
+                <Rules />
+                <Key />
+              </div>
+            </>
+          }
         </div>
       </div>
-    </div >
-  );
+    </div>
+  </div >
+);
 };
 
 const mapStateToProps = (state) => {
