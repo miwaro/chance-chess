@@ -52,7 +52,7 @@ const Home = (props) => {
       props.setCard(player1Cards, cardsArray);
     }
   })
-}
+
 
 const [creator, setCreator] = useQueryParam('creator', StringParam);
 if (props.playerOne !== creator) props.setPlayerOne(creator);
