@@ -57,6 +57,7 @@ const Home = (props) => {
 
     socket.on('player two name is', username => {
       if (playerNumber === 1) {
+        console.log('player two name is', username)
         props.setPlayerTwo(username)
       }
     })
