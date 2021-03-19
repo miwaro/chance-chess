@@ -97,6 +97,9 @@ const Home = (props) => {
         }
       }
     })
+    return () => {
+      socket.removeAllListeners('opponent move');
+    }
   })
 
   useEffect(() => {
