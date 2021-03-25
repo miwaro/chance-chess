@@ -350,9 +350,10 @@ class HumanVsHuman extends Component {
 
 
         this.props.onRemoveSelected(this.props.selectedCard[1])
-        this.props.onChangeTurn();
-
-
+        setTimeout(() => {
+            this.props.onChangeTurn();
+        }, 1000)
+       
     };
 
     render() {
