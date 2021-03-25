@@ -75,6 +75,8 @@ const reducer = (state = initialState, action) => {
                 player1Cards.push(...deck.slice(0, 1))
             }
 
+            if (player1Cards.length > 3) player1Cards = player1Cards.slice(0, 3);
+
             if (deck.length === 0) {
                 return;
             }
@@ -92,7 +94,6 @@ const reducer = (state = initialState, action) => {
         case actionTypes.GET_PLAYER2_CARD:
             player2Cards = state.player2Cards;
             deck = state.cardsArray;
-
 
             if (deck.length >= 3) {
                 if (player2Cards.length === 0) {
@@ -117,6 +118,8 @@ const reducer = (state = initialState, action) => {
             if (deck.length === 1) {
                 player2Cards.push(...deck.slice(0, 1))
             }
+
+            if (player1Cards.length > 3) player1Cards = player1Cards.slice(0, 3);
 
             if (deck.length === 0) {
                 return;
