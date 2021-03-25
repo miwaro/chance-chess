@@ -72,6 +72,8 @@ const Home = (props) => {
   const [creator, setCreator] = useQueryParam('creator', StringParam);
   if (props.playerOne !== creator) props.setPlayerOne(creator);
 
+  socket.removeAllListeners('opponent move');
+
   useEffect(() => {
     socket.on('opponent move', move => {
 
@@ -97,9 +99,6 @@ const Home = (props) => {
         }
       }
     })
-    return () => {
-      socket.removeAllListeners('opponent move');
-    }
   })
 
   useEffect(() => {

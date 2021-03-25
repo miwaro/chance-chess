@@ -119,7 +119,7 @@ const reducer = (state = initialState, action) => {
                 player2Cards.push(...deck.slice(0, 1))
             }
 
-            if (player1Cards.length > 3) player1Cards = player1Cards.slice(0, 3);
+            if (player2Cards.length > 3) player2Cards = player2Cards.slice(0, 3);
 
             if (deck.length === 0) {
                 return;
