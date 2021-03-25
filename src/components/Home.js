@@ -202,6 +202,33 @@ const Home = (props) => {
 
   }
 
+  const onDrawCards = () => {
+    console.log('on draw cards called')
+    let playerNumber;
+    const isCreator = localStorage.getItem(props.gameId);
+    console.log(isCreator)
+    if (isCreator) playerNumber = 1;
+    else playerNumber = 2;
+    if ((playerNumber === 1 && !props.whiteToMove) || (playerNumber === 2 && props.whiteToMove)) return;
+
+    if (playerNumber === 1) props.onGetCard();
+    else props.onGetCardForPlayer2();
+
+      const cardsArray = props.cardsArray;
+      let player1Cards, player2Cards;
+    console.log('player number', playerNumber)
+      if (playerNumber === 1) {
+        player1Cards = props.player1Cards;
+        console.log('player 1 draws', player1Cards, props.cardsArray)
+        socket.emit('player one draws', { gameId: props.gameId, player1Cards, cardsArray: props.cardsArray });
+    
+      } else if(playerNumber === 2) {
+        player2Cards = props.player2Cards;
+        console.log('player 2 draws', player2Cards, props.cardsArray)
+        socket.emit('player two draws', { gameId: props.gameId, player2Cards, cardsArray: props.cardsArray });
+      } 
+  }
+
   const getUrl = () => {
 
     return config.url + '/game/' + props.gameId + '?creator=' + creator;
@@ -254,7 +281,7 @@ const Home = (props) => {
                   {props.cardsArray && props.cardsArray.map((card, index) => {
                     return (
                       <div key={index}>
-                        <Card suits={card.suits} card={card.card} color={card.color} front={false} />
+                        <Card suits={card.suits} onDrawCards={onDrawCards} card={card.card} color={card.color} front={false} />
                       </div>
                     );
                   })}

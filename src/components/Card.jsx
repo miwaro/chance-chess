@@ -108,32 +108,6 @@ const Card = (props) => {
     props.onChangeTurn();
   }
 
-  const onDrawCards = () => {
-    console.log('on draw cards called')
-    let playerNumber;
-    const isCreator = localStorage.getItem(props.gameId);
-    console.log(isCreator)
-    if (isCreator) playerNumber = 1;
-    else playerNumber = 2;
-    if ((playerNumber === 1 && !props.whiteToMove) || (playerNumber === 2 && props.whiteToMove)) return;
-
-    if (playerNumber === 1) props.onGetCard();
-    else props.onGetCardForPlayer2();
-
-      const cardsArray = props.cardsArray;
-      let player1Cards, player2Cards;
-    console.log('player number', playerNumber)
-      if (playerNumber === 1) {
-        player1Cards = props.player1Cards;
-        console.log('player 1 draws', player1Cards, cardsArray)
-        socket.emit('player one draws', { gameId: props.gameId, player1Cards, cardsArray });
-    
-      } else if(playerNumber === 2) {
-        player2Cards = props.player2Cards;
-        console.log('player 2 draws', player2Cards, cardsArray)
-        socket.emit('player two draws', { gameId: props.gameId, player2Cards, cardsArray });
-      } 
-  }
 
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
   let btn_class = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
@@ -368,7 +342,7 @@ const Card = (props) => {
           }}>
             <AddCircleOutlineIcon style={{
               height: '70px', width: '70px'
-            }} onClick={() => onDrawCards()} />
+            }} onClick={() => props.onDrawCards()} />
           </div>
         </div>
 
