@@ -19,11 +19,7 @@ class HumanVsHuman extends Component {
 
     state = {
         square: "",
-        orientation: 'white',
-        initial: {
-            W: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 },
-            B: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 }
-        }
+        orientation: 'white'
     };
 
     componentDidMount() {

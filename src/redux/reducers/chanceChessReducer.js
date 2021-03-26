@@ -10,7 +10,11 @@ const initialState = {
     selectedCard: [],
     allSelected: false,
     fullDeck: deckArray,
-    fen: 'start'
+    fen: 'start',
+    capturedPieces: {
+        W: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 },
+        B: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 }
+    }
 }
 
 const reducer = (state = initialState, action) => {
