@@ -1,5 +1,18 @@
 import * as actionTypes from './actionTypes';
 
+export const updateGame = (state) => {
+    return {
+        type: actionTypes.UPDATE_GAME,
+        state
+    };
+};
+
+export const updateFen = (fen) => {
+    return {
+        type: actionTypes.UPDATE_FEN,
+        fen
+    };
+};
 
 export const shuffleOnMount = () => {
     return {
@@ -31,6 +44,22 @@ export const getCard = () => {
 export const getPlayer2Card = () => {
     return {
         type: actionTypes.GET_PLAYER2_CARD
+    };
+};
+
+export const setCard = (player1Cards, cardsArray) => {
+    return {
+        type: actionTypes.SET_CARD,
+        player1Cards,
+        cardsArray
+    };
+};
+
+export const setPlayer2Card = (player2Cards, cardsArray) => {
+    return {
+        type: actionTypes.SET_PLAYER2_CARD,
+        player2Cards,
+        cardsArray
     };
 };
 
@@ -75,13 +104,6 @@ export const shuffle = (p1CardsIndexes, p2CardsIndexes) => {
     };
 };
 
-
-// should Reset Game
-export const startNewGame = () => {
-    return {
-        type: actionTypes.START_NEW_GAME
-    };
-};
 
 
 

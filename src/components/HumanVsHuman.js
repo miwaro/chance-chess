@@ -8,14 +8,15 @@ import {
     discardAllP1Cards,
     discardAllP2Cards,
     shuffleOnMount,
-    selectAll
+    selectAll,
+    updateFen
 } from "../redux/actions/cardActions";
 
 class HumanVsHuman extends Component {
+
     static propTypes = { children: PropTypes.func };
 
     state = {
-        fen: 'start',
         square: "",
         orientation: 'white',
         initial: {
@@ -25,7 +26,19 @@ class HumanVsHuman extends Component {
     };
 
     componentDidMount() {
-        this.game = new Chess();
+        let playerNumber;
+
+        const isCreator = localStorage.getItem(this.props.gameId);
+        if (isCreator) playerNumber = 1;
+        else playerNumber = 2;
+        this.setState({
+            orientation: playerNumber === 1 ? 'white' : 'black'
+        })
+        if (this.props.fen !== 'start') {
+            this.game = new Chess(this.props.fen);
+        }
+        else this.game = new Chess();
+
         this.props.onShuffle();
     }
 
@@ -35,11 +48,13 @@ class HumanVsHuman extends Component {
         chess.load(tokens.join(' '));
     }
 
-
     // Resets the board to starting position
     componentDidUpdate(prevProps) {
+        let fen = this.props.fen;
+        if (fen !== 'start') {
+            this.game = new Chess(fen);
+        }
         let whiteToMove = this.props.whiteToMove;
-
 
         if (whiteToMove) {
             this.set_turn(this.game, 'w')
@@ -47,22 +62,28 @@ class HumanVsHuman extends Component {
         else if (!whiteToMove) {
             this.set_turn(this.game, 'b')
         }
+    }
 
-        if (this.props.player1Cards !== prevProps.player1Cards && !whiteToMove) {
-            this.setState({ orientation: 'black' })
-        }
-
-        if (this.props.player2Cards !== prevProps.player2Cards && whiteToMove) {
-            this.setState({ orientation: 'white' })
-        }
+    condenseFen = (fen) => {
+        if (fen === 'start' || !fen) return fen;
+        return fen.split(' ')[0];
     }
 
     onDragStart = ({ piece, sourceSquare }) => {
+        if (piece === undefined || sourceSquare === undefined) return;
+        let whiteToMove = this.props.whiteToMove;
+
+        if (this.props.playerNumber === 1 && !whiteToMove) {
+            return;
+        }
+        if (this.props.playerNumber === 2 && whiteToMove) {
+            return;
+        }
+
         let draggable = false;
         let isAStraight = false;
         let chessPiece = piece[1].toLowerCase();
         let column = sourceSquare[0];
-        let whiteToMove = this.props.whiteToMove;
         let selectedCard = this.props.selectedCard;
         let isAllSelected = this.props.allSelected;
         let p1 = this.props.player1Cards;
@@ -271,6 +292,7 @@ class HumanVsHuman extends Component {
 
 
     onDrop = ({ sourceSquare, targetSquare }) => {
+        // console.log(sourceSquare, targetSquare);
         let whiteToMove = this.props.whiteToMove;
         let selected = this.props.selectedCard
         // see if the move is legal
@@ -280,14 +302,12 @@ class HumanVsHuman extends Component {
             promotion: "q"
         });
 
+        console.log(move)
+
+
         if (move === null) return;
 
-        // Change orientation
-        if (whiteToMove) {
-            this.setState({ orientation: 'black' })
-        } else if (!whiteToMove) {
-            this.setState({ orientation: 'white' })
-        }
+        this.props.onUpdateFen(this.game.fen());
 
         // Do this after playing a combo
         if (whiteToMove && selected.length === 0) {
@@ -300,12 +320,6 @@ class HumanVsHuman extends Component {
             this.props.onChangeTurn();
             this.props.onSelectAll();
         }
-
-        // Set the position of the board after the piece drops
-        this.setState({
-            fen: this.game.fen(),
-        });
-
 
         // Winners Message
         if (move.captured === 'k' && whiteToMove) {
@@ -336,20 +350,18 @@ class HumanVsHuman extends Component {
 
 
         this.props.onRemoveSelected(this.props.selectedCard[1])
-        this.props.onChangeTurn();
-
-
+        setTimeout(() => {
+            this.props.onChangeTurn();
+        }, 1000)
+       
     };
-
-
-
 
     render() {
 
-        const { fen, orientation, initial } = this.state;
+        const { orientation, initial } = this.state;
 
         return this.props.children({
-            position: fen,
+            position: this.condenseFen(this.props.fen),
             orientation: orientation,
             onDrop: this.onDrop,
             onDragStart: this.onDragStart,
@@ -359,7 +371,6 @@ class HumanVsHuman extends Component {
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state)
     return {
         player1Cards: state.chanceChessReducer.player1Cards,
         player2Cards: state.chanceChessReducer.player2Cards,
@@ -368,7 +379,11 @@ const mapStateToProps = (state) => {
         selectedCard: state.chanceChessReducer.selectedCard,
         whiteToMove: state.chanceChessReducer.whiteToMove,
         allSelected: state.chanceChessReducer.allSelected,
-        cardsArray: state.chanceChessReducer.cardsArray
+        cardsArray: state.chanceChessReducer.cardsArray,
+        playerNumber: state.usersReducer.playerNumber,
+        fen: state.chanceChessReducer.fen,
+        gameId: state.usersReducer.gameId
+
     }
 }
 
@@ -380,6 +395,7 @@ const mapDispatchToProps = dispatch => {
         onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
         onShuffle: () => dispatch(shuffleOnMount()),
         onSelectAll: () => dispatch(selectAll()),
+        onUpdateFen: (fen) => dispatch(updateFen(fen))
     }
 }
 

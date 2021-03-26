@@ -1,11 +1,10 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { selectCard, removeSelectedCard, changeTurn } from '../redux/actions/cardActions'
+import { selectCard, removeSelectedCard, changeTurn, getCard, getPlayer2Card } from '../redux/actions/cardActions'
 
 import PropTypes from "prop-types";
-
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import backCardImg from "../style/images/backCardImg.png";
-// import chessLogo from "../images/luckyRookFAV2.png";
 import joker from "../style/images/joker.png";
 import heart from "../style/images/heart.png";
 import diamond from "../style/images/diamond.png";
@@ -26,13 +25,14 @@ import blackBishop from "../style/images/chessPieces/black/blackBishop.png";
 import blackQueenImg from "../style/images/chessPieces/black/blackQueen.png";
 import blackKingImg from "../style/images/chessPieces/black/blackKing.png";
 
+import { socket } from "../connection/socket";
+
 import "../style/components/card.scss";
 import "../style/components/playerCard.scss";
 
 const Card = (props) => {
 
   const { suits, card, front, color, cardIndex, cardPiece, allCardsSelected } = props;
-  console.log(typeof suits)
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -107,6 +107,7 @@ const Card = (props) => {
     props.onRemoveSelected(selectedCardIndex)
     props.onChangeTurn();
   }
+
 
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
   let btn_class = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
@@ -189,14 +190,13 @@ const Card = (props) => {
     }
   }
 
-  let straight_Style = !props.disabled && isAStraight ? "animateTopLeft" : "";
-  let straight_Style2 = !props.disabled && isAStraight ? "animateBottomRight" : "";
-
-
   if (front && cardIndex < 53) {
     const cardSymbol = getCardSymbol(suits);
     const redChessPiece = getRedChessPiece(cardPiece);
     const blackChessPiece = getBlackChessPiece(cardPiece);
+
+    let straight_Style = !props.disabled && isAStraight ? "animateTopLeft" : "";
+    let straight_Style2 = !props.disabled && isAStraight ? "animateBottomRight" : "";
 
     return (
       <div
@@ -315,7 +315,7 @@ const Card = (props) => {
           }}>
           <div style={{
             position: 'absolute',
-            bottom: '5px',
+            top: '5px',
             right: '-18px',
             padding: '5px',
             color: 'orange',
@@ -324,6 +324,25 @@ const Card = (props) => {
             borderRadius: '50%'
           }}>
             {props.cardsArray.length}
+          </div>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            bottom: '46px',
+            right: '20px',
+            padding: '5px',
+            color: '#277714',
+            fontWeight: 'bold',
+            backgroundColor: '#FFF',
+            opacity: '.9',
+            borderRadius: '50%',
+            cursor: 'pointer'
+          }}>
+            <AddCircleOutlineIcon style={{
+              height: '70px', width: '70px'
+            }} onClick={() => props.onDrawCards()} />
           </div>
         </div>
 
@@ -337,10 +356,13 @@ const mapStateToProps = (state) => {
   return {
     player1Cards: state.chanceChessReducer.player1Cards,
     player2Cards: state.chanceChessReducer.player2Cards,
+    playerOne: state.usersReducer.playerOne,
+    playerTwo: state.usersReducer.playerTwo,
     whiteToMove: state.chanceChessReducer.whiteToMove,
     selectedCard: state.chanceChessReducer.selectedCard,
     cardsArray: state.chanceChessReducer.cardsArray,
-    allSelected: state.chanceChessReducer.allSelected
+    allSelected: state.chanceChessReducer.allSelected,
+    gameId: state.usersReducer.gameId
   }
 }
 
@@ -350,6 +372,8 @@ const mapDispatchToProps = dispatch => {
     onSelectCard: (card, cardIndex) => dispatch(selectCard(card, cardIndex)),
     onRemoveSelected: (selectedCardIndex) => dispatch(removeSelectedCard(selectedCardIndex)),
     onChangeTurn: () => dispatch(changeTurn()),
+    onGetCard: () => dispatch(getCard()),
+    onGetCardForPlayer2: () => dispatch(getPlayer2Card())
   }
 }
 

@@ -1,8 +1,18 @@
-// Sets playerCards arrays to empty arrays and resets the board
-export const START_NEW_GAME = 'START_NEW_GAME';
+export const UPDATE_GAME = 'UPDATE_GAME';
+export const UPDATE_USERS = 'UPDATE_USERS';
+
+export const SET_PLAYER_ONE = 'SET_PLAYER_ONE';
+export const SET_PLAYER_TWO = 'SET_PLAYER_TWO';
+
+export const JOIN_GAME = 'JOIN_GAME';
+
+export const UPDATE_FEN = 'UPDATE_FEN';
 
 export const GET_CARD = 'GET_CARD';
 export const GET_PLAYER2_CARD = 'GET_PLAYER2_CARD';
+
+export const SET_CARD = 'SET_CARD';
+export const SET_PLAYER2_CARD = 'SET_PLAYER2_CARD';
 
 export const SELECT_CARD = 'SELECT_CARD';
 export const SELECT_ALL = 'SELECT_ALL';

@@ -6,15 +6,14 @@ const initialState = {
     player2Cards: [],
     newBoard: false,
     whiteToMove: true,
-    cardsArray: deckArray,
+    cardsArray: deckArray, // the deck
     selectedCard: [],
     allSelected: false,
-    fullDeck: deckArray
+    fullDeck: deckArray,
+    fen: 'start'
 }
 
 const reducer = (state = initialState, action) => {
-    console.log('action', action)
-
     let cardsArray;
     let deck;
     let newDeck;
@@ -28,30 +27,59 @@ const reducer = (state = initialState, action) => {
 
     switch (action.type) {
 
+        case actionTypes.UPDATE_GAME:
+            return action.state;
+
+        case actionTypes.UPDATE_FEN:
+            return { ...state, fen: action.fen };
+
+        case actionTypes.SET_CARD:
+            return {
+                ...state,
+                player1Cards: action.player1Cards,
+                cardsArray: action.cardsArray
+            }
+
+        case actionTypes.SET_PLAYER2_CARD:
+            return {
+                ...state,
+                player2Cards: action.player2Cards,
+                cardsArray: action.cardsArray
+            }
+
         case actionTypes.GET_CARD:
             player1Cards = state.player1Cards;
             deck = state.cardsArray;
 
-            if (player1Cards.length === 0) {
-                player1Cards.push(...deck.slice(0, 3))
-            }
-            // if (player1Cards.length === 0) {
-            //     player1Cards.push(...deck.slice(0, 2))
-            // }
+            if (deck.length >= 3) {
+                if (player1Cards.length === 0) {
+                    player1Cards.push(...deck.slice(0, 3))
+                }
 
-            if (player1Cards.length === 1) {
+
+                if (player1Cards.length === 1) {
+                    player1Cards.push(...deck.slice(0, 2))
+                }
+
+
+                if (player1Cards.length === 2) {
+                    player1Cards.push(...deck.slice(0, 1))
+                }
+            }
+
+            if (deck.length === 2) {
                 player1Cards.push(...deck.slice(0, 2))
             }
-            // if (player1Cards.length === 1 ) {
-            //     player1Cards.push(...deck.slice(0, 1))
-            // }
 
-            if (player1Cards.length === 2) {
+            if (deck.length === 1) {
                 player1Cards.push(...deck.slice(0, 1))
             }
-            // if (player1Cards.length === 2 && deck.length === 0) {
-            //     return;
-            // }
+
+            if (player1Cards.length > 3) player1Cards = player1Cards.slice(0, 3);
+
+            if (deck.length === 0) {
+                return;
+            }
 
             let player1CardsIndex = player1Cards.map(card => card.index)
 
@@ -67,27 +95,35 @@ const reducer = (state = initialState, action) => {
             player2Cards = state.player2Cards;
             deck = state.cardsArray;
 
-            if (player2Cards.length === 0) {
-                player2Cards.push(...deck.slice(0, 3))
-            }
-            // if (player2Cards.length === 0 ) {
-            //     player2Cards.push(...deck.slice(0, 2))
-            // }
+            if (deck.length >= 3) {
+                if (player2Cards.length === 0) {
+                    player2Cards.push(...deck.slice(0, 3))
+                }
 
-            if (player2Cards.length === 1) {
+
+                if (player2Cards.length === 1) {
+                    player2Cards.push(...deck.slice(0, 2))
+                }
+
+
+                if (player2Cards.length === 2) {
+                    player2Cards.push(...deck.slice(0, 1))
+                }
+            }
+
+            if (deck.length === 2) {
                 player2Cards.push(...deck.slice(0, 2))
             }
-            // if (player2Cards.length === 1 ) {
-            //     player2Cards.push(...deck.slice(0, 1))
 
-            // }
-
-            if (player2Cards.length === 2) {
+            if (deck.length === 1) {
                 player2Cards.push(...deck.slice(0, 1))
             }
-            // if (player2Cards.length === 2 ) {
-            //     return;
-            // }
+
+            if (player2Cards.length > 3) player2Cards = player2Cards.slice(0, 3);
+
+            if (deck.length === 0) {
+                return;
+            }
 
             let player2CardsIndex = player2Cards.map(card => card.index)
 
