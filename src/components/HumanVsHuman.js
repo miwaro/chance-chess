@@ -345,11 +345,11 @@ class HumanVsHuman extends Component {
             } else {
                 return acc;
             }
-        }, this.state.initial);
+        }, this.props.piecesCaptured);
 
-        this.setState({ initial: captured })
         this.props.setCapturedPieces(captured);
 
+        console.log('captured pieces:', captured);
 
         this.props.onRemoveSelected(this.props.selectedCard[1])
         setTimeout(() => {
@@ -360,14 +360,13 @@ class HumanVsHuman extends Component {
 
     render() {
 
-        const { orientation, initial } = this.state;
+        const { orientation } = this.state;
 
         return this.props.children({
             position: this.condenseFen(this.props.fen),
             orientation: orientation,
             onDrop: this.onDrop,
-            onDragStart: this.onDragStart,
-            piecesCaptured: initial
+            onDragStart: this.onDragStart
         });
     }
 }

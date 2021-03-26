@@ -10,11 +10,7 @@ const initialState = {
     selectedCard: [],
     allSelected: false,
     fullDeck: deckArray,
-    fen: 'start',
-    capturedPieces: {
-        W: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 },
-        B: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 }
-    }
+    fen: 'start'
 }
 
 const reducer = (state = initialState, action) => {
@@ -28,6 +24,8 @@ const reducer = (state = initialState, action) => {
     let player1Cards;
     let player2Cards;
     let whiteToMove;
+
+    console.log(action)
 
     switch (action.type) {
 
@@ -242,6 +240,7 @@ const reducer = (state = initialState, action) => {
             }
 
         case actionTypes.SET_CAPTURED_PIECES:
+            console.log(action.capturedPieces)
             return {
                 ...state,
                 capturedPieces: action.capturedPieces
