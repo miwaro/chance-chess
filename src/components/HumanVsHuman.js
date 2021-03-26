@@ -348,7 +348,7 @@ class HumanVsHuman extends Component {
         }, this.state.initial);
 
         this.setState({ initial: captured })
-        this.setCapturedPieces(captured);
+        this.props.setCapturedPieces(captured);
 
 
         this.props.onRemoveSelected(this.props.selectedCard[1])
