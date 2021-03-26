@@ -83,9 +83,7 @@ const reducer = (state = initialState, action) => {
 
             if (player1Cards.length > 3) player1Cards = player1Cards.slice(0, 3);
 
-            if (deck.length === 0) {
-                return;
-            }
+
 
             let player1CardsIndex = player1Cards.map(card => card.index)
 
@@ -127,9 +125,6 @@ const reducer = (state = initialState, action) => {
 
             if (player2Cards.length > 3) player2Cards = player2Cards.slice(0, 3);
 
-            if (deck.length === 0) {
-                return;
-            }
 
             let player2CardsIndex = player2Cards.map(card => card.index)
 
