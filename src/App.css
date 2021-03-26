@@ -2,8 +2,6 @@ body {
   background-image: url('./style/images/dark-wood.jpg');
   background-size: cover;
   box-sizing: border-box;
-
-
 }
 
 .body-container {
@@ -13,17 +11,6 @@ body {
 
 .App {
   color: white;
-}
-
-.actions-container {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  width: 170px;
-  background-color:#4c6350;
-  /* background: rgb(18,55,9); */
-/* background: linear-gradient(357deg, rgba(18,55,9,1) 0%, rgba(61,74,62,1) 32%, rgb(67, 100, 59) 85%); */
-  justify-content: flex-end;
 }
 
 .game-buttons {
@@ -37,9 +24,7 @@ body {
   display: flex; 
   margin-top: 135px;
   border: 1px solid orange;
-  /* border: 2px solid green; */
-  /* background-color: rgb(19 71 25) */
-  background-color: rgb(29 29 29);
+  background-color: #277714;
 }
 
 .App-logo {

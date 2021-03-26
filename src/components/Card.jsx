@@ -195,8 +195,8 @@ const Card = (props) => {
     const redChessPiece = getRedChessPiece(cardPiece);
     const blackChessPiece = getBlackChessPiece(cardPiece);
 
-    let straight_Style = !props.disabled && isAStraight ? "animateTopLeft" : "";
-    let straight_Style2 = !props.disabled && isAStraight ? "animateBottomRight" : "";
+    let straight_Style = !props.disabled && isAStraight ? "rotate" : "";
+    let straight_Style2 = !props.disabled && isAStraight ? "rotate" : "";
 
     return (
       <div
