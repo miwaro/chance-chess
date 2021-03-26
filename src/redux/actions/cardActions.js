@@ -104,6 +104,11 @@ export const shuffle = (p1CardsIndexes, p2CardsIndexes) => {
     };
 };
 
-
+export const setCapturedPieces = (capturedPieces) => {
+    return {
+        type: actionTypes.SET_CAPTURED_PIECES,
+        capturedPieces
+    };
+};
 
 

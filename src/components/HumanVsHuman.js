@@ -9,7 +9,8 @@ import {
     discardAllP2Cards,
     shuffleOnMount,
     selectAll,
-    updateFen
+    updateFen,
+    setCapturedPieces
 } from "../redux/actions/cardActions";
 
 class HumanVsHuman extends Component {
@@ -347,6 +348,7 @@ class HumanVsHuman extends Component {
         }, this.state.initial);
 
         this.setState({ initial: captured })
+        this.setCapturedPieces(captured);
 
 
         this.props.onRemoveSelected(this.props.selectedCard[1])
@@ -395,7 +397,8 @@ const mapDispatchToProps = dispatch => {
         onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
         onShuffle: () => dispatch(shuffleOnMount()),
         onSelectAll: () => dispatch(selectAll()),
-        onUpdateFen: (fen) => dispatch(updateFen(fen))
+        onUpdateFen: (fen) => dispatch(updateFen(fen)),
+        setCapturedPieces: pieces => dispatch(setCapturedPieces(pieces))
     }
 }
 

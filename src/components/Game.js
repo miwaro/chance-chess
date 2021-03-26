@@ -1,9 +1,9 @@
 import Chessboard from "chessboardjsx";
 import HumanVsHuman from './HumanVsHuman';
 import CaptureSidebar from './CaptureSidebar';
+import { connect } from 'react-redux';
 
-
-function Board() {
+function Board(props) {
     return (
         < div >
             <HumanVsHuman>
@@ -31,9 +31,12 @@ function Board() {
                                 // boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,
                             }}
                         />
-                        <CaptureSidebar
-                            piecesCaptured={piecesCaptured}
-                        />
+                        { props.piecesCaptured &&
+                            <CaptureSidebar
+                                piecesCaptured={props.piecesCaptured}
+                            />
+                        }
+                       
                     </>
                 )}
             </HumanVsHuman>
@@ -41,4 +44,11 @@ function Board() {
     );
 }
 
-export default Board;
+const mapStateToProps = (state) => {
+
+    return {
+      piecesCaptured: state.capturedPieces
+    }
+  }
+
+export default connect(mapStateToProps, null)(Board);
