@@ -383,8 +383,8 @@ const mapStateToProps = (state) => {
         cardsArray: state.chanceChessReducer.cardsArray,
         playerNumber: state.usersReducer.playerNumber,
         fen: state.chanceChessReducer.fen,
-        gameId: state.usersReducer.gameId
-
+        gameId: state.usersReducer.gameId,
+        piecesCaptured: state.chanceChessReducer.capturedPieces
     }
 }
 

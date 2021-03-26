@@ -10,7 +10,6 @@ function Board(props) {
             <HumanVsHuman>
                 {({
                     position,
-                   
                     onDragStart,
                     onDrop,
                     orientation
