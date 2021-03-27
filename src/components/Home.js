@@ -27,6 +27,7 @@ import { updateUsers, setPlayerOne, setPlayerTwo } from '../redux/actions/userAc
 import { useQueryParam, StringParam } from 'use-query-params';
 import { socket } from "../connection/socket";
 import { debounce } from "@material-ui/core";
+import { deckArray } from "../utils/DeckArray";
 
 const Home = (props) => {
 
@@ -214,19 +215,26 @@ const Home = (props) => {
     if (playerNumber === 1) props.onGetCard();
     else props.onGetCardForPlayer2();
 
-      const cardsArray = props.cardsArray;
-      let player1Cards, player2Cards;
-    console.log('player number', playerNumber)
-      if (playerNumber === 1) {
-        player1Cards = props.player1Cards;
-        console.log('player 1 draws', player1Cards, props.cardsArray)
-        socket.emit('player one draws', { gameId: props.gameId, player1Cards, cardsArray: props.cardsArray });
-    
-      } else if(playerNumber === 2) {
-        player2Cards = props.player2Cards;
-        console.log('player 2 draws', player2Cards, props.cardsArray)
-        socket.emit('player two draws', { gameId: props.gameId, player2Cards, cardsArray: props.cardsArray });
-      } 
+    const cardsArray = props.cardsArray;
+    let player1Cards, player2Cards;
+    if (playerNumber === 1) {
+      player1Cards = props.player1Cards;
+      if (player1Cards.length > 3) {
+        const extraCard = player1Cards[3];
+        cardsArray.unshift(extraCard);
+        player1Cards = player1Cards.slice(0, 3);
+      }
+      socket.emit('player one draws', { gameId: props.gameId, player1Cards, cardsArray });
+
+    } else if (playerNumber === 2) {
+      player2Cards = props.player2Cards;
+      if (player2Cards.length > 3) {
+        const extraCard = player2Cards[3];
+        cardsArray.unshift(extraCard);
+        player2Cards = player2Cards.slice(0, 3);
+      }
+      socket.emit('player two draws', { gameId: props.gameId, player2Cards, cardsArray });
+    }
   }
 
   const getUrl = () => {
