@@ -111,7 +111,12 @@ const Home = (props) => {
         userState: props.usersState
       }
       console.log('new move')
+      
       socket.emit('new move', { ...newState });
+
+      setTimeout(() => {
+        socket.emit('new move 2nd', { ...newState });
+      }, 1000)
     }
   }, [props.whiteToMove])
 
