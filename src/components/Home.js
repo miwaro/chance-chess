@@ -115,22 +115,9 @@ const Home = (props) => {
       socket.emit('new move', { ...newState });
 
       setTimeout(() => {
-        console.log(socket)
         console.log('2nd move update', newState)
         socket.emit('new move', { ...newState });
       }, 1000)
-
-      setTimeout(() => {
-        console.log(socket)
-        console.log('3rd move update', newState)
-        socket.emit('new move', { ...newState });
-      }, 1500)
-
-      setTimeout(() => {
-        console.log(socket)
-        console.log('4th move update', newState)
-        socket.emit('new move', { ...newState });
-      }, 2000)
     }
   }, [props.whiteToMove])
 
