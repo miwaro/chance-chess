@@ -22,7 +22,7 @@ body {
 .Board {
   cursor: 'pointer !important';
   display: flex; 
-  margin-top: 135px;
+  margin-top: 80px;
   border: 1px solid orange;
   background-color: #277714;
 }
