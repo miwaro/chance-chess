@@ -122,13 +122,13 @@ const Home = (props) => {
 
       setTimeout(() => {
         console.log(socket)
-        console.log('3nd move update', newState)
+        console.log('3rd move update', newState)
         socket.emit('new move', { ...newState });
       }, 1500)
 
       setTimeout(() => {
         console.log(socket)
-        console.log('3rd move update', newState)
+        console.log('4th move update', newState)
         socket.emit('new move', { ...newState });
       }, 2000)
     }
