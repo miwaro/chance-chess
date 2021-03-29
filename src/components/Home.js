@@ -115,7 +115,7 @@ const Home = (props) => {
       socket.emit('new move', { ...newState });
 
       setTimeout(() => {
-        socket.emit('new move 2nd', { ...newState });
+        socket.emit('new move', { ...newState });
       }, 1000)
     }
   }, [props.whiteToMove])
