@@ -3,8 +3,8 @@ import JoinGame from './joingame'
 import Home from '../Home';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { updateUsers } from '../redux/actions/userActions';
-import { updateGame } from '../redux/actions/cardActions';
+import { updateUsers } from '../../redux/actions/userActions';
+import { updateGame } from '../../redux/actions/cardActions';
 
 /**
  * Onboard is where we create the game room.
