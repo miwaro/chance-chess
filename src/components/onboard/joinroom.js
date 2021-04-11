@@ -93,4 +93,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, null)(JoinRoom);
+export default withRouter(connect(mapStateToProps, null)(JoinRoom));

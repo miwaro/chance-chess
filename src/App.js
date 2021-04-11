@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from "react";
-// import { useParams } from "react-router-dom";
 import { BrowserRouter as Router, Route, Redirect, Switch, useParams } from 'react-router-dom';
 import JoinRoom from './components/onboard/joinroom';
 import { ColorContext } from './context/colorcontext';
