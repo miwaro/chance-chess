@@ -26,8 +26,6 @@ import {
 import { updateUsers, setPlayerOne, setPlayerTwo } from '../redux/actions/userActions';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { socket } from "../connection/socket";
-import { debounce } from "@material-ui/core";
-import { deckArray } from "../utils/DeckArray";
 
 const Home = (props) => {
 
@@ -93,7 +91,7 @@ const Home = (props) => {
           const currentState = props.chanceChessState;
           if (!deepEquals(move.gameState, currentState)) {
 
-            props.updateGame(move.gameState);
+            props.updateGame(move.gameState, move.userState.gameId);
             props.updateUsers(move.userState);
 
           }
@@ -449,7 +447,7 @@ const mapDispatchToProps = dispatch => {
     onDiscardAllCardsP2: () => dispatch(discardAllP2Cards()),
     onShuffle: (p1Cards, p2Cards) => dispatch(shuffle(p1Cards, p2Cards)),
     onSelectAll: () => dispatch(selectAll()),
-    updateGame: state => dispatch(updateGame(state)),
+    updateGame: (state, gameId) => dispatch(updateGame(state, gameId)),
     updateUsers: state => dispatch(updateUsers(state)),
     setPlayerOne: playerOne => dispatch(setPlayerOne(playerOne)),
     setPlayerTwo: playerTwo => dispatch(setPlayerTwo(playerTwo)),

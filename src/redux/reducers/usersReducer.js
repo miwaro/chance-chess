@@ -18,6 +18,8 @@ const usersReducer = (state = initialState, action) => {
       const incomingPlayerTwo = action.state.playerTwo;
       const currentPlayerTwo = state.playerTwo;
       const playerTwo = incomingPlayerTwo ? incomingPlayerTwo : currentPlayerTwo;
+
+      localStorage.setItem(`${state.gameId}-users`, JSON.stringify({ ...action.state, playerOne, playerTwo }));
       return { ...action.state, playerOne, playerTwo };
 
     case actionTypes.JOIN_GAME:

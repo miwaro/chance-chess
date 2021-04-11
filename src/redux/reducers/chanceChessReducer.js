@@ -34,6 +34,7 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
 
         case actionTypes.UPDATE_GAME:
+            localStorage.setItem(`${action.gameId}-game`, JSON.stringify({ ...action.state }));
             return action.state;
 
         case actionTypes.UPDATE_FEN:

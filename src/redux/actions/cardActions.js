@@ -1,9 +1,10 @@
 import * as actionTypes from './actionTypes';
 
-export const updateGame = (state) => {
+export const updateGame = (state, gameId) => {
     return {
         type: actionTypes.UPDATE_GAME,
-        state
+        state,
+        gameId
     };
 };
 
