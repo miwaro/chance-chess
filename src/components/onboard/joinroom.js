@@ -1,6 +1,7 @@
 import React from 'react'
 import JoinGame from './joingame'
 import Home from '../Home';
+import { connect } from 'react-redux';
 
 /**
  * Onboard is where we create the game room.
@@ -15,6 +16,13 @@ class JoinRoom extends React.Component {
     constructor(props) {
         super(props);
         this.textArea = React.createRef();
+
+        // if we already have 2 players, it means the user refreshed the browser. So, go directly to game.
+        if (this.props.numPlayers === 2) {
+            this.setState({
+                didGetUserName: true
+            })
+        }
     }
 
     typingUserName = () => {
@@ -61,4 +69,10 @@ class JoinRoom extends React.Component {
     }
 }
 
-export default JoinRoom
+const mapStateToProps = (state) => {
+    return {
+        numPlayers: state.usersReducer.numPlayers
+    }
+}
+
+export default connect(mapStateToProps, null)(JoinRoom);
