@@ -13,7 +13,8 @@ import { updateGame } from '../../redux/actions/cardActions';
 class JoinRoom extends React.Component {
     state = {
         didGetUserName: false,
-        inputText: ""
+        inputText: "",
+        isPlayerOne: false
     }
 
     constructor(props) {
@@ -35,9 +36,11 @@ class JoinRoom extends React.Component {
                 this.props.updateUsers(userState);
                 this.props.updateGame(gameState, userState.gameId);
                 const isPlayerOne = localStorage.getItem(gameId);
+                console.log('is player one?', isPlayerOne)
                 this.setState({
                     inputText: isPlayerOne ? userState.playerOne : userState.playerTwo,
-                    didGetUserName: true
+                    didGetUserName: true,
+                    isPlayerOne
                 });
             }
         }
@@ -60,7 +63,7 @@ class JoinRoom extends React.Component {
             {
                 this.state.didGetUserName ? 
                 <React.Fragment>
-                    <JoinGame userName = {this.state.inputText} isCreator = {false}/>
+                    <JoinGame userName = {this.state.inputText} isCreator = {this.state.isPlayerOne}/>
                     <Home myUserName = {this.state.inputText}/>
                 </React.Fragment>
             :
