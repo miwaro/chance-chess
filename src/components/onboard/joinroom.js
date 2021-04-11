@@ -3,6 +3,8 @@ import JoinGame from './joingame'
 import Home from '../Home';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { updateUsers } from '../redux/actions/userActions';
+import { updateGame } from '../redux/actions/cardActions';
 
 /**
  * Onboard is where we create the game room.
@@ -93,4 +95,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default withRouter(connect(mapStateToProps, null)(JoinRoom));
+const mapDispatchToProps = (dispatch) => {
+    return {
+      updateGame: (state, gameId) => dispatch(updateGame(state, gameId)),
+      updateUsers: state => dispatch(updateUsers(state)),
+    }
+  }
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(JoinRoom));
