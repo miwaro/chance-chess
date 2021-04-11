@@ -35,7 +35,11 @@ const usersReducer = (state = initialState, action) => {
       return { ...state, playerOne: action.playerOne }
 
     case actionTypes.SET_PLAYER_TWO:
-      return { ...state, playerTwo: action.playerTwo }
+      return {
+        ...state,
+        playerTwo: action.playerTwo,
+        numPlayers: 2
+      }
 
     default:
       return state;
