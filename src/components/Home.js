@@ -261,9 +261,9 @@ const Home = (props) => {
       <Header />
       <div className="body-container">
         <div style={{ position: 'absolute', top: '30px', left: '400px' }}>
-          {( props.numPlayers === 1 &&
+         
             <div>{getUrl()}</div>
-          )}
+     
         </div>
         <div className="Board">
           <Board />
