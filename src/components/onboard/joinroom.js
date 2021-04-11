@@ -26,7 +26,7 @@ class JoinRoom extends React.Component {
         const gameId = this.props.match.params.gameId;
   
         console.log(gameId);
-        if (gameId) {
+        if (gameId && !this.props.gameId) {
             let userState = localStorage.getItem(`${gameId}-users`);
             let gameState = localStorage.getItem(`${gameId}-game`);
             if (userState && gameState) {
