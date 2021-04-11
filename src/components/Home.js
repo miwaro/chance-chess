@@ -112,6 +112,8 @@ const Home = (props) => {
       
       socket.emit('new move', { ...newState });
 
+      localStorage.setItem(`${props.gameId}-game`, JSON.stringify({ ...props.chanceChessState }));
+
       setTimeout(() => {
         console.log('2nd move update', newState)
         socket.emit('new move', { ...newState });
@@ -229,6 +231,7 @@ const Home = (props) => {
         player1Cards = player1Cards.slice(0, 3);
       }
       socket.emit('player one draws', { gameId: props.gameId, player1Cards, cardsArray });
+      localStorage.setItem(`${props.gameId}-game`, JSON.stringify({ ...props.chanceChessState }));
 
     } else if (playerNumber === 2) {
       player2Cards = props.player2Cards;
@@ -238,6 +241,7 @@ const Home = (props) => {
         player2Cards = player2Cards.slice(0, 3);
       }
       socket.emit('player two draws', { gameId: props.gameId, player2Cards, cardsArray });
+      localStorage.setItem(`${props.gameId}-game`, JSON.stringify({ ...props.chanceChessState }));
     }
   }
 
