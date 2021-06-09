@@ -110,6 +110,7 @@ const Home = (props) => {
 
     setInterval(() => {
       socket.emit('chance chess state update', props.chanceChessState);
+      console.log('sending periodic state update');
     }, 5000);
 
     if (whiteToMove !== props.whiteToMove) {
