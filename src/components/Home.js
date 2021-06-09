@@ -41,7 +41,7 @@ const Home = (props) => {
 
   useEffect(() => {
     socket.on('chance chess state updated', chanceChessState => {
-      this.props.updateGameIfStale(chanceChessState, props.gameId)
+      props.updateGameIfStale(chanceChessState, props.gameId)
     })
 
     socket.on('player two drew', move => {
