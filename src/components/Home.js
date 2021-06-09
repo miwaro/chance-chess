@@ -108,10 +108,10 @@ const Home = (props) => {
 
   useEffect(() => {
 
-    setInterval(() => {
+    setTimeout(() => {
       socket.emit('chance chess state update', { chanceChessState: props.chanceChessState, gameId: props.gameId });
       console.log('sending periodic state update');
-    }, 5000);
+    }, 10000);
 
     if (whiteToMove !== props.whiteToMove) {
       setWhiteToMove(props.whiteToMove)

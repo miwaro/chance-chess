@@ -39,7 +39,7 @@ const reducer = (state = initialState, action) => {
             return { ...action.state, lastUpdated: Date.now() };
 
         case actionTypes.UPDATE_GAME_IF_STALE:
-            if (state.lastUpdated < Date.now() - 5 * 1000) {
+            if (state.lastUpdated < Date.now() - 10 * 1000) {
                 localStorage.setItem(`${action.gameId}-game`, JSON.stringify({ ...action.state }));
                 return { ...action.state, lastUpdated: Date.now() };
             } else {
@@ -104,7 +104,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 player1Cards,
-                cardsArray: newDeck
+                cardsArray: newDeck,
+                lastUpdated: Date.now()
             }
 
         case actionTypes.GET_PLAYER2_CARD:
@@ -145,7 +146,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 player2Cards,
-                cardsArray: newDeck
+                cardsArray: newDeck,
+                lastUpdated: Date.now()
             }
         case actionTypes.SELECT_CARD:
             const { cardValue, cardIndex } = action;
@@ -156,7 +158,8 @@ const reducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                selectedCard: selectedCard
+                selectedCard: selectedCard,
+                lastUpdated: Date.now()
             }
 
         case actionTypes.SELECT_ALL:
@@ -164,7 +167,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedCard: [],
-                allSelected: !state.allSelected
+                allSelected: !state.allSelected,
+                lastUpdated: Date.now()
             }
 
         case actionTypes.CHANGE_TURN:
@@ -173,7 +177,8 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 allSelected: false,
                 selectedCard: [],
-                whiteToMove: !state.whiteToMove
+                whiteToMove: !state.whiteToMove,
+                lastUpdated: Date.now()
             }
 
         case actionTypes.SHUFFLE:
@@ -237,7 +242,8 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 allSelected: false,
                 whiteToMove: !whiteToMove,
-                player1Cards: []
+                player1Cards: [],
+                lastUpdated: Date.now()
             }
 
         case actionTypes.DISCARD_ALL_P2_CARDS:
@@ -247,14 +253,16 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 allSelected: false,
                 whiteToMove: !whiteToMove,
-                player2Cards: []
+                player2Cards: [],
+                lastUpdated: Date.now()
             }
 
         case actionTypes.SET_CAPTURED_PIECES:
             console.log(action.capturedPieces)
             return {
                 ...state,
-                capturedPieces: action.capturedPieces
+                capturedPieces: action.capturedPieces,
+                lastUpdated: Date.now()
             }
 
         default:
