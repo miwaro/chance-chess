@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from 'react-redux';
 import "../App.css";
 import '../style/components/player1.scss';
@@ -109,6 +109,11 @@ const Home = (props) => {
         gameState: props.chanceChessState,
         userState: props.usersState
       }
+
+      localStorage.setItem(`${props.gameId}-user`, JSON.stringify({ ...props.usersState }));
+      localStorage.setItem(`${props.gameId}-game`, JSON.stringify({ ...props.chanceChessState }));
+     
+
       console.log('new move')
       
       socket.emit('new move', { ...newState });
@@ -286,13 +291,13 @@ const Home = (props) => {
               </>
             }
             {playerNumber === 1 &&
-              <Player2CardContainer disableControls={playerNumber === 1} cards={props.player2Cards} allCardsSelected={props.allSelected} />
+              <Player2CardContainer disableControls={playerNumber === 1} cards={props.player2Cards || []} allCardsSelected={props.allSelected} />
             }
             {playerNumber === 2 &&
-              <Player1CardContainer disableControls={playerNumber === 2} cards={props.player1Cards} allCardsSelected={props.allSelected} />
+              <Player1CardContainer disableControls={playerNumber === 2} cards={props.player1Cards || []} allCardsSelected={props.allSelected} />
             }
 
-            {props.cardsArray.length > 0 &&
+            {props.cardsArray && props.cardsArray.length > 0 &&
               <>
                 <div style={{ display: "flex", justifyContent: "center", height: '160px', marginBottom: '10px' }}>
                   {props.cardsArray && props.cardsArray.map((card, index) => {

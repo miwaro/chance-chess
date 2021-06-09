@@ -14,7 +14,9 @@ class JoinRoom extends React.Component {
     state = {
         didGetUserName: false,
         inputText: "",
-        isPlayerOne: false
+        isPlayerOne: false,
+        didRefresh: false
+
     }
 
     constructor(props) {
@@ -25,8 +27,7 @@ class JoinRoom extends React.Component {
     componentDidMount() {
         const gameId = this.props.match.params.gameId;
   
-        console.log(gameId);
-        if (gameId) {
+        if (gameId && !this.props.gameId) {
             let userState = localStorage.getItem(`${gameId}-users`);
             let gameState = localStorage.getItem(`${gameId}-game`);
             if (userState && gameState) {
@@ -36,12 +37,14 @@ class JoinRoom extends React.Component {
                 this.props.updateUsers(userState);
                 this.props.updateGame(gameState, userState.gameId);
                 const isPlayerOne = localStorage.getItem(gameId);
-                console.log('is player one?', isPlayerOne)
+
                 this.setState({
                     inputText: isPlayerOne ? userState.playerOne : userState.playerTwo,
                     didGetUserName: true,
-                    isPlayerOne
-                });
+                    isPlayerOne,
+                    didRefresh: true
+                })
+
             }
         }
 
@@ -58,37 +61,42 @@ class JoinRoom extends React.Component {
     }
 
     render() {
+        if (this.state.didRefresh) {
+            return (
+                <Home myUserName = {this.state.inputText}/>
+            )
+        } else {
+            return (<React.Fragment>
+                {
+                    this.state.didGetUserName ? 
+                    <React.Fragment>
+                        <JoinGame userName = {this.state.inputText} isCreator = {false}/>
+                        <Home myUserName = {this.state.inputText}/>
+                    </React.Fragment>
+                :
+                   <div>
+                        <h1 style={{textAlign: "center", marginTop: String((window.innerHeight / 3)) + "px"}}>Your Username:</h1>
     
-        return (<React.Fragment>
-            {
-                this.state.didGetUserName ? 
-                <React.Fragment>
-                    <JoinGame userName = {this.state.inputText} isCreator = {this.state.isPlayerOne}/>
-                    <Home myUserName = {this.state.inputText}/>
-                </React.Fragment>
-            :
-               <div>
-                    <h1 style={{textAlign: "center", marginTop: String((window.innerHeight / 3)) + "px"}}>Your Username:</h1>
-
-                    <input style={{marginLeft: String((window.innerWidth / 2) - 120) + "px", width: "240px", marginTop: "62px"}} 
-                           ref = {this.textArea}
-                           onInput = {this.typingUserName}></input>
-                           
-                    <button className="btn btn-primary" 
-                        style = {{marginLeft: String((window.innerWidth / 2) - 60) + "px", width: "120px", marginTop: "62px"}} 
-                        disabled = {!(this.state.inputText.length > 0)} 
-                        onClick = {() => {
-                            // When the 'Submit' button gets pressed from the username screen,
-                            // We should send a request to the server to create a new room with
-                            // the uuid we generate here.
-                            this.setState({
-                                didGetUserName: true
-                            })
-                        }}>Submit</button>
-                </div>
+                        <input style={{marginLeft: String((window.innerWidth / 2) - 120) + "px", width: "240px", marginTop: "62px"}} 
+                               ref = {this.textArea}
+                               onInput = {this.typingUserName}></input>
+                               
+                        <button className="btn btn-primary" 
+                            style = {{marginLeft: String((window.innerWidth / 2) - 60) + "px", width: "120px", marginTop: "62px"}} 
+                            disabled = {!(this.state.inputText.length > 0)} 
+                            onClick = {() => {
+                                // When the 'Submit' button gets pressed from the username screen,
+                                // We should send a request to the server to create a new room with
+                                // the uuid we generate here.
+                                this.setState({
+                                    didGetUserName: true
+                                })
+                            }}>Submit</button>
+                    </div>
+                }
+                </React.Fragment>)
             }
-            </React.Fragment>)
-    }
+        }
 }
 
 const mapStateToProps = (state) => {
