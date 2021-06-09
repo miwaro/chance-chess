@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import Button from '@material-ui/core/Button';
 import Player2CardContainer from '../components/Players/Player2CardContainer';
 import Player1CardContainer from '../components/Players/Player1CardContainer';
+import StartDialog from './StartDialog';
 import Board from '../components/Game';
 import Card from '../components/Card';
 import Key from '../components/keySidebar'
@@ -262,6 +263,11 @@ const Home = (props) => {
 
   return (
     <div className="App">
+        {(
+            props.numPlayers === 1 &&  (
+              <StartDialog open={props.numPlayers === 1} />
+            )
+          )}
       <Header />
       <div className="body-container">
         <div style={{ position: 'absolute', top: '30px', left: '400px' }}>
