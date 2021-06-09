@@ -109,7 +109,7 @@ const Home = (props) => {
   useEffect(() => {
 
     setInterval(() => {
-      socket.emit('chance chess state update', props.chanceChessState);
+      socket.emit('chance chess state update', { chanceChessState: props.chanceChessState, gameId: props.gameId });
       console.log('sending periodic state update');
     }, 5000);
 
@@ -122,10 +122,10 @@ const Home = (props) => {
 
       localStorage.setItem(`${props.gameId}-user`, JSON.stringify({ ...props.usersState }));
       localStorage.setItem(`${props.gameId}-game`, JSON.stringify({ ...props.chanceChessState }));
-     
+
 
       console.log('new move')
-      
+
       socket.emit('new move', { ...newState });
 
       localStorage.setItem(`${props.gameId}-game`, JSON.stringify({ ...props.chanceChessState }));
@@ -278,11 +278,11 @@ const Home = (props) => {
 
   return (
     <div className="App">
-        {(
-            props.numPlayers === 1 &&  (
-              <StartDialog url={getUrl()} open={props.numPlayers === 1} />
-            )
-          )}
+      {(
+        props.numPlayers === 1 && (
+          <StartDialog url={getUrl()} open={props.numPlayers === 1} />
+        )
+      )}
       <Header />
       <div className="body-container">
         <div className="Board">
