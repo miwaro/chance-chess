@@ -40,7 +40,7 @@ const Home = (props) => {
 
 
   useEffect(() => {
-    socket.on('chance chess state update', chanceChessState => {
+    socket.on('chance chess state updated', chanceChessState => {
       this.props.updateGameIfStale(chanceChessState, props.gameId)
     })
 
