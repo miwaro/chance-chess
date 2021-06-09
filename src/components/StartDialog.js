@@ -1,27 +1,21 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import { DialogTitle, DialogContent, DialogContentText } from '@material-ui/core';
+import { DialogTitle, DialogActions, DialogContent, DialogContentText, Button } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
-import { blue } from '@material-ui/core/colors';
-
-const useStyles = makeStyles({
-  avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
-  },
-});
 
 export default function StartDialog(props) {
   const { url, open } = props;
 
   return (
     <Dialog aria-labelledby="Start-dialog-title" open={open}>
-      <DialogTitle id="Start-dialog-title">Invite a Friend</DialogTitle>
+      <DialogTitle id="Start-dialog-title" style={{ margin: 'auto', marginBottom: 0, paddingBottom: 0, fontSize: '32px' }}>Invite a Friend</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {url}
         </DialogContentText>
+        <DialogActions>
+          <Button color="primary" onClick={() => {navigator.clipboard.writeText(url)}}>
+            Click Here to Copy Link to Game
+          </Button>
+        </DialogActions>
       </DialogContent>
     </Dialog>
   );
