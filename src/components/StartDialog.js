@@ -1,6 +1,7 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { DialogTitle, DialogContent, DialogContentText } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import { blue } from '@material-ui/core/colors';
 
@@ -17,7 +18,11 @@ export default function StartDialog(props) {
   return (
     <Dialog aria-labelledby="Start-dialog-title" open={open}>
       <DialogTitle id="Start-dialog-title">Invite a Friend</DialogTitle>
-     {{url}}
+      <DialogContent>
+        <DialogContentText>
+          {url}
+        </DialogContentText>
+      </DialogContent>
     </Dialog>
   );
 }
