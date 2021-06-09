@@ -1,4 +1,5 @@
 export const UPDATE_GAME = 'UPDATE_GAME';
+export const UPDATE_GAME_IF_STALE = 'UPDATE_GAME_IF_STALE';
 export const UPDATE_USERS = 'UPDATE_USERS';
 
 export const SET_PLAYER_ONE = 'SET_PLAYER_ONE';

@@ -14,7 +14,8 @@ const initialState = {
     capturedPieces: {
         W: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 },
         B: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 }
-    }
+    },
+    lastUpdated: Date.now()
 }
 
 const reducer = (state = initialState, action) => {
@@ -35,23 +36,33 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.UPDATE_GAME:
             localStorage.setItem(`${action.gameId}-game`, JSON.stringify({ ...action.state }));
-            return action.state;
+            return { ...action.state, lastUpdated: Date.now() };
+
+        case actionTypes.UPDATE_GAME_IF_STALE:
+            if (state.lastUpdated < Date.now() - 10 * 1000) {
+                localStorage.setItem(`${action.gameId}-game`, JSON.stringify({ ...action.state }));
+                return { ...action.state, lastUpdated: Date.now() };
+            } else {
+                return state
+            }
 
         case actionTypes.UPDATE_FEN:
-            return { ...state, fen: action.fen };
+            return { ...state, fen: action.fen, lastUpdated: Date.now() };
 
         case actionTypes.SET_CARD:
             return {
                 ...state,
                 player1Cards: action.player1Cards,
-                cardsArray: action.cardsArray
+                cardsArray: action.cardsArray,
+                lastUpdated: Date.now()
             }
 
         case actionTypes.SET_PLAYER2_CARD:
             return {
                 ...state,
                 player2Cards: action.player2Cards,
-                cardsArray: action.cardsArray
+                cardsArray: action.cardsArray,
+                lastUpdated: Date.now()
             }
 
         case actionTypes.GET_CARD:

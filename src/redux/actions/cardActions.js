@@ -8,6 +8,14 @@ export const updateGame = (state, gameId) => {
     };
 };
 
+export const updateGameIfStale = (state, gameId) => {
+    return {
+        type: actionTypes.UPDATE_GAME_IF_STALE,
+        state,
+        gameId
+    };
+};
+
 export const updateFen = (fen) => {
     return {
         type: actionTypes.UPDATE_FEN,

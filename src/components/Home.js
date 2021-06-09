@@ -22,7 +22,8 @@ import {
   selectAll,
   updateGame,
   setCard,
-  setPlayer2Card
+  setPlayer2Card,
+  updateGameIfStale
 } from "../redux/actions/cardActions";
 import { updateUsers, setPlayerOne, setPlayerTwo } from '../redux/actions/userActions';
 import { useQueryParam, StringParam } from 'use-query-params';
@@ -39,6 +40,10 @@ const Home = (props) => {
 
 
   useEffect(() => {
+    socket.on('chance chess state update', chanceChessState => {
+      this.props.updateGameIfStale(chanceChessState, props.gameId)
+    })
+
     socket.on('player two drew', move => {
       if (playerNumber === 1) {
         const { cardsArray, player2Cards } = move;
@@ -102,6 +107,10 @@ const Home = (props) => {
   })
 
   useEffect(() => {
+
+    setInterval(() => {
+      socket.emit('chance chess state update', props.chanceChessState);
+    }, 5000);
 
     if (whiteToMove !== props.whiteToMove) {
       setWhiteToMove(props.whiteToMove)
@@ -458,6 +467,7 @@ const mapDispatchToProps = dispatch => {
     onShuffle: (p1Cards, p2Cards) => dispatch(shuffle(p1Cards, p2Cards)),
     onSelectAll: () => dispatch(selectAll()),
     updateGame: (state, gameId) => dispatch(updateGame(state, gameId)),
+    updateGameIfStale: (state, gameId) => dispatch(updateGameIfStale(state, gameId)),
     updateUsers: state => dispatch(updateUsers(state)),
     setPlayerOne: playerOne => dispatch(setPlayerOne(playerOne)),
     setPlayerTwo: playerTwo => dispatch(setPlayerTwo(playerTwo)),
