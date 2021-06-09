@@ -20,21 +20,19 @@ const usersReducer = (state = initialState, action) => {
       const playerTwo = incomingPlayerTwo ? incomingPlayerTwo : currentPlayerTwo;
 
       localStorage.setItem(`${state.gameId}-users`, JSON.stringify({ ...action.state, playerOne, playerTwo }));
-      return { ...action.state, playerOne, playerTwo };
+      return { ...state, ...action.state, playerOne, playerTwo };
 
     case actionTypes.JOIN_GAME:
-      console.log(action)
       return {
         ...state,
         creator: action.isCreator ? action.username : state.creator,
-        numPlayers: action.isCreator ? 1 : 2,
         gameId: action.gameId,
         playerOne: action.isCreator ? action.username : state.playerOne,
         playerTwo: action.isCreator ? state.playerTwo : action.username,
       }
 
     case actionTypes.SET_PLAYER_ONE:
-      return { ...state, playerOne: action.playerOne }
+      return { ...state, playerOne: action.playerOne, numPlayers: state.playerTwo ? 2 : 1 }
 
     case actionTypes.SET_PLAYER_TWO:
       return {

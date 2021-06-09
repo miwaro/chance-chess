@@ -14,7 +14,9 @@ class JoinRoom extends React.Component {
     state = {
         didGetUserName: false,
         inputText: "",
+        isPlayerOne: false,
         didRefresh: false
+
     }
 
     constructor(props) {
@@ -25,7 +27,6 @@ class JoinRoom extends React.Component {
     componentDidMount() {
         const gameId = this.props.match.params.gameId;
   
-        console.log(gameId);
         if (gameId && !this.props.gameId) {
             let userState = localStorage.getItem(`${gameId}-users`);
             let gameState = localStorage.getItem(`${gameId}-game`);
@@ -40,8 +41,10 @@ class JoinRoom extends React.Component {
                 this.setState({
                     inputText: isPlayerOne ? userState.playerOne : userState.playerTwo,
                     didGetUserName: true,
+                    isPlayerOne,
                     didRefresh: true
-                });
+                })
+
             }
         }
 
@@ -58,7 +61,6 @@ class JoinRoom extends React.Component {
     }
 
     render() {
-
         if (this.state.didRefresh) {
             return (
                 <Home myUserName = {this.state.inputText}/>

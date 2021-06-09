@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from 'react-redux';
 import "../App.css";
 import '../style/components/player1.scss';
@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import Button from '@material-ui/core/Button';
 import Player2CardContainer from '../components/Players/Player2CardContainer';
 import Player1CardContainer from '../components/Players/Player1CardContainer';
+import StartDialog from './StartDialog';
 import Board from '../components/Game';
 import Card from '../components/Card';
 import Key from '../components/keySidebar'
@@ -116,6 +117,8 @@ const Home = (props) => {
       console.log('new move')
       
       socket.emit('new move', { ...newState });
+
+      localStorage.setItem(`${props.gameId}-game`, JSON.stringify({ ...props.chanceChessState }));
 
       setTimeout(() => {
         console.log('2nd move update', newState)
@@ -234,6 +237,7 @@ const Home = (props) => {
         player1Cards = player1Cards.slice(0, 3);
       }
       socket.emit('player one draws', { gameId: props.gameId, player1Cards, cardsArray });
+      localStorage.setItem(`${props.gameId}-game`, JSON.stringify({ ...props.chanceChessState }));
 
     } else if (playerNumber === 2) {
       player2Cards = props.player2Cards;
@@ -243,6 +247,7 @@ const Home = (props) => {
         player2Cards = player2Cards.slice(0, 3);
       }
       socket.emit('player two draws', { gameId: props.gameId, player2Cards, cardsArray });
+      localStorage.setItem(`${props.gameId}-game`, JSON.stringify({ ...props.chanceChessState }));
     }
   }
 
@@ -263,13 +268,13 @@ const Home = (props) => {
 
   return (
     <div className="App">
+        {(
+            props.numPlayers === 1 &&  (
+              <StartDialog url={getUrl()} open={props.numPlayers === 1} />
+            )
+          )}
       <Header />
       <div className="body-container">
-        <div style={{ position: 'absolute', top: '30px', left: '400px' }}>
-         
-            <div>{getUrl()}</div>
-     
-        </div>
         <div className="Board">
           <Board />
           <div className='card-containers'>
