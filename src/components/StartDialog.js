@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -13,23 +12,17 @@ const useStyles = makeStyles({
 });
 
 export default function StartDialog(props) {
-  const classes = useStyles();
-  const { onClose, selectedValue, open } = props;
-
-  const handleClose = () => {
-    onClose(selectedValue);
-  };
+  const { url, open } = props;
 
   return (
-    <Dialog onClose={handleClose} aria-labelledby="Start-dialog-title" open={open}>
+    <Dialog aria-labelledby="Start-dialog-title" open={open}>
       <DialogTitle id="Start-dialog-title">Invite a Friend</DialogTitle>
-     
+     {{url}}
     </Dialog>
   );
 }
 
 StartDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired
 };

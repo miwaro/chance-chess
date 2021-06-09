@@ -23,7 +23,6 @@ const usersReducer = (state = initialState, action) => {
       return { ...state, ...action.state, playerOne, playerTwo };
 
     case actionTypes.JOIN_GAME:
-      console.log(action)
       return {
         ...state,
         creator: action.isCreator ? action.username : state.creator,
@@ -33,7 +32,7 @@ const usersReducer = (state = initialState, action) => {
       }
 
     case actionTypes.SET_PLAYER_ONE:
-      return { ...state, playerOne: action.playerOne, numPlayers: state.numPlayers === 0 ? 1 : state.numPlayers }
+      return { ...state, playerOne: action.playerOne, numPlayers: state.playerTwo ? 2 : 1 }
 
     case actionTypes.SET_PLAYER_TWO:
       return {

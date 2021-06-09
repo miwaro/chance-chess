@@ -265,16 +265,11 @@ const Home = (props) => {
     <div className="App">
         {(
             props.numPlayers === 1 &&  (
-              <StartDialog open={props.numPlayers === 1} />
+              <StartDialog url={getUrl()} open={props.numPlayers === 1} />
             )
           )}
       <Header />
       <div className="body-container">
-        <div style={{ position: 'absolute', top: '30px', left: '400px' }}>
-          {(
-            <div>{getUrl()}</div>
-          )}
-        </div>
         <div className="Board">
           <Board />
           <div className='card-containers'>
