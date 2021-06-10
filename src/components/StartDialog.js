@@ -12,7 +12,7 @@ export default function StartDialog(props) {
         <DialogContentText>
         </DialogContentText>
         <DialogActions>
-          <Button color="primary" onClick={() => {navigator.clipboard.writeText(url)}}>
+          <Button color="primary" onClick={() => { navigator.clipboard.writeText(url) }}>
             Click Here to Copy Link to Game
           </Button>
         </DialogActions>
