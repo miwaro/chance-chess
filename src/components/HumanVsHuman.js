@@ -172,11 +172,6 @@ class HumanVsHuman extends Component {
         let isTheSame2 = p2Card.every((val, i, arr) => val === arr[0])
 
         if (isAllSelected && (p1.length === 3 || p2.length === 3)) {
-            // console.log('enter if statement')
-            // console.log(`isAllSelected: ${isAllSelected}`)
-            // console.log('selectedCard[0]', selectedCard[0])
-            // console.log('chessPiece', chessPiece)
-            // console.log(`selectedCardLength ${selectedCard.length}`)
             // combo conditions for player1
             if (whiteToMove) {
                 if (isAStraight && (chessPiece === 'k' || chessPiece === 'p')) {
@@ -276,10 +271,6 @@ class HumanVsHuman extends Component {
             }
         } else { draggable = false };
 
-
-
-        // console.log('draggable', draggable)
-
         return draggable;
     };
 
@@ -289,7 +280,7 @@ class HumanVsHuman extends Component {
 
 
     onDrop = ({ sourceSquare, targetSquare }) => {
-        // console.log(sourceSquare, targetSquare);
+
         let whiteToMove = this.props.whiteToMove;
         let selected = this.props.selectedCard
         // see if the move is legal
@@ -298,9 +289,6 @@ class HumanVsHuman extends Component {
             to: targetSquare,
             promotion: "q"
         });
-
-        console.log(move)
-
 
         if (move === null) return;
 
@@ -326,7 +314,6 @@ class HumanVsHuman extends Component {
             alert('Black Wins!')
         }
 
-
         // Capture Piece Sidebar
         let moveArray = Object.entries(move)
 
@@ -345,13 +332,11 @@ class HumanVsHuman extends Component {
 
         this.props.setCapturedPieces(captured);
 
-        console.log('captured pieces:', captured);
-
         this.props.onRemoveSelected(this.props.selectedCard[1])
         setTimeout(() => {
             this.props.onChangeTurn();
         }, 1000)
-       
+
     };
 
     render() {

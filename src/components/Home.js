@@ -47,7 +47,6 @@ const Home = (props) => {
     socket.on('player two drew', move => {
       if (playerNumber === 1) {
         const { cardsArray, player2Cards } = move;
-        console.log('player 2 drew', player2Cards, cardsArray)
         props.setPlayer2Card(player2Cards, cardsArray);
       }
     })
@@ -55,14 +54,12 @@ const Home = (props) => {
     socket.on('player one drew', move => {
       if (playerNumber === 2) {
         const { cardsArray, player1Cards } = move;
-        console.log('player 1 drew', player1Cards, cardsArray)
         props.setCard(player1Cards, cardsArray);
       }
     })
 
     socket.on('player two name is', username => {
       if (playerNumber === 1) {
-        console.log('player two name is', username)
         props.setPlayerTwo(username)
       }
     })
@@ -87,7 +84,6 @@ const Home = (props) => {
 
       if (move.gameState.whiteToMove !== whiteToMove) {
         setWhiteToMove(move.gameState.whiteToMove)
-        console.log('opponent move', move);
         const whiteToMove = props.whiteToMove;
         const fen = props.fen;
         const nextWhiteToMove = move.gameState.whiteToMove;
@@ -110,7 +106,6 @@ const Home = (props) => {
 
     setTimeout(() => {
       socket.emit('chance chess state update', { chanceChessState: props.chanceChessState, gameId: props.gameId });
-      console.log('sending periodic state update');
     }, 10000);
 
     if (whiteToMove !== props.whiteToMove) {
@@ -123,15 +118,11 @@ const Home = (props) => {
       localStorage.setItem(`${props.gameId}-user`, JSON.stringify({ ...props.usersState }));
       localStorage.setItem(`${props.gameId}-game`, JSON.stringify({ ...props.chanceChessState }));
 
-
-      console.log('new move')
-
       socket.emit('new move', { ...newState });
 
       localStorage.setItem(`${props.gameId}-game`, JSON.stringify({ ...props.chanceChessState }));
 
       setTimeout(() => {
-        console.log('2nd move update', newState)
         socket.emit('new move', { ...newState });
       }, 1000)
     }
@@ -226,10 +217,8 @@ const Home = (props) => {
   }
 
   const onDrawCards = () => {
-    console.log('on draw cards called')
     let playerNumber;
     const isCreator = localStorage.getItem(props.gameId);
-    console.log(isCreator)
     if (isCreator) playerNumber = 1;
     else playerNumber = 2;
     if ((playerNumber === 1 && !props.whiteToMove) || (playerNumber === 2 && props.whiteToMove)) return;
@@ -362,7 +351,7 @@ const Home = (props) => {
                       border: '1px solid black',
                     }}>
                     Discard All
-                </Button>
+                  </Button>
                   <Button
                     style={{
                       backgroundColor: 'rgb(82 140 78)',
@@ -373,7 +362,7 @@ const Home = (props) => {
                     onClick={() => onSelectAll()}
                   >
                     Select All
-                </Button>
+                  </Button>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                   <div
@@ -405,7 +394,7 @@ const Home = (props) => {
                       border: '1px solid black',
                     }}>
                     Discard All
-                </Button>
+                  </Button>
                   <Button
                     style={{
                       backgroundColor: 'rgb(82 140 78)',
@@ -416,7 +405,7 @@ const Home = (props) => {
                     onClick={() => onSelectAll()}
                   >
                     Select All
-                </Button>
+                  </Button>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                   <div
@@ -436,6 +425,21 @@ const Home = (props) => {
           </div>
         </div>
       </div>
+      <Button
+        style={{
+          backgroundColor: '#277714',
+          border: '1px solid black',
+          position: 'absolute',
+          bottom: '10px',
+          right: '10px'
+        }}
+      >
+        <a
+          style={{ textDecoration: 'none', color: 'white', }}
+          href="https://paypal.me/michaelrooze?locale.x=en_US" target="_blank" rel="noopener noreferrer">
+          $ Donate
+        </a>
+      </Button >
     </div >
   );
 };

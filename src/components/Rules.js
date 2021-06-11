@@ -5,9 +5,9 @@ function Rules() {
         <div>
             <h3>How to Play</h3>
             <ol>
-                <li>Click "Start Game"</li>
+                <li>Click the Plus icon on the deck to get your cards</li>
                 <li>Click on one of your cards to select a card</li>
-                <li>Click on "Key" to see which piece your card corresponds with</li>
+                <li>Click on the Key icon to see which piece your card corresponds with</li>
                 <li>If you have a "Combo", click the "Select All" button to play your combo</li>
                 <li>If none of your cards can move, click the "Discard All" button to discard your cards and lose your turn</li>
                 <li>Move your piece</li>
@@ -25,7 +25,7 @@ function Rules() {
             </ol>
             <h3>About</h3>
             <p>Chance Chess is a lot like chess but the cards you draw dictate which pieces can move. This adds a significant amount of
-            chance to arguably the most skilled game that exists but do not be mistaken, there is still plenty of skill involved.
+                chance to arguably the most skilled game that exists but do not be mistaken, there is still plenty of skill involved.
             </p>
 
             <h3>Tips</h3>

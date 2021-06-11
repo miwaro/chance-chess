@@ -21,8 +21,6 @@ function CaptureSidebar(props) {
 
     let whitePieces = Object.values(W)
     let blackPieces = Object.values(B)
-    // console.log(whitePieces)
-    // console.log(blackPieces)
     // logic to display white pawns
     let pawn = whitePieces[0];
     let whitePawns = [pawn, pawn, pawn, pawn, pawn, pawn, pawn, pawn];

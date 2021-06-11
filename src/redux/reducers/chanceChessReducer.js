@@ -30,8 +30,6 @@ const reducer = (state = initialState, action) => {
     let player2Cards;
     let whiteToMove;
 
-    console.log(action)
-
     switch (action.type) {
 
         case actionTypes.UPDATE_GAME:
@@ -258,7 +256,6 @@ const reducer = (state = initialState, action) => {
             }
 
         case actionTypes.SET_CAPTURED_PIECES:
-            console.log(action.capturedPieces)
             return {
                 ...state,
                 capturedPieces: action.capturedPieces,

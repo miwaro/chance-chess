@@ -34,7 +34,6 @@ class JoinRoom extends React.Component {
             let userState = localStorage.getItem(`${gameId}-users`);
             let gameState = localStorage.getItem(`${gameId}-game`);
             if (userState && gameState) {
-                console.log(userState, gameState)
                 userState = JSON.parse(userState);
                 gameState = JSON.parse(gameState);
                 this.props.updateUsers(userState);
@@ -114,7 +113,7 @@ class JoinRoom extends React.Component {
                                 <h2 style={{ color: '#eaeaea', textAlign: "center" }}
                                 >
                                     Enter your <span style={{ color: 'orange' }}>Name</span> to join the Game Room
-                            </h2>
+                                </h2>
                                 <form
                                     style={{ display: 'flex', justifyContent: 'center', padding: '20px 0' }}
                                     onSubmit={this.onFormSubmit}>
@@ -134,7 +133,7 @@ class JoinRoom extends React.Component {
                                         }}
                                     >
                                         Go!
-                                </Button>
+                                    </Button>
                                 </form>
                             </div>
                         </div>

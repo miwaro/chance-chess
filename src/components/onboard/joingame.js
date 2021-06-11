@@ -24,18 +24,17 @@ const JoinGameRoom = (gameId, userName, isCreator) => {
         userName: userName,
         isCreator: isCreator
     }
-    console.log(gameId)
+
     socket.emit("playerJoinGame", idData)
 }
 
 const JoinGame = (props) => {
     const { gameId } = useParams()
-    const [ creator, setCreator ] = useQueryParam('creator', StringParam);
+    const [creator, setCreator] = useQueryParam('creator', StringParam);
     if (props.isCreator) {
         localStorage.setItem(gameId, true);
         if (creator !== props.userName) setCreator(props.userName)
     } else {
-        console.log('player two name', props.userName, gameId)
         socket.emit('player two name', { username: props.userName, gameId });
     }
     props.onJoinGame(props.userName, props.isCreator, gameId);

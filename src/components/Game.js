@@ -4,7 +4,6 @@ import CaptureSidebar from './CaptureSidebar';
 import { connect } from 'react-redux';
 
 function Board(props) {
-    console.log('in Game component, pieces captured:', props.piecesCaptured)
     return (
         < div >
             <HumanVsHuman>
@@ -31,12 +30,12 @@ function Board(props) {
                                 // boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,
                             }}
                         />
-                        { props.piecesCaptured &&
+                        {props.piecesCaptured &&
                             <CaptureSidebar
                                 piecesCaptured={props.piecesCaptured}
                             />
                         }
-                       
+
                     </>
                 )}
             </HumanVsHuman>
@@ -47,8 +46,8 @@ function Board(props) {
 const mapStateToProps = (state) => {
 
     return {
-      piecesCaptured: state.chanceChessReducer.capturedPieces
+        piecesCaptured: state.chanceChessReducer.capturedPieces
     }
-  }
+}
 
 export default connect(mapStateToProps, null)(Board);
