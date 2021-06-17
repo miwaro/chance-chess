@@ -68,6 +68,7 @@ const Home = (props) => {
       socket.removeAllListeners('player one drew');
       socket.removeAllListeners('player two drew');
       socket.removeAllListeners('player two name is');
+      socket.removeAllListeners('chance chess state updated');
     }
   })
 
