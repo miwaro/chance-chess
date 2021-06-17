@@ -8,13 +8,14 @@ function Rules() {
                 <li>Click the Plus icon on the deck to get your cards</li>
                 <li>Click on one of your cards to select a card</li>
                 <li>Click on the Key icon to see which piece your card corresponds with</li>
-                <li>If you have a "Combo", click the "Select All" button to play your combo</li>
-                <li>If none of your cards can move, click the "Discard All" button to discard your cards and lose your turn</li>
+                <li>If you have a "Combo", click the "Select All" button to play your combo (check the "Key Icon" to see the combos)</li>
+                <li>If none of your cards can move or you want all new cards on your next turn, click the "Discard All" button to discard your cards and lose your turn</li>
+                <li>Additionally, you may "select" and "discard" an individual card which also results in the end of your turn (This may help you achieve a combo)</li>
                 <li>Move your piece</li>
             </ol>
             <h3>Objective</h3>
             <p>Capture the King! Checks and checkmates are not a part of Chance Chess.</p>
-            <h3>Rule Changes</h3>
+            <h3>Differences from regular Chess</h3>
             <ol>
                 <li>No checks</li>
                 <li>No checkmates</li>
@@ -30,7 +31,7 @@ function Rules() {
 
             <h3>Tips</h3>
             <p>Observe the cards your opponent has and plan accordingly.</p>
-            <p>You can be a lot more agressive in your attacks in this game as opposed to regular chess since you often know your opponent's potential moves.</p>
+            <p>You can be more agressive in your attacks in this game as opposed to regular chess since you often know your opponent's potential moves.</p>
             <p>Only one deck is used, so counting cards can be used to your benefit.  For example, if there have been 3 knight moves, then you know there's only one "10" left in the deck.</p>
 
             <h3>Other</h3>

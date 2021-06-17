@@ -19,7 +19,8 @@ class HumanVsHuman extends Component {
 
     state = {
         square: "",
-        orientation: 'white'
+        orientation: 'white',
+        squareStyles: {}
     };
 
     componentDidMount() {
@@ -274,11 +275,6 @@ class HumanVsHuman extends Component {
         return draggable;
     };
 
-
-
-
-
-
     onDrop = ({ sourceSquare, targetSquare }) => {
 
         let whiteToMove = this.props.whiteToMove;
@@ -289,6 +285,8 @@ class HumanVsHuman extends Component {
             to: targetSquare,
             promotion: "q"
         });
+
+        console.log(move.from)
 
         if (move === null) return;
 
