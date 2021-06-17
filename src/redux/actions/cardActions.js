@@ -120,4 +120,17 @@ export const setCapturedPieces = (capturedPieces) => {
     };
 };
 
+export const gameOver = (winner) => {
+    return {
+        type: actionTypes.GAME_OVER,
+        winner
+    };
+};
+
+export const newGame = () => {
+    return {
+        type: actionTypes.NEW_GAME
+    };
+};
+
 

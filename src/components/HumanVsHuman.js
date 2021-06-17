@@ -10,7 +10,8 @@ import {
     shuffleOnMount,
     selectAll,
     updateFen,
-    setCapturedPieces
+    setCapturedPieces,
+    gameOver
 } from "../redux/actions/cardActions";
 
 class HumanVsHuman extends Component {
@@ -306,10 +307,10 @@ class HumanVsHuman extends Component {
 
         // Winners Message
         if (move.captured === 'k' && whiteToMove) {
-            alert('White Wins')
+            this.props.gameOver('White')
         }
         if (move.captured === 'k' && !whiteToMove) {
-            alert('Black Wins!')
+            this.props.gameOver('Black')
         }
 
         // Capture Piece Sidebar
@@ -376,7 +377,8 @@ const mapDispatchToProps = dispatch => {
         onShuffle: () => dispatch(shuffleOnMount()),
         onSelectAll: () => dispatch(selectAll()),
         onUpdateFen: (fen) => dispatch(updateFen(fen)),
-        setCapturedPieces: pieces => dispatch(setCapturedPieces(pieces))
+        setCapturedPieces: pieces => dispatch(setCapturedPieces(pieces)),
+        gameOver: winner => dispatch(gameOver(winner))
     }
 }
 

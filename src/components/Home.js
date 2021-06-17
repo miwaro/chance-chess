@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Player2CardContainer from '../components/Players/Player2CardContainer';
 import Player1CardContainer from '../components/Players/Player1CardContainer';
 import StartDialog from './StartDialog';
+import GameOverDialog from './GameOverDialog';
 import Board from '../components/Game';
 import Card from '../components/Card';
 import Key from '../components/keySidebar'
@@ -23,7 +24,8 @@ import {
   updateGame,
   setCard,
   setPlayer2Card,
-  updateGameIfStale
+  updateGameIfStale,
+  newGame
 } from "../redux/actions/cardActions";
 import { updateUsers, setPlayerOne, setPlayerTwo } from '../redux/actions/userActions';
 import { useQueryParam, StringParam } from 'use-query-params';
@@ -220,6 +222,10 @@ const Home = (props) => {
 
   }
 
+  const newGame = () => {
+    props.newGame();
+  }
+
   const onDrawCards = () => {
     let playerNumber;
     const isCreator = localStorage.getItem(props.gameId);
@@ -274,6 +280,11 @@ const Home = (props) => {
       {(
         props.numPlayers === 1 && (
           <StartDialog url={getUrl()} open={props.numPlayers === 1} />
+        )
+      )}
+       {(
+        props.winner && (
+          <GameOverDialog message={props.winner + ' Wins.'} newGame={newGame} open={props.winner} />
         )
       )}
       <Header />
@@ -464,6 +475,7 @@ const mapStateToProps = (state) => {
     numPlayers: state.usersReducer.numPlayers,
     playerOne: state.usersReducer.playerOne,
     playerTwo: state.usersReducer.playerTwo,
+    winner: state.chanceChessReducer.winner
   }
 }
 
@@ -481,7 +493,8 @@ const mapDispatchToProps = dispatch => {
     setPlayerOne: playerOne => dispatch(setPlayerOne(playerOne)),
     setPlayerTwo: playerTwo => dispatch(setPlayerTwo(playerTwo)),
     setCard: (player1Cards, cardsArray) => dispatch(setCard(player1Cards, cardsArray)),
-    setPlayer2Card: (player2Cards, cardsArray) => dispatch(setPlayer2Card(player2Cards, cardsArray))
+    setPlayer2Card: (player2Cards, cardsArray) => dispatch(setPlayer2Card(player2Cards, cardsArray)),
+    newGame: () => dispatch(newGame())
   }
 }
 

@@ -33,3 +33,7 @@ export const SHUFFLE_ON_MOUNT = 'SHUFFLE_ON_MOUNT';
 export const CHANGE_TURN = 'CHANGE_TURN';
 
 export const SET_CAPTURED_PIECES = 'SET_CAPTURED_PIECES';
+
+export const GAME_OVER = 'GAME_OVER';
+
+export const NEW_GAME = 'NEW_GAME';

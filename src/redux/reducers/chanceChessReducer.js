@@ -15,6 +15,7 @@ const initialState = {
         W: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 },
         B: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 }
     },
+    winner: null,
     lastUpdated: Date.now()
 }
 
@@ -40,7 +41,7 @@ const reducer = (state = initialState, action) => {
             if (
                 state.lastUpdated < Date.now() - (10 * 1000) &&
                 hasChanged(action.state, state)
-                ) {
+            ) {
                 console.log('updating because stale', state.lastUpdated, Date.now() - (10 * 1000))
                 localStorage.setItem(`${action.gameId}-game`, JSON.stringify({ ...action.state }));
                 return { ...action.state, lastUpdated: Date.now() };
@@ -265,6 +266,12 @@ const reducer = (state = initialState, action) => {
                 capturedPieces: action.capturedPieces,
                 lastUpdated: Date.now()
             }
+
+        case actionTypes.GAME_OVER:
+            return { ...state, lastUpdated: Date.now(), winner: action.winner };
+
+        case actionTypes.NEW_GAME:
+            return { ...initialState, lastUpdated: Date.now() };
 
         default:
             return state;
