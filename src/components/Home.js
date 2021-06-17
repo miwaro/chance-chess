@@ -107,7 +107,7 @@ const Home = (props) => {
 
     setTimeout(() => {
       socket.emit('chance chess state update', { chanceChessState: props.chanceChessState, gameId: props.gameId });
-    }, 10000);
+    }, 20000);
 
     if (whiteToMove !== props.whiteToMove) {
       setWhiteToMove(props.whiteToMove)
