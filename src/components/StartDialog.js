@@ -10,6 +10,7 @@ export default function StartDialog(props) {
       <DialogTitle id="Start-dialog-title" style={{ margin: 'auto', marginBottom: 0, paddingBottom: 0, fontSize: '32px' }}>Invite a Friend</DialogTitle>
       <DialogContent>
         <DialogContentText>
+          Click the button below to copy a link to this game. The match will start once your opponent joins.
         </DialogContentText>
         <DialogActions>
           <Button color="primary" onClick={() => {navigator.clipboard.writeText(url)}}>

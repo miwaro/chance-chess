@@ -77,7 +77,7 @@ class JoinRoom extends React.Component {
                    <div>
                         <h1 style={{textAlign: "center", marginTop: String((window.innerHeight / 3)) + "px"}}>Your Username:</h1>
     
-                        <input style={{marginLeft: String((window.innerWidth / 2) - 120) + "px", width: "240px", marginTop: "62px"}} 
+                        <input style={{marginLeft: 'auto', marginRight: 'auto',  width: "240px", marginTop: "62px"}} 
                                ref = {this.textArea}
                                onInput = {this.typingUserName}></input>
                                
