@@ -41,8 +41,10 @@ const Home = (props) => {
 
   useEffect(() => {
     socket.on('chance chess state updated', chanceChessState => {
-      props.updateGameIfStale(chanceChessState, props.gameId)
       socket.removeAllListeners('chance chess state updated');
+      // only update if it's not our turn
+      if ((playerNumber === 1 && props.whiteToMove) || (playerNumber === 1 && !props.whiteToMove)) return;
+      props.updateGameIfStale(chanceChessState, props.gameId)
     })
 
     socket.on('player two drew', move => {

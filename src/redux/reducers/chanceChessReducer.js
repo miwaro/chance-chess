@@ -37,7 +37,10 @@ const reducer = (state = initialState, action) => {
             return { ...action.state, lastUpdated: Date.now() };
 
         case actionTypes.UPDATE_GAME_IF_STALE:
-            if (state.lastUpdated < Date.now() - (10 * 1000) && hasChanged(action.state, state)) {
+            if (
+                state.lastUpdated < Date.now() - (10 * 1000) &&
+                hasChanged(action.state, state)
+                ) {
                 console.log('updating because stale', state.lastUpdated, Date.now() - (10 * 1000))
                 localStorage.setItem(`${action.gameId}-game`, JSON.stringify({ ...action.state }));
                 return { ...action.state, lastUpdated: Date.now() };
