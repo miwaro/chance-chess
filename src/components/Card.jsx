@@ -218,7 +218,7 @@ const Card = (props) => {
               borderRadius: '4px'
             }}>
             Discard
-        </button>
+          </button>
         }
         <button
           onClick={() => getSelectedCard(card, cardIndex)}
@@ -283,7 +283,7 @@ const Card = (props) => {
                 borderRadius: '4px'
               }}>
               Discard
-                  </button>
+            </button>
           }
 
           <button
@@ -298,7 +298,7 @@ const Card = (props) => {
               borderRadius: '4px'
             }}>
             Select
-        </button>
+          </button>
         </div>
       </>
     )
@@ -325,24 +325,28 @@ const Card = (props) => {
           }}>
             {props.cardsArray.length}
           </div>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'absolute',
-            bottom: '46px',
-            right: '20px',
-            padding: '5px',
-            color: '#277714',
-            fontWeight: 'bold',
-            backgroundColor: '#FFF',
-            opacity: '.9',
-            borderRadius: '50%',
-            cursor: 'pointer'
-          }}>
-            <AddCircleOutlineIcon style={{
-              height: '70px', width: '70px'
-            }} onClick={() => props.onDrawCards()} />
+          <div
+            onMouseOver="this.style.color='#0F0'"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'absolute',
+              bottom: '46px',
+              right: '20px',
+              padding: '5px',
+              color: '#277714',
+              fontWeight: 'bold',
+              backgroundColor: '#FFF',
+              borderRadius: '50%',
+              cursor: 'pointer'
+            }}>
+            <AddCircleOutlineIcon
+              style={{
+                height: '70px',
+                width: '70px',
+              }}
+              onClick={() => props.onDrawCards()} />
           </div>
         </div>
 

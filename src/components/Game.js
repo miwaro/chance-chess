@@ -11,6 +11,7 @@ function Board(props) {
                     position,
                     onDragStart,
                     onDrop,
+                    squareStyles,
                     orientation
                 }) => (
                     <>
@@ -22,10 +23,11 @@ function Board(props) {
                             draggable={true}
                             onDrop={onDrop}
                             orientation={orientation}
+                            squareStyles={squareStyles}
                             boardStyle={{
                                 // border: '5px ridge orange',
                                 margin: '15px',
-                                fontSize: '30px'
+                                fontSize: '30px',
                                 // marginRight: '15px',
                                 // boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,
                             }}

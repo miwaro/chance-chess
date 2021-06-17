@@ -83,32 +83,11 @@ class JoinRoom extends React.Component {
                             <Home myUserName={this.state.inputText} />
                         </React.Fragment>
                         :
-                        // <div>
-                        //     <h1 style={{ textAlign: "center", marginTop: String((window.innerHeight / 3)) + "px" }}>Your Username</h1>
-
-                        //     <input style={{ marginLeft: String((window.innerWidth / 2) - 120) + "px", width: "240px", marginTop: "62px" }}
-                        //         ref={this.textArea}
-                        //         onInput={this.typingUserName}></input>
-
-                        //     <Button className="btn btn-primary"
-                        //         style={{ marginLeft: String((window.innerWidth / 2) - 60) + "px", width: "120px", marginTop: "62px" }}
-                        //         // disabled={!(this.state.inputText.length > 0)}
-                        //         onClick={() => {
-                        //             // When the 'Submit' button gets pressed from the username screen,
-                        //             // We should send a request to the server to create a new room with
-                        //             // the uuid we generate here.
-                        //             this.setState({
-                        //                 didGetUserName: true
-                        //             })
-                        //         }}>Submit</Button>
-                        // </div>
                         <div>
                             <div className="header">
                                 <img src={logo} alt="logo" className="logo" />
                                 <h1 style={{ color: 'white' }}>Chance Chess</h1>
                             </div>
-
-                            {/* <div style={{ backgroundImage: `url(${ThreeD})`, backgroundRepeat: 'no-repeat' }}> */}
                             <div style={{ backgroundColor: 'rgb(78 75 71)', margin: '300px auto', width: '30%', borderRadius: '6px', border: '2px solid #277714' }}>
                                 <h2 style={{ color: '#eaeaea', textAlign: "center" }}
                                 >
