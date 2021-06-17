@@ -44,7 +44,7 @@ function App(props) {
                 </React.Fragment>
                 :
                 <JoinRoom />
-               }
+              }
             </Route>
             <Redirect to="/" />
           </Switch>
@@ -55,8 +55,8 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-      gameId: state.usersReducer.gameId,
-      numPlayers: state.usersReducer.numPlayers
+    gameId: state.usersReducer.gameId,
+    numPlayers: state.usersReducer.numPlayers
   }
 }
 

@@ -1,6 +1,11 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import uuid from 'uuid/v4'
+import logo from '../../images/chessLogo5.png';
+import '../../style/components/header.scss';
+// import ThreeD from "../../style/images/3d.png";
+
+import Button from '@material-ui/core/Button';
 import { ColorContext } from '../../context/colorcontext'
 const socket = require('../../connection/socket').socket
 
@@ -34,7 +39,6 @@ class CreateNewGame extends React.Component {
         })
 
         // emit an event to the server to create a new room 
-        console.log('emit createNewGame')
         socket.emit('createNewGame', newGameRoomId)
     }
 
@@ -48,6 +52,16 @@ class CreateNewGame extends React.Component {
         })
     }
 
+    onFormSubmit = e => {
+        e.preventDefault();
+        this.props.didRedirect()
+        this.props.setUserName(this.state.inputText)
+        this.setState({
+            didGetUserName: true
+        })
+        this.send()
+    }
+
     render() {
 
         return (<React.Fragment>
@@ -58,27 +72,41 @@ class CreateNewGame extends React.Component {
 
                     :
                     <div>
-                        <h1 style={{ color: '#eaeaea', textAlign: "center", marginTop: String((window.innerHeight / 3)) + "px" }}>Your Username:</h1>
+                        <div className="header">
+                            <img src={logo} alt="logo" className="logo" />
+                            <h1 style={{ color: 'white' }}>Chance Chess</h1>
+                        </div>
 
-                        <input style={{ marginLeft: String((window.innerWidth / 2) - 120) + "px", width: "240px", marginTop: "62px" }}
-                            ref={this.textArea}
-                            onInput={this.typingUserName}></input>
+                        {/* <div style={{ backgroundImage: `url(${ThreeD})`, backgroundRepeat: 'no-repeat' }}> */}
+                        <div style={{ backgroundColor: 'rgb(78 75 71)', margin: '300px auto', width: '30%', borderRadius: '6px', border: '2px solid #277714' }}>
+                            <h2 style={{ color: '#eaeaea', textAlign: "center" }}
+                            >
+                                Enter your <span style={{ color: 'orange' }}>Name</span> to join the Game Room
+                            </h2>
+                            <form
+                                style={{ display: 'flex', justifyContent: 'center', padding: '20px 0' }}
+                                onSubmit={this.onFormSubmit}>
+                                <input style={{ width: "240px" }}
+                                    autoFocus
+                                    ref={this.textArea}
+                                    onInput={this.typingUserName}></input>
 
-                        <button className="btn btn-primary"
-                            style={{ marginLeft: String((window.innerWidth / 2) - 60) + "px", width: "120px", marginTop: "62px" }}
-                            disabled={!(this.state.inputText.length > 0)}
-                            onClick={() => {
-                                // When the 'Submit' button gets pressed from the username screen,
-                                // We should send a request to the server to create a new room with
-                                // the uuid we generate here.
-                                this.props.didRedirect()
-                                this.props.setUserName(this.state.inputText)
-                                this.setState({
-                                    didGetUserName: true
-                                })
-                                this.send()
-                            }}>Submit</button>
+                                <Button type="submit"
+                                    style={{
+                                        backgroundColor: "#277714",
+                                        color: "white",
+                                        width: '75px',
+                                        marginLeft: '12px',
+                                        fontSize: '18px',
+                                        border: '1px solid orange'
+                                    }}
+                                >
+                                    Go!
+                                </Button>
+                            </form>
+                        </div>
                     </div>
+
             }
         </React.Fragment>)
     }

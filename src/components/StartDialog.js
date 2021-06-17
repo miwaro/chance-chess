@@ -13,7 +13,7 @@ export default function StartDialog(props) {
           Click the button below to copy a link to this game. The match will start once your opponent joins.
         </DialogContentText>
         <DialogActions>
-          <Button color="primary" onClick={() => {navigator.clipboard.writeText(url)}}>
+          <Button color="primary" onClick={() => { navigator.clipboard.writeText(url) }}>
             Click Here to Copy Link to Game
           </Button>
         </DialogActions>
