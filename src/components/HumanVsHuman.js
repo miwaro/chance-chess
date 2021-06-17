@@ -287,8 +287,6 @@ class HumanVsHuman extends Component {
             promotion: "q"
         });
 
-        console.log(move.from)
-
         if (move === null) return;
 
         this.props.onUpdateFen(this.game.fen());
