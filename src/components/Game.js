@@ -29,7 +29,7 @@ function Board(props) {
                                 margin: '15px',
                                 fontSize: '30px',
                                 // marginRight: '15px',
-                                // boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,
+                                boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,
                             }}
                         />
                         {props.piecesCaptured &&

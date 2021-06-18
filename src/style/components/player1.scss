@@ -14,6 +14,50 @@
 
 }
 
+.arrowUp {
+    display: inline-block;
+    animation: .7s linear slidein;
+    animation-iteration-count: 3;
+    font-size: 34px;
+    @keyframes slidein {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-200px);
+      }
+    }
+}
+
+
+
+  .arrowDown {
+    display: inline-block;
+    animation: .7s linear slidein;
+    animation-iteration-count: 3;
+    font-size: 34px;
+    
+  @keyframes slidein {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(20px);
+    }
+  }
+}
+
+
+//   @keyframes slidein {
+//   0%   {top: 0px; left: 0px; transform: translateX(0);}
+//   20%  {top: 0px; left: 100px; transform: translateX(25px);}
+//   40%  {top: 25px; left: 100px; transform: translateX(0);}
+//   60%  {top: 50px; left: 100px; transform: translateX(135px);}
+//   80% {top: 75px; left: 100px; transform: translateX(180px);}
+//   100% {top: 100px; left: 100px; transform: translateX(180px);}
+// }
+  
+
 // .p1Actions {
 //     // border-top: 4px double orange;
 //     padding: 0 8px 30px 6px;

@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { selectCard, removeSelectedCard, changeTurn, getCard, getPlayer2Card } from '../redux/actions/cardActions'
 
 import PropTypes from "prop-types";
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import Tooltip from '@material-ui/core/Tooltip';
+
 import backCardImg from "../style/images/backCardImg.png";
+import addIcon from "../style/images/AddIcon.png";
 import joker from "../style/images/joker.png";
 import heart from "../style/images/heart.png";
 import diamond from "../style/images/diamond.png";
@@ -25,14 +27,15 @@ import blackBishop from "../style/images/chessPieces/black/blackBishop.png";
 import blackQueenImg from "../style/images/chessPieces/black/blackQueen.png";
 import blackKingImg from "../style/images/chessPieces/black/blackKing.png";
 
-import { socket } from "../connection/socket";
 
 import "../style/components/card.scss";
 import "../style/components/playerCard.scss";
+import { transform } from "typescript";
 
 const Card = (props) => {
 
   const { suits, card, front, color, cardIndex, cardPiece, allCardsSelected } = props;
+
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -96,6 +99,7 @@ const Card = (props) => {
     let allSelected = props.allSelected;
 
     if (props.disabled || allSelected) {
+      console.log(props.player1Cards.length)
       return;
     }
     props.onSelectCard(card, cardIndex);
@@ -110,8 +114,9 @@ const Card = (props) => {
 
 
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
-  let btn_class = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
+  // let btn_class = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
 
+  let btn_class = 'card';
   let player1Suits = props.player1Cards.map(card => card.suits);
   let player2Suits = props.player2Cards.map(card => card.suits);
 
@@ -214,6 +219,7 @@ const Card = (props) => {
               padding: '5px',
               border: 'none',
               color: 'red',
+              transform: 'scale(1.3)',
               cursor: 'pointer',
               borderRadius: '4px'
             }}>
@@ -313,41 +319,42 @@ const Card = (props) => {
             backgroundImage: `url(${backCardImg})`,
             backgroundColor: 'lightgray'
           }}>
-          <div style={{
-            position: 'absolute',
-            top: '5px',
-            right: '-18px',
-            padding: '5px',
-            color: 'orange',
-            fontWeight: 'bold',
-            backgroundColor: '#6d6c6c',
-            borderRadius: '50%'
-          }}>
-            {props.cardsArray.length}
-          </div>
-          <div
-            onMouseOver="this.style.color='#0F0'"
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'absolute',
-              bottom: '46px',
-              right: '20px',
-              padding: '5px',
-              color: '#277714',
-              fontWeight: 'bold',
-              backgroundColor: '#FFF',
-              borderRadius: '50%',
-              cursor: 'pointer'
-            }}>
-            <AddCircleOutlineIcon
+          <Tooltip title="Cards Remaining" placement="right">
+            <div
               style={{
-                height: '70px',
-                width: '70px',
+                position: 'absolute',
+                top: '5px',
+                right: '-18px',
+                padding: '5px',
+                color: 'orange',
+                fontWeight: 'bold',
+                border: '1px solid',
+                cursor: 'default',
+                backgroundColor: 'rgb(62 50 50)',
+                borderRadius: '50%'
               }}
-              onClick={() => props.onDrawCards()} />
-          </div>
+            >
+              {props.cardsArray.length}
+            </div>
+          </Tooltip>
+
+          <Tooltip title="DRAW">
+            <div
+              className="addIcon"
+              style={{
+                display: 'flex',
+                position: 'absolute',
+                bottom: '46px',
+                right: '-120px',
+                fontWeight: 'bold',
+                cursor: 'pointer'
+              }}>
+              <img
+                src={addIcon} alt="add-icon"
+                onClick={() => props.onDrawCards()}
+              />
+            </div>
+          </Tooltip>
         </div>
 
       </>

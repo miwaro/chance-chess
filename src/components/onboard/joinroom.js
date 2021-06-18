@@ -52,14 +52,16 @@ class JoinRoom extends React.Component {
 
     }
 
-    typingUserName = () => {
+    typingUserName = (e) => {
         // grab the input text from the field from the DOM 
         const typedText = this.textArea.current.value
 
         // set the state with that text
+
         this.setState({
             inputText: typedText
         })
+
     }
 
     onFormSubmit = e => {
@@ -97,6 +99,9 @@ class JoinRoom extends React.Component {
                                     style={{ display: 'flex', justifyContent: 'center', padding: '20px 0' }}
                                     onSubmit={this.onFormSubmit}>
                                     <input style={{ width: "240px" }}
+                                        type="text"
+                                        minLength={1}
+                                        maxLength={11}
                                         autoFocus
                                         ref={this.textArea}
                                         onInput={this.typingUserName}></input>

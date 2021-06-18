@@ -6,7 +6,7 @@ body {
 
 .body-container {
     margin: auto;
-    max-width: 1235px;
+    max-width: 1250px;
 }
 
 .App {
@@ -20,11 +20,13 @@ body {
 }
 
 .Board {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('./style/images/felt.jpg');
+  background-size: cover;
   cursor: 'pointer !important';
   display: flex; 
   margin-top: 80px;
-  border: 1px solid orange;
-  background-color: #277714;
+  border: 2px solid orange;
+  border-radius: 20px;
 }
 
 .App-logo {

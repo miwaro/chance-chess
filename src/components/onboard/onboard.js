@@ -47,12 +47,16 @@ class CreateNewGame extends React.Component {
         const typedText = this.textArea.current.value
 
         // set the state with that text
+
         this.setState({
+
             inputText: typedText
         })
+
     }
 
     onFormSubmit = e => {
+
         e.preventDefault();
         this.props.didRedirect()
         this.props.setUserName(this.state.inputText)
@@ -60,9 +64,11 @@ class CreateNewGame extends React.Component {
             didGetUserName: true
         })
         this.send()
+        console.log(e.target.value)
     }
 
     render() {
+
 
         return (<React.Fragment>
             {
@@ -84,9 +90,13 @@ class CreateNewGame extends React.Component {
                                 Enter your <span style={{ color: 'orange' }}>Name</span> to join the Game Room
                             </h2>
                             <form
+
                                 style={{ display: 'flex', justifyContent: 'center', padding: '20px 0' }}
                                 onSubmit={this.onFormSubmit}>
                                 <input style={{ width: "240px" }}
+                                    type="text"
+                                    minLength={1}
+                                    maxLength={11}
                                     autoFocus
                                     ref={this.textArea}
                                     onInput={this.typingUserName}></input>

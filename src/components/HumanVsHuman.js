@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Chess from "./Chess.js";
+import moveSound from '../audio/capture.mp3';
+
 import { connect } from 'react-redux';
 import {
     changeTurn,
@@ -15,6 +17,11 @@ import {
 } from "../redux/actions/cardActions";
 
 class HumanVsHuman extends Component {
+
+
+    playSound = audioFile => {
+        audioFile.play();
+    }
 
     static propTypes = { children: PropTypes.func };
 
@@ -277,7 +284,7 @@ class HumanVsHuman extends Component {
     };
 
     onDrop = ({ sourceSquare, targetSquare }) => {
-
+        let moveAudio = new Audio(moveSound);
         let whiteToMove = this.props.whiteToMove;
         let selected = this.props.selectedCard
         // see if the move is legal
@@ -287,11 +294,10 @@ class HumanVsHuman extends Component {
             promotion: "q"
         });
 
-        console.log(move.from)
-
         if (move === null) return;
 
         this.props.onUpdateFen(this.game.fen());
+        this.playSound(moveAudio)
 
         // Do this after playing a combo
         if (whiteToMove && selected.length === 0) {
@@ -335,8 +341,7 @@ class HumanVsHuman extends Component {
         setTimeout(() => {
             this.props.onChangeTurn();
         }, 1000)
-
-    };
+    }
 
     render() {
 

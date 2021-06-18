@@ -4,6 +4,7 @@ import "../App.css";
 import '../style/components/player1.scss';
 import '../style/components/playerCard.scss';
 import Header from '../components/Header';
+import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import Player2CardContainer from '../components/Players/Player2CardContainer';
 import Player1CardContainer from '../components/Players/Player1CardContainer';
@@ -25,7 +26,8 @@ import {
   setCard,
   setPlayer2Card,
   updateGameIfStale,
-  newGame
+  newGame,
+  gameOver
 } from "../redux/actions/cardActions";
 import { updateUsers, setPlayerOne, setPlayerTwo } from '../redux/actions/userActions';
 import { useQueryParam, StringParam } from 'use-query-params';
@@ -213,11 +215,11 @@ const Home = (props) => {
     let whiteToMove = props.whiteToMove;
 
     if (whiteToMove && window.confirm('Are you sure you want to resign?')) {
-      alert('Black Wins!')
+      props.gameOver('Black')
     }
 
     if (!whiteToMove && window.confirm('Are you sure you want to resign?')) {
-      alert('White Wins!')
+      props.gameOver('White')
     }
 
   }
@@ -282,7 +284,7 @@ const Home = (props) => {
           <StartDialog url={getUrl()} open={props.numPlayers === 1} />
         )
       )}
-       {(
+      {(
         props.winner && (
           <GameOverDialog message={props.winner + ' Wins.'} newGame={newGame} open={props.winner} />
         )
@@ -292,18 +294,7 @@ const Home = (props) => {
         <div className="Board">
           <Board />
           <div className='card-containers'>
-            {myTurn() &&
-              <div style={{ marginLeft: '10px', color: 'white' }}>
-                {getOpponentUsername()}
-              </div>
-            }
-            {opponentTurn() &&
-              <>
-                <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>
-                  {getOpponentUsername()}
-                </div>
-              </>
-            }
+
             {playerNumber === 1 &&
               <Player2CardContainer disableControls={playerNumber === 1} cards={props.player2Cards || []} allCardsSelected={props.allSelected} />
             }
@@ -313,7 +304,7 @@ const Home = (props) => {
 
             {props.cardsArray && props.cardsArray.length > 0 &&
               <>
-                <div style={{ display: "flex", justifyContent: "center", height: '160px', marginBottom: '10px' }}>
+                <div style={{ display: "flex", justifyContent: "center" }}>
                   {props.cardsArray && props.cardsArray.map((card, index) => {
                     return (
                       <div key={index}>
@@ -322,17 +313,38 @@ const Home = (props) => {
                     );
                   })}
                 </div>
-                <div>
 
+                <div style={{ position: 'absolute', top: '380px' }}>
+                  {myTurn() &&
+                    <div style={{ marginLeft: '10px', color: 'white', fontWeight: 'bold', letterSpacing: '2px', fontSize: '18px' }}>
+                      {getOpponentUsername()}
+                    </div>
+
+                  }
+                  {opponentTurn() &&
+                    <>
+                      <div style={{ backgroundColor: 'orange', color: 'black', width: '100px', fontWeight: 'bold', borderRadius: '10px', padding: '0 10px', marginLeft: '15px' }}>
+                        {getOpponentUsername()}
+                      </div>
+                      <div style={{ color: 'white', fontSize: '80px', position: 'relative', top: '20px', left: '50px' }} className="arrowUp">⬆</div>
+                    </>
+                  }
                 </div>
-                {myTurn() &&
-                  <div style={{ backgroundColor: 'orange', color: 'black', width: 'fit-content', padding: '0 10px', marginLeft: '10px' }}>
-                    {getOwnUsername()}
-                  </div>
-                }
-                {opponentTurn() &&
-                  <div style={{ marginLeft: '10px', color: 'white' }}>{getOwnUsername()}</div>
-                }
+
+
+                <div>
+                  {myTurn() &&
+                    <div style={{ backgroundColor: 'orange', color: 'black', width: '100px', fontWeight: 'bold', borderRadius: '10px', padding: '0 10px', marginLeft: '15px' }}>
+                      {getOwnUsername()}
+                      <div style={{ position: 'absolute', top: '440px', color: 'white', fontSize: '80px' }} className="arrowDown">⬇</div>
+
+                    </div>
+                  }
+                  {opponentTurn() &&
+                    <div style={{ backgroundColor: 'rgb(62 50 50)', padding: '0 10px', width: '100px', borderRadius: '10px', marginLeft: '10px', color: 'white', letterSpacing: '2px' }}>{getOwnUsername()}</div>
+                  }
+                </div>
+
               </>
             }
 
@@ -369,7 +381,7 @@ const Home = (props) => {
                   </Button>
                   <Button
                     style={{
-                      backgroundColor: 'rgb(82 140 78)',
+                      backgroundColor: 'rgb(50 155 42)',
                       color: 'white',
                       border: '1px solid black',
                       width: '50%',
@@ -379,18 +391,34 @@ const Home = (props) => {
                     Select All
                   </Button>
                 </div>
+
+                {/* Icons Sections */}
+
                 <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                  <div
-                    onClick={resign}
-                    style={{
-                      cursor: 'pointer',
-                      fontSize: '30px',
-                      marginLeft: '10px'
-                    }}>
-                    🏳
-                  </div>
-                  <Rules />
-                  <Key />
+                  <Tooltip title="RESIGN">
+                    <div
+                      className="title"
+                      onClick={resign}
+                      style={{
+                        cursor: 'pointer',
+                        fontSize: '30px',
+                        marginLeft: '10px'
+                      }}>
+                      🏳
+                    </div>
+                  </Tooltip>
+
+                  <Tooltip title="RULES">
+                    <div>
+                      <Rules />
+                    </div>
+                  </Tooltip>
+
+                  <Tooltip title="KEY">
+                    <div>
+                      <Key />
+                    </div>
+                  </Tooltip>
                 </div>
 
               </>
@@ -412,7 +440,7 @@ const Home = (props) => {
                   </Button>
                   <Button
                     style={{
-                      backgroundColor: 'rgb(82 140 78)',
+                      backgroundColor: 'rgb(50 155 42)',
                       color: 'white',
                       border: '1px solid black',
                       width: '50%',
@@ -494,7 +522,8 @@ const mapDispatchToProps = dispatch => {
     setPlayerTwo: playerTwo => dispatch(setPlayerTwo(playerTwo)),
     setCard: (player1Cards, cardsArray) => dispatch(setCard(player1Cards, cardsArray)),
     setPlayer2Card: (player2Cards, cardsArray) => dispatch(setPlayer2Card(player2Cards, cardsArray)),
-    newGame: () => dispatch(newGame())
+    newGame: () => dispatch(newGame()),
+    gameOver: winner => dispatch(gameOver(winner))
   }
 }
 
