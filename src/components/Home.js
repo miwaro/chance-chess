@@ -49,8 +49,6 @@ const Home = (props) => {
       socket.removeAllListeners('chance chess state updated');
       // only update if it's not our turn
       if ((playerNumber === 1 && props.whiteToMove) || (playerNumber === 1 && !props.whiteToMove)) return;
-      let moveAudio = new Audio(moveSound);
-      this.playSound(moveAudio)
       props.updateGameIfStale(chanceChessState, props.gameId)
     })
 
@@ -103,7 +101,8 @@ const Home = (props) => {
         if (fen !== nextFen || whiteToMove !== nextWhiteToMove) {
           const currentState = props.chanceChessState;
           if (!deepEquals(move.gameState, currentState)) {
-
+            let moveAudio = new Audio(moveSound);
+            moveAudio.play();
             props.updateGame(move.gameState, move.userState.gameId);
             props.updateUsers(move.userState);
 
