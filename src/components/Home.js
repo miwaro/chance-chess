@@ -5,6 +5,7 @@ import '../style/components/player1.scss';
 import '../style/components/playerCard.scss';
 import Header from '../components/Header';
 import Tooltip from '@material-ui/core/Tooltip';
+import moveSound from '../audio/capture.mp3';
 import Button from '@material-ui/core/Button';
 import Player2CardContainer from '../components/Players/Player2CardContainer';
 import Player1CardContainer from '../components/Players/Player1CardContainer';
@@ -48,6 +49,8 @@ const Home = (props) => {
       socket.removeAllListeners('chance chess state updated');
       // only update if it's not our turn
       if ((playerNumber === 1 && props.whiteToMove) || (playerNumber === 1 && !props.whiteToMove)) return;
+      let moveAudio = new Audio(moveSound);
+      this.playSound(moveAudio)
       props.updateGameIfStale(chanceChessState, props.gameId)
     })
 

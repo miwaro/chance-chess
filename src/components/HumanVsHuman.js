@@ -284,7 +284,6 @@ class HumanVsHuman extends Component {
     };
 
     onDrop = ({ sourceSquare, targetSquare }) => {
-        let moveAudio = new Audio(moveSound);
         let whiteToMove = this.props.whiteToMove;
         let selected = this.props.selectedCard
         // see if the move is legal
@@ -297,6 +296,8 @@ class HumanVsHuman extends Component {
         if (move === null) return;
 
         this.props.onUpdateFen(this.game.fen());
+
+        let moveAudio = new Audio(moveSound);
         this.playSound(moveAudio)
 
         // Do this after playing a combo
