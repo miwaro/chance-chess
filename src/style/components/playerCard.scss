@@ -14,19 +14,17 @@
 }
 
 .card-slot {
-    display: flex;
-    align-items: center;
-    margin: 0 8px;
-    width: 450px;
-    // background-color: #277714;
-    border-radius: 10px;
-    border: 1px solid orange;
-    // background-image: url('../../style/images/felt.jpg');
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../../style/images/felt.jpg');
+  display: flex;
+  align-items: center;
+  margin: 0 8px;
+  width: 450px;
+  // background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../../style/images/felt.jpg');
 }
 
+
+
   .deck-container {
-    height: 172px;
+    height: 173px;
     width: 123px;
     background-size: cover;
     transform: translateX(65px);

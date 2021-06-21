@@ -316,37 +316,74 @@ const Home = (props) => {
                   })}
                 </div>
 
+                {/* ********************Player Names ************************************ */}
+
                 <div style={{ position: 'absolute', top: '380px' }}>
                   {myTurn() &&
-                    <div style={{ marginLeft: '10px', color: 'white', fontWeight: 'bold', letterSpacing: '2px', fontSize: '18px' }}>
+                    <div style={{
+                      background: 'linear-gradient(90deg, rgba(255,165,0,1) 40%, rgba(208,143,23,1) 67%, rgba(255,165,0,0) 100%)',
+                      borderRadius: '10px',
+                      padding: '0 10px',
+                      width: '100px',
+                      marginLeft: '10px',
+                      color: 'black',
+                      fontWeight: '600',
+                      fontSize: '18px'
+                    }}>
                       {getOpponentUsername()}
                     </div>
-
                   }
                   {opponentTurn() &&
                     <>
-                      <div style={{ backgroundColor: 'orange', color: 'black', width: '100px', fontWeight: 'bold', borderRadius: '10px', padding: '0 10px', marginLeft: '15px' }}>
+                      <div
+                        style={{
+                          background: 'linear-gradient(90deg, rgba(255,165,0,1) 40%, rgba(208,143,23,1) 67%, rgba(255,165,0,0) 100%)',
+                          color: 'black',
+                          width: '100px',
+                          // width: 'fit-content',
+                          fontWeight: '600',
+                          borderRadius: '10px',
+                          padding: '0 10px',
+                          marginLeft: '15px'
+                        }}
+                      >
                         {getOpponentUsername()}
+                        <span className='arrow' style={{ fontSize: '20px' }}>⬅</span>
                       </div>
-                      <div style={{ color: 'white', fontSize: '80px', position: 'relative', top: '20px', left: '50px' }} className="arrowUp">⬆</div>
                     </>
                   }
                 </div>
 
-
                 <div>
                   {myTurn() &&
-                    <div style={{ backgroundColor: 'orange', color: 'black', width: '100px', fontWeight: 'bold', borderRadius: '10px', padding: '0 10px', marginLeft: '15px' }}>
+                    <div
+                      style={{
+                        // backgroundColor: 'orange',
+                        background: 'linear-gradient(90deg, rgba(255,165,0,1) 40%, rgba(208,143,23,1) 67%, rgba(255,165,0,0) 100%)',
+                        color: 'black',
+                        width: '100px',
+                        fontWeight: '600',
+                        borderRadius: '10px',
+                        padding: '0 10px',
+                        marginLeft: '15px'
+                      }}>
                       {getOwnUsername()}
-                      <div style={{ position: 'absolute', top: '440px', color: 'white', fontSize: '80px' }} className="arrowDown">⬇</div>
-
+                      <span className='arrow' style={{ fontSize: '20px' }}>⬅</span>
                     </div>
                   }
                   {opponentTurn() &&
-                    <div style={{ backgroundColor: 'rgb(62 50 50)', padding: '0 10px', width: '100px', borderRadius: '10px', marginLeft: '10px', color: 'white', letterSpacing: '2px' }}>{getOwnUsername()}</div>
+                    <div
+                      style={{
+                        background: 'linear-gradient(90deg, rgba(255,165,0,1) 40%, rgba(208,143,23,1) 67%, rgba(255,165,0,0) 100%)',
+                        fontWeight: '600',
+                        padding: '0 10px',
+                        width: '100px',
+                        borderRadius: '10px',
+                        marginLeft: '10px',
+                        color: 'black',
+                      }}>{getOwnUsername()}</div>
                   }
                 </div>
-
               </>
             }
 
@@ -370,13 +407,13 @@ const Home = (props) => {
             {playerNumber === 1 &&
               <>
                 <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
-                <div style={{ display: 'flex', margin: '0 auto', width: '450px', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', width: '450px', justifyContent: 'space-around' }}>
                   <Button
                     onClick={discardAllP1}
                     style={{
                       backgroundColor: ' rgb(129 36 36)',
                       color: 'white',
-                      width: '50%',
+                      width: '40%',
                       border: '1px solid black',
                     }}>
                     Discard All
@@ -386,7 +423,7 @@ const Home = (props) => {
                       backgroundColor: 'rgb(50 155 42)',
                       color: 'white',
                       border: '1px solid black',
-                      width: '50%',
+                      width: '40%'
                     }}
                     onClick={() => onSelectAll()}
                   >
@@ -396,26 +433,22 @@ const Home = (props) => {
 
                 {/* Icons Sections */}
 
-                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-around', margin: '40px 0 0 0' }}>
                   <Tooltip title="RESIGN">
                     <div
                       className="title"
                       onClick={resign}
                       style={{
                         cursor: 'pointer',
-                        fontSize: '30px',
-                        marginLeft: '10px'
+                        fontSize: '24px',
+                        padding: '7px'
                       }}>
                       🏳
                     </div>
                   </Tooltip>
-
                   <Tooltip title="RULES">
-                    <div>
-                      <Rules />
-                    </div>
+                    <Rules />
                   </Tooltip>
-
                   <Tooltip title="KEY">
                     <div>
                       <Key />
@@ -435,7 +468,7 @@ const Home = (props) => {
                     style={{
                       backgroundColor: ' rgb(129 36 36)',
                       color: 'white',
-                      width: '50%',
+                      width: '40%',
                       border: '1px solid black',
                     }}>
                     Discard All
@@ -445,14 +478,14 @@ const Home = (props) => {
                       backgroundColor: 'rgb(50 155 42)',
                       color: 'white',
                       border: '1px solid black',
-                      width: '50%',
+                      width: '40%',
                     }}
                     onClick={() => onSelectAll()}
                   >
                     Select All
                   </Button>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '30px' }}>
                   <div
                     onClick={resign}
                     style={{
@@ -463,8 +496,8 @@ const Home = (props) => {
                     🏳
                   </div>
                   <Rules />
-                  <Key />
                 </div>
+                <Key />
               </>
             }
           </div>

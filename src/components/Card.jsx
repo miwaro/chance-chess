@@ -94,6 +94,13 @@ const Card = (props) => {
     };
   };
 
+  const drawCards = () => {
+    if (props.front === true) { return }
+
+    props.onDrawCards();
+
+  }
+
 
   const getSelectedCard = (card, cardIndex) => {
     let allSelected = props.allSelected;
@@ -112,11 +119,17 @@ const Card = (props) => {
     props.onChangeTurn();
   }
 
+  console.log(props.front)
+
 
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
-  // let btn_class = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
+  let btn_class = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
+  // let btn_class = null;
 
-  let btn_class = 'card';
+
+
+
+  // let btn_class = 'card';
   let player1Suits = props.player1Cards.map(card => card.suits);
   let player2Suits = props.player2Cards.map(card => card.suits);
 
@@ -203,6 +216,7 @@ const Card = (props) => {
     let straight_Style = !props.disabled && isAStraight ? "rotate" : "";
     let straight_Style2 = !props.disabled && isAStraight ? "rotate" : "";
 
+
     return (
       <div
         className={btn_class}
@@ -219,7 +233,6 @@ const Card = (props) => {
               padding: '5px',
               border: 'none',
               color: 'red',
-              transform: 'scale(1.3)',
               cursor: 'pointer',
               borderRadius: '4px'
             }}>
@@ -351,7 +364,7 @@ const Card = (props) => {
               }}>
               <img
                 src={addIcon} alt="add-icon"
-                onClick={() => props.onDrawCards()}
+                onClick={() => drawCards()}
               />
             </div>
           </Tooltip>

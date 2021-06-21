@@ -61,7 +61,48 @@
   }
 }
 
-
+.cardWithoutAnimation {
+  font-weight: 600;
+  margin: 0 10px;
+  height: 160px;
+  width: 124px;
+  cursor: pointer;
+  background-color: white;
+  background-size: cover;
+  position: relative;
+  border-radius: 10px;
+  font-size: 16px;
+  -o-transition-property: none !important;
+  -moz-transition-property: none !important;
+  -ms-transition-property: none !important;
+  -webkit-transition-property: none !important;
+  transition-property: none !important;
+  /*CSS transforms*/
+  -o-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -webkit-transform: none !important;
+  transform: none !important;
+  /*CSS animations*/
+  -webkit-animation: none !important;
+  -moz-animation: none !important;
+  -o-animation: none !important;
+  -ms-animation: none !important;
+  animation: none !important;
+  &:hover {
+    transform: scale(1.1)
+  }
+  @include transition (all, 0.25s, ease);
+  @include bp-medium {
+    margin-left: -195px;
+  }
+  @include bp-small {
+    margin-left: -198px;    
+  }
+  @include bp-mobileOnly {
+    margin-left: -200px;    
+  }
+}
 
 
 .clicked-card {
@@ -91,6 +132,12 @@
     margin-left: -200px;    
   }
 }
+
+
+.noAnimation {
+  /*CSS transitions*/
+
+  }
 
 // @-webkit-keyframes shadow-drop-2-center {
 //   0% {

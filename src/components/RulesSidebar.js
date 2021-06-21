@@ -32,7 +32,7 @@ class RulesSidebar extends Component {
             <DialogActions className='close-button'>
                 <Button onClick={this.handleClose} style={{ backgroundColor: 'orange', marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
                     Close
-            </Button>
+                </Button>
 
             </DialogActions>
 
@@ -62,9 +62,9 @@ class RulesSidebar extends Component {
                                 style={{
                                     cursor: 'pointer',
                                     fontSize: '24px'
-                                }}>📕
-                                </div>
 
+                                }}>📕
+                            </div>
                         </div>
 
                         <SwipeableDrawer

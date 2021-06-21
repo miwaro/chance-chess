@@ -25,8 +25,9 @@ body {
   cursor: 'pointer !important';
   display: flex; 
   margin-top: 80px;
-  border: 2px solid orange;
+  border: 20px solid;
   border-radius: 20px;
+  border-image: url('./style/images/border.jpg') 30% stretch;
 }
 
 .App-logo {
