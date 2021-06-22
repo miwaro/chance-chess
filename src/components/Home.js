@@ -485,42 +485,63 @@ const Home = (props) => {
             {playerNumber === 2 &&
               <>
                 <Player2CardContainer playerNumber={playerNumber} disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', width: '450px' }}>
                   <Button
                     onClick={discardAllP2}
                     style={{
                       backgroundColor: ' rgb(129 36 36)',
                       color: 'white',
-                      width: '40%',
+                      width: '33%',
                       border: '1px solid black',
                     }}>
                     Discard All
                   </Button>
+                  <img style={{ paddingRight: '10px' }} width='80' height='40' src={star} alt="star"></img>
+
                   <Button
                     style={{
                       backgroundColor: 'rgb(50 155 42)',
                       color: 'white',
                       border: '1px solid black',
-                      width: '40%',
+                      width: '33%',
                     }}
                     onClick={() => onSelectAll()}
                   >
                     Select All
                   </Button>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '30px' }}>
-                  <div
-                    onClick={resign}
-                    style={{
-                      cursor: 'pointer',
-                      fontSize: '30px',
-                      marginLeft: '10px'
-                    }}>
-                    🏳
-                  </div>
-                  <Rules />
+                <div
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                >
+                  <Tooltip title="RESIGN" placement="right">
+                    <div
+                      onClick={resign}
+                      className="iconHover"
+                    >
+                      <img style={{
+                        cursor: 'pointer',
+                        fontSize: '24px',
+                        padding: '7px',
+                        width: '65px',
+                        height: '65px',
+                        marginTop: '10px',
+                        transform: 'translateX(14px)'
+                      }} src={resignChip} alt="pokerChip with flag"></img>
+                    </div>
+                  </Tooltip>
+
+                  <Tooltip title="RULES" placement="bottom">
+                    <div className="iconHover">
+                      <Rules />
+                    </div>
+                  </Tooltip>
+
+                  <Tooltip title="KEY" placement="bottom">
+                    <div className="iconHover" style={{ transform: 'translate(10px)' }}>
+                      <Key />
+                    </div>
+                  </Tooltip>
                 </div>
-                <Key />
               </>
             }
           </div>
