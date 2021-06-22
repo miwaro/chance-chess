@@ -4,6 +4,8 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Rules from './Rules';
 import DialogActions from '@material-ui/core/DialogActions';
 import '../style/components/key.scss';
+import rulesChip from "../style/images/rulesChip.png";
+
 
 
 class RulesSidebar extends Component {
@@ -61,9 +63,12 @@ class RulesSidebar extends Component {
                             <div
                                 style={{
                                     cursor: 'pointer',
-                                    fontSize: '24px'
+                                    fontSize: '24px',
+                                    transform: 'translateX(35px)',
+                                    paddingLeft: '10px'
+                                }}>
+                                <img src={rulesChip} alt="poker-chip-with-scroll-on-it" />
 
-                                }}>📕
                             </div>
                         </div>
 

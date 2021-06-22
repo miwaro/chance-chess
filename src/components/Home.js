@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import "../App.css";
 import '../style/components/player1.scss';
 import '../style/components/playerCard.scss';
+import '../style/components/key.scss';
+import resignChip from "../style/images/resignChip.png";
+import star from "../style/images/star.png";
 import Header from '../components/Header';
 import Tooltip from '@material-ui/core/Tooltip';
 import moveSound from '../audio/capture.mp3';
@@ -34,6 +37,7 @@ import {
 import { updateUsers, setPlayerOne, setPlayerTwo } from '../redux/actions/userActions';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { socket } from "../connection/socket";
+import { Translate } from "@material-ui/icons";
 
 const Home = (props) => {
 
@@ -415,23 +419,25 @@ const Home = (props) => {
             {playerNumber === 1 &&
               <>
                 <Player1CardContainer playerNumber={playerNumber} disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
-                <div style={{ display: 'flex', width: '450px', justifyContent: 'space-around' }}>
+                <div style={{ display: 'flex', width: '450px', justifyContent: 'center' }}>
                   <Button
                     onClick={discardAllP1}
                     style={{
                       backgroundColor: ' rgb(129 36 36)',
                       color: 'white',
-                      width: '40%',
+                      width: '33%',
                       border: '1px solid black',
                     }}>
                     Discard All
                   </Button>
+                  <img style={{ paddingRight: '10px' }} width='80' height='40' src={star} alt="star"></img>
+
                   <Button
                     style={{
                       backgroundColor: 'rgb(50 155 42)',
                       color: 'white',
                       border: '1px solid black',
-                      width: '40%'
+                      width: '33%'
                     }}
                     onClick={() => onSelectAll()}
                   >
@@ -441,29 +447,38 @@ const Home = (props) => {
 
                 {/* Icons Sections */}
 
-                <div style={{ display: 'flex', justifyContent: 'space-around', margin: '40px 0 0 0' }}>
-                  <Tooltip title="RESIGN">
+                <div
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                >
+                  <Tooltip title="RESIGN" placement="right">
                     <div
-                      className="title"
                       onClick={resign}
-                      style={{
+                      className="iconHover"
+                    >
+                      <img style={{
                         cursor: 'pointer',
                         fontSize: '24px',
-                        padding: '7px'
-                      }}>
-                      🏳
+                        padding: '7px',
+                        width: '65px',
+                        height: '65px',
+                        marginTop: '10px',
+                        transform: 'translateX(14px)'
+                      }} src={resignChip} alt="pokerChip with flag"></img>
                     </div>
                   </Tooltip>
-                  <Tooltip title="RULES">
-                    <Rules />
+
+                  <Tooltip title="RULES" placement="bottom">
+                    <div className="iconHover">
+                      <Rules />
+                    </div>
                   </Tooltip>
-                  <Tooltip title="KEY">
-                    <div>
+
+                  <Tooltip title="KEY" placement="bottom">
+                    <div className="iconHover" style={{ transform: 'translate(10px)' }}>
                       <Key />
                     </div>
                   </Tooltip>
                 </div>
-
               </>
             }
 

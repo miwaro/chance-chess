@@ -4,7 +4,7 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Key from './correlationKey';
 import DialogActions from '@material-ui/core/DialogActions';
 import '../style/components/key.scss';
-
+import key from "../style/images/key.png";
 
 class KeySidebar extends Component {
     constructor(props) {
@@ -32,10 +32,8 @@ class KeySidebar extends Component {
             <DialogActions className='close-button'>
                 <Button onClick={this.handleClose} style={{ backgroundColor: 'orange', marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
                     Close
-            </Button>
-
+                </Button>
             </DialogActions>
-
         </div>
     );
 
@@ -55,15 +53,11 @@ class KeySidebar extends Component {
                     <Fragment key={anchor}>
 
                         <div
-                            className='title'
+                            style={{ backgroundImage: `url(${key})` }}
                             onClick={this.toggleDrawer(anchor, true)}
                         >
-                            <div
-                                style={{
-                                    cursor: 'pointer',
-                                    fontSize: '24px'
-                                }}>
-                                🔑
+                            <div className="iconHover">
+                                <img src={key} alt="poker-chip-with-key-on-it" />
                             </div>
                         </div>
 

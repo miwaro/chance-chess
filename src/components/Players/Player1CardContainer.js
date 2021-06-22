@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import '../../style/components/player1.scss';
 import '../../style/components/playerCard.scss';
+import star from "../../style/images/star.png";
 import Card from '../Card';
 
 
@@ -29,7 +30,6 @@ function Player1CardContainer(props) {
                         </div>
                     ))}
                 </div>
-
                 {props.player1Cards.length === 0 &&
                     < div className={'placeholder-container'}>
                         <div className={'placeholder'}></div>

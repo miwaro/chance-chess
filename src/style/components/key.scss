@@ -14,20 +14,17 @@
     padding-top: 40px;
 }
 
-.title {
-    text-align: center;
-    display: flex;
-    justify-content: center;
+.iconHover {
     transition: transform .4s;
-    background: linear-gradient(90deg, #123709 0%, #277714 24%, #33b115 85%);
-    border-radius: 50%;
-    padding: 7px;
     &:hover {
-      transform: scale(1.2);
-      background: linear-gradient(90deg, #1f5f0f 0%, #319219 24%, #40d41b 65%);
-
-
+      transform: scale(1.1);
     }
+}
+
+.keyIcon {
+  height: 20px;
+  width: 20px;
+  background-image: url("../images/pokerChip.png");
 }
 
 .discard-all {
