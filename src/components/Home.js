@@ -28,7 +28,8 @@ import {
   setPlayer2Card,
   updateGameIfStale,
   newGame,
-  gameOver
+  gameOver,
+  setAnimateCards
 } from "../redux/actions/cardActions";
 import { updateUsers, setPlayerOne, setPlayerTwo } from '../redux/actions/userActions';
 import { useQueryParam, StringParam } from 'use-query-params';
@@ -38,6 +39,7 @@ const Home = (props) => {
 
   let [whiteToMove, setWhiteToMove] = useState();
 
+  let noTransition;
   let playerNumber;
   const isCreator = localStorage.getItem(props.gameId);
   if (isCreator) playerNumber = 1;
@@ -92,6 +94,9 @@ const Home = (props) => {
       if (playerNumber === 2 && move.gameState.whiteToMove) return;
 
       if (move.gameState.whiteToMove !== whiteToMove) {
+
+        props.setAnimateCards(false);
+
         setWhiteToMove(move.gameState.whiteToMove)
         const whiteToMove = props.whiteToMove;
         const fen = props.fen;
@@ -109,6 +114,7 @@ const Home = (props) => {
           }
         }
       }
+
     })
   })
 
@@ -132,9 +138,9 @@ const Home = (props) => {
 
       localStorage.setItem(`${props.gameId}-game`, JSON.stringify({ ...props.chanceChessState }));
 
-      setTimeout(() => {
-        socket.emit('new move', { ...newState });
-      }, 1000)
+      // setTimeout(() => {
+      //   socket.emit('new move', { ...newState });
+      // }, 500)
     }
   }, [props.whiteToMove])
 
@@ -188,6 +194,7 @@ const Home = (props) => {
   }
 
   const discardAllP1 = () => {
+    props.setAnimateCards(false)
     let whiteToMove = props.whiteToMove;
 
     if (playerNumber === 1 && !whiteToMove) {
@@ -201,6 +208,7 @@ const Home = (props) => {
   }
 
   const discardAllP2 = () => {
+    props.setAnimateCards(false)
     let whiteToMove = props.whiteToMove;
 
     if (playerNumber === 1 && !whiteToMove) {
@@ -298,10 +306,10 @@ const Home = (props) => {
           <div className='card-containers'>
 
             {playerNumber === 1 &&
-              <Player2CardContainer disableControls={playerNumber === 1} cards={props.player2Cards || []} allCardsSelected={props.allSelected} />
+              <Player2CardContainer playerNumber={playerNumber} blockAnimation={true} disableControls={playerNumber === 1} noTransition={'noTransition'} cards={props.player2Cards || []} allCardsSelected={props.allSelected} />
             }
             {playerNumber === 2 &&
-              <Player1CardContainer disableControls={playerNumber === 2} cards={props.player1Cards || []} allCardsSelected={props.allSelected} />
+              <Player1CardContainer playerNumber={playerNumber} blockAnimation={true} disableControls={playerNumber === 2} noTransition={'noTransition'} cards={props.player1Cards || []} allCardsSelected={props.allSelected} />
             }
 
             {props.cardsArray && props.cardsArray.length > 0 &&
@@ -310,7 +318,7 @@ const Home = (props) => {
                   {props.cardsArray && props.cardsArray.map((card, index) => {
                     return (
                       <div key={index}>
-                        <Card suits={card.suits} onDrawCards={onDrawCards} card={card.card} color={card.color} front={false} />
+                        <Card suits={card.suits} animationCount={0} onDrawCards={onDrawCards} card={card.card} color={card.color} front={false} />
                       </div>
                     );
                   })}
@@ -348,7 +356,7 @@ const Home = (props) => {
                         }}
                       >
                         {getOpponentUsername()}
-                        <span className='arrow' style={{ fontSize: '20px' }}>⬅</span>
+                        <span className='arrow' style={{ fontSize: '18px' }}>⬅</span>
                       </div>
                     </>
                   }
@@ -368,7 +376,7 @@ const Home = (props) => {
                         marginLeft: '15px'
                       }}>
                       {getOwnUsername()}
-                      <span className='arrow' style={{ fontSize: '20px' }}>⬅</span>
+                      <span className='arrow' style={{ fontSize: '18px' }}>⬅</span>
                     </div>
                   }
                   {opponentTurn() &&
@@ -406,7 +414,7 @@ const Home = (props) => {
 
             {playerNumber === 1 &&
               <>
-                <Player1CardContainer disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
+                <Player1CardContainer playerNumber={playerNumber} disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
                 <div style={{ display: 'flex', width: '450px', justifyContent: 'space-around' }}>
                   <Button
                     onClick={discardAllP1}
@@ -461,7 +469,7 @@ const Home = (props) => {
 
             {playerNumber === 2 &&
               <>
-                <Player2CardContainer disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
+                <Player2CardContainer playerNumber={playerNumber} disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Button
                     onClick={discardAllP2}
@@ -558,7 +566,8 @@ const mapDispatchToProps = dispatch => {
     setCard: (player1Cards, cardsArray) => dispatch(setCard(player1Cards, cardsArray)),
     setPlayer2Card: (player2Cards, cardsArray) => dispatch(setPlayer2Card(player2Cards, cardsArray)),
     newGame: () => dispatch(newGame()),
-    gameOver: winner => dispatch(gameOver(winner))
+    gameOver: winner => dispatch(gameOver(winner)),
+    setAnimateCards: bool => dispatch(setAnimateCards(bool))
   }
 }
 

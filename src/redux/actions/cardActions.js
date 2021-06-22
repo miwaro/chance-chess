@@ -133,4 +133,11 @@ export const newGame = () => {
     };
 };
 
+export const setAnimateCards = (animateCards) => {
+    return {
+        type: actionTypes.SET_ANIMATE_CARDS,
+        animateCards
+    };
+};
+
 

@@ -13,7 +13,8 @@ import {
     selectAll,
     updateFen,
     setCapturedPieces,
-    gameOver
+    gameOver,
+    setAnimateCards
 } from "../redux/actions/cardActions";
 
 class HumanVsHuman extends Component {
@@ -44,6 +45,8 @@ class HumanVsHuman extends Component {
             this.game = new Chess(this.props.fen);
         }
         else this.game = new Chess();
+
+        // this.game = new Chess();
 
         this.props.onShuffle();
     }
@@ -284,6 +287,8 @@ class HumanVsHuman extends Component {
     };
 
     onDrop = ({ sourceSquare, targetSquare }) => {
+        this.props.setAnimateCards(false)
+
         let whiteToMove = this.props.whiteToMove;
         let selected = this.props.selectedCard
         // see if the move is legal
@@ -294,6 +299,7 @@ class HumanVsHuman extends Component {
         });
 
         if (move === null) return;
+
 
         this.props.onUpdateFen(this.game.fen());
 
@@ -338,10 +344,14 @@ class HumanVsHuman extends Component {
 
         this.props.setCapturedPieces(captured);
 
+        // this.props.onRemoveSelected(this.props.selectedCard[1])
+        // setTimeout(() => {
+        //     this.props.onChangeTurn();
+        // }, 1000)
         this.props.onRemoveSelected(this.props.selectedCard[1])
-        setTimeout(() => {
-            this.props.onChangeTurn();
-        }, 1000)
+
+        this.props.onChangeTurn();
+
     }
 
     render() {
@@ -384,7 +394,8 @@ const mapDispatchToProps = dispatch => {
         onSelectAll: () => dispatch(selectAll()),
         onUpdateFen: (fen) => dispatch(updateFen(fen)),
         setCapturedPieces: pieces => dispatch(setCapturedPieces(pieces)),
-        gameOver: winner => dispatch(gameOver(winner))
+        gameOver: winner => dispatch(gameOver(winner)),
+        setAnimateCards: bool => dispatch(setAnimateCards(bool))
     }
 }
 

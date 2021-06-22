@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
-import { selectCard, removeSelectedCard, changeTurn, getCard, getPlayer2Card } from '../redux/actions/cardActions'
+import { selectCard, removeSelectedCard, changeTurn, getCard, getPlayer2Card, setAnimateCards } from '../redux/actions/cardActions'
 
 import PropTypes from "prop-types";
 import Tooltip from '@material-ui/core/Tooltip';
@@ -30,12 +30,15 @@ import blackKingImg from "../style/images/chessPieces/black/blackKing.png";
 
 import "../style/components/card.scss";
 import "../style/components/playerCard.scss";
-import { transform } from "typescript";
+var classNames = require('classnames');
 
 const Card = (props) => {
 
-  const { suits, card, front, color, cardIndex, cardPiece, allCardsSelected } = props;
+  const { suits, card, front, color, cardIndex, cardPiece, allCardsSelected, animationCount } = props;
 
+  let [className, setClassName] = useState('animatedCards');
+
+  let [selectedClassName, setSelectedClassName] = useState('');
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -95,41 +98,93 @@ const Card = (props) => {
   };
 
   const drawCards = () => {
-    if (props.front === true) { return }
-
-    props.onDrawCards();
-
+    if (props.whiteToMove && props.player1Cards.length === 3) {
+      return
+    } else {
+      props.setAnimateCards(true);
+      props.onDrawCards();
+    }
   }
+
+  useEffect(() => {
+    if (props.animateCards) {
+      if (className !== 'card-block_animations' && isMyTurn(props.playerNumber)) {
+        animate();
+      }
+    } else {
+      setClassName('card')
+    }
+  }, [props.animateCards, props.playerNumber])
+
+  useEffect(() => {
+    if (props.blockAnimation) {
+      setClassName('card-block_animations')
+    }
+  }, [props.blockAnimation])
+
+  const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
+  const updatedClassName = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "";
+  if (updatedClassName !== selectedClassName) {
+    setSelectedClassName(updatedClassName)
+  }
+
+
+
+  // useEffect(() => {
+  //   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
+  //   const updatedClassName = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
+  //   if (updatedClassName !== className) {
+
+  //     setClassName(updatedClassName)
+  //   }
+  // }, [])
+
+  const isMyTurn = (playerNumber) => {
+
+    console.log('white to move?: ', + props.whiteToMove)
+
+    if (playerNumber === 1 && props.whiteToMove) {
+      console.log('is my turn')
+      return true;
+    }
+    if (playerNumber === 2 && !props.whiteToMove) {
+      console.log('is my turn')
+      return true;
+    }
+    console.log('aint gonna be no america my turn')
+    return false;
+  }
+
+  const animate = () => {
+    setClassName('animatedCards');
+  }
+
+  // const cardClasses = () => {
+  //   return classNames({
+  //     card: className === 'card',
+  //     animatedCards: className === 'animatedCards',
+  //     'card-block_animations': className === 'card-block_animations',
+  //     'clicked-card': selectedClassName === 'clicked-card'
+  //   });
+  // }
 
 
   const getSelectedCard = (card, cardIndex) => {
     let allSelected = props.allSelected;
-
     if (props.disabled || allSelected) {
-      console.log(props.player1Cards.length)
       return;
     }
     props.onSelectCard(card, cardIndex);
   }
 
-
   const discardOne = (selectedCardIndex) => {
     if (props.selectedCard.length === 0 || cardIndex !== props.selectedCard[1]) return;
+    props.setAnimateCards(false);
     props.onRemoveSelected(selectedCardIndex)
     props.onChangeTurn();
   }
 
-  console.log(props.front)
 
-
-  const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
-  let btn_class = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
-  // let btn_class = null;
-
-
-
-
-  // let btn_class = 'card';
   let player1Suits = props.player1Cards.map(card => card.suits);
   let player2Suits = props.player2Cards.map(card => card.suits);
 
@@ -219,7 +274,7 @@ const Card = (props) => {
 
     return (
       <div
-        className={btn_class}
+        className={className}
         style={{ color: `${color}` }}
         onClick={() => getSelectedCard(card, cardIndex)}
       >
@@ -280,7 +335,7 @@ const Card = (props) => {
       <>
         <div
           onClick={() => getSelectedCard(card, cardIndex)}
-          className={btn_class}>
+          className={className}>
           <img src={joker} alt="suit-symbol" style={{
             height: '172px',
             width: '140px',
@@ -386,7 +441,8 @@ const mapStateToProps = (state) => {
     selectedCard: state.chanceChessReducer.selectedCard,
     cardsArray: state.chanceChessReducer.cardsArray,
     allSelected: state.chanceChessReducer.allSelected,
-    gameId: state.usersReducer.gameId
+    gameId: state.usersReducer.gameId,
+    animateCards: state.chanceChessReducer.animateCards
   }
 }
 
@@ -397,7 +453,9 @@ const mapDispatchToProps = dispatch => {
     onRemoveSelected: (selectedCardIndex) => dispatch(removeSelectedCard(selectedCardIndex)),
     onChangeTurn: () => dispatch(changeTurn()),
     onGetCard: () => dispatch(getCard()),
-    onGetCardForPlayer2: () => dispatch(getPlayer2Card())
+    onGetCardForPlayer2: () => dispatch(getPlayer2Card()),
+    setAnimateCards: bool => dispatch(setAnimateCards(bool))
+
   }
 }
 

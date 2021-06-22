@@ -18,8 +18,11 @@ function Player2CardContainer(props) {
                     {props.cards.map(card => (
                         <div key={uuidv4()}>
                             <Card
+                                playerNumber={props.playerNumber}
+                                blockAnimation={props.blockAnimation}
                                 allCardsSelected={props.allCardsSelected}
                                 disabled={props.disableControls}
+                                noTransition={props.noTransition}
                                 cardIndex={card.index}
                                 suits={card.suits}
                                 card={card.card}

@@ -1,7 +1,7 @@
 @import "../mixins.scss";
 
 
-.card {
+.animatedCards {
   font-weight: 600;
   margin: 0 10px;
   height: 160px;
@@ -27,6 +27,34 @@
   }
   -webkit-animation: tilt-in-top-1 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   animation: tilt-in-top-1 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.card, .card-block_animations {
+  font-weight: 600;
+  margin: 0 10px;
+  height: 160px;
+  width: 124px;
+  cursor: pointer;
+  background-color: white;
+  background-size: cover;
+  position: relative;
+  border-radius: 10px;
+  font-size: 16px;
+  &:hover {
+    transform: scale(1.1)
+  }
+  @include transition (all, 0.25s, ease);
+  @include bp-medium {
+    margin-left: -195px;
+  }
+  @include bp-small {
+    margin-left: -198px;    
+  }
+  @include bp-mobileOnly {
+    margin-left: -200px;    
+  }
+  // -webkit-animation: tilt-in-top-1 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  // animation: tilt-in-top-1 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .addIcon {
@@ -61,37 +89,63 @@
   }
 }
 
-.cardWithoutAnimation {
+// .noTransition {
+//   font-weight: 600;
+//   margin: 0 10px;
+//   height: 160px;
+//   width: 124px;
+//   cursor: pointer;
+//   background-color: white;
+//   background-size: cover;
+//   position: relative;
+//   border-radius: 10px;
+//   font-size: 16px;
+//   -o-transition-property: none !important;
+//   -moz-transition-property: none !important;
+//   -ms-transition-property: none !important;
+//   -webkit-transition-property: none !important;
+//   transition-property: none !important;
+//   /*CSS transforms*/
+//   -o-transform: none !important;
+//   -moz-transform: none !important;
+//   -ms-transform: none !important;
+//   -webkit-transform: none !important;
+//   transform: none !important;
+//   /*CSS animations*/
+//   -webkit-animation: none !important;
+//   -moz-animation: none !important;
+//   -o-animation: none !important;
+//   -ms-animation: none !important;
+//   animation: none !important;
+//   &:hover {
+//     transform: scale(1.1)
+//   }
+//   @include transition (all, 0.25s, ease);
+//   @include bp-medium {
+//     margin-left: -195px;
+//   }
+//   @include bp-small {
+//     margin-left: -198px;    
+//   }
+//   @include bp-mobileOnly {
+//     margin-left: -200px;    
+//   }
+// }
+
+
+.clicked-card {
   font-weight: 600;
+  cursor: pointer;
   margin: 0 10px;
   height: 160px;
-  width: 124px;
-  cursor: pointer;
+  width: 125px;
   background-color: white;
   background-size: cover;
+  border: 1px solid black;
+  transform: scale(1.4);
   position: relative;
   border-radius: 10px;
-  font-size: 16px;
-  -o-transition-property: none !important;
-  -moz-transition-property: none !important;
-  -ms-transition-property: none !important;
-  -webkit-transition-property: none !important;
-  transition-property: none !important;
-  /*CSS transforms*/
-  -o-transform: none !important;
-  -moz-transform: none !important;
-  -ms-transform: none !important;
-  -webkit-transform: none !important;
-  transform: none !important;
-  /*CSS animations*/
-  -webkit-animation: none !important;
-  -moz-animation: none !important;
-  -o-animation: none !important;
-  -ms-animation: none !important;
-  animation: none !important;
-  &:hover {
-    transform: scale(1.1)
-  }
+  font-size: 17px;
   @include transition (all, 0.25s, ease);
   @include bp-medium {
     margin-left: -195px;
@@ -104,68 +158,31 @@
   }
 }
 
-
-.clicked-card {
-  // -webkit-animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  // animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  font-weight: 600;
-  cursor: pointer;
-  margin: 0 10px;
-  height: 160px;
-  width: 125px;
-  background-color: white;
-  background-size: cover;
-  border: 1px solid black;
-  // opacity: 1;
-  transform: scale(1.1);
-  position: relative;
-  border-radius: 10px;
-  font-size: 17px;
-  // @include transition (all, 0.25s, ease);
-  @include bp-medium {
-    margin-left: -195px;
-  }
-  @include bp-small {
-    margin-left: -198px;    
-  }
-  @include bp-mobileOnly {
-    margin-left: -200px;    
-  }
-}
-
-
-.noAnimation {
-  /*CSS transitions*/
-
-  }
-
-// @-webkit-keyframes shadow-drop-2-center {
-//   0% {
-//     -webkit-transform: translateZ(0);
-//             transform: translateZ(0);
-//     -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-//             box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+// .noTransition {
+//   font-weight: 600;
+//   margin: 0 10px;
+//   height: 160px;
+//   width: 124px;
+//   cursor: pointer;
+//   background-color: white;
+//   background-size: cover;
+//   position: relative;
+//   border-radius: 10px;
+//   font-size: 16px;
+//   @include transition (all, 0.25s, ease);
+//   @include bp-medium {
+//     margin-left: -195px;
 //   }
-//   100% {
-//     -webkit-transform: translateZ(50px);
-//             transform: translateZ(50px);
-//     -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
-//             box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+//   @include bp-small {
+//     margin-left: -198px;    
 //   }
-// }
-// @keyframes shadow-drop-2-center {
-//   0% {
-//     -webkit-transform: translateZ(0);
-//             transform: translateZ(0);
-//     -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-//             box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+//   @include bp-mobileOnly {
+//     margin-left: -200px;    
 //   }
-//   100% {
-//     -webkit-transform: translateZ(50px);
-//             transform: translateZ(50px);
-//     -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
-//             box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
-//   }
+//   -webkit-transition: none !important;
+//   -moz-transition: none !important;
+//   -o-transition: none !important;
+//   transition: none !important;
 // }
 
 .rotate {
@@ -182,33 +199,3 @@
 }
 
 
-
-
-// move right--------move down-------rotate 180 degrees on the X axis
-// .animateTopLeft {
-//   animation: topLeft 3s both;
-//   animation-timing-function: ease;
-// }
-
-
-// // move left--------move up------rotate 180 degrees on the Xaxis
-// .animateBottomRight {
-//   animation: bottomRight 3s ease-out;
-//   animation-timing-function: ease;
-// }
-
-
-// @keyframes topLeft {
-//   0%   {top: 0px; left: 0px; transform: rotateX(0deg);}
-//   20%  {top: 0px; left: 100px; transform: rotateX(45deg);}
-//   40%  {top: 25px; left: 100px; transform: rotateX(90deg);}
-//   60%  {top: 50px; left: 100px; transform: rotateX(135deg);}
-//   80% {top: 75px; left: 100px; transform: rotateX(180deg);}
-//   100% {top: 100px; left: 100px; transform: rotateX(180deg);}
-// }
-
-// @keyframes bottomRight {
-//   0%   {top: 0px; left: 0px; background: red;}
-//   25%  {top: 0px; left: 100px; background: blue;}
-//   50%  {top: 100px; left: 100px; background: yellow;}
-// }

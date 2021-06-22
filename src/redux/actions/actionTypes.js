@@ -37,3 +37,5 @@ export const SET_CAPTURED_PIECES = 'SET_CAPTURED_PIECES';
 export const GAME_OVER = 'GAME_OVER';
 
 export const NEW_GAME = 'NEW_GAME';
+
+export const SET_ANIMATE_CARDS = 'SET_ANIMATE_CARDS';

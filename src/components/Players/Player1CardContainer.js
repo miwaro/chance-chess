@@ -14,9 +14,12 @@ function Player1CardContainer(props) {
                     {props.cards.map(card => (
                         <div key={uuidv4()}>
                             <Card
+                                playerNumber={props.playerNumber}
+                                blockAnimation={props.blockAnimation}
                                 allCardsSelected={props.allCardsSelected}
                                 disabled={props.disableControls}
                                 cardIndex={card.index}
+                                noTransition={props.noTransition}
                                 suits={card.suits}
                                 card={card.card}
                                 front={true}

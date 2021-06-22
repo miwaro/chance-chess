@@ -16,7 +16,8 @@ const initialState = {
         B: { p: 0, n: 0, b: 0, r: 0, q: 0, k: 0 }
     },
     winner: null,
-    lastUpdated: Date.now()
+    lastUpdated: Date.now(),
+    animateCards: true
 }
 
 const reducer = (state = initialState, action) => {
@@ -272,6 +273,11 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.NEW_GAME:
             return { ...initialState, lastUpdated: Date.now() };
+
+        case actionTypes.SET_ANIMATE_CARDS:
+            return {
+                ...state, animateCards: action.animateCards
+            }
 
         default:
             return state;
