@@ -38,7 +38,7 @@ const Card = (props) => {
 
   let [className, setClassName] = useState('animatedCards');
 
-  let [selectedClassName, setSelectedClassName] = useState('');
+  let [selectedClassName, setSelectedClassName] = useState('card-container');
 
   const getCardSymbol = (suits) => {
     let symbol;
@@ -123,7 +123,7 @@ const Card = (props) => {
   }, [props.blockAnimation])
 
   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
-  const updatedClassName = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "";
+  const updatedClassName = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card-container";
   if (updatedClassName !== selectedClassName) {
     setSelectedClassName(updatedClassName)
   }
@@ -273,58 +273,60 @@ const Card = (props) => {
 
 
     return (
-      <div
-        className={className}
-        style={{ color: `${color}` }}
-        onClick={() => getSelectedCard(card, cardIndex)}
-      >
-        {props.selectedCard.length > 0 && cardIndex === props.selectedCard[1] &&
+      <div className={selectedClassName}>
+        <div
+          className={className}
+          style={{ color: `${color}` }}
+          onClick={() => getSelectedCard(card, cardIndex)}
+        >
+          {props.selectedCard.length > 0 && cardIndex === props.selectedCard[1] &&
+            <button
+              onClick={() => discardOne(props.selectedCard[1])}
+              style={{
+                position: 'absolute',
+                top: '5px',
+                right: '5px',
+                padding: '5px',
+                border: 'none',
+                color: 'red',
+                cursor: 'pointer',
+                borderRadius: '4px'
+              }}>
+              Discard
+            </button>
+          }
           <button
-            onClick={() => discardOne(props.selectedCard[1])}
+            onClick={() => getSelectedCard(card, cardIndex)}
             style={{
               position: 'absolute',
-              top: '5px',
-              right: '5px',
-              padding: '5px',
+              bottom: '5px',
+              left: '5px',
               border: 'none',
-              color: 'red',
+              padding: '5px',
               cursor: 'pointer',
               borderRadius: '4px'
             }}>
-            Discard
+            Select
           </button>
-        }
-        <button
-          onClick={() => getSelectedCard(card, cardIndex)}
-          style={{
-            position: 'absolute',
-            bottom: '5px',
-            left: '5px',
-            border: 'none',
-            padding: '5px',
-            cursor: 'pointer',
-            borderRadius: '4px'
-          }}>
-          Select
-        </button>
 
-        <div style={{ position: "absolute", top: 5, left: 5 }}>
-          <div className={straight_Style} style={{ maxWidth: 25 }}>{card}</div>
-          <div className={symbol_Style}>
-            <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
+          <div style={{ position: "absolute", top: 5, left: 5 }}>
+            <div className={straight_Style} style={{ maxWidth: 25 }}>{card}</div>
+            <div className={symbol_Style}>
+              <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
+            </div>
           </div>
-        </div>
 
-        {color === 'red' ?
-          <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
-          :
-          <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
-        }
+          {color === 'red' ?
+            <div><img src={redChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+            :
+            <div><img src={blackChessPiece} alt="red-chess-piece" style={{ height: 42, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} /></div>
+          }
 
-        <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
-          <div className={straight_Style2} style={{ maxWidth: 25 }}>{card}</div>
-          <div className={symbol_Style}>
-            <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
+          <div style={{ position: "absolute", bottom: 5, right: 5, transform: "rotate(-180deg)" }}>
+            <div className={straight_Style2} style={{ maxWidth: 25 }}>{card}</div>
+            <div className={symbol_Style}>
+              <img src={cardSymbol} alt="suit-symbol" style={{ maxWidth: 25 }} />
+            </div>
           </div>
         </div>
       </div>

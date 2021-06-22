@@ -3,7 +3,6 @@
 
 .animatedCards {
   font-weight: 600;
-  margin: 0 10px;
   height: 160px;
   width: 124px;
   cursor: pointer;
@@ -31,13 +30,14 @@
 
 .card, .card-block_animations {
   font-weight: 600;
-  margin: 0 10px;
+  // margin: 0 10px;
   height: 160px;
   width: 124px;
   cursor: pointer;
   background-color: white;
   background-size: cover;
   position: relative;
+
   border-radius: 10px;
   font-size: 16px;
   &:hover {
@@ -134,15 +134,17 @@
 
 
 .clicked-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: 600;
   cursor: pointer;
   margin: 0 10px;
   height: 160px;
   width: 125px;
-  background-color: white;
   background-size: cover;
   border: 1px solid black;
-  transform: scale(1.4);
+  transform: scale(1.1);
   position: relative;
   border-radius: 10px;
   font-size: 17px;
@@ -157,6 +159,37 @@
     margin-left: -200px;    
   }
 }
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0 10px;
+  height: 160px;
+  width: 125px;
+  background-size: cover;
+  border: 1px solid black;
+  position: relative;
+  border-radius: 10px;
+  font-size: 17px;
+  @include transition (all, 0.25s, ease);
+  @include bp-medium {
+    margin-left: -195px;
+  }
+  @include bp-small {
+    margin-left: -198px;    
+  }
+  @include bp-mobileOnly {
+    margin-left: -200px;    
+  }
+
+  > * {
+    width: 100%;
+  }
+}
+
 
 // .noTransition {
 //   font-weight: 600;
