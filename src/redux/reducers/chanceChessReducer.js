@@ -43,7 +43,7 @@ const reducer = (state = initialState, action) => {
                 state.lastUpdated < Date.now() - (10 * 1000) &&
                 hasChanged(action.state, state)
             ) {
-                console.log('updating because stale', state.lastUpdated, Date.now() - (10 * 1000))
+                // console.log('updating because stale', state.lastUpdated, Date.now() - (10 * 1000))
                 localStorage.setItem(`${action.gameId}-game`, JSON.stringify({ ...action.state }));
                 return { ...action.state, lastUpdated: Date.now() };
             } else {

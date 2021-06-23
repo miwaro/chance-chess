@@ -63,9 +63,7 @@ class RulesSidebar extends Component {
                             <div
                                 style={{
                                     cursor: 'pointer',
-                                    fontSize: '24px',
-                                    transform: 'translateX(35px)',
-                                    paddingLeft: '10px'
+                                    fontSize: '24px'
                                 }}>
                                 <img src={rulesChip} alt="poker-chip-with-scroll-on-it" />
 

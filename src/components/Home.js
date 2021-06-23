@@ -4,8 +4,10 @@ import "../App.css";
 import '../style/components/player1.scss';
 import '../style/components/playerCard.scss';
 import '../style/components/key.scss';
+import "../style/components/card.scss";
 import resignChip from "../style/images/resignChip.png";
 import star from "../style/images/star.png";
+import addIcon from "../style/images/AddIcon.png";
 import Header from '../components/Header';
 import Tooltip from '@material-ui/core/Tooltip';
 import moveSound from '../audio/capture.mp3';
@@ -43,7 +45,6 @@ const Home = (props) => {
 
   let [whiteToMove, setWhiteToMove] = useState();
 
-  let noTransition;
   let playerNumber;
   const isCreator = localStorage.getItem(props.gameId);
   if (isCreator) playerNumber = 1;
@@ -153,6 +154,8 @@ const Home = (props) => {
   }
 
   const onSelectAll = () => {
+    props.setAnimateCards(false)
+
     let whiteToMove = props.whiteToMove;
 
     if (playerNumber === 1 && !whiteToMove) {
@@ -198,7 +201,6 @@ const Home = (props) => {
   }
 
   const discardAllP1 = () => {
-    props.setAnimateCards(false)
     let whiteToMove = props.whiteToMove;
 
     if (playerNumber === 1 && !whiteToMove) {
@@ -208,11 +210,12 @@ const Home = (props) => {
       return;
     }
     if (!whiteToMove || props.player1Cards.length === 0) return;
+    props.setAnimateCards(true)
+
     props.onDiscardAllCardsP1();
   }
 
   const discardAllP2 = () => {
-    props.setAnimateCards(false)
     let whiteToMove = props.whiteToMove;
 
     if (playerNumber === 1 && !whiteToMove) {
@@ -222,20 +225,20 @@ const Home = (props) => {
       return;
     }
     if (whiteToMove || props.player2Cards.length === 0) return;
+    props.setAnimateCards(true)
+
     props.onDiscardAllCardsP2();
   }
 
   const resign = () => {
-    let whiteToMove = props.whiteToMove;
 
-    if (whiteToMove && window.confirm('Are you sure you want to resign?')) {
+    if (playerNumber === 1 && window.confirm('Are you sure you want to resign?')) {
       props.gameOver('Black')
     }
 
-    if (!whiteToMove && window.confirm('Are you sure you want to resign?')) {
+    if (playerNumber === 2 && window.confirm('Are you sure you want to resign?')) {
       props.gameOver('White')
     }
-
   }
 
   const newGame = () => {
@@ -243,6 +246,11 @@ const Home = (props) => {
   }
 
   const onDrawCards = () => {
+    if (props.whiteToMove && props.player1Cards.length === 3) {
+      return
+    } else {
+      props.setAnimateCards(true);
+    }
     let playerNumber;
     const isCreator = localStorage.getItem(props.gameId);
     if (isCreator) playerNumber = 1;
@@ -310,19 +318,41 @@ const Home = (props) => {
           <div className='card-containers'>
 
             {playerNumber === 1 &&
-              <Player2CardContainer playerNumber={playerNumber} blockAnimation={true} disableControls={playerNumber === 1} noTransition={'noTransition'} cards={props.player2Cards || []} allCardsSelected={props.allSelected} />
+              <Player2CardContainer playerNumber={playerNumber} blockAnimation={true} disableControls={playerNumber === 1} cards={props.player2Cards || []} allCardsSelected={props.allSelected} />
             }
             {playerNumber === 2 &&
-              <Player1CardContainer playerNumber={playerNumber} blockAnimation={true} disableControls={playerNumber === 2} noTransition={'noTransition'} cards={props.player1Cards || []} allCardsSelected={props.allSelected} />
+              <Player1CardContainer playerNumber={playerNumber} blockAnimation={true} disableControls={playerNumber === 2} cards={props.player1Cards || []} allCardsSelected={props.allSelected} />
             }
 
+
+
             {props.cardsArray && props.cardsArray.length > 0 &&
+
               <>
+
                 <div style={{ display: "flex", justifyContent: "center" }}>
+                  <Tooltip title="DRAW" placement='right' arrow>
+                    <div
+                      className="addIcon"
+                      style={{
+                        position: 'relative',
+                        top: '45px',
+                        right: '100px',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <img
+                        src={addIcon} alt="add-icon"
+                        onClick={() => onDrawCards()}
+                      />
+                    </div>
+                  </Tooltip>
                   {props.cardsArray && props.cardsArray.map((card, index) => {
                     return (
-                      <div key={index}>
-                        <Card suits={card.suits} animationCount={0} onDrawCards={onDrawCards} card={card.card} color={card.color} front={false} />
+                      <div
+                        style={{ transform: 'translateY(12px)' }}
+                        key={index}>
+                        <Card suits={card.suits} onDrawCards={onDrawCards} card={card.card} color={card.color} front={false} />
                       </div>
                     );
                   })}
@@ -337,7 +367,7 @@ const Home = (props) => {
                       borderRadius: '10px',
                       padding: '0 10px',
                       width: '100px',
-                      marginLeft: '10px',
+                      marginLeft: '25px',
                       color: 'black',
                       fontWeight: '600',
                       fontSize: '18px'
@@ -351,12 +381,13 @@ const Home = (props) => {
                         style={{
                           background: 'linear-gradient(90deg, rgba(255,165,0,1) 40%, rgba(208,143,23,1) 67%, rgba(255,165,0,0) 100%)',
                           color: 'black',
+                          // boxShadow: '5px 5px 8px blue, 10px 10px 8px red, 15px 15px 8px green',
                           width: '100px',
-                          // width: 'fit-content',
+                          fontSize: '18px',
                           fontWeight: '600',
                           borderRadius: '10px',
                           padding: '0 10px',
-                          marginLeft: '15px'
+                          marginLeft: '25px'
                         }}
                       >
                         {getOpponentUsername()}
@@ -370,14 +401,15 @@ const Home = (props) => {
                   {myTurn() &&
                     <div
                       style={{
-                        // backgroundColor: 'orange',
                         background: 'linear-gradient(90deg, rgba(255,165,0,1) 40%, rgba(208,143,23,1) 67%, rgba(255,165,0,0) 100%)',
                         color: 'black',
                         width: '100px',
+                        fontSize: '18px',
                         fontWeight: '600',
                         borderRadius: '10px',
                         padding: '0 10px',
-                        marginLeft: '15px'
+                        marginLeft: '25px',
+                        // boxShadow: '5px 5px 8px blue, 10px 10px 8px red, 15px 15px 8px green'
                       }}>
                       {getOwnUsername()}
                       <span className='arrow' style={{ fontSize: '18px' }}>⬅</span>
@@ -391,7 +423,8 @@ const Home = (props) => {
                         padding: '0 10px',
                         width: '100px',
                         borderRadius: '10px',
-                        marginLeft: '10px',
+                        fontSize: '18px',
+                        marginLeft: '25px',
                         color: 'black',
                       }}>{getOwnUsername()}</div>
                   }
@@ -450,31 +483,32 @@ const Home = (props) => {
                 <div
                   style={{ display: 'flex', justifyContent: 'center' }}
                 >
-                  <Tooltip title="RESIGN" placement="right">
+                  <Tooltip title="RESIGN" placement="bottom">
                     <div
                       onClick={resign}
                       className="iconHover"
                     >
                       <img style={{
                         cursor: 'pointer',
-                        fontSize: '24px',
-                        padding: '7px',
-                        width: '65px',
-                        height: '65px',
                         marginTop: '10px',
-                        transform: 'translateX(14px)'
                       }} src={resignChip} alt="pokerChip with flag"></img>
                     </div>
                   </Tooltip>
 
                   <Tooltip title="RULES" placement="bottom">
-                    <div className="iconHover">
+                    <div
+                      className="iconHover"
+                      style={{
+                        cursor: 'pointer',
+                        marginTop: '10px'
+                      }}
+                    >
                       <Rules />
                     </div>
                   </Tooltip>
 
                   <Tooltip title="KEY" placement="bottom">
-                    <div className="iconHover" style={{ transform: 'translate(10px)' }}>
+                    <div className="iconHover" style={{ marginTop: '10px' }}>
                       <Key />
                     </div>
                   </Tooltip>
@@ -498,46 +532,48 @@ const Home = (props) => {
                   </Button>
                   <img style={{ paddingRight: '10px' }} width='80' height='40' src={star} alt="star"></img>
 
-                  <Button
+                  <button
                     style={{
                       backgroundColor: 'rgb(50 155 42)',
                       color: 'white',
                       border: '1px solid black',
                       width: '33%',
+                      // boxShadow: '5px 5px 8px blue, 10px 10px 8px red, 15px 15px 8px green'
                     }}
                     onClick={() => onSelectAll()}
                   >
                     Select All
-                  </Button>
+                  </button>
                 </div>
                 <div
                   style={{ display: 'flex', justifyContent: 'center' }}
                 >
-                  <Tooltip title="RESIGN" placement="right">
+                  <Tooltip title="RESIGN" placement="bottom">
                     <div
                       onClick={resign}
                       className="iconHover"
                     >
                       <img style={{
                         cursor: 'pointer',
-                        fontSize: '24px',
-                        padding: '7px',
-                        width: '65px',
-                        height: '65px',
                         marginTop: '10px',
-                        transform: 'translateX(14px)'
                       }} src={resignChip} alt="pokerChip with flag"></img>
                     </div>
                   </Tooltip>
 
                   <Tooltip title="RULES" placement="bottom">
-                    <div className="iconHover">
+                    <div
+                      className="iconHover"
+                      style={{
+                        cursor: 'pointer',
+                        marginTop: '10px'
+                      }}
+                    >
                       <Rules />
                     </div>
                   </Tooltip>
 
                   <Tooltip title="KEY" placement="bottom">
-                    <div className="iconHover" style={{ transform: 'translate(10px)' }}>
+                    <div className="iconHover" style={{ marginTop: '10px' }}>
                       <Key />
                     </div>
                   </Tooltip>

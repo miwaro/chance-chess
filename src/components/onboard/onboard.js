@@ -56,7 +56,6 @@ class CreateNewGame extends React.Component {
     }
 
     onFormSubmit = e => {
-
         e.preventDefault();
         this.props.didRedirect()
         this.props.setUserName(this.state.inputText)
@@ -64,7 +63,6 @@ class CreateNewGame extends React.Component {
             didGetUserName: true
         })
         this.send()
-        console.log(e.target.value)
     }
 
     render() {
@@ -83,7 +81,6 @@ class CreateNewGame extends React.Component {
                             <h1 style={{ color: 'white' }}>Chance Chess</h1>
                         </div>
 
-                        {/* <div style={{ backgroundImage: `url(${ThreeD})`, backgroundRepeat: 'no-repeat' }}> */}
                         <div style={{ backgroundColor: 'rgb(78 75 71)', margin: '300px auto', width: '30%', borderRadius: '6px', border: '2px solid #277714' }}>
                             <h2 style={{ color: '#eaeaea', textAlign: "center" }}
                             >

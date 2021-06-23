@@ -56,7 +56,9 @@ class KeySidebar extends Component {
                             style={{ backgroundImage: `url(${key})` }}
                             onClick={this.toggleDrawer(anchor, true)}
                         >
-                            <div className="iconHover">
+                            <div
+                                style={{ cursor: 'pointer' }}
+                                className="iconHover">
                                 <img src={key} alt="poker-chip-with-key-on-it" />
                             </div>
                         </div>

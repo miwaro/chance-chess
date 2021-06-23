@@ -1,10 +1,3 @@
-
-// Select function
-
-// const SelectCardtoMoveCorrespondingPiece = () => {
-
-//   if (move.piece !== correspondingPiece && move.from[0] !== correspondingFile || move === null) return;
-
 export const deckArray = [
   {
     suits: "Heart",

@@ -5,7 +5,7 @@ import { selectCard, removeSelectedCard, changeTurn, getCard, getPlayer2Card, se
 import PropTypes from "prop-types";
 import Tooltip from '@material-ui/core/Tooltip';
 
-import backCardImg from "../style/images/backCardImg.png";
+import backCardImg from "../images/chessLogo5.png";
 import addIcon from "../style/images/AddIcon.png";
 import joker from "../style/images/joker.png";
 import heart from "../style/images/heart.png";
@@ -97,14 +97,14 @@ const Card = (props) => {
     };
   };
 
-  const drawCards = () => {
-    if (props.whiteToMove && props.player1Cards.length === 3) {
-      return
-    } else {
-      props.setAnimateCards(true);
-      props.onDrawCards();
-    }
-  }
+  // const drawCards = () => {
+  //   if (props.whiteToMove && props.player1Cards.length === 3) {
+  //     return
+  //   } else {
+  //     props.setAnimateCards(true);
+  //     props.onDrawCards();
+  //   }
+  // }
 
   useEffect(() => {
     if (props.animateCards) {
@@ -128,46 +128,20 @@ const Card = (props) => {
     setSelectedClassName(updatedClassName)
   }
 
-
-
-  // useEffect(() => {
-  //   const selectedCardIndex = props.selectedCard ? props.selectedCard[1] : -1;
-  //   const updatedClassName = (selectedCardIndex === cardIndex) || (allCardsSelected && !props.disabled) ? "clicked-card" : "card";
-  //   if (updatedClassName !== className) {
-
-  //     setClassName(updatedClassName)
-  //   }
-  // }, [])
-
   const isMyTurn = (playerNumber) => {
 
-    console.log('white to move?: ', + props.whiteToMove)
-
     if (playerNumber === 1 && props.whiteToMove) {
-      console.log('is my turn')
       return true;
     }
     if (playerNumber === 2 && !props.whiteToMove) {
-      console.log('is my turn')
       return true;
     }
-    console.log('aint gonna be no america my turn')
     return false;
   }
 
   const animate = () => {
     setClassName('animatedCards');
   }
-
-  // const cardClasses = () => {
-  //   return classNames({
-  //     card: className === 'card',
-  //     animatedCards: className === 'animatedCards',
-  //     'card-block_animations': className === 'card-block_animations',
-  //     'clicked-card': selectedClassName === 'clicked-card'
-  //   });
-  // }
-
 
   const getSelectedCard = (card, cardIndex) => {
     let allSelected = props.allSelected;
@@ -335,46 +309,49 @@ const Card = (props) => {
     (cardIndex > 52) {
     return (
       <>
-        <div
-          onClick={() => getSelectedCard(card, cardIndex)}
-          className={className}>
-          <img src={joker} alt="suit-symbol" style={{
-            height: '172px',
-            width: '140px',
-            transform: 'translate(-8px, -6px)'
-          }}
-          />
-          {props.selectedCard.length > 0 && cardIndex === props.selectedCard[1] &&
+        <div className={selectedClassName}>
+
+          <div
+            onClick={() => getSelectedCard(card, cardIndex)}
+            className={className}>
+            <img src={joker} alt="suit-symbol" style={{
+              height: '172px',
+              width: '140px',
+              transform: 'translate(-8px, -6px)'
+            }}
+            />
+            {props.selectedCard.length > 0 && cardIndex === props.selectedCard[1] &&
+              <button
+                onClick={() => discardOne(props.selectedCard[1])}
+                style={{
+                  position: 'absolute',
+                  top: '5px',
+                  right: '0',
+                  padding: '5px',
+                  border: 'none',
+                  color: 'red',
+                  opacity: '.7',
+                  cursor: 'pointer',
+                  borderRadius: '4px'
+                }}>
+                Discard
+              </button>
+            }
+
             <button
-              onClick={() => discardOne(props.selectedCard[1])}
+              onClick={() => getSelectedCard(card, cardIndex)}
               style={{
                 position: 'absolute',
-                top: '5px',
-                right: '0',
-                padding: '5px',
+                bottom: '5px',
+                left: '5px',
                 border: 'none',
-                color: 'red',
-                opacity: '.7',
+                padding: '5px',
                 cursor: 'pointer',
                 borderRadius: '4px'
               }}>
-              Discard
+              Select
             </button>
-          }
-
-          <button
-            onClick={() => getSelectedCard(card, cardIndex)}
-            style={{
-              position: 'absolute',
-              bottom: '5px',
-              left: '5px',
-              border: 'none',
-              padding: '5px',
-              cursor: 'pointer',
-              borderRadius: '4px'
-            }}>
-            Select
-          </button>
+          </div>
         </div>
       </>
     )
@@ -383,11 +360,30 @@ const Card = (props) => {
   else {
     return (
       <>
+        {/* <Tooltip title="DRAW">
+          <div
+            className="addIcon"
+            style={{
+              display: 'flex',
+              position: 'absolute',
+              bottom: '46px',
+              left: '-220px',
+              fontWeight: 'bold',
+              cursor: 'pointer'
+            }}>
+            <img
+              src={addIcon} alt="add-icon"
+              onClick={() => drawCards()}
+            />
+          </div>
+        </Tooltip> */}
         <div
           className="deck-container"
           style={{
             backgroundImage: `url(${backCardImg})`,
-            backgroundColor: 'lightgray'
+            backgroundColor: 'rgb(50, 155, 42)',
+            borderRadius: '10%',
+            // boxShadow: '5px 10px 10px black'
           }}>
           <Tooltip title="Cards Remaining" placement="right">
             <div
@@ -405,24 +401,6 @@ const Card = (props) => {
               }}
             >
               {props.cardsArray.length}
-            </div>
-          </Tooltip>
-
-          <Tooltip title="DRAW">
-            <div
-              className="addIcon"
-              style={{
-                display: 'flex',
-                position: 'absolute',
-                bottom: '46px',
-                right: '-120px',
-                fontWeight: 'bold',
-                cursor: 'pointer'
-              }}>
-              <img
-                src={addIcon} alt="add-icon"
-                onClick={() => drawCards()}
-              />
             </div>
           </Tooltip>
         </div>

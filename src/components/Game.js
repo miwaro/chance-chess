@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 function Board(props) {
     return (
         < div >
-            <HumanVsHuman>
+            <HumanVsHuman style={{ cursor: 'grab important!' }}>
                 {({
                     position,
                     onDragStart,
@@ -25,6 +25,7 @@ function Board(props) {
                             orientation={orientation}
                             squareStyles={squareStyles}
                             boardStyle={{
+                                cursor: 'grab important!',
                                 // border: '5px ridge orange',
                                 margin: '15px',
                                 fontSize: '30px',
