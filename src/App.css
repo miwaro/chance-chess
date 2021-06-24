@@ -27,7 +27,7 @@ body {
   margin-top: 80px;
   border: 20px solid;
   border-radius: 20px;
-  border-image: url('./style/images/border.jpg') 30% stretch;
+  border-image: url('./style/images/border.jpg') 5% stretch;
 }
 
 .App-logo {

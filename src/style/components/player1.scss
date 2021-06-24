@@ -10,9 +10,9 @@
 
 .arrow {
     display: inline-block;
-    animation: .7s linear slidein;
+    animation: 1.2s linear slidein;
     animation-iteration-count: 3;
-    font-size: 34px;
+    // font-size: 34px;
     
   @keyframes slidein {
     from {

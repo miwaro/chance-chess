@@ -44,7 +44,7 @@ class CreateNewGame extends React.Component {
 
     typingUserName = () => {
         // grab the input text from the field from the DOM 
-        const typedText = this.textArea.current.value
+        const typedText = this.textArea.current.value.toUpperCase();
 
         // set the state with that text
 

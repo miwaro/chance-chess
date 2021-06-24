@@ -53,7 +53,7 @@ class KeySidebar extends Component {
                     <Fragment key={anchor}>
 
                         <div
-                            style={{ backgroundImage: `url(${key})` }}
+                            style={{ backgroundImage: `url(${key}`, transform: 'translate(0, -8px)' }}
                             onClick={this.toggleDrawer(anchor, true)}
                         >
                             <div

@@ -5,6 +5,8 @@ import '../style/components/player1.scss';
 import '../style/components/playerCard.scss';
 import '../style/components/key.scss';
 import "../style/components/card.scss";
+import backCardImg from "../style/images/leather.jpg";
+// import arrow from "../style/images/arrow.png";
 import resignChip from "../style/images/resignChip.png";
 import star from "../style/images/star.png";
 import addIcon from "../style/images/AddIcon.png";
@@ -331,13 +333,25 @@ const Home = (props) => {
               <>
 
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <Tooltip title="DRAW" placement='right' arrow>
+
+
+                  {props.cardsArray && props.cardsArray.map((card, index) => {
+                    return (
+                      <div
+
+                        style={{ transform: 'translateY(12px)' }}
+                        key={index}>
+                        <Card suits={card.suits} onDrawCards={onDrawCards} card={card.card} color={card.color} front={false} />
+                      </div>
+                    );
+                  })}
+                  <Tooltip title="DRAW" placement='left' arrow>
                     <div
                       className="addIcon"
                       style={{
                         position: 'relative',
                         top: '45px',
-                        right: '100px',
+                        left: '60px',
                         cursor: 'pointer'
                       }}
                     >
@@ -347,15 +361,6 @@ const Home = (props) => {
                       />
                     </div>
                   </Tooltip>
-                  {props.cardsArray && props.cardsArray.map((card, index) => {
-                    return (
-                      <div
-                        style={{ transform: 'translateY(12px)' }}
-                        key={index}>
-                        <Card suits={card.suits} onDrawCards={onDrawCards} card={card.card} color={card.color} front={false} />
-                      </div>
-                    );
-                  })}
                 </div>
 
                 {/* ********************Player Names ************************************ */}
@@ -363,14 +368,17 @@ const Home = (props) => {
                 <div style={{ position: 'absolute', top: '380px' }}>
                   {myTurn() &&
                     <div style={{
-                      background: 'linear-gradient(90deg, rgba(255,165,0,1) 40%, rgba(208,143,23,1) 67%, rgba(255,165,0,0) 100%)',
-                      borderRadius: '10px',
-                      padding: '0 10px',
-                      width: '100px',
+                      transform: 'translate(302px, -22px)',
+                      borderRadius: '0 0 10px 10px',
+                      backgroundColor: 'orange',
+                      opacity: '.6',
+                      padding: '0 5px',
+                      // width: 'fit-content',
                       marginLeft: '25px',
+                      width: '92px',
                       color: 'black',
-                      fontWeight: '600',
-                      fontSize: '18px'
+                      fontSize: '12px'
+
                     }}>
                       {getOpponentUsername()}
                     </div>
@@ -379,19 +387,19 @@ const Home = (props) => {
                     <>
                       <div
                         style={{
-                          background: 'linear-gradient(90deg, rgba(255,165,0,1) 40%, rgba(208,143,23,1) 67%, rgba(255,165,0,0) 100%)',
+                          transform: 'translate(302px, -22px)',
+                          backgroundColor: 'orange',
                           color: 'black',
-                          // boxShadow: '5px 5px 8px blue, 10px 10px 8px red, 15px 15px 8px green',
-                          width: '100px',
-                          fontSize: '18px',
+                          width: '92px',
                           fontWeight: '600',
-                          borderRadius: '10px',
-                          padding: '0 10px',
-                          marginLeft: '25px'
+                          borderRadius: '0 0 10px 10px',
+                          padding: '0 5px',
+                          marginLeft: '25px',
+                          // maxWidth: '80px',
+                          fontSize: '12px'
                         }}
                       >
                         {getOpponentUsername()}
-                        <span className='arrow' style={{ fontSize: '18px' }}>⬅</span>
                       </div>
                     </>
                   }
@@ -401,47 +409,58 @@ const Home = (props) => {
                   {myTurn() &&
                     <div
                       style={{
-                        background: 'linear-gradient(90deg, rgba(255,165,0,1) 40%, rgba(208,143,23,1) 67%, rgba(255,165,0,0) 100%)',
+                        // maxWidth: '80px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        backgroundColor: 'orange',
                         color: 'black',
-                        width: '100px',
-                        fontSize: '18px',
                         fontWeight: '600',
-                        borderRadius: '10px',
-                        padding: '0 10px',
+                        transform: 'translate(302px, 18px)',
+                        width: '92px',
+                        borderRadius: '10px 10px 0 0',
+                        padding: '4px 5px',
                         marginLeft: '25px',
-                        // boxShadow: '5px 5px 8px blue, 10px 10px 8px red, 15px 15px 8px green'
+                        fontSize: '12px'
+
                       }}>
                       {getOwnUsername()}
-                      <span className='arrow' style={{ fontSize: '18px' }}>⬅</span>
                     </div>
                   }
                   {opponentTurn() &&
                     <div
                       style={{
-                        background: 'linear-gradient(90deg, rgba(255,165,0,1) 40%, rgba(208,143,23,1) 67%, rgba(255,165,0,0) 100%)',
-                        fontWeight: '600',
-                        padding: '0 10px',
-                        width: '100px',
-                        borderRadius: '10px',
-                        fontSize: '18px',
+                        transform: 'translate(302px, 18px)',
+                        // maxWidth: '80px',
+                        backgroundColor: 'orange',
+                        padding: '4px 15px',
+                        width: '92px',
+                        opacity: '.6',
+                        borderRadius: '10px 10px 0 0',
                         marginLeft: '25px',
                         color: 'black',
-                      }}>{getOwnUsername()}</div>
+                        fontSize: '12px'
+                      }}
+                    >
+                      {getOwnUsername()}
+                    </div>
                   }
                 </div>
+
+                {/* *************************   END OF PLAYER NAMES */}
               </>
             }
 
             {props.cardsArray.length === 0 &&
               <>
-                <Header />
                 <Button
                   onClick={() => shuffle(props.player1Cards, props.player2Cards)}
                   style={{
                     backgroundColor: 'orange',
                     color: 'black',
-                    width: '100%',
-                    margin: '10px 10px 0 15px'
+                    width: '87%',
+                    height: '110px',
+                    fontSize: '20px',
+                    margin: '86px 10px 0 15px'
                   }}
                 >
                   Shuffle
@@ -456,7 +475,7 @@ const Home = (props) => {
                   <Button
                     onClick={discardAllP1}
                     style={{
-                      backgroundColor: ' rgb(129 36 36)',
+                      backgroundColor: '#a32d2d',
                       color: 'white',
                       width: '33%',
                       border: '1px solid black',
@@ -481,7 +500,18 @@ const Home = (props) => {
                 {/* Icons Sections */}
 
                 <div
-                  style={{ display: 'flex', justifyContent: 'center' }}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    paddingTop: '8px',
+                    backgroundImage: `url(${backCardImg})`,
+                    backgroundSize: 'cover',
+                    height: '80px',
+                    boxShadow: '0 0 15px inset black',
+                    transform: 'translate(15px, 16px)',
+                    width: '445px',
+                    borderRadius: '60px 0 0'
+                  }}
                 >
                   <Tooltip title="RESIGN" placement="bottom">
                     <div
@@ -490,7 +520,8 @@ const Home = (props) => {
                     >
                       <img style={{
                         cursor: 'pointer',
-                        marginTop: '10px',
+                        marginLeft: '50px',
+                        marginTop: '10px'
                       }} src={resignChip} alt="pokerChip with flag"></img>
                     </div>
                   </Tooltip>
@@ -498,17 +529,14 @@ const Home = (props) => {
                   <Tooltip title="RULES" placement="bottom">
                     <div
                       className="iconHover"
-                      style={{
-                        cursor: 'pointer',
-                        marginTop: '10px'
-                      }}
+                      style={{ cursor: 'pointer' }}
                     >
                       <Rules />
                     </div>
                   </Tooltip>
 
                   <Tooltip title="KEY" placement="bottom">
-                    <div className="iconHover" style={{ marginTop: '10px' }}>
+                    <div className="iconHover">
                       <Key />
                     </div>
                   </Tooltip>
@@ -523,7 +551,7 @@ const Home = (props) => {
                   <Button
                     onClick={discardAllP2}
                     style={{
-                      backgroundColor: ' rgb(129 36 36)',
+                      backgroundColor: '#a32d2d',
                       color: 'white',
                       width: '33%',
                       border: '1px solid black',
@@ -532,48 +560,56 @@ const Home = (props) => {
                   </Button>
                   <img style={{ paddingRight: '10px' }} width='80' height='40' src={star} alt="star"></img>
 
-                  <button
+                  <Button
                     style={{
                       backgroundColor: 'rgb(50 155 42)',
                       color: 'white',
                       border: '1px solid black',
                       width: '33%',
-                      // boxShadow: '5px 5px 8px blue, 10px 10px 8px red, 15px 15px 8px green'
                     }}
                     onClick={() => onSelectAll()}
                   >
                     Select All
-                  </button>
+                  </Button>
                 </div>
                 <div
-                  style={{ display: 'flex', justifyContent: 'center' }}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    backgroundImage: `url(${backCardImg})`,
+                    backgroundSize: 'cover',
+                    height: '74px',
+                    boxShadow: '0 0 15px inset black',
+                    transform: 'translate(15px, 30px)',
+                    width: '445px',
+                    borderRadius: '60px 0 0'
+                  }}
                 >
                   <Tooltip title="RESIGN" placement="bottom">
                     <div
                       onClick={resign}
                       className="iconHover"
                     >
-                      <img style={{
-                        cursor: 'pointer',
-                        marginTop: '10px',
-                      }} src={resignChip} alt="pokerChip with flag"></img>
+                      <img
+                        style={{
+                          cursor: 'pointer',
+                          marginLeft: '50px',
+                          marginTop: '10px'
+                        }} src={resignChip} alt="pokerChip with flag"></img>
                     </div>
                   </Tooltip>
 
                   <Tooltip title="RULES" placement="bottom">
                     <div
                       className="iconHover"
-                      style={{
-                        cursor: 'pointer',
-                        marginTop: '10px'
-                      }}
+                      style={{ cursor: 'pointer' }}
                     >
                       <Rules />
                     </div>
                   </Tooltip>
 
                   <Tooltip title="KEY" placement="bottom">
-                    <div className="iconHover" style={{ marginTop: '10px' }}>
+                    <div className="iconHover">
                       <Key />
                     </div>
                   </Tooltip>

@@ -25,9 +25,9 @@
   width: 122px;
   background-size: cover;
   border: 1px solid white;
-  transform: translateX(15px);
+  transform: translateX(108px);
   border-radius: 10px;
-  margin-left: -122px;
+  margin-left: -121px;
   @include transition (all, 0.25s, ease);
   @include bp-medium {
     margin-left: -195px;
