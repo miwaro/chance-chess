@@ -345,22 +345,22 @@ const Home = (props) => {
                       </div>
                     );
                   })}
-                  <Tooltip title="DRAW" placement='left' arrow>
-                    <div
-                      className="addIcon"
-                      style={{
-                        position: 'relative',
-                        top: '45px',
-                        left: '60px',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      <img
-                        src={addIcon} alt="add-icon"
-                        onClick={() => onDrawCards()}
-                      />
-                    </div>
-                  </Tooltip>
+
+                  <div
+                    className="addIcon"
+                    style={{
+                      position: 'relative',
+                      top: '45px',
+                      left: '60px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <img
+                      src={addIcon} alt="add-icon"
+                      onClick={() => onDrawCards()}
+                    />
+                  </div>
+
                 </div>
 
                 {/* ********************Player Names ************************************ */}

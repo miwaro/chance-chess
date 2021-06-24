@@ -34,7 +34,7 @@ var classNames = require('classnames');
 
 const Card = (props) => {
 
-  const { suits, card, front, color, cardIndex, cardPiece, allCardsSelected, animationCount } = props;
+  const { suits, card, front, color, cardIndex, cardPiece, allCardsSelected, animationCount, isFromDeck = false } = props;
 
   let [className, setClassName] = useState('animatedCards');
 
@@ -140,7 +140,11 @@ const Card = (props) => {
   }
 
   const animate = () => {
-    setClassName('animatedCards');
+    if (isFromDeck) {
+      setClassName('animatedCards');
+    } else {
+      setClassName('card');
+    }
   }
 
   const getSelectedCard = (card, cardIndex) => {

@@ -1,4 +1,4 @@
-
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import '../../style/components/player1.scss';
@@ -8,13 +8,31 @@ import Card from '../Card';
 
 
 function Player1CardContainer(props) {
+
+    const [cards, setCards] = useState([])
+
+    const findCardsFromDeck = (newCard, i, newCards) => {
+        const oldCards = cards || [];
+        console.log('comparing', oldCards, newCard)
+        const isFromDeck = !oldCards.find(oldCard => oldCard.index === newCard.index);
+        console.log('new card', newCard, 'is from deck?: ' + isFromDeck)
+        if (isFromDeck) newCard.isFromDeck = true;
+
+        if (i === newCards.length - 1 && newCards.length !== oldCards.length) {
+            setCards(newCards);
+        }
+
+        return newCard;
+    }
+
     return (
         <>
             <div className="card-slot">
                 <div className="player1">
-                    {props.cards.map(card => (
+                    {props.cards.map(findCardsFromDeck).map(card => (
                         <div key={uuidv4()}>
                             <Card
+                                isFromDeck={card.isFromDeck}
                                 playerNumber={props.playerNumber}
                                 blockAnimation={props.blockAnimation}
                                 allCardsSelected={props.allCardsSelected}
