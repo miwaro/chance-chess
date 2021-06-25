@@ -342,6 +342,24 @@ const Home = (props) => {
                         style={{ transform: 'translateY(12px)' }}
                         key={index}>
                         <Card suits={card.suits} onDrawCards={onDrawCards} card={card.card} color={card.color} front={false} />
+                        <Tooltip title="Cards Remaining" placement="right">
+                          <div
+                            style={{
+                              position: 'absolute',
+                              top: '0',
+                              right: '0',
+                              padding: '5px',
+                              color: 'orange',
+                              fontWeight: 'bold',
+                              border: '1px solid',
+                              cursor: 'default',
+                              backgroundColor: 'rgb(62 50 50)',
+                              borderRadius: '50%'
+                            }}
+                          >
+                            {props.cardsArray.length}
+                          </div>
+                        </Tooltip>
                       </div>
                     );
                   })}
@@ -368,13 +386,12 @@ const Home = (props) => {
                 <div style={{ position: 'absolute', top: '380px' }}>
                   {myTurn() &&
                     <div style={{
-                      transform: 'translate(302px, -22px)',
-                      borderRadius: '0 0 10px 10px',
+                      display: 'flex', justifyContent: 'center',
+                      transform: 'translate(322px, 12px)',
+                      borderRadius: '10px',
                       backgroundColor: 'orange',
                       opacity: '.6',
-                      padding: '0 5px',
-                      // width: 'fit-content',
-                      marginLeft: '25px',
+                      padding: '4px 5px',
                       width: '92px',
                       color: 'black',
                       fontSize: '12px'
@@ -387,15 +404,14 @@ const Home = (props) => {
                     <>
                       <div
                         style={{
-                          transform: 'translate(302px, -22px)',
+                          display: 'flex', justifyContent: 'center',
+                          transform: 'translate(322px, 10px)',
                           backgroundColor: 'orange',
                           color: 'black',
                           width: '92px',
                           fontWeight: '600',
-                          borderRadius: '0 0 10px 10px',
-                          padding: '0 5px',
-                          marginLeft: '25px',
-                          // maxWidth: '80px',
+                          borderRadius: '10px',
+                          padding: '4px 5px',
                           fontSize: '12px'
                         }}
                       >
@@ -409,17 +425,15 @@ const Home = (props) => {
                   {myTurn() &&
                     <div
                       style={{
-                        // maxWidth: '80px',
                         display: 'flex',
-                        alignItems: 'center',
+                        justifyContent: 'center',
                         backgroundColor: 'orange',
                         color: 'black',
                         fontWeight: '600',
-                        transform: 'translate(302px, 18px)',
+                        transform: 'translate(322px, -14px)',
                         width: '92px',
-                        borderRadius: '10px 10px 0 0',
+                        borderRadius: '10px',
                         padding: '4px 5px',
-                        marginLeft: '25px',
                         fontSize: '12px'
 
                       }}>
@@ -429,14 +443,14 @@ const Home = (props) => {
                   {opponentTurn() &&
                     <div
                       style={{
-                        transform: 'translate(302px, 18px)',
-                        // maxWidth: '80px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        transform: 'translate(322px, -10px)',
                         backgroundColor: 'orange',
-                        padding: '4px 15px',
+                        padding: '4px 5px',
                         width: '92px',
                         opacity: '.6',
-                        borderRadius: '10px 10px 0 0',
-                        marginLeft: '25px',
+                        borderRadius: '10px',
                         color: 'black',
                         fontSize: '12px'
                       }}

@@ -90,7 +90,7 @@ class JoinRoom extends React.Component {
                                 <img src={logo} alt="logo" className="logo" />
                                 <h1 style={{ color: 'white' }}>Chance Chess</h1>
                             </div>
-                            <div style={{ backgroundColor: 'rgb(78 75 71)', margin: '300px auto', width: '30%', borderRadius: '6px', border: '2px solid #277714' }}>
+                            <div style={{ backgroundColor: '#2a2724', margin: '300px auto', padding: '10px', width: '30%', borderRadius: '6px', opacity: '0.9' }}>
                                 <h2 style={{ color: '#eaeaea', textAlign: "center" }}
                                 >
                                     Enter your <span style={{ color: 'orange' }}>Name</span> to join the Game Room
@@ -112,8 +112,7 @@ class JoinRoom extends React.Component {
                                             color: "white",
                                             width: '75px',
                                             marginLeft: '12px',
-                                            fontSize: '18px',
-                                            border: '1px solid orange'
+                                            fontSize: '18px'
                                         }}
                                     >
                                         Go!

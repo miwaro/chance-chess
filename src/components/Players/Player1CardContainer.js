@@ -12,18 +12,29 @@ function Player1CardContainer(props) {
     const [cards, setCards] = useState([])
 
     const findCardsFromDeck = (newCard, i, newCards) => {
-        const oldCards = cards || [];
-        console.log('comparing', oldCards, newCard)
-        const isFromDeck = !oldCards.find(oldCard => oldCard.index === newCard.index);
-        console.log('new card', newCard, 'is from deck?: ' + isFromDeck)
-        if (isFromDeck) newCard.isFromDeck = true;
 
-        if (i === newCards.length - 1 && newCards.length !== oldCards.length) {
-            setCards(newCards);
+        const oldCards = cards || [];
+
+        // if the array hasn't changed, don't do anything else; this deals with re-rendering cycles
+        if (newCards.length === oldCards.length) {
+            return { ...oldCards[i] }
         }
+
+        const isFromDeck = !oldCards.find(oldCard => oldCard.index === newCard.index);
+        if (isFromDeck) newCard.isFromDeck = true;
+        else newCard.isFromDeck = false;
+
+        newCards[i] = newCard;
+
+        if (i === oldCards.length - 1) {
+            setCards(oldCards);
+        }
+
 
         return newCard;
     }
+
+
 
     return (
         <>

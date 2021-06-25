@@ -97,15 +97,6 @@ const Card = (props) => {
     };
   };
 
-  // const drawCards = () => {
-  //   if (props.whiteToMove && props.player1Cards.length === 3) {
-  //     return
-  //   } else {
-  //     props.setAnimateCards(true);
-  //     props.onDrawCards();
-  //   }
-  // }
-
   useEffect(() => {
     if (props.animateCards) {
       if (className !== 'card-block_animations' && isMyTurn(props.playerNumber)) {
@@ -284,7 +275,7 @@ const Card = (props) => {
               cursor: 'pointer',
               borderRadius: '4px'
             }}>
-            Select
+            {isFromDeck === true ? 'is from deck' : 'not'}
           </button>
 
           <div style={{ position: "absolute", top: 5, left: 5 }}>
@@ -364,51 +355,14 @@ const Card = (props) => {
   else {
     return (
       <>
-        {/* <Tooltip title="DRAW">
-          <div
-            className="addIcon"
-            style={{
-              display: 'flex',
-              position: 'absolute',
-              bottom: '46px',
-              left: '-220px',
-              fontWeight: 'bold',
-              cursor: 'pointer'
-            }}>
-            <img
-              src={addIcon} alt="add-icon"
-              onClick={() => drawCards()}
-            />
-          </div>
-        </Tooltip> */}
         <div
           className="deck-container"
           style={{
             backgroundImage: `url(${backCardImg})`,
             backgroundColor: 'rgb(50, 155, 42)',
             borderRadius: '10%',
-            // boxShadow: '5px 10px 10px black'
           }}>
-          <Tooltip title="Cards Remaining" placement="right">
-            <div
-              style={{
-                position: 'absolute',
-                top: '5px',
-                right: '-18px',
-                padding: '5px',
-                color: 'orange',
-                fontWeight: 'bold',
-                border: '1px solid',
-                cursor: 'default',
-                backgroundColor: 'rgb(62 50 50)',
-                borderRadius: '50%'
-              }}
-            >
-              {props.cardsArray.length}
-            </div>
-          </Tooltip>
         </div>
-
       </>
     );
   };
