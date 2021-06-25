@@ -59,9 +59,11 @@ class CreateNewGame extends React.Component {
         e.preventDefault();
         this.props.didRedirect()
         this.props.setUserName(this.state.inputText)
-        this.setState({
-            didGetUserName: true
-        })
+        if (this.state.inputText !== '') {
+            this.setState({
+                didGetUserName: true
+            })
+        }
         this.send()
     }
 

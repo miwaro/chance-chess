@@ -66,9 +66,13 @@ class JoinRoom extends React.Component {
 
     onFormSubmit = e => {
         e.preventDefault();
-        this.setState({
-            didGetUserName: true
-        })
+
+        if (this.state.inputText !== '') {
+            this.setState({
+                didGetUserName: true
+            })
+        }
+
     }
 
     render() {

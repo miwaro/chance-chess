@@ -1,4 +1,4 @@
-import Chessboard from "chessboardjsx";
+import Chessboard from './Chessboard';
 import HumanVsHuman from './HumanVsHuman';
 import CaptureSidebar from './CaptureSidebar';
 import { connect } from 'react-redux';
@@ -6,31 +6,33 @@ import { connect } from 'react-redux';
 function Board(props) {
     return (
         < div >
-            <HumanVsHuman style={{ cursor: 'grab important!' }}>
+            <HumanVsHuman>
                 {({
                     position,
                     onDragStart,
                     onDrop,
                     squareStyles,
-                    orientation
+                    orientation,
+                    onMouseOverSquare,
+                    hoveredSquare
                 }) => (
                     <>
-                        < Chessboard
+                        <Chessboard
                             id="humanVsHuman"
                             width={720}
+                            hoveredSquare={hoveredSquare}
+                            orientation={orientation}
+                            onMouseOverSquare={onMouseOverSquare}
                             position={position}
                             allowDrag={onDragStart}
                             draggable={true}
                             onDrop={onDrop}
-                            orientation={orientation}
                             squareStyles={squareStyles}
                             boardStyle={{
-                                cursor: 'grab important!',
                                 // border: '5px ridge orange',
                                 margin: '15px',
                                 fontSize: '30px',
-                                // marginRight: '15px',
-                                boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,
+                                boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`
                             }}
                         />
                         {props.piecesCaptured &&
@@ -38,7 +40,6 @@ function Board(props) {
                                 piecesCaptured={props.piecesCaptured}
                             />
                         }
-
                     </>
                 )}
             </HumanVsHuman>

@@ -27,7 +27,8 @@ class HumanVsHuman extends Component {
     static propTypes = { children: PropTypes.func };
 
     state = {
-        square: "",
+        hoveredSquare: "",
+        sourceSquare: "",
         orientation: 'white',
         squareStyles: {}
     };
@@ -78,7 +79,10 @@ class HumanVsHuman extends Component {
         return fen.split(' ')[0];
     }
 
+
     onDragStart = ({ piece, sourceSquare }) => {
+        // console.log(piece, sourceSquare)
+        // let sourceSquare = this.state.sourceSquare;
         if (piece === undefined || sourceSquare === undefined) return;
         let whiteToMove = this.props.whiteToMove;
 
@@ -282,9 +286,19 @@ class HumanVsHuman extends Component {
                 draggable = true;
             }
         } else { draggable = false };
-
+        if (draggable) {
+            sourceSquare = this.state.square;
+        }
         return draggable;
     };
+
+    onMouseOverSquare = (square) => {
+        this.setState({
+            hoveredSquare: square
+        })
+    }
+
+
 
     onDrop = ({ sourceSquare, targetSquare }) => {
         this.props.setAnimateCards(false)
@@ -356,13 +370,15 @@ class HumanVsHuman extends Component {
 
     render() {
 
-        const { orientation } = this.state;
+        const { orientation, hoveredSquare } = this.state;
 
         return this.props.children({
             position: this.condenseFen(this.props.fen),
-            orientation: orientation,
             onDrop: this.onDrop,
-            onDragStart: this.onDragStart
+            onDragStart: this.onDragStart,
+            onMouseOverSquare: this.onMouseOverSquare,
+            hoveredSquare,
+            orientation
         });
     }
 }
