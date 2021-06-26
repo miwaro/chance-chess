@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { Translate } from '@material-ui/icons';
 
 const getRow = (orientation, row) =>
   orientation === 'white' ? row + 1 : row - 1;
@@ -165,12 +166,17 @@ const rowStyle = ({
 
 const alphaStyle = width => ({
   alignSelf: 'flex-end',
+  fontSize: '24px',
+  transform: 'translate(0, 27px)',
   paddingLeft: width / 8 - width / 48
 });
 
 const numericStyle = width => ({
   alignSelf: 'flex-start',
-  paddingRight: width / 8 - width / 48
+  paddingRight: width / 6 - width / 48,
+  fontSize: '24px',
+  transform: 'translate(-6px, 0)',
+
 });
 
 const notationStyle = {

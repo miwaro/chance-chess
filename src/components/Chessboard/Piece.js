@@ -35,8 +35,8 @@ export const renderChessPiece = ({
   return (
     <div style={{ fontSize: '12px' }}>
       <div>
-        sourceSquare: {square}
-        hoveredSquare: {hoveredSquare}
+        {/* sourceSquare: {square}
+        hoveredSquare: {hoveredSquare} */}
       </div>
       <div
         // on hover, run a function that sets source square to current square
@@ -293,9 +293,10 @@ const pieceStyles = ({
   }),
   transition: `transform ${transitionDuration}ms`,
   zIndex: 5,
-  cursor: isDragging || hoveredSquare === sourceSquare
+  // cursor: isDragging || hoveredSquare === sourceSquare
+  cursor: isDragging
     ? '-webkit-grabbing'
     : allowDrag({ piece, sourceSquare: square })
       ? '-webkit-grabbing'
-      : 'not-allowed'
+      : 'webkit-grabbing'
 });

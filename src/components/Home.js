@@ -485,7 +485,7 @@ const Home = (props) => {
             {playerNumber === 1 &&
               <>
                 <Player1CardContainer playerNumber={playerNumber} disableControls={!props.whiteToMove} cards={props.player1Cards} allCardsSelected={props.allSelected} />
-                <div style={{ display: 'flex', width: '450px', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', width: '462px', justifyContent: 'center', transform: 'translate(0, -5px)' }}>
                   <Button
                     onClick={discardAllP1}
                     style={{
@@ -561,7 +561,7 @@ const Home = (props) => {
             {playerNumber === 2 &&
               <>
                 <Player2CardContainer playerNumber={playerNumber} disableControls={props.whiteToMove} cards={props.player2Cards} allCardsSelected={props.allSelected} />
-                <div style={{ display: 'flex', justifyContent: 'center', width: '450px' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', width: '462px', transform: 'translate(0, -5px)' }}>
                   <Button
                     onClick={discardAllP2}
                     style={{
@@ -636,14 +636,16 @@ const Home = (props) => {
       <Button
         style={{
           backgroundColor: '#277714',
-          border: '1px solid black',
+          transition: 'transform .4s',
           position: 'absolute',
+          opacity: '.9',
           bottom: '10px',
           right: '10px'
         }}
       >
         <a
-          style={{ textDecoration: 'none', color: 'white', }}
+          className='iconHover'
+          style={{ textDecoration: 'none', color: 'white', fontSize: '11px', opacity: '1' }}
           href="https://paypal.me/michaelrooze?locale.x=en_US" target="_blank" rel="noopener noreferrer">
           $ Donate
         </a>

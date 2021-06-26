@@ -29,8 +29,8 @@ function Board(props) {
                             onDrop={onDrop}
                             squareStyles={squareStyles}
                             boardStyle={{
-                                // border: '5px ridge orange',
-                                margin: '15px',
+                                border: '3px solid orange',
+                                margin: '15px 0 24px 24px',
                                 fontSize: '30px',
                                 boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`
                             }}

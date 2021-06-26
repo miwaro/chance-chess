@@ -96,78 +96,84 @@ function CaptureSidebar(props) {
 
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between', paddingRight: '15px' }}>
-            <div style={{ display: 'flex', justifyContent: 'flex-start' }} >
-                <div >
-                    {whitePawns.map(pawn => (
-                        <img src={whitePawnImg} alt="white-pawn" style={{ height: 34 }} />
-                    ))}
-                </div>
-                <div>
-                    {whiteKnights.map(pawn => (
-                        <img src={whiteKnightImg} alt="white-pawn" style={{ height: 34 }} />
-                    ))}
+        <div style={{ position: 'relative', width: '0', height: '0' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 15px', }}>
+                <div style={{ display: 'flex', justifyContent: 'flex-start', position: 'absolute', left: '0', top: '318px' }} >
+                    <div >
+                        {whitePawns.map(pawn => (
+                            <img src={whitePawnImg} alt="white-pawn" style={{ height: 34 }} />
+                        ))}
+                    </div>
+                    <div>
+                        {whiteKnights.map(pawn => (
+                            <img src={whiteKnightImg} alt="white-pawn" style={{ height: 34 }} />
+                        ))}
+                    </div>
+
+                    <div>
+                        {whiteBishops.map(pawn => (
+                            <img src={whiteBishopImg} alt="white-pawn" style={{ height: 34 }} />
+                        ))}
+                    </div>
+                    <div>
+                        {whiteRooks.map(pawn => (
+                            <img src={whiteRookImg} alt="white-pawn" style={{ height: 34 }} />
+                        ))}
+                    </div>
+                    <div>
+                        {whiteQueens.map(pawn => (
+                            <img src={whiteQueenImg} alt="white-pawn" style={{ height: 34 }} />
+                        ))}
+                    </div>
+                    <div>
+                        {whiteKings.map(king => (
+                            <img src={whiteKingImg} alt="white-pawn" style={{ height: 34 }} />
+                        ))}
+                    </div>
                 </div>
 
-                <div>
-                    {whiteBishops.map(pawn => (
-                        <img src={whiteBishopImg} alt="white-pawn" style={{ height: 34 }} />
-                    ))}
-                </div>
-                <div>
-                    {whiteRooks.map(pawn => (
-                        <img src={whiteRookImg} alt="white-pawn" style={{ height: 34 }} />
-                    ))}
-                </div>
-                <div>
-                    {whiteQueens.map(pawn => (
-                        <img src={whiteQueenImg} alt="white-pawn" style={{ height: 34 }} />
-                    ))}
-                </div>
-                <div>
-                    {whiteKings.map(king => (
-                        <img src={whiteKingImg} alt="white-pawn" style={{ height: 34 }} />
-                    ))}
-                </div>
-            </div>
 
 
+                <div style={{ display: 'flex', justifyContent: 'flex-end', position: 'absolute', right: '100px', top: '318px' }}>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <div style={{ display: 'flex' }}>
+                        {blackPawns.map(pawn => (
+                            <div >
+                                <img src={blackPawnImg} alt="white-pawn" style={{ height: 34 }} />
 
-                <div>
-                    {blackPawns.map(pawn => (
-                        <img src={blackPawnImg} alt="white-pawn" style={{ height: 34 }} />
-                    ))}
-                </div>
-                <div>
-                    {blackKnights.map(pawn => (
-                        <img src={blackKnightImg} alt="white-pawn" style={{ height: 34 }} />
-                    ))}
-                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div>
+                        {blackKnights.map(pawn => (
+                            <img src={blackKnightImg} alt="white-pawn" style={{ height: 34 }} />
+                        ))}
+                    </div>
 
-                <div>
-                    {blackBishops.map(pawn => (
-                        <img src={blackBishopImg} alt="white-pawn" style={{ height: 34 }} />
-                    ))}
-                </div>
-                <div>
-                    {blackRooks.map(pawn => (
-                        <img src={blackRookImg} alt="white-pawn" style={{ height: 34 }} />
-                    ))}
-                </div>
-                <div>
-                    {blackQueens.map(pawn => (
-                        <img src={blackQueenImg} alt="white-pawn" style={{ height: 34 }} />
-                    ))}
-                </div>
-                <div>
-                    {blackKings.map(king => (
-                        <img src={blackKingImg} alt="white-pawn" style={{ height: 34 }} />
-                    ))}
+                    <div>
+                        {blackBishops.map(pawn => (
+                            <img src={blackBishopImg} alt="white-pawn" style={{ height: 34 }} />
+                        ))}
+                    </div>
+                    <div>
+                        {blackRooks.map(pawn => (
+                            <img src={blackRookImg} alt="white-pawn" style={{ height: 34 }} />
+                        ))}
+                    </div>
+                    <div>
+                        {blackQueens.map(pawn => (
+                            <img src={blackQueenImg} alt="white-pawn" style={{ height: 34 }} />
+                        ))}
+                    </div>
+                    <div>
+                        {blackKings.map(king => (
+                            <img src={blackKingImg} alt="white-pawn" style={{ height: 34 }} />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
+
     )
 }
 
