@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "/chance-chess-gh-pages/static/css/main.58e781aa.chunk.css",
+    "main.js": "/chance-chess-gh-pages/static/js/main.37ba57db.chunk.js",
+    "main.js.map": "/chance-chess-gh-pages/static/js/main.37ba57db.chunk.js.map",
+    "runtime-main.js": "/chance-chess-gh-pages/static/js/runtime-main.d1f5c6a3.js",
+    "runtime-main.js.map": "/chance-chess-gh-pages/static/js/runtime-main.d1f5c6a3.js.map",
+    "static/js/2.3bcfc065.chunk.js": "/chance-chess-gh-pages/static/js/2.3bcfc065.chunk.js",
+    "static/js/2.3bcfc065.chunk.js.map": "/chance-chess-gh-pages/static/js/2.3bcfc065.chunk.js.map",
+    "static/js/3.c6a0df61.chunk.js": "/chance-chess-gh-pages/static/js/3.c6a0df61.chunk.js",
+    "static/js/3.c6a0df61.chunk.js.map": "/chance-chess-gh-pages/static/js/3.c6a0df61.chunk.js.map",
+    "index.html": "/chance-chess-gh-pages/index.html",
+    "static/css/main.58e781aa.chunk.css.map": "/chance-chess-gh-pages/static/css/main.58e781aa.chunk.css.map",
+    "static/js/2.3bcfc065.chunk.js.LICENSE.txt": "/chance-chess-gh-pages/static/js/2.3bcfc065.chunk.js.LICENSE.txt",
+    "static/media/blackBishop.eaa1329d.png": "/chance-chess-gh-pages/static/media/blackBishop.eaa1329d.png",
+    "static/media/blackKing.4207b0b8.png": "/chance-chess-gh-pages/static/media/blackKing.4207b0b8.png",
+    "static/media/blackKnight.f7a80fb5.png": "/chance-chess-gh-pages/static/media/blackKnight.f7a80fb5.png",
+    "static/media/blackPawn.fd58c4d2.png": "/chance-chess-gh-pages/static/media/blackPawn.fd58c4d2.png",
+    "static/media/blackQueen.e30bf4b0.png": "/chance-chess-gh-pages/static/media/blackQueen.e30bf4b0.png",
+    "static/media/blackRook.2fa838b7.png": "/chance-chess-gh-pages/static/media/blackRook.2fa838b7.png",
+    "static/media/App.css": "/chance-chess-gh-pages/static/media/felt.2a2af865.jpg",
+    "static/media/capture.79c343c9.mp3": "/chance-chess-gh-pages/static/media/capture.79c343c9.mp3",
+    "static/media/chessLogo5.34ed8c36.png": "/chance-chess-gh-pages/static/media/chessLogo5.34ed8c36.png",
+    "static/media/club.685245d3.png": "/chance-chess-gh-pages/static/media/club.685245d3.png",
+    "static/media/diamond.24d3b3e2.png": "/chance-chess-gh-pages/static/media/diamond.24d3b3e2.png",
+    "static/media/heart.20165ed9.png": "/chance-chess-gh-pages/static/media/heart.20165ed9.png",
+    "static/media/joker.a91412e9.png": "/chance-chess-gh-pages/static/media/joker.a91412e9.png",
+    "static/media/leather.ea07dc51.jpg": "/chance-chess-gh-pages/static/media/leather.ea07dc51.jpg",
+    "static/media/redBishop.abb3f5e0.png": "/chance-chess-gh-pages/static/media/redBishop.abb3f5e0.png",
+    "static/media/redKing.e07cf777.png": "/chance-chess-gh-pages/static/media/redKing.e07cf777.png",
+    "static/media/redKnight.c9792b7d.png": "/chance-chess-gh-pages/static/media/redKnight.c9792b7d.png",
+    "static/media/redPawn.4dfb7e64.png": "/chance-chess-gh-pages/static/media/redPawn.4dfb7e64.png",
+    "static/media/redQueen.cf12c38f.png": "/chance-chess-gh-pages/static/media/redQueen.cf12c38f.png",
+    "static/media/redRook.b33c4061.png": "/chance-chess-gh-pages/static/media/redRook.b33c4061.png",
+    "static/media/spade.7b0c2f88.png": "/chance-chess-gh-pages/static/media/spade.7b0c2f88.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d1f5c6a3.js",
+    "static/js/2.3bcfc065.chunk.js",
+    "static/css/main.58e781aa.chunk.css",
+    "static/js/main.37ba57db.chunk.js"
+  ]
+}
